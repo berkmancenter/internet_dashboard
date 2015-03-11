@@ -20,6 +20,33 @@ Dashboards.attachSchema(new SimpleSchema({
     defaultValue: 20
   },
   widgets: {
+    type: [Object]
+  },
+  'widgets.$.exports': {
+    type: String
+  },
+  'widgets.$.width': {
+    type: Number,
+    min: 1,
+    max: 3
+  },
+  'widgets.$.height': {
+    type: Object,
+    min: 1,
+    max: 3
+  },
+  'widgets.$.position': {
+    type: Object
+  },
+  'widgets.$.position.x': {
+    type: Number,
+    min: 0
+  },
+  'widgets.$.position.y': {
+    type: Number,
+    min: 0
+  },
+  'widgets.$.data': {
     type: Object,
     blackbox: true
   },

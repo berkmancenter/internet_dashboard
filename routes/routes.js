@@ -6,6 +6,10 @@ Router.route('/dashboards/:_id', {
   waitOn: function () {
     return Meteor.subscribe('dashboards', this.params._id);
   },
+
+  data: function() {
+    Dashboards.findOne(this.params._id);
+  },
 }, {
   name: 'dashboards.show'
 });

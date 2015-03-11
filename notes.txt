@@ -15,3 +15,17 @@ Working
 Widgets have country options
 All countries conform to the same ISO 2 or 3
 Widgets are taggable
+
+Use a lot of Template.registerHelpers?
+
+Widgets should provide a single export
+What would that export need to provide?
+
+Look here for examples: https://github.com/meteor/meteor/tree/devel/packages/accounts-ui-unstyled
+Possibly:
+  each widget can contain three templates: widget body, options, about
+  we pick where those get rendered
+  export provides template names as properties
+  export provides function to call when country changes
+  export provides URL
+  export provides width and height

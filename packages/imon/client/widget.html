@@ -1,0 +1,15 @@
+<template name="IMonWidget">
+<h1><%= country.name %></h1>
+<dl>
+  <dd><%= indicator.name %></dd>
+  <dt>
+    <div class='progress'>
+      <div class='progress-bar' role='progressbar'
+        aria-valuenow='<%= indicator.value * 100 %>' aria-valuemin='0'
+        aria-valuemax='100' style='width: <%= indicator.value * 100 %>%;'>
+        <span class='sr-only'><%= indicator.value * 100 %></span>
+      </div>
+    </div>
+  </dt>
+</dl>
+</template>

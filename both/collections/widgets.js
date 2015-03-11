@@ -7,30 +7,20 @@ Widgets = new Mongo.Collection('widgets', {
 });
 
 Widgets.attachSchema(new SimpleSchema({
-  width: {
-    type: Number,
-    min: 1,
-    max: 3,
-    defaultValue: 1
+  fromPackage: {
+    type: String
   },
-  height: {
-    type: Number,
-    min: 1,
-    max: 3,
-    defaultValue: 1
+  exports: {
+    type: String
   },
   displayName: {
     type: String
   },
-  position: {
-    type: Object
+  description: {
+    type: String,
   },
-  'position.x': {
-    type: Number,
-    min: 0
+  referenceUrl: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Url
   },
-  'position.y': {
-    type: Number,
-    min: 0
-  }
 }));
