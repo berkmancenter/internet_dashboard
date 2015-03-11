@@ -1,0 +1,17 @@
+Collections
+-----------
+One for each widget.
+One for each widget data source?
+Does that just get determined by the widget author?
+
+Dashboards
+Users (for being an admin)
+Widgets (for globally enabling or disabling and showing in "add" lists)
+Countries
+
+
+Working
+-------
+Widgets have country options
+All countries conform to the same ISO 2 or 3
+Widgets are taggable
