@@ -1,8 +1,12 @@
 var widgetPackages = ['imon'];
 
 Meteor.startup(function() {
+  if (Widgets.find({}).count() > 0) {
+    return;
+  }
+
   _.each(widgetPackages, function(packageName) {
-    var exports = Package[packageName].getExports()[0].name,
+    var exports = _.first(_.keys(Package[packageName]));
         exported = Package[packageName][exports];
     Widgets.insert({
       fromPackage: packageName,
@@ -11,5 +15,8 @@ Meteor.startup(function() {
       description: exported.description,
       referenceUrl: exported.referenceUrl
     });
+    if (!_.isUndefined(exported.onStartup)) {
+      exported.onStartup();
+    }
   });
 });

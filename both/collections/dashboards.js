@@ -2,6 +2,12 @@ Dashboard = function(doc) {
   return _.extend(this, doc);
 };
 
+_.extend(Dashboard.prototype, {
+  availableWidgets: function() {
+    return Widgets.find({}).fetch();
+  }
+});
+
 Dashboards = new Mongo.Collection('dashboards', {
   transform: function(doc) { return new Dashboard(doc); }
 });
@@ -20,7 +26,8 @@ Dashboards.attachSchema(new SimpleSchema({
     defaultValue: 20
   },
   widgets: {
-    type: [Object]
+    type: [Object],
+    optional: true
   },
   'widgets.$.exports': {
     type: String

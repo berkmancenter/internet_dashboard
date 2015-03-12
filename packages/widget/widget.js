@@ -2,6 +2,12 @@ Widget = function(doc) {
   _.extend(this, doc);
 };
 
+_.extend(Widget.prototype, {
+  setData: function(doc) {
+    Widgets.update(this._id, { $set: { data: doc } });
+  }
+});
+
 Widgets = new Mongo.Collection('widgets', {
   transform: function(doc) { return new Widget(doc); }
 });

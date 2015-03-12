@@ -9,7 +9,18 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
-  api.addFiles('imon.js');
+  api.use(['underscore', 'widget', 'mongo']);
+  api.use(['aldeed:simple-schema'], 'server');
+  api.use(['templating'], 'client');
+  api.addFiles([
+    'server/imon.js',
+    'imon.js'], 'server');
+
+  api.addFiles([
+    'client/settings.html',
+    'client/settings.js',
+    'client/widget.html'], 'client');
+
   api.export('IMon', 'server');
 });
 

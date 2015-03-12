@@ -9,20 +9,9 @@ Template.IMonSettings.events({
     var countryCode = template.find('.country').val(),
         indicator = template.find('.indicator').val();
     //this.close();
-    this.set({
+    this.setData({
       country: countryCode,
       indicator: { name: indicator }
     });
   }
 });
-
-define(['app/setting_view', 'underscore', 'text!imon/templates/settings.html'],
-  function(SettingView, _, templateContents) {
-    return SettingView.extend({
-      template: _.template(templateContents),
-      events: {
-        'click .save-settings': 'onSave'
-      },
-      onSave:     });
-  }
-);

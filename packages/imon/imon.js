@@ -12,11 +12,11 @@ _.extend(Widget.prototype, {
   onCountryChange: function(newCountry) {}
 });
 
-
 IMon = {
   displayName: 'Internet Monitor',
   description: 'Internet Monitor data for countries',
   referenceUrl: 'http://thenetmonitor.org',
-  constructor: Widget,
-  onStartup: Countries.seedCountries
+  constructor: Widget
 };
+
+Meteor.startup(Countries.seedCountries);

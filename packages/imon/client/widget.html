@@ -1,13 +1,13 @@
 <template name="IMonWidget">
-<h1><%= country.name %></h1>
+<h1>{{ country.name }}</h1>
 <dl>
-  <dd><%= indicator.name %></dd>
+  <dd>{{ indicator.name }}</dd>
   <dt>
     <div class='progress'>
       <div class='progress-bar' role='progressbar'
-        aria-valuenow='<%= indicator.value * 100 %>' aria-valuemin='0'
-        aria-valuemax='100' style='width: <%= indicator.value * 100 %>%;'>
-        <span class='sr-only'><%= indicator.value * 100 %></span>
+        aria-valuenow='{{ indicatorPercent }}' aria-valuemin='0'
+        aria-valuemax='100' style='width: {{ indicatorPercent }}%;'>
+        <span class='sr-only'>{{ indicatorPercent }}</span>
       </div>
     </div>
   </dt>
