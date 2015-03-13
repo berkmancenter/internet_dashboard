@@ -8,7 +8,9 @@ _.extend(Dashboard.prototype, {
   },
   // Separate method because it might rely on subscriptions
   initWidgets: function() {
-    this.widgets = _.map(this.widgets, Widgets.construct);
+    this.widgets = _.map(this.widgets, function(widget) {
+      return Widgets.construct(widget, this);
+    }, this);
   },
   subHandles: function() {
     return _.flatten(_.map(this.widgets, function(widget) {

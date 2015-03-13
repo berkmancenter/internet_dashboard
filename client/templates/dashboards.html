@@ -23,7 +23,7 @@
         data-html="true" data-placement="auto right" data-container="body">
         <span class="glyphicon glyphicon-info-sign">&nbsp;</span>
       </a>
-      <div class="my-popover-content for-{{ widgetId 'about' }}">
+      <div class="hidden for-{{ widgetId 'about' }}">
         {{> Template.dynamic template=infoTemplate data=data }}
       </div>
       {{/if}}
@@ -34,7 +34,7 @@
         data-html="true" data-placement="auto right" data-container="body">
         <span class="glyphicon glyphicon-cog">&nbsp;</span>
       </a>
-      <div class="my-popover-content for-{{ widgetId 'settings' }}">
+      <div class="hidden for-{{ widgetId 'settings' }}">
         {{> Template.dynamic template=settingsTemplate data=data }}
       </div>
       {{/if}} 

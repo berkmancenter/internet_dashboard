@@ -9,7 +9,7 @@ Template.WidgetShow.helpers({
 });
 
 Template.DashboardsShow.events({
-  'click a.add-widget': function(event, template) {
+  'click a.add-widget': function(ev, template) {
     var exported = Widgets.packageExports(this),
         widgetAttrs = _.pick(this, 'fromPackage', 'exports');
 
@@ -30,8 +30,17 @@ Template.DashboardsShow.events({
 });
 
 Template.DashboardsShow.rendered = function() {
+  var popoverSelector = '[data-toggle="popover"]';
   $('body').popover({
-    selector: '[data-toggle="popover"]',
-    content: function() { return $('.my-popover-content.for-' + this.id).html(); }
+    selector: popoverSelector,
+    content: function() { return $('.for-' + this.id).removeClass('hidden').get(0); }
+  });
+  // We've got to do some tricky stuff here so we can reuse the same node
+  $('body').on('hide.bs.popover', popoverSelector, function(ev) {
+    var $node = $('.for-' + this.id);
+    // Wait for hidden so it doesn't disappear and look weird
+    $(this).on('hidden.bs.popover', function() {
+      $(this).after($node.addClass('hidden'));
+    });
   });
 };

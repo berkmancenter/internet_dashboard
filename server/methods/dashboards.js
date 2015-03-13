@@ -9,6 +9,12 @@ Meteor.methods({
     console.log(dashboardId);
     console.log(widgetId);
     Dashboards.update(dashboardId, { $pull: { widgets: { _id: widgetId } } });
+  },
+  updateDashboardWidgetData: function(dashboardId, widgetId, data) {
+    Dashboards.update(
+      { _id: dashboardId, 'widgets._id': widgetId },
+      { $set: { 'widgets.$.data': data } }
+    );
   }
 });
 

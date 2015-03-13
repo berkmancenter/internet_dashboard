@@ -9,9 +9,6 @@ Widget = function(doc) {
 };
 
 _.extend(Widget.prototype, {
-  setData: function(doc) {
-    _.extend(this.data, doc);
-  },
   packageExports: function() {
     return Widgets.packageExports(this);
   },
@@ -19,6 +16,37 @@ _.extend(Widget.prototype, {
     return this.packageExports().requiredPublications(this.data);
   }
 });
+
+
+
+// This is the data box that widget authors can use
+WidgetData = function(dashboard, widget, doc) {
+  if (_.isUndefined(dashboard)) {
+    throw new Error('WidgetData needs a dashboard, but was given: ' + dashboard);
+  }
+
+  if (_.isUndefined(widget)) {
+    throw new Error('WidgetData needs a widget, but was given: ' + widget);
+  }
+
+  this._dashboard = dashboard;
+  this.widget = widget;
+  _.extend(this, doc);
+};
+
+_.extend(WidgetData.prototype, {
+  setData: function(doc) {
+    _.extend(this, doc);
+    Meteor.call(
+      'updateDashboardWidgetData',
+      this._dashboard._id,
+      this.widget._id,
+      _.omit(this, '_dashboard', 'widget')
+    );
+  },
+});
+
+
 
 Widgets = new Mongo.Collection('widgets', {
   transform: function(doc) { return new Widget(doc); }
@@ -66,8 +94,11 @@ _.extend(Widgets, {
     }
   },
 
-  construct: function(doc) {
-    return new Package[doc.fromPackage][doc.exports].constructor(doc);
+  construct: function(doc, dashboard) {
+    var widget = new Package[doc.fromPackage][doc.exports].constructor(doc);
+    widget.dashboard = dashboard;
+    widget.data = new WidgetData(dashboard, widget, widget.data);
+    return widget;
   },
 
   packageExports: function(doc) {

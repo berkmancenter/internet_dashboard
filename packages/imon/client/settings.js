@@ -8,15 +8,15 @@ Template.IMonSettings.helpers({
 
 Template.IMonSettings.events({
   'click .save-settings': function(event, template) {
-    var countryCode = template.find('.country').val(),
-        indicator = template.find('.indicator').val();
+    var countryCode = template.find('.country').value,
+        indicator = template.find('.indicator').value;
+    var newData = {
+      country: Countries.findOne({ code: countryCode }),
+      indicator: this.widget.fetchIndicatorForCountry(indicator, countryCode)
+    };
     //this.close();
     console.log('save');
-    /*
-    this.setData({
-      country: countryCode,
-      indicator: { name: indicator }
-    });
-    */
+    console.log(this);
+    this.setData(newData);
   }
 });

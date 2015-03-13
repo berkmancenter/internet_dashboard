@@ -23,12 +23,14 @@ Router.route('/dashboards/:_id', {
       var controller = this;
       Tracker.autorun(function() {
         if (_.every(handles, function(handle) { return handle.ready(); })) {
-          controller.render();
+          controller.render('DashboardsShow', {
+            data: function() {
+              dashboard.initWidgets();
+              return dashboard;
+            }
+          });
         }
       });
     }
-  },
-  data: function() {
-    return Dashboards.findOne(this.params._id);
   },
 });
