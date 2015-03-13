@@ -9,20 +9,24 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
-  api.use(['underscore', 'widget', 'mongo']);
-  api.use(['aldeed:simple-schema'], 'server');
+  api.use(['http'], 'server');
+  api.use(['underscore', 'jquery', 'widget', 'mongo','aldeed:simple-schema']);
   api.use(['templating'], 'client');
-  api.addFiles([
-    'server/imon.js',
-    'imon.js'], 'server');
+
+  api.addFiles(['imon.js']);
+
+  api.addFiles(['server/imon.js'], 'server');
 
   api.addFiles([
     'client/settings.html',
     'client/settings.js',
-    'client/widget.html'], 'client');
+    'client/widget.html',
+    'client/widget.js'], 'client');
 
-  api.export('IMon', 'server');
+  api.export('IMon');
 });
 
-Npm.depends({ request: '2.53.0' });
-Npm.require('request');
+Npm.depends({
+  jquery: '2.1.3',
+  jsdom: '3.1.2'
+});

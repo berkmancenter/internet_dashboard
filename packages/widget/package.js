@@ -11,6 +11,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
   api.addFiles('widget.js');
   api.use(['underscore', 'mongo', 'aldeed:simple-schema']);
+  api.use(['templating'], 'client');
   api.export('Widget');
   api.export('Widgets');
 });

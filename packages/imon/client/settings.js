@@ -1,7 +1,9 @@
 Template.IMonSettings.helpers({
-  countries: function() { return Countries.find({}); },
-  isSelectedCountry: function(code) { return this.country.code === code; },
-  isSelectedIndicator: function(name) { return this.indicator.name === name; }
+  countries: function() { return Countries.find({}, { sort: { name: 1 } }); },
+  indicators: function(countryCode) {
+    return Countries.findOne({ code: countryCode }).indicators;
+  },
+  isSelected: function(a, b) { return a === b ? 'selected' : ''; },
 });
 
 Template.IMonSettings.events({

@@ -27,9 +27,17 @@ Dashboards.attachSchema(new SimpleSchema({
   },
   widgets: {
     type: [Object],
+    defaultValue: [],
     optional: true
   },
+  'widgets.$._id': {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id
+  },
   'widgets.$.exports': {
+    type: String
+  },
+  'widgets.$.fromPackage': {
     type: String
   },
   'widgets.$.width': {
@@ -38,12 +46,13 @@ Dashboards.attachSchema(new SimpleSchema({
     max: 3
   },
   'widgets.$.height': {
-    type: Object,
+    type: Number,
     min: 1,
     max: 3
   },
   'widgets.$.position': {
-    type: Object
+    type: Object,
+    optional: true
   },
   'widgets.$.position.x': {
     type: Number,
