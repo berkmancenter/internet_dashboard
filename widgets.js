@@ -1,1 +1,1 @@
-widgetPackages = ['imon'];
+WidgetPackages = ['imon'];

@@ -3,17 +3,17 @@ Meteor.startup(function() {
     return;
   }
 
-  _.each(widgetPackages, function(packageName) {
+  _.each(WidgetPackages, function(packageName) {
     var exports = _.first(_.keys(Package[packageName])),
         exported = Package[packageName][exports];
 
     Widgets.insert({
-      fromPackage  : packageName,
-      exports      : exports,
-      displayName  : exported.displayName,
-      description  : exported.description,
-      referenceUrl : exported.referenceUrl,
-      publications : exported.publications
+      fromPackage     : packageName,
+      exports         : exports,
+      displayName     : exported.displayName,
+      description     : exported.description,
+      referenceUrl    : exported.referenceUrl,
+      allPublications : exported.allPublications
     });
   });
 });

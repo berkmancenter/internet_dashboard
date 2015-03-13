@@ -5,11 +5,28 @@ Dashboard = function(doc) {
 _.extend(Dashboard.prototype, {
   availableWidgets: function() {
     return Widgets.find({}).fetch();
+  },
+  // Separate method because it might rely on subscriptions
+  initWidgets: function() {
+    this.widgets = _.map(this.widgets, Widgets.construct);
+  },
+  subHandles: function() {
+    return _.flatten(_.map(this.widgets, function(widget) {
+      return _.map(Widgets.requiredPublications(widget), function(pub) {
+        return Meteor.subscribe(pub);
+      });
+    }));
   }
 });
 
 Dashboards = new Mongo.Collection('dashboards', {
-  transform: function(doc) { return new Dashboard(doc); }
+  transform: function(doc) {
+    var dash = new Dashboard(doc);
+    if (Meteor.isServer) {
+      dash.initWidgets();
+    }
+    return dash;
+  }
 });
 
 Dashboards.attachSchema(new SimpleSchema({

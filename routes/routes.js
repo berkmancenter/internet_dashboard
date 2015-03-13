@@ -1,27 +1,32 @@
 Router.route('/', { name: 'home' });
 
-Router.route('/dashboards/new', function() {
-  Meteor.call('newDashboard', function(error, id) {
-    Router.go('dashboards.show', { _id: id });
-  });
-}, {
+Router.route('/dashboards/new', {
+  action: function() {
+    Meteor.call('newDashboard', function(error, id) {
+      Router.go('dashboards.show', { _id: id });
+    });
+  },
   name: 'dashboards.new'
 });
 
 Router.route('/dashboards/:_id', {
   name: 'dashboards.show',
   loadingTemplate: 'Loading',
-  waitOn: function () {
-    return [
-      Meteor.subscribe('dashboard', this.params._id),
-      Meteor.subscribe('availableWidgets', function() {
-        Widgets.find({}).forEach(function(widget) {
-          _.each(widget.publications, function(pub) {
-            Meteor.subscribe(pub);
-          });
-        });
-      })
-    ];
+  action: function() {
+    this.wait(Meteor.subscribe('dashboard', this.params._id));
+    this.wait(Meteor.subscribe('availableWidgets'));
+
+    if (this.ready()) {
+      var dashboard = Dashboards.findOne(this.params._id);
+      var handles = dashboard.subHandles();
+
+      var controller = this;
+      Tracker.autorun(function() {
+        if (_.every(handles, function(handle) { return handle.ready(); })) {
+          controller.render();
+        }
+      });
+    }
   },
   data: function() {
     return Dashboards.findOne(this.params._id);

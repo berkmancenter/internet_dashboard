@@ -8,6 +8,13 @@
 <template name="DashboardsShow">
   <div id="dashboard">
   {{#each widgets}}
+    {{> WidgetShow }}
+  {{/each}}
+  </div>
+  {{> DashboardsAdd }}
+</template>
+
+<template name="WidgetShow">
   <div class="widget col-{{ width }} row-{{ height }} {{ widgetId }}">
     <div class="buttons">
       {{# if providesInfo }}
@@ -38,11 +45,7 @@
 
    {{> Template.dynamic template=widgetTemplate data=data }}
   </div>
-  {{/each}}
-  </div>
-  {{> DashboardsAdd }}
 </template>
-
 
 <template name="DashboardsAdd">
 <a href="#" class="btn-add-widget" data-toggle="modal" data-target=".add-widget-modal">+</a>

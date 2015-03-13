@@ -1,6 +1,7 @@
-Template.DashboardsShow.helpers(Widgets.templateHelpers);
+Template.WidgetShow.helpers(Widgets.templateHelpers);
+Template.WidgetShow.events(Widgets.templateEvents);
 
-Template.DashboardsShow.helpers({
+Template.WidgetShow.helpers({
   widgetId: function(aspect) {
     aspect = aspect || 'widget';
     return this.fromPackage + '-' + this._id + '-' + aspect;
@@ -9,20 +10,22 @@ Template.DashboardsShow.helpers({
 
 Template.DashboardsShow.events({
   'click a.add-widget': function(event, template) {
-    var exported = Package[this.fromPackage][this.exports],
+    var exported = Widgets.packageExports(this),
         widgetAttrs = _.pick(this, 'fromPackage', 'exports');
-    var subscriptions = _.map(exported.publications, function(pub) {
-      return Meteor.subscribe(pub, function() { console.log('sub'); });
+
+    var subHandles = _.map(exported.requiredPublications(widgetAttrs.data), function(pub) {
+      return Meteor.subscribe(pub);
     });
-    console.log('starting');
-    console.log(_.map(subscriptions, function(sub) { return sub.ready(); }));
 
-    console.log(_.some(subscriptions, function(sub) { return !sub.ready(); }));
-    console.log('ending');
-
-        widget = new exported.constructor(widgetAttrs);
-    $('.add-widget-modal').modal('hide');
-    Meteor.call('addWidgetToDashboard', template.data._id, widget);
+    Tracker.autorun(function(comp) {
+      var allReady = _.every(subHandles, function(sub) { return sub.ready(); });
+      if (allReady) {
+        var widget = Widgets.construct(widgetAttrs);
+        $('.add-widget-modal').modal('hide');
+        Meteor.call('addWidgetToDashboard', template.data._id, widget);
+        comp.stop();
+      }
+    });
   }
 });
 

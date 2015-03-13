@@ -60,10 +60,17 @@ _.extend(IMonWidget.prototype, {
   }
 });
 
+var requiredPublications = function(data) {
+  // If data is undefined, provide subscriptions necessary to init a new widget
+  // with default settings.
+  return ['imon_countries'];
+};
+
 IMon = {
   displayName: 'Internet Monitor',
   description: 'Internet Monitor data for countries',
   referenceUrl: 'http://thenetmonitor.org',
-  publications: ['imon_countries'],
+  allPublications: ['imon_countries'],
+  requiredPublications: requiredPublications,
   constructor: IMonWidget
 };
