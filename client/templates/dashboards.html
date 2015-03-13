@@ -6,36 +6,34 @@
 </body>
 
 <template name="DashboardsShow">
-  <h1>Dashboard</h1>
-  <div class="dashboard">
+  <div id="dashboard">
   {{#each widgets}}
   <div class="widget col-{{ width }} row-{{ height }} {{ widgetId }}">
     <div class="buttons">
       {{# if providesInfo }}
       <a class="about" href="#" id="{{ widgetId 'about' }}"
         title="About" data-toggle="popover" data-trigger="click"
-        data-html="true" data-placement="auto right">
+        data-html="true" data-placement="auto right" data-container="body">
         <span class="glyphicon glyphicon-info-sign">&nbsp;</span>
       </a>
-      <div class="popover" data-opener="{{ widgetId 'about' }}" role="tooltip">
-        <div class="arrow"></div>
-        <h3 class="popover-title">About</h3>
-        <div class="popover-content">{{> Template.dynamic template=infoTemplate data=data }}</div>
+      <div class="my-popover-content for-{{ widgetId 'about' }}">
+        {{> Template.dynamic template=infoTemplate data=data }}
       </div>
       {{/if}}
 
       {{# if providesSettings }}
       <a class="settings" href="#" id="{{ widgetId 'settings' }}"
         title="Settings" data-toggle="popover" data-trigger="click"
-        data-html="true" data-placement="auto right">
+        data-html="true" data-placement="auto right" data-container="body">
         <span class="glyphicon glyphicon-cog">&nbsp;</span>
       </a>
-      <div class="popover" data-opener="{{ widgetId 'settings' }}" role="tooltip">
-        <div class="arrow"></div>
-        <h3 class="popover-title">Settings</h3>
-        <div class="popover-content">{{> Template.dynamic template=settingsTemplate data=data }}</div>
+      <div class="my-popover-content for-{{ widgetId 'settings' }}">
+        {{> Template.dynamic template=settingsTemplate data=data }}
       </div>
-      {{/if}}
+      {{/if}} 
+      <a href="#" class="remove-widget" title="Remove widget">
+        <span class="glyphicon glyphicon-remove"></span>
+      </a>
     </div>
 
    {{> Template.dynamic template=widgetTemplate data=data }}
@@ -47,9 +45,9 @@
 
 
 <template name="DashboardsAdd">
-<a href="#" class="add_widget" data-toggle="modal" data-target=".add_widget_modal">+</a>
+<a href="#" class="btn-add-widget" data-toggle="modal" data-target=".add-widget-modal">+</a>
 
-<div class="add_widget_modal modal fade" tabindex="-1" role="dialog" aria-labelledby="addWidget" aria-hidden="true">
+<div class="add-widget-modal modal fade" tabindex="-1" role="dialog" aria-labelledby="addWidget" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -62,7 +60,7 @@
       <div class="modal-body">
         {{# each availableWidgets }}
         <div class="widget-option">
-          <a href="#">Add {{ displayName }}</a>
+          <a href="#" class="add-widget">Add {{ displayName }}</a>
         </div>
         {{/each}}
       </div>

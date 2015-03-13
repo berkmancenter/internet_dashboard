@@ -1,5 +1,3 @@
-var widgetPackages = ['imon'];
-
 Meteor.startup(function() {
   if (Widgets.find({}).count() > 0) {
     return;
@@ -17,9 +15,5 @@ Meteor.startup(function() {
       referenceUrl : exported.referenceUrl,
       publications : exported.publications
     });
-
-    if (!_.isUndefined(exported.onStartup)) {
-      exported.onStartup();
-    }
   });
 });

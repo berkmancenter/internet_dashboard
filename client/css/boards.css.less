@@ -1,0 +1,106 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+body {
+  /*background-image: url(../images/backdrop4.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -moz-background-size: cover;*/
+  background-color: #081F2C;
+  padding: 20px;
+  font-family: Lato;
+  font-weight: 300;
+}
+h1, h2 {
+  font-weight: 300;
+}
+
+#dashboard {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+
+a.btn-add-widget {
+  position: absolute;
+  text-align: center;
+  bottom: 15px;
+  right: 15px;
+  font-size: 72px;
+  line-height: 40px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #428BCA;
+  border-radius: 50%;
+
+  &:hover, &:focus {
+    text-decoration: none;
+    outline: none;
+  }
+}
+
+.widget {
+  overflow: hidden;
+  position: relative;
+  border: 0;
+  cursor: default;
+  border-radius: 5px;
+  -webkit-box-shadow: 0.25em 0.25em 0.33em rgba(0, 0, 0, 0.07);
+  box-shadow: 0.25em 0.25em 0.33em rgba(0, 0, 0, 0.07);
+  padding: 10px 20px;
+  background-color: white;
+}
+.widget h1 {
+  margin-top: 0;
+}
+.inner {
+}
+.widget.col-1 {
+  width: 150px;
+}
+.widget.col-2 {
+  width: 320px;
+}
+.widget.col-3 {
+  width: 490px;
+}
+.widget.row-1 {
+  height: 150px;
+}
+.widget.row-2 {
+  height: 320px;
+}
+.widget.row-3 {
+  height: 490px;
+}
+
+.buttons {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  
+  a {
+    margin-left: 3px;
+    color: #CBCBCB;
+
+    &.remove-widget {
+      margin-left: 0;
+      &:hover {
+        color: darkred;
+      }
+    }
+  }
+}
+
+.modal-dialog {
+  z-index: 1050;
+}
+
+.save-as-default {
+  position: absolute;
+  bottom: -50px;
+}
+
+.my-popover-content {
+  display: none;
+}

@@ -11,9 +11,12 @@ Template.IMonSettings.events({
     var countryCode = template.find('.country').val(),
         indicator = template.find('.indicator').val();
     //this.close();
+    console.log('save');
+    /*
     this.setData({
       country: countryCode,
       indicator: { name: indicator }
     });
+    */
   }
 });

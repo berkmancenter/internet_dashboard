@@ -42,6 +42,12 @@ Widgets.templateHelpers = {
   }
 };
 
+Widgets.widgetTemplateEvents = {
+  'click .remove-widget': function(event, template) {
+    console.log('remove');
+  }
+};
+
 Widgets.attachSchema(new SimpleSchema({
   fromPackage: {
     type: String
