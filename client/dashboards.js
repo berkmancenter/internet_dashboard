@@ -13,6 +13,8 @@ Template.DashboardsShow.events({
     var exported = Widgets.packageExports(this),
         widgetAttrs = _.pick(this, 'fromPackage', 'exports');
 
+    var dashboard = Widgets.dashboardData(template);
+
     var subHandles = _.map(exported.requiredPublications(widgetAttrs.data), function(pub) {
       return Meteor.subscribe(pub);
     });
@@ -20,7 +22,7 @@ Template.DashboardsShow.events({
     Tracker.autorun(function(comp) {
       var allReady = _.every(subHandles, function(sub) { return sub.ready(); });
       if (allReady) {
-        var widget = Widgets.construct(widgetAttrs);
+        var widget = Widgets.construct(widgetAttrs, dashboard);
         $('.add-widget-modal').modal('hide');
         Meteor.call('addWidgetToDashboard', template.data._id, widget);
         comp.stop();
