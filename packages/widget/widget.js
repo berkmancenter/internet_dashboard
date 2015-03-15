@@ -14,6 +14,13 @@ _.extend(Widget.prototype, {
   },
   requiredPublications: function() {
     return this.packageExports().requiredPublications(this.data);
+  },
+  toJSON: function() {
+    var widget = _.pick(this, [
+      '_id', 'data', 'exports', 'fromPackage', 'height', 'width'
+    ]);
+    widget.data = widget.data.toJSON();
+    return widget;
   }
 });
 
@@ -41,9 +48,14 @@ _.extend(WidgetData.prototype, {
       'updateDashboardWidgetData',
       this._dashboard._id,
       this.widget._id,
-      _.omit(this, '_dashboard', 'widget')
+      this.toJSON()
     );
   },
+  toJSON: function() {
+    return _.omit(this, [
+      '_dashboard', 'widget', 'setData', 'toJSON'
+      ]);
+  }
 });
 
 

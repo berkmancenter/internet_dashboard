@@ -24,7 +24,7 @@ Template.DashboardsShow.events({
       if (allReady) {
         var widget = Widgets.construct(widgetAttrs, dashboard);
         $('.add-widget-modal').modal('hide');
-        Meteor.call('addWidgetToDashboard', template.data._id, widget);
+        Meteor.call('addWidgetToDashboard', template.data._id, widget.toJSON());
         comp.stop();
       }
     });

@@ -6,8 +6,6 @@ Meteor.methods({
     Dashboards.update(dashboardId, { $push: { widgets: widget } });
   },
   removeWidgetFromDashboard: function(dashboardId, widgetId) {
-    console.log(dashboardId);
-    console.log(widgetId);
     Dashboards.update(dashboardId, { $pull: { widgets: { _id: widgetId } } });
   },
   updateDashboardWidgetData: function(dashboardId, widgetId, data) {
