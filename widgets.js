@@ -1,1 +1,1 @@
-WidgetPackages = ['imon'];
+WidgetPackages = ['imon', 'wikiedits'];

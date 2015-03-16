@@ -29,6 +29,9 @@
                   "version": "1.6.2"
                 }
               }
+            },
+            "node-icu-charset-detector": {
+              "version": "0.0.7"
             }
           }
         },

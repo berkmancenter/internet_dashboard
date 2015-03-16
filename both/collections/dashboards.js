@@ -15,7 +15,7 @@ _.extend(Dashboard.prototype, {
   subHandles: function() {
     return _.flatten(_.map(this.widgets, function(widget) {
       return _.map(Widgets.requiredPublications(widget), function(pub) {
-        return Meteor.subscribe(pub);
+        return Meteor.subscribe(pub, widget.data);
       });
     }));
   }

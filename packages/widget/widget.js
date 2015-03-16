@@ -13,7 +13,7 @@ _.extend(Widget.prototype, {
     return Widgets.packageExports(this);
   },
   requiredPublications: function() {
-    return this.packageExports().requiredPublications(this.data);
+    return this.packageExports().requiredPublications(this.data.toJSON());
   },
   toJSON: function() {
     var widget = _.pick(this, [

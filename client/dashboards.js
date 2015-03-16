@@ -16,7 +16,9 @@ Template.DashboardsShow.events({
     var dashboard = Widgets.dashboardData(template);
 
     var subHandles = _.map(exported.requiredPublications(widgetAttrs.data), function(pub) {
-      return Meteor.subscribe(pub);
+      console.log(pub);
+
+      return Meteor.subscribe(pub, widgetAttrs.data);
     });
 
     Tracker.autorun(function(comp) {
