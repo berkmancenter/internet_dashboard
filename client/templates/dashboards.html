@@ -15,7 +15,7 @@
 </template>
 
 <template name="WidgetShow">
-  <div class="widget col-{{ width }} row-{{ height }} {{ widgetId }}">
+  <div class="widget col-{{ width }} row-{{ height }} {{widgetClass }}" id="{{ widgetId }}">
     <div class="buttons">
       {{# if providesInfo }}
       <a class="about" href="#" id="{{ widgetId 'about' }}"

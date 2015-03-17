@@ -6,6 +6,9 @@ Template.WidgetShow.helpers({
     aspect = aspect || 'widget';
     return this.fromPackage + '-' + this._id + '-' + aspect;
   },
+  widgetClass: function() {
+    return this.fromPackage;
+  },
 });
 
 Template.DashboardsShow.events({
@@ -15,10 +18,8 @@ Template.DashboardsShow.events({
 
     var dashboard = Widgets.dashboardData(template);
 
-    var subHandles = _.map(exported.requiredPublications(widgetAttrs.data), function(pub) {
-      console.log(pub);
-
-      return Meteor.subscribe(pub, widgetAttrs.data);
+    var subHandles = _.map(exported.requiredPublications(), function(pub) {
+      return Meteor.subscribe(pub);
     });
 
     Tracker.autorun(function(comp) {

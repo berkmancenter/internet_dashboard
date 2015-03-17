@@ -9,13 +9,16 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
-  api.use(['momentjs:moment'], 'server');
-  api.use(['widget', 'mongo', 'tracker']);
+  api.use(['momentjs:moment', 'random'], 'server');
+  api.use(['widget', 'mongo', 'tracker', 'underscore']);
   api.use(['templating', 'pfafman:epoch', 'jquery'], 'client');
   api.addFiles('wikiedits.js');
   api.addFiles('server.js', 'server');
-  api.addFiles(['client/widget.html', 'client/widget.js'], 'client');
+  api.addFiles([
+    'client/widget.html', 'client/widget.js', 'client/widget.css',
+    'client/settings.html', 'client/settings.js'
+    ], 'client');
   api.export('WikiEdits');
 });
 
-Npm.depends({ wikichanges: '0.2.7' });
+Npm.depends({ wikichanges: 'https://github.com/jdcc/wikichanges/tarball/f2a70d12df72c3e97669c712a1b60a10201e117b' });

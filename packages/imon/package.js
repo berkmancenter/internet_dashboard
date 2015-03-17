@@ -21,7 +21,9 @@ Package.onUse(function(api) {
     'client/settings.html',
     'client/settings.js',
     'client/widget.html',
-    'client/widget.js'], 'client');
+    'client/widget.js',
+    'client/widget.css',
+    ], 'client');
 
   api.export('IMon');
 });

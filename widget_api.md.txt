@@ -17,7 +17,7 @@ export an object with the following properties:
   description: a description of what your widget does
   referenceUrl: a URL that users can visit to learn more about your data
   allPublications: an array of all publications your
-  requiredPublications: a function that, when given your widget's data, returns an array of publication names to which the widget must subscribe. Can receive an undefined data object, in which case return the array of publications to which a newly created widget must subscribe. Publications receive widget data as an argument when widgets subscribe
+  requiredPublications: a function that, when given your widget's data, returns an array of publication names to which the widget must subscribe. Can receive an undefined data object, in which case return the array of publications to which a newly created widget must subscribe. Your publications will get the data attribute of a widget when called, but the pubs you return when requiredPublications gets no data will also get no data. Publications receive widget data as an argument when widgets subscribe.
   constructor: the function to be called when a new widget instance is to be created (when the user adds the widget)
 
 MyWidget class should be a subclass of "Widget" class. You can overwrite default width and height. Allowed values are 1, 2, and 3 for each and signify the numbers of columns or rows to span. Like this:
@@ -28,6 +28,8 @@ MyWidget = function(doc) {
     width: 2,
     height: 1
   });
+
+  this.data = {};
   /* My code */
 }
 MyWidget.prototype = Object.create(Widget.prototype);
@@ -40,5 +42,6 @@ For the widget: {short code}Widget, e.g. "MyWidget"
 For the about/info popup: {short code}Info
 For the settings popup: {short code}Settings
 
+For css, all your widgets will receive a class with the same name as your widget package.
 
 That's it.

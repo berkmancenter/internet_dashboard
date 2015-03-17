@@ -1,0 +1,11 @@
+<template name="WikiEditsSettings">
+<div class="form-group">
+  <label for="wiki-language">Language</label>
+  <select id="wiki-language" name="wiki-language">
+    {{#each wikis }}
+    <option value="{{ channel }}">{{ name }}</option>
+    {{/each}}
+  </select>
+</div>
+<button class="btn btn-primary">Save</button>
+</template>

@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "wikichanges": {
-      "version": "0.2.7",
+      "version": "https://github.com/jdcc/wikichanges/tarball/f2a70d12df72c3e97669c712a1b60a10201e117b",
       "dependencies": {
         "irc": {
-          "version": "0.3.9",
+          "version": "https://github.com/martynsmith/node-irc/tarball/master",
           "dependencies": {
             "ansi-color": {
               "version": "0.2.1"
@@ -31,7 +31,12 @@
               }
             },
             "node-icu-charset-detector": {
-              "version": "0.0.7"
+              "version": "0.1.0",
+              "dependencies": {
+                "nan": {
+                  "version": "1.7.0"
+                }
+              }
             }
           }
         },

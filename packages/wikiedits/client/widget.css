@@ -1,0 +1,24 @@
+.wikiedits {
+  padding: 10px 20px;
+}
+
+.wiki-history {
+  position: relative;
+  height: 92px;
+  width: 120%;
+  left: -30px;
+}
+
+.wiki-history .edits .area {
+  fill: #428BCA;
+}
+
+.wiki-history-count{
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  color: white;
+  font-size: 2em;
+  z-index: 1000;
+  font-weight: 300;
+}
