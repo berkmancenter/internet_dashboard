@@ -39,7 +39,7 @@ var updateData = function() {
             
   _.each(Settings.tagSet, function(country) {
 
-    console.log('Fetching ' + country.name);
+    console.log('Media Cloud: Fetching ' + country.name);
 
     var data = {
       country: country,

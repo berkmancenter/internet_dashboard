@@ -1,5 +1,4 @@
 Template.WidgetShow.helpers(Widgets.templateHelpers);
-Template.WidgetShow.events(Widgets.templateEvents);
 
 Template.WidgetShow.helpers({
   widgetId: function(aspect) {
@@ -9,6 +8,12 @@ Template.WidgetShow.helpers({
   widgetClass: function() {
     return this.fromPackage;
   },
+});
+
+Template.DashboardsShow.helpers({
+  test: function() {
+    console.log('rendered dash');
+  }
 });
 
 Template.DashboardsShow.events({
@@ -34,6 +39,28 @@ Template.DashboardsShow.events({
   }
 });
 
+Template.DashboardsShow.created = function() {
+  this.widgetNodes = [];
+};
+
+var nodeIdToWidgetId = function(nodeId) {
+  var matches = nodeId.match(/^.+-([0-9a-zA-Z]{17})-.+$/);
+  return matches[1] || null;
+};
+
+var serializePositions = function($widget, position) {
+  position.id = nodeIdToWidgetId($widget.attr('id'));
+  return _.pick(position, ['col', 'row', 'size_x', 'size_y', 'id']);
+};
+
+var updateWidgetPositions = function(dashboardTemplate) {
+  Meteor.call(
+    'updateDashboardWidgetPositions',
+    dashboardTemplate.data._id,
+    dashboardTemplate.gridster.serialize()
+  );
+};
+
 Template.DashboardsShow.rendered = function() {
   var popoverSelector = '[data-toggle="popover"]';
   $('body').popover({
@@ -48,4 +75,40 @@ Template.DashboardsShow.rendered = function() {
       $(this).after($node.addClass('hidden'));
     });
   });
+
+  var dashboardTemplate = this;
+  this.gridster = $('#dashboard > ul').gridster({
+    widget_selector: this.widgetNodes,
+    widget_margins: [10, 10],
+    widget_base_dimensions: [150, 150],
+    serialize_params: serializePositions,
+    draggable: {
+      stop: function() { updateWidgetPositions(dashboardTemplate); }
+    }
+  }).data('gridster');
 };
+
+Template.WidgetShow.rendered = function() {
+  var widgetNode = this.firstNode;
+  var widgetData = $(widgetNode).data();
+  var dashboardTemplate = Widgets.dashboardTemplate(this);
+
+  dashboardTemplate.widgetNodes.push(widgetNode);
+
+  if (dashboardTemplate.gridster) {
+    dashboardTemplate.gridster.add_widget(
+      widgetNode, widgetData.sizex, widgetData.sizey
+    );
+    updateWidgetPositions(dashboardTemplate);
+  }
+};
+
+Template.WidgetShow.events({
+  'click .remove-widget': function(ev, template) {
+    var dashboardTemplate = Widgets.dashboardTemplate(template);
+    dashboardTemplate.gridster.remove_widget(template.firstNode);
+    updateWidgetPositions(dashboardTemplate);
+  }
+});
+
+Template.WidgetShow.events(Widgets.templateEvents);

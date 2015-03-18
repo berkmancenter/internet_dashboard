@@ -89,13 +89,17 @@ _.extend(Widgets, {
     }
   },
 
-  dashboardData: function(widgetTemplate) {
+  dashboardTemplate: function(widgetTemplate) {
     var dashboardView = widgetTemplate.view;
     while (dashboardView.name !== 'Template.DashboardsShow'
         && dashboardView.parentView) {
       dashboardView = dashboardView.parentView;
     }
-    return dashboardView.templateInstance().data;
+    return dashboardView.templateInstance();
+  },
+
+  dashboardData: function(widgetTemplate) {
+    return Widgets.dashboardTemplate(widgetTemplate).data;
   },
 
   templateEvents: {

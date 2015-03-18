@@ -6,16 +6,22 @@
 </body>
 
 <template name="DashboardsShow">
-  <div id="dashboard">
+{{ test }}
+  <div id="dashboard" class="gridster">
+  <ul>
   {{#each widgets}}
     {{> WidgetShow }}
   {{/each}}
+  </ul>
   </div>
   {{> DashboardsAdd }}
 </template>
 
 <template name="WidgetShow">
-  <div class="widget col-{{ width }} row-{{ height }} {{widgetClass }}" id="{{ widgetId }}">
+  <li id="{{ widgetId }}"
+      class="widget col-{{ width }} row-{{ height }} {{ widgetClass }}"
+      data-sizex="{{ width }}" data-sizey="{{ height }}"
+      data-row="{{ position.x }}" data-col="{{ position.y }}">
     <div class="buttons">
       {{# if providesInfo }}
       <a class="about" href="#" id="{{ widgetId 'about' }}"
@@ -44,7 +50,7 @@
     </div>
 
    {{> Template.dynamic template=widgetTemplate data=data }}
-  </div>
+  </li>
 </template>
 
 <template name="DashboardsAdd">
