@@ -15,12 +15,16 @@ Package.onUse(function(api) {
   api.addFiles([
     'data/emm_countries.js',
     'data/gv_countries.js',
-    ], 'server'
-  );
-
-  api.addFiles('mediacloud.js');
+    'mediacloud.js',
+  ]);
 
   api.addFiles(['server.js'], 'server');
+
+  api.addFiles([
+    'client/widget.html',
+    'client/widget.js',
+    'client/widget.css',
+    ], 'client');
 
   api.export('MediaCloud');
 });

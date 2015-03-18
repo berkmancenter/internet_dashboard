@@ -8,6 +8,7 @@ Settings = {
   shortInterval: { days: 7 },
   fetchedWords: 500,
   shownWords: 20,
+  countCutoff: 0,
   apiKey: '1592b19f2d8dccec2e49b0e503b83dc0d06bd831f95a8b008da39b72032e5196'
 };
 
@@ -25,7 +26,7 @@ MCWidget = function(doc) {
 MCWidget.prototype = Object.create(Widget.prototype);
 MCWidget.prototype.constructor = MCWidget;
 
-var requiredPublications = function(data) {
+var requiredPublications = function() {
   return ['mc_wordlists'];
 };
 

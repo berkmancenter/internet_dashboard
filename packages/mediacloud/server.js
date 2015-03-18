@@ -10,8 +10,26 @@ var url = function(args) {
 };
 
 var fetchData = function(url) {
-  console.log(url);
-  //http.get(url);
+  var result = HTTP.get(url);
+  return result.data;
+};
+
+var diffWordLists = function(baseline, recent) {
+
+  var baselineTerms = _.pluck(baseline, 'term');
+  var recentTerms = _.pluck(recent, 'term');
+  var newTerms = _.difference(recentTerms, baselineTerms);
+  var newWords = _.filter(recent, function(row) {
+    return _.contains(newTerms, row.term);
+  });
+
+  if (Settings.countCutoff > 0) {
+    newWords = _.filter(newWords, function(row) {
+      return row.count >= Settings.countCutoff;
+    });
+  }
+
+  return newWords;
 };
 
 var updateData = function() {
@@ -20,8 +38,11 @@ var updateData = function() {
   var endDate = moment();
             
   _.each(Settings.tagSet, function(country) {
+
+    console.log('Fetching ' + country.name);
+
     var data = {
-      countryCode: country.code,
+      country: country,
       updated: new Date(),
       words: []
     };
@@ -38,42 +59,16 @@ var updateData = function() {
       endDate: endDate
     });
 
-    fetchData(baselineWordListUrl);
-    fetchData(wordListUrl);
+    var baselineData = fetchData(baselineWordListUrl);
+    var recentData = fetchData(wordListUrl);
 
-    /*
-    { word: word, count: count },
-    WordLists.upsert({ countryCode: data.countryCode }, data);
-    });
-    */
+    var newWords = diffWordLists(baselineData, recentData);
+    data.words = newWords;
+
+    WordLists.upsert({ 'country.code': data.country.code }, data);
   });
-
 };
 
-/*
-      onWordCountsChange: function(model, newWordCounts) {
-        if (newWordCounts.recent.length === 0 ||
-            newWordCounts.baseline.length === 0 ||
-            newWordCounts.bSet !== newWordCounts.rSet) {
-          return;
-        }
-
-        var baselineTerms = _.pluck(newWordCounts.baseline, 'term'),
-            recentTerms = _.pluck(newWordCounts.recent, 'term'),
-            newTerms = _.difference(recentTerms, baselineTerms),
-            newWords = _.filter(newWordCounts.recent, function(row) {
-              return _.contains(newTerms, row.term);
-            });
-
-        if (this.get('countCutoff') > 0) {
-          this.set('newWords', _.filter(newWords, function(row) {
-            return row.count >= this.get('countCutoff');
-          }, this));
-        } else {
-          this.set('newWords', _.first(newWords, this.get('numShowWords')));
-        }
-      },
-      */
 
 if (WordLists.find({}).count() === 0) {
   updateData();
@@ -82,5 +77,6 @@ if (WordLists.find({}).count() === 0) {
 Meteor.setInterval(updateData, Settings.updateEvery);
 
 Meteor.publish('mc_wordlists', function(data) {
-  //WordLists.find
+  var countryCode = data ? data.countryCode : Settings.defaultCountry;
+  return WordLists.find({ 'country.code': countryCode }, { limit: 1 });
 });
