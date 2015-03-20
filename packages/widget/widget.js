@@ -140,10 +140,6 @@ Widgets.attachSchema(new SimpleSchema({
     type: String,
     optional: true
   },
-  allPublications: {
-    type: [String],
-    optional: true
-  },
   referenceUrl: {
     type: String,
     regEx: SimpleSchema.RegEx.Url

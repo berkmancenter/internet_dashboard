@@ -35,7 +35,6 @@ WikiEdits = {
   displayName: 'Wikipedia edits',
   description: 'a steaming graph of the number of edits to various wikipedias',
   referenceUrl: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
-  allPublications: ['wikiedits_binned', 'wikipedias'],
-  requiredPublications: requiredPublications,
+  requiredPubs: function() { return ['wikiedits_binned', 'wikipedias']; },
   constructor: WikiWidget
 };

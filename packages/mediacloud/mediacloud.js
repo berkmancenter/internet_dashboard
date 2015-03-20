@@ -26,15 +26,10 @@ MCWidget = function(doc) {
 MCWidget.prototype = Object.create(Widget.prototype);
 MCWidget.prototype.constructor = MCWidget;
 
-var requiredPublications = function() {
-  return ['mc_wordlists'];
-};
-
 MediaCloud = {
   displayName: 'Media Cloud',
   description: 'a word cloud showing word usage in recent media in different countries',
   referenceUrl: 'http://mediacloud.org',
-  allPublications: [],
-  requiredPublications: requiredPublications,
+  requiredPubs: function() { return ['mc_wordlists']; },
   constructor: MCWidget
 };

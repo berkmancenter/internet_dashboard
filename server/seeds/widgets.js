@@ -12,8 +12,7 @@ Meteor.startup(function() {
       exports         : exports,
       displayName     : exported.displayName,
       description     : exported.description,
-      referenceUrl    : exported.referenceUrl,
-      allPublications : exported.allPublications
+      referenceUrl    : exported.referenceUrl
     });
   });
 });

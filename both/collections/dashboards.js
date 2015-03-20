@@ -12,13 +12,6 @@ _.extend(Dashboard.prototype, {
       return Widgets.construct(widget, this);
     }, this);
   },
-  subHandles: function() {
-    return _.flatten(_.map(this.widgets, function(widget) {
-      return _.map(Widgets.requiredPublications(widget), function(pub) {
-        return Meteor.subscribe(pub, widget.data);
-      });
-    }));
-  }
 });
 
 Dashboards = new Mongo.Collection('dashboards', {

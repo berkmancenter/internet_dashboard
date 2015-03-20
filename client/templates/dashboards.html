@@ -6,51 +6,15 @@
 </body>
 
 <template name="DashboardsShow">
-{{ test }}
+  {{ test }}
   <div id="dashboard" class="gridster">
   <ul>
   {{#each widgets}}
-    {{> WidgetShow }}
+    {{! WidgetShow }}
   {{/each}}
   </ul>
   </div>
   {{> DashboardsAdd }}
-</template>
-
-<template name="WidgetShow">
-  <li id="{{ widgetId }}"
-      class="widget col-{{ width }} row-{{ height }} {{ widgetClass }}"
-      data-sizex="{{ width }}" data-sizey="{{ height }}"
-      data-row="{{ position.x }}" data-col="{{ position.y }}">
-    <div class="buttons">
-      {{# if providesInfo }}
-      <a class="about" href="#" id="{{ widgetId 'about' }}"
-        title="About" data-toggle="popover" data-trigger="click"
-        data-html="true" data-placement="auto right" data-container="body">
-        <span class="glyphicon glyphicon-info-sign">&nbsp;</span>
-      </a>
-      <div class="hidden for-{{ widgetId 'about' }}">
-        {{> Template.dynamic template=infoTemplate data=data }}
-      </div>
-      {{/if}}
-
-      {{# if providesSettings }}
-      <a class="settings" href="#" id="{{ widgetId 'settings' }}"
-        title="Settings" data-toggle="popover" data-trigger="click"
-        data-html="true" data-placement="auto right" data-container="body">
-        <span class="glyphicon glyphicon-cog">&nbsp;</span>
-      </a>
-      <div class="hidden for-{{ widgetId 'settings' }}">
-        {{> Template.dynamic template=settingsTemplate data=data }}
-      </div>
-      {{/if}} 
-      <a href="#" class="remove-widget" title="Remove widget">
-        <span class="glyphicon glyphicon-remove"></span>
-      </a>
-    </div>
-
-   {{> Template.dynamic template=widgetTemplate data=data }}
-  </li>
 </template>
 
 <template name="DashboardsAdd">
