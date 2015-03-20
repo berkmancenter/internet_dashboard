@@ -65,5 +65,5 @@ IMon = {
   description: 'Internet Monitor data for countries',
   referenceUrl: 'http://thenetmonitor.org',
   constructor: IMonWidget,
-  requiredPubs: function() { return ['imon_countries']; },
+  requiredSubs: function() { return ['imon_countries']; },
 };

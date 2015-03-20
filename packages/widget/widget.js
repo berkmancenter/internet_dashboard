@@ -12,8 +12,8 @@ _.extend(Widget.prototype, {
   packageExports: function() {
     return Widgets.packageExports(this);
   },
-  requiredPublications: function() {
-    return this.packageExports().requiredPublications(this.data.toJSON());
+  requiredSubs: function() {
+    return this.packageExports().requiredSubs(this.data.toJSON());
   },
   toJSON: function() {
     var widget = _.pick(this, [
@@ -65,28 +65,11 @@ Widgets = new Mongo.Collection('widgets', {
 });
 
 _.extend(Widgets, {
-  templateHelpers: {
-    template: function(name) {
-      return this.exports + name;
-    },
-    widgetTemplate: function() {
-      return Widgets.templateHelpers.template.call(this, 'Widget');
-    },
-    settingsTemplate: function() {
-      return Widgets.templateHelpers.template.call(this, 'Settings');
-    },
-    infoTemplate: function() {
-      return Widgets.templateHelpers.template.call(this, 'Info');
-    },
-    providesTemplate: function(name) {
-      return !_.isUndefined(Template[this.exports + name]);
-    },
-    providesInfo: function() {
-      return Widgets.templateHelpers.providesTemplate.call(this, 'Info');
-    },
-    providesSettings: function() {
-      return Widgets.templateHelpers.providesTemplate.call(this, 'Settings');
-    }
+  templateFor: function(widget, name) {
+    return widget.exports + name;
+  },
+  providesTemplate: function(widget, name) {
+    return !_.isUndefined(Template[Widgets.templateFor(widget, name)]);
   },
 
   dashboardTemplate: function(widgetTemplate) {
@@ -102,14 +85,6 @@ _.extend(Widgets, {
     return Widgets.dashboardTemplate(widgetTemplate).data;
   },
 
-  templateEvents: {
-    'click .remove-widget': function(event, template) {
-      var dashboard = Widgets.dashboardData(template);
-
-      Meteor.call('removeWidgetFromDashboard', dashboard._id, this._id);
-    }
-  },
-
   construct: function(doc, dashboard) {
     var widget = new Package[doc.fromPackage][doc.exports].constructor(doc);
     widget.dashboard = dashboard;
@@ -121,8 +96,21 @@ _.extend(Widgets, {
     return Package[doc.fromPackage][doc.exports];
   },
 
-  requiredPublications: function(doc) {
-    return Widgets.packageExports(doc).requiredPublications(doc);
+  requiredSubs: function(doc) {
+    return Widgets.packageExports(doc).requiredSubs(doc);
+  },
+
+  subHandles: function(doc) {
+    return _.map(Widgets.requiredSubs(doc), function(pub) {
+      return Meteor.subscribe(pub, doc.data);
+    });
+  },
+  updatePositions: function(dashboard, positions) {
+    Meteor.call(
+      'updateDashboardWidgetPositions',
+      dashboard._id,
+      positions
+    );
   }
 });
 

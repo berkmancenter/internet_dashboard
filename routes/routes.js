@@ -20,5 +20,13 @@ Router.route('/dashboards/:_id', {
   },
   data: function() {
     return Dashboards.findOne(this.params._id);
+  },
+  onRerun: function() {
+    /*
+    console.log(this);
+    console.log(arguments);
+    console.log(this.data());
+    */
+    this.next();
   }
 });

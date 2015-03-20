@@ -22,7 +22,8 @@ Template.WidgetShow.helpers({
     return this.fromPackage;
   },
   widgetData: function() {
-    this.data._id = this._id;
+    this.data._dashboard = this.dashboard;
+    this.data.widget = this;
     return this.data;
   },
   ready: function() {
@@ -30,23 +31,43 @@ Template.WidgetShow.helpers({
   }
 });
 
+Template.WidgetShow.onCreated(function() {
+  var self = this;
+  _.each(self.data.requiredSubs, function(sub) {
+    self.subscribe(sub, self.data.data);
+  });
+});
+
 Template.WidgetShow.onRendered(function() {
-  var widgetNode = this.firstNode;
-  var widgetData = $(widgetNode).data();
+  var self = this;
   var dashboardTemplate = Widgets.dashboardTemplate(this);
 
-  dashboardTemplate.widgetNodes.push(widgetNode);
+  this.autorun(function(comp) {
+    if (self.subscriptionsReady()) {
+      console.log('here');
+      var widgetNode = self.firstNode;
+      console.log(widgetNode);
+      var widgetData = $(widgetNode).data();
 
-  // Gridster exists if we already rendered the dashboard
-  if (dashboardTemplate.gridster) {
-    dashboardTemplate.gridster.add_widget(
-      widgetNode, widgetData.sizex, widgetData.sizey
-    );
-    Widgets.updatePositions(
-      dashboardTemplate.data,
-      dashboardTemplate.gridster.serialize()
-    );
-  }
+      // FIXME gridster is already initialized, so this isn't working
+      dashboardTemplate.widgetNodes.push(widgetNode);
+      comp.stop();
+
+      // Gridster exists if we already rendered the dashboard
+      // FIXME This needs to check to make sure a widget is being added
+      /*
+      if (dashboardTemplate.gridster) {
+        dashboardTemplate.gridster.add_widget(
+          widgetNode, widgetData.sizex, widgetData.sizey
+        );
+        Widgets.updatePositions(
+          dashboardTemplate.data,
+          dashboardTemplate.gridster.serialize()
+        );
+      }
+      */
+    }
+  });
 });
 
 Template.WidgetShow.events({

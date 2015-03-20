@@ -8,10 +8,51 @@ _.extend(Dashboard.prototype, {
   },
   // Separate method because it might rely on subscriptions
   initWidgets: function() {
-    this.widgets = _.map(this.widgets, function(widget) {
-      return Widgets.construct(widget, this);
+    _.each(this.widgets, function(widget) {
+      this.initWidget(widget._id);
     }, this);
   },
+  subAndInitWidgets: function() {
+    return _.object(_.map(this.widgets, function(widget) {
+      return [widget._id, this.subAndInitWidget(widget)];
+    }, this));
+  },
+  initWidget: function(widget) {
+    var i = this.widgetIndex(widget);
+    this.widgets[i] = Widgets.construct(widget, this);
+  },
+  initWidgetById: function(id) {
+    var widget = this.widgetById(id);
+    this.initWidget(widget);
+  },
+  widgetById: function(id) {
+    return _.findWhere(this.widgets, { _id: id });
+  },
+  widgetIndex: function(widget) {
+    return _.indexOf(this.widgets, widget);
+  },
+  widgetIndexById: function(id) {
+    var widget = this.widgetById(id);
+    return this.widgetIndex(widget);
+  },
+  subAndInitWidget: function(widget) {
+    var self = this;
+    widget.subHandles = Widgets.subHandles(widget);
+    Tracker.autorun(function(comp) {
+      if (Utils.Subs.allReady(widget.subHandles)) {
+        self.initWidget(widget);
+        comp.stop();
+      }
+    });
+    return widget.subHandles;
+  },
+  subAndInitWidgetById: function(id) {
+    var widget = this.widgetById(id);
+    return this.subAndInitWidget(widget);
+  },
+  addWidget: function(widget) {
+    Meteor.call('addWidgetToDashboard', this._id, widget.toJSON());
+  }
 });
 
 Dashboards = new Mongo.Collection('dashboards', {
@@ -20,6 +61,10 @@ Dashboards = new Mongo.Collection('dashboards', {
     if (Meteor.isServer) {
       dash.initWidgets();
     }
+    dash.widgets = _.map(dash.widgets, function(widget) {
+      widget.requiredSubs = Widgets.requiredSubs(widget);
+      return widget;
+    });
     return dash;
   }
 });

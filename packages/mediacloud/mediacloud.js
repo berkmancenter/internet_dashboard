@@ -30,6 +30,6 @@ MediaCloud = {
   displayName: 'Media Cloud',
   description: 'a word cloud showing word usage in recent media in different countries',
   referenceUrl: 'http://mediacloud.org',
-  requiredPubs: function() { return ['mc_wordlists']; },
+  requiredSubs: function() { return ['mc_wordlists']; },
   constructor: MCWidget
 };

@@ -5,6 +5,7 @@
       data-row="{{ position.x }}" data-col="{{ position.y }}">
 
     <div class="buttons">
+    {{# if Template.subscriptionsReady }}
       {{# if providesInfo }}
       <a class="about" href="#" id="{{ widgetId 'about' }}"
         title="About" data-toggle="popover" data-trigger="click"
@@ -29,8 +30,13 @@
       <a href="#" class="remove-widget" title="Remove widget">
         <span class="glyphicon glyphicon-remove"></span>
       </a>
+    {{/if}}
     </div>
 
-    {{> Template.dynamic template=widgetTemplate data=widgetData }}
+    {{# if Template.subscriptionsReady }}
+      {{> Template.dynamic template=widgetTemplate data=widgetData }}
+    {{ else }}
+      {{ widgetLoading }}
+    {{/if}}
   </li>
 </template>
