@@ -14,6 +14,7 @@ _.extend(Dashboard.prototype, {
   },
   subAndInitWidgets: function() {
     return _.object(_.map(this.widgets, function(widget) {
+      console.log(widget);
       return [widget._id, this.subAndInitWidget(widget)];
     }, this));
   },

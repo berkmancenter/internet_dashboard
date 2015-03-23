@@ -44,13 +44,13 @@ Template.WidgetShow.onRendered(function() {
 
   this.autorun(function(comp) {
     if (self.subscriptionsReady()) {
-      console.log('here');
       var widgetNode = self.firstNode;
-      console.log(widgetNode);
       var widgetData = $(widgetNode).data();
 
-      // FIXME gridster is already initialized, so this isn't working
-      dashboardTemplate.widgetNodes.push(widgetNode);
+      dashboardTemplate.gridster.add_widget(
+        widgetNode, widgetData.sizex, widgetData.sizey,
+        widgetData.col, widgetData.row
+      );
       comp.stop();
 
       // Gridster exists if we already rendered the dashboard

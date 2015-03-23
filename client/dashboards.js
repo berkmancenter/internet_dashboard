@@ -24,9 +24,11 @@ Template.DashboardsShow.events({
 
 Template.DashboardsShow.onCreated(function() {
   var self = this;
-  var dash = self.data;
-  self.widgetNodes = [];
-  self.dashHandles = dash.subAndInitWidgets();
+
+  self.autorun(function() {
+    var dash = Template.currentData();
+    self.dashHandles = dash.subAndInitWidgets();
+  });
 });
 
 // FIXME Move this or make it a data attr
@@ -40,10 +42,39 @@ var serializePositions = function($widget, position) {
   return _.pick(position, ['col', 'row', 'size_x', 'size_y', 'id']);
 };
 
+var renderWidget = function(template, widgetId, handles) {
+  var dashboard = template.data;
+  console.log('render widget');
+
+  template.autorun(function(comp) {
+    if (Utils.Subs.allReady(handles)) {
+      var widget = dashboard.widgetById(widgetId);
+
+      if (widget.rendered) {
+        return;
+      }
+
+      widget.data = _.omit(widget.data, ['widget', '_dashboard']);
+
+      Blaze.renderWithData(
+        Template.WidgetShow, widget, template.find('#widgets'),
+        undefined, template.view
+      );
+
+      widget.rendered = true;
+      comp.stop();
+    }
+  });
+};
+
 Template.DashboardsShow.onRendered(function() {
   var self = this;
   var dash = self.data;
   var popoverSelector = '[data-toggle="popover"]';
+
+  _.each(self.dashHandles, function(handles, widgetId) {
+    renderWidget(self, widgetId, handles);
+  });
 
   $('body').popover({
     selector: popoverSelector,
@@ -59,33 +90,13 @@ Template.DashboardsShow.onRendered(function() {
     });
   });
 
-  _.each(self.dashHandles, function(handles, widgetId) {
-    self.autorun(function(comp) {
-      if (Utils.Subs.allReady(handles)) {
-        var widget = dash.widgetById(widgetId);
-        widget.data = _.omit(widget.data, ['widget', '_dashboard']);
-        if (!widget.rendered) {
-          Blaze.renderWithData(
-            Template.WidgetShow,
-            widget,
-            self.find('#widgets'),
-            undefined,
-            self.view
-          );
-          widget.rendered = true;
-          comp.stop();
-        }
-      }
-    });
-  });
-
   self.gridster = $('#dashboard > ul').gridster({
-    widget_selector: self.widgetNodes,
+    widget_selector: '',
     widget_margins: [dash.gutter / 2, dash.gutter / 2],
     widget_base_dimensions: [dash.columnWidth, dash.rowHeight],
     serialize_params: serializePositions,
     draggable: {
-      stop: function() { Widgets.updatePositions(dash, self.gridster.serialze()); }
+      stop: function() { Widgets.updatePositions(dash, self.gridster.serialize()); }
     }
   }).data('gridster');
 });
