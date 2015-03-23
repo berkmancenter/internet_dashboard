@@ -33,6 +33,8 @@ IMonWidget = function(doc) {
     height: 1
   });
 
+  if (_.isEmpty(this.data)) {
+  Meteor.subscribe(
   var defaultData = {
     country: Countries.findOne({ code: 'usa' })
   };
@@ -42,6 +44,7 @@ IMonWidget = function(doc) {
       defaultData.country.code
       );
 
+  }
   this.data = this.data || defaultData;
 };
 

@@ -19,14 +19,9 @@ Router.route('/dashboards/:_id', {
     ];
   },
   data: function() {
-    return Dashboards.findOne(this.params._id);
+    return Dashboards.findOne(this.params._id, { fields: { widgets: 0 } });
   },
-  onRerun: function() {
-    /*
-    console.log(this);
-    console.log(arguments);
-    console.log(this.data());
-    */
-    this.next();
+  action: function() { 
+    this.render();
   }
 });

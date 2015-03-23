@@ -20,68 +20,34 @@ Template.WidgetShow.helpers({
   },
   widgetClass: function() {
     return this.fromPackage;
-  },
-  widgetData: function() {
-    this.data._dashboard = this.dashboard;
-    this.data.widget = this;
-    return this.data;
-  },
-  ready: function() {
-    return false;
   }
 });
 
-Template.WidgetShow.onCreated(function() {
-  var self = this;
-  _.each(self.data.requiredSubs, function(sub) {
-    self.subscribe(sub, self.data.data);
-  });
-});
-
 Template.WidgetShow.onRendered(function() {
-  var self = this;
   var dashboardTemplate = Widgets.dashboardTemplate(this);
+  var widgetNode = this.firstNode;
+  var widgetData = $(widgetNode).data();
 
-  this.autorun(function(comp) {
-    if (self.subscriptionsReady()) {
-      console.log('here');
-      var widgetNode = self.firstNode;
-      console.log(widgetNode);
-      var widgetData = $(widgetNode).data();
-
-      // FIXME gridster is already initialized, so this isn't working
-      dashboardTemplate.widgetNodes.push(widgetNode);
-      comp.stop();
-
-      // Gridster exists if we already rendered the dashboard
-      // FIXME This needs to check to make sure a widget is being added
-      /*
-      if (dashboardTemplate.gridster) {
-        dashboardTemplate.gridster.add_widget(
-          widgetNode, widgetData.sizex, widgetData.sizey
-        );
-        Widgets.updatePositions(
-          dashboardTemplate.data,
-          dashboardTemplate.gridster.serialize()
-        );
-      }
-      */
-    }
-  });
+  /*
+  dashboardTemplate.gridster.add_widget(
+    widgetNode, widgetData.sizex, widgetData.sizey
+  );
+  */
 });
 
 Template.WidgetShow.events({
   'click .remove-widget': function(ev, template) {
-    var dashboard = Widgets.dashboardData(template);
-    var dashboardTemplate = Widgets.dashboardTemplate(template);
+    var dashboardTemplate = Dashboards.templateFromChild(template);
+    var dashboard = dashboardTemplate.data;
 
     dashboardTemplate.gridster.remove_widget(template.firstNode);
+
     Widgets.updatePositions(
       dashboardTemplate.data,
       dashboardTemplate.gridster.serialize()
     );
 
-    Meteor.call('removeWidgetFromDashboard', dashboard._id, this._id);
+    dashboard.removeWidget(this);
   },
 });
 

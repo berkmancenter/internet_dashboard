@@ -70,11 +70,11 @@ var updateData = function() {
 };
 
 
-if (WordLists.find({}).count() === 0) {
+if (false && WordLists.find({}).count() === 0) {
   updateData();
 }
 
-Meteor.setInterval(updateData, Settings.updateEvery);
+// Meteor.setInterval(updateData, Settings.updateEvery);
 
 Meteor.publish('mc_wordlists', function(data) {
   var countryCode = data ? data.countryCode : Settings.defaultCountry;

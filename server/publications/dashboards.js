@@ -3,5 +3,5 @@ Meteor.publish('dashboard', function(id) {
 });
 
 Meteor.publish('availableWidgets', function() {
-  return Widgets.find({});
+  return WidgetTypes.find({});
 });
