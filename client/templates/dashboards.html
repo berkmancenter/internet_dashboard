@@ -9,6 +9,9 @@
   {{ test }}
   <div id="dashboard" class="gridster">
   <ul id="widgets">
+    {{# each widgets }}
+      {{> WidgetShow }}
+    {{/each}}
   </ul>
   </div>
   {{> DashboardsAdd }}
@@ -31,6 +34,7 @@
         {{# each availableWidgets }}
         <div class="widget-option">
           <a href="#" class="add-widget">Add {{ displayName }}</a>
+          <p>{{ description }}</p>
         </div>
         {{/each}}
       </div>

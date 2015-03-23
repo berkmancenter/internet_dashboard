@@ -21,6 +21,7 @@ _.extend(Country.prototype, {
 
 Countries.seedCountries = function() {
   HTTP.get('https://thenetmonitor.org/countries/usa/access', function (error, result) {
+    console.log(error);
     if (!error && result.statusCode == 200) {
       var env = Npm.require('jsdom').env;
       env(result.content, Meteor.bindEnvironment(function(error, window) {
@@ -40,9 +41,8 @@ Countries.seedCountries = function() {
   });
 };
 
-// TODO: fix this
 if (Countries.find({}).count() === 0) {
-  Meteor.startup(Countries.seedCountries);
+  Countries.seedCountries();
 }
 
 Meteor.publish('imon_countries', function() {

@@ -15,8 +15,6 @@ Template.IMonSettings.events({
       indicator: this.widget.fetchIndicatorForCountry(indicator, countryCode)
     };
     //this.close();
-    console.log('save');
-    console.log(this);
-    this.setData(newData);
+    this.set(newData);
   }
 });

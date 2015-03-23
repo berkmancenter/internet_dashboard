@@ -33,19 +33,22 @@ IMonWidget = function(doc) {
     height: 1
   });
 
-  if (_.isEmpty(this.data)) {
-  Meteor.subscribe(
-  var defaultData = {
-    country: Countries.findOne({ code: 'usa' })
-  };
+  //FIXME make the function pull from functions
+  if (_.isEmpty(_.omit(this.data, ['widget', 'set', 'toJSON']))) {
+    var self = this;
+    Meteor.subscribe('imon_countries', function() {
+      var defaultData = {
+        country: Countries.findOne({ code: 'usa' })
+      };
 
-  defaultData.indicator = this.fetchIndicatorForCountry(
-      'Percentage of individuals using the Internet',
-      defaultData.country.code
+      defaultData.indicator = self.fetchIndicatorForCountry(
+        'Percentage of individuals using the Internet',
+        defaultData.country.code
       );
-
+      
+      self.data.set(defaultData);
+    });
   }
-  this.data = this.data || defaultData;
 };
 
 IMonWidget.prototype = Object.create(Widget.prototype);
@@ -64,9 +67,8 @@ _.extend(IMonWidget.prototype, {
 });
 
 IMon = {
+  constructor: IMonWidget,
   displayName: 'Internet Monitor',
   description: 'Internet Monitor data for countries',
   referenceUrl: 'http://thenetmonitor.org',
-  constructor: IMonWidget,
-  requiredSubs: function() { return ['imon_countries']; },
 };

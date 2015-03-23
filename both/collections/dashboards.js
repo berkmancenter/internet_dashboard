@@ -5,13 +5,14 @@ Dashboard = function(doc) {
 _.extend(Dashboard.prototype, {
   addWidget: function(widget) {
     widget.dashboard = this;
+    widget.dashboardId = this._id;
 
     // Because widget templates only see the data bit
     widget.data._dashboard = this;
-    Meteor.call('addWidgetToDashboard', this._id, widget.toJSON());
+    Meteor.call('addWidgetToDashboard', widget.toJSON());
   },
   removeWidget: function(widget) {
-    Meteor.call('removeWidgetFromDashboard', dashboard._id, this._id);
+    Meteor.call('removeWidgetFromDashboard', this._id);
   }
 });
 
@@ -40,13 +41,13 @@ Dashboards.attachSchema(new SimpleSchema({
 
 Dashboards.templateFromChild = function(template) {
   var dashboardView = template.view;
-  while (dashboardView.name !== 'Template.DashboardsShow'
-      && dashboardView.parentView) {
+  while (dashboardView.name !== 'Template.DashboardsShow' &&
+      dashboardView.parentView) {
     dashboardView = dashboardView.parentView;
   }
   return dashboardView.templateInstance();
 };
 
-Dashboards.dataFromChild: function(template) {
+Dashboards.dataFromChild = function(template) {
   return Dashboards.templateFromChild(template).data;
-},
+};

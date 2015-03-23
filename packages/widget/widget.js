@@ -14,13 +14,51 @@ _.extend(Widget.prototype, {
   },
   toJSON: function() {
     var widget = _.pick(this, [
-      '_id', 'data', 'typeId', 'dashboardId', 'height', 'width'
+      '_id', 'data', 'typeId', 'dashboardId', 'height',
+      'width', 'packageName', 'exportedVar'
     ]);
-    widget.data = widget.data.toJSON();
+    widget.data = this.data.toJSON();
     return widget;
   }
 });
 
+// Static methods
+_.extend(Widget, {
+  construct: function(doc) {
+    return new Package[doc.packageName][doc.exportedVar].constructor(doc);
+  },
+
+  templateFor: function(widget, name) {
+    return widget.exportedVar + name;
+  },
+  providesTemplate: function(widget, name) {
+    return !_.isUndefined(Template[Widget.templateFor(widget, name)]);
+  }
+});
+
+// This is the data box that widget authors can use
+WidgetData = function(doc) {
+  _.extend(this, doc);
+};
+
+_.extend(WidgetData.prototype, {
+  set: function(doc) {
+    _.extend(this, doc);
+    Meteor.call(
+      'updateDashboardWidgetData',
+      this._dashboard._id,
+      this.widget._id,
+      this.toJSON()
+    );
+  },
+  toJSON: function() {
+    return _.omit(this, [
+      '_dashboard', 'widget', 'set', 'toJSON'
+    ]);
+  }
+});
+
+// Collection
 Widgets = new Mongo.Collection('widgets', {
   transform: function(doc) { return Widget.construct(doc); }
 });
@@ -29,6 +67,12 @@ Widgets.attachSchema(new SimpleSchema({
   typeId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id
+  },
+  packageName: {
+    type: String,
+  },
+  exportedVar: {
+    type: String
   },
   dashboardId: {
     type: String,
@@ -64,51 +108,9 @@ Widgets.attachSchema(new SimpleSchema({
   }
 }));
 
-Widgets.updatePositions = function(dashboard, positions) {
+Widgets.updatePositions = function(positions) {
   Meteor.call(
     'updateWidgetPositions',
-    dashboard._id,
     positions
   );
-}
-
-
-// This is the data box that widget authors can use
-WidgetData = function(doc) {
-  _.extend(this, doc);
 };
-
-_.extend(WidgetData.prototype, {
-  set: function(doc) {
-    _.extend(this, doc);
-    Meteor.call(
-      'updateDashboardWidgetData',
-      this._dashboard._id,
-      this.widget._id,
-      this.toJSON()
-    );
-  },
-  toJSON: function() {
-    return _.omit(this, [
-      '_dashboard', 'widget', 'setData', 'toJSON'
-    ]);
-  }
-});
-
-
-
-// Static methods
-_.extend(Widget, {
-  construct: function(doc, dashboard) {
-    return new Package[doc.fromPackage][doc.exports].constructor(doc);
-  },
-
-  templateFor: function(widget, name) {
-    return widget.exports + name;
-  },
-  providesTemplate: function(widget, name) {
-    return !_.isUndefined(Template[Widgets.templateFor(widget, name)]);
-  },
-
-
-});

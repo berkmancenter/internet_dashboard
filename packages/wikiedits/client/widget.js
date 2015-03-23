@@ -1,4 +1,8 @@
-Template.WikiEditsWidget.rendered = function() {
+Template.WikiEditsWidget.onCreated(function() {
+  this.subscribe('wikiedits_binned');
+});
+
+Template.WikiEditsWidget.onRendered(function() {
   var chart = this.$('.wiki-history').epoch({
     axes: [],
     windowSize: 20,
@@ -11,9 +15,11 @@ Template.WikiEditsWidget.rendered = function() {
   var template = this;
 
   this.autorun(function() {
-    var latestBin = EditsOverTime.findOne();
-    var data = [{ time: latestBin.time.valueOf() / 1000, y: latestBin.count }];
-    chart.push(data);
-    template.$('.wiki-history-count').text(data[0].y);
+    if (template.subscriptionsReady()) {
+      var latestBin = EditsOverTime.findOne();
+      var data = [{ time: latestBin.time.valueOf() / 1000, y: latestBin.count }];
+      chart.push(data);
+      template.$('.wiki-history-count').text(data[0].y);
+    }
   });
-};
+});

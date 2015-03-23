@@ -1,38 +1,40 @@
 Template.WidgetShow.helpers({
   widgetTemplate: function() {
-    return Widgets.templateFor(this, 'Widget');
+    return Widget.templateFor(this, 'Widget');
   },
   settingsTemplate: function() {
-    return Widgets.templateFor(this, 'Settings');
+    return Widget.templateFor(this, 'Settings');
   },
   infoTemplate: function() {
-    return Widgets.templateFor(this, 'Info');
+    return Widget.templateFor(this, 'Info');
   },
   providesInfo: function() {
-    return Widgets.providesTemplate(this, 'Info');
+    return Widget.providesTemplate(this, 'Info');
   },
   providesSettings: function() {
-    return Widgets.providesTemplate(this, 'Settings');
+    return Widget.providesTemplate(this, 'Settings');
   },
   widgetId: function(aspect) {
     aspect = aspect || 'widget';
-    return this.fromPackage + '-' + this._id + '-' + aspect;
+    return this.packageName + '-' + this._id + '-' + aspect;
   },
   widgetClass: function() {
-    return this.fromPackage;
+    return this.packageName;
   }
 });
 
 Template.WidgetShow.onRendered(function() {
-  var dashboardTemplate = Widgets.dashboardTemplate(this);
+  var dashboardTemplate = Dashboards.templateFromChild(this);
   var widgetNode = this.firstNode;
   var widgetData = $(widgetNode).data();
 
-  /*
-  dashboardTemplate.gridster.add_widget(
-    widgetNode, widgetData.sizex, widgetData.sizey
-  );
-  */
+  if (dashboardTemplate.gridster) {
+    dashboardTemplate.gridster.add_widget(
+      widgetNode, widgetData.sizex, widgetData.sizey
+    );
+  } else {
+    dashboardTemplate.widgetNodes.push(widgetNode);
+  }
 });
 
 Template.WidgetShow.events({
