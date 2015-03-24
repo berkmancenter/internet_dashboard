@@ -26,7 +26,7 @@ Template.AkamaiTrafficWidget.onRendered(function() {
 
     var hourData = [ { label: 'Hits', values: [ ] } ];
     var dayData = [ { label: 'Hits', values: [ ] } ];
-    var latestFeed = VisitorFeed.findOne({ regionId: template.data.regionId });
+    var latestFeed = VisitorFeed.findOne({ regionId: template.data.regionId }, { sort: { ts: -1 } });
 
     hourData[0].values = _.map(latestFeed.lastHour, function(object) {
       return { x: object.timestamp, y: object.value };
