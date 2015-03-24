@@ -1,1 +1,1 @@
-WidgetPackages = ['imon', 'wikiedits', 'mediacloud'];
+WidgetPackages = ['imon', 'wikiedits', 'mediacloud', 'akamaitraffic'];

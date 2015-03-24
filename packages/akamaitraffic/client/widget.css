@@ -1,0 +1,18 @@
+.akamaitraffic {
+  padding: 10px 20px;
+}
+
+.akamai-traffic-hour, .akamai-traffic-day {
+  position: relative;
+  height: 60px;
+  width: 120%;
+  left: -30px;
+}
+
+.akamai-traffic-hour .hits .area {
+  fill: #428BCA;
+}
+
+.akamai-traffic-day .hits .line {
+  stroke: red;
+}

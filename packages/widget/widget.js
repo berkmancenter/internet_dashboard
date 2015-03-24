@@ -45,8 +45,7 @@ _.extend(WidgetData.prototype, {
   set: function(doc) {
     _.extend(this, doc);
     Meteor.call(
-      'updateDashboardWidgetData',
-      this._dashboard._id,
+      'updateWidgetData',
       this.widget._id,
       this.toJSON()
     );

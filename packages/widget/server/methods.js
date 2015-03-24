@@ -20,4 +20,7 @@ Meteor.methods({
   removeWidgetFromDashboard: function(widgetId) {
     Widgets.remove(widgetId);
   },
+  updateWidgetData: function(widgetId, data) {
+    Widgets.update(widgetId, { $set: { data: data } });
+  }
 });
