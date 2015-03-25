@@ -1,3 +1,7 @@
+Template.IMonSettings.onCreated(function() {
+  this.subscribe('imon_countries');
+});
+
 Template.IMonSettings.helpers({
   countries: function() { return Countries.find({}, { sort: { name: 1 } }); },
   indicators: function(countryCode) {

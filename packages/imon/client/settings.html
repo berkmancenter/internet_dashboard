@@ -1,4 +1,5 @@
 <template name="IMonSettings">
+{{# if Template.subscriptionsReady }}
 <div class="form-group">
   <label for="country-select">Country</label>
   <select class="country form-control" id="country-select" name="country">
@@ -18,4 +19,7 @@
 </div>
 
 <button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  <p>Loading...</p>
+{{/if}}
 </template>

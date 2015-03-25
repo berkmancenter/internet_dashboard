@@ -5,6 +5,17 @@
       data-row="{{ position.x }}" data-col="{{ position.y }}">
 
     <div class="buttons">
+      {{# if providesSettings }}
+      <a class="settings" href="#" id="{{ widgetId 'settings' }}"
+        title="Settings" data-toggle="popover" data-trigger="click"
+        data-html="true" data-placement="auto right" data-container="body">
+        <span class="glyphicon glyphicon-cog"></span>
+      </a>
+      <div class="hidden for-{{ widgetId 'settings' }}">
+        {{> Template.dynamic template=settingsTemplate data=data }}
+      </div>
+      {{/if}} 
+
       <a class="about" href="#" id="{{ widgetId 'about' }}"
         title="About" data-toggle="popover" data-trigger="click"
         data-html="true" data-placement="auto right" data-container="body">
@@ -18,16 +29,6 @@
       {{/if}}
       </div>
 
-      {{# if providesSettings }}
-      <a class="settings" href="#" id="{{ widgetId 'settings' }}"
-        title="Settings" data-toggle="popover" data-trigger="click"
-        data-html="true" data-placement="auto right" data-container="body">
-        <span class="glyphicon glyphicon-cog"></span>
-      </a>
-      <div class="hidden for-{{ widgetId 'settings' }}">
-        {{> Template.dynamic template=settingsTemplate data=data }}
-      </div>
-      {{/if}} 
       <a href="#" class="remove-widget" title="Remove widget">
         <span class="glyphicon glyphicon-remove"></span>
       </a>
