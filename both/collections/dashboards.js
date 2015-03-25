@@ -12,7 +12,7 @@ _.extend(Dashboard.prototype, {
     Meteor.call('addWidgetToDashboard', widget.toJSON());
   },
   removeWidget: function(widget) {
-    Meteor.call('removeWidgetFromDashboard', this._id);
+    Meteor.call('removeWidgetFromDashboard', widget._id);
   }
 });
 

@@ -16,6 +16,7 @@ Template.DashboardsAdd.helpers({
 Template.DashboardsShow.events({
   'click a.add-widget': function(ev, template) {
     var dashboard = Dashboards.dataFromChild(template);
+    var dashboardTemplate = Dashboards.templateFromChild(template);
     var widgetAttrs = _.pick(this, 'packageName', 'exportedVar');
     widgetAttrs.typeId = this._id;
 
@@ -68,4 +69,7 @@ Template.DashboardsShow.onRendered(function() {
       stop: function() { Widgets.updatePositions(self.gridster.serialize()); }
     }
   }).data('gridster');
+
+  //Widgets.updatePositions(self.gridster.serialize());
+
 });

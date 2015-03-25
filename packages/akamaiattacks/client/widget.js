@@ -15,6 +15,7 @@ Template.AkamaiAttacksWidget.onRendered(function() {
     }
 
     var docs = CountryAttacks.find({}, { sort: { percentAboveAverage: -1 }, limit: Settings.limit });
+    template.$('.akamai-attacks').html('');
     docs.forEach(function(doc) {
       template.$('.akamai-attacks').append('<li>' + doc.regionLabel + ' ' + doc.percentAboveAverage + '</li>');
     });

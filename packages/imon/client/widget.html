@@ -1,4 +1,5 @@
 <template name="IMonWidget">
+{{# if Template.subscriptionsReady }}
 <h1>{{ country.name }}</h1>
 <dl>
   <dd>{{ indicator.name }}</dd>
@@ -13,4 +14,7 @@
   </dt>
 </dl>
 <span class="indicator-value">{{ indicatorValue }}</span>
+{{ else }}
+{{ widgetLoading }}
+{{/if}}
 </template>

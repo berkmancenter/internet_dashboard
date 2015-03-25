@@ -32,6 +32,7 @@ Template.WidgetShow.onRendered(function() {
     dashboardTemplate.gridster.add_widget(
       widgetNode, widgetData.sizex, widgetData.sizey
     );
+    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
   } else {
     dashboardTemplate.widgetNodes.push(widgetNode);
   }
@@ -43,12 +44,7 @@ Template.WidgetShow.events({
     var dashboard = dashboardTemplate.data;
 
     dashboardTemplate.gridster.remove_widget(template.firstNode);
-
-    Widgets.updatePositions(
-      dashboardTemplate.data,
-      dashboardTemplate.gridster.serialize()
-    );
-
+    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
     dashboard.removeWidget(this);
   },
 });
