@@ -1,9 +1,8 @@
 Package.describe({
-  name: 'akamaitraffic2',
+  name: 'akamaiattacks',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
-  // URL to the Git repository containing the source code for this package.
 });
 
 Package.onUse(function(api) {
@@ -12,7 +11,7 @@ Package.onUse(function(api) {
   api.use(['http'], 'server');
   api.use(['templating', 'pfafman:epoch'], 'client');
 
-  api.addFiles('akamaitraffic2.js');
+  api.addFiles('akamaiattacks.js');
   api.addFiles(['server.js'], 'server');
   api.addFiles([
     'client/settings.html',
@@ -22,7 +21,7 @@ Package.onUse(function(api) {
     'client/widget.css',
     ], 'client');
 
-  api.export('AkamaiTraffic2');
+  api.export('AkamaiAttacks');
 });
 
 Npm.depends({

@@ -1,12 +1,12 @@
-Template.AkamaiTraffic2Widget.helpers({
-  updatedAt: function() { return CountryTraffic.findOne().updatedAt; }
+Template.AkamaiAttacksWidget.helpers({
+  updatedAt: function() { return CountryAttacks.findOne().updatedAt; }
 });
 
-Template.AkamaiTraffic2Widget.onCreated(function() {
-  this.subscribe('country_traffic');
+Template.AkamaiAttacksWidget.onCreated(function() {
+  this.subscribe('country_attacks');
 });
 
-Template.AkamaiTraffic2Widget.onRendered(function() {
+Template.AkamaiAttacksWidget.onRendered(function() {
   var template = this;
 
   this.autorun(function() {
@@ -14,9 +14,9 @@ Template.AkamaiTraffic2Widget.onRendered(function() {
       return;
     }
 
-    var docs = CountryTraffic.find({}, { sort: { percentAboveAverage: -1 }, limit: Settings.limit });
+    var docs = CountryAttacks.find({}, { sort: { percentAboveAverage: -1 }, limit: Settings.limit });
     docs.forEach(function(doc) {
-      template.$('.akamai-traffic').append('<li>' + doc.regionLabel + ' ' + doc.percentAboveAverage + '</li>');
+      template.$('.akamai-attacks').append('<li>' + doc.regionLabel + ' ' + doc.percentAboveAverage + '</li>');
     });
   });
 });

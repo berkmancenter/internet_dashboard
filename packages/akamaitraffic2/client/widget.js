@@ -15,6 +15,7 @@ Template.AkamaiTraffic2Widget.onRendered(function() {
     }
 
     var docs = CountryTraffic.find({}, { sort: { percentAboveAverage: -1 }, limit: Settings.limit });
+    template.$('.akamai-traffic').html('');
     docs.forEach(function(doc) {
       template.$('.akamai-traffic').append('<li>' + doc.regionLabel + ' ' + doc.percentAboveAverage + '</li>');
     });
