@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'percent-online',
+  name: 'connection-speed',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -13,7 +13,7 @@ Package.onUse(function(api) {
   api.use(['imon-data', 'underscore', 'jquery', 'widget', 'mongo','aldeed:simple-schema']);
   api.use(['templating'], 'client');
 
-  api.addFiles(['percent_online.js']);
+  api.addFiles(['connection_speed.js']);
   api.addFiles(['server/publications.js'], 'server');
   api.addFiles([
     'client/settings.html',
@@ -23,5 +23,5 @@ Package.onUse(function(api) {
     'client/widget.css',
     ], 'client');
 
-  api.export('PercentOnline');
+  api.export('ConnectionSpeed');
 });

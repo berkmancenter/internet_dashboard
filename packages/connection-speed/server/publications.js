@@ -1,4 +1,4 @@
-Meteor.publish('percent_online', function() {
+Meteor.publish('connection_speed', function() {
   return IMonCountries.find({}, { fields: { indicators: {
       $elemMatch: { name: Settings.indicatorName }
   }}});
