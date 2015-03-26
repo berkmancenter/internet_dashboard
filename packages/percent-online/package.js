@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'imon',
+  name: 'percent-online',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -8,15 +8,14 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.0.3.2');
+  api.versionsFrom('1.0.4.2');
+
+  api.use(['imon-data', 'underscore', 'jquery', 'widget', 'mongo','aldeed:simple-schema']);
   api.use(['http'], 'server');
-  api.use(['underscore', 'jquery', 'widget', 'mongo','aldeed:simple-schema']);
   api.use(['templating'], 'client');
 
-  api.addFiles(['imon.js']);
-
-  api.addFiles(['server/imon.js'], 'server');
-
+  api.addFiles(['percent_online.js']);
+  api.addFiles(['server/publications.js'], 'server');
   api.addFiles([
     'client/settings.html',
     'client/settings.js',
@@ -25,7 +24,7 @@ Package.onUse(function(api) {
     'client/widget.css',
     ], 'client');
 
-  api.export('IMon');
+  api.export('PercentOnline');
 });
 
 Npm.depends({
