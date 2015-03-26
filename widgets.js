@@ -1,1 +1,9 @@
-WidgetPackages = ['imon', 'wikiedits', 'mediacloud'];
+WidgetPackages = [
+  'akamaiattacks',
+  'akamaitraffic',
+  'akamaitraffic2',
+  'percent-online',
+  'connection-speed',
+  'broadband-cost',
+  'wikiedits',
+];

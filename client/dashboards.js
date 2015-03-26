@@ -1,34 +1,29 @@
 Template.DashboardsShow.helpers({
   test: function() {
     console.log('rendered dash');
+  },
+  widgets: function() {
+    return Widgets.find();
+  }
+});
+
+Template.DashboardsAdd.helpers({
+  availableWidgets: function() {
+    return WidgetTypes.find();
   }
 });
 
 Template.DashboardsShow.events({
   'click a.add-widget': function(ev, template) {
-    var dashboard = Widgets.dashboardData(template);
-    var widgetAttrs = _.pick(this, 'fromPackage', 'exports');
-    var subHandles = Widgets.subHandles(widgetAttrs);
+    var dashboard = Dashboards.dataFromChild(template);
+    var dashboardTemplate = Dashboards.templateFromChild(template);
+    var widgetAttrs = _.pick(this, 'packageName', 'exportedVar');
+    widgetAttrs.typeId = this._id;
 
-    Tracker.autorun(function(comp) {
-      if (Utils.Subs.allReady(subHandles)) {
-        // FIXME I feel like this can be cleaned up.
-        var widget = Widgets.construct(widgetAttrs, dashboard);
-        dashboard.addWidget(widget);
-        $('.add-widget-modal').modal('hide');
-        comp.stop();
-      }
-    });
+    var widget = Widget.construct(widgetAttrs);
+    dashboard.addWidget(widget);
+    $('.add-widget-modal').modal('hide');
   }
-});
-
-Template.DashboardsShow.onCreated(function() {
-  var self = this;
-
-  self.autorun(function() {
-    var dash = Template.currentData();
-    self.dashHandles = dash.subAndInitWidgets();
-  });
 });
 
 // FIXME Move this or make it a data attr
@@ -42,30 +37,9 @@ var serializePositions = function($widget, position) {
   return _.pick(position, ['col', 'row', 'size_x', 'size_y', 'id']);
 };
 
-var renderWidget = function(template, widgetId, handles) {
-  var dashboard = template.data;
-  console.log('render widget');
-
-  template.autorun(function(comp) {
-    if (Utils.Subs.allReady(handles)) {
-      var widget = dashboard.widgetById(widgetId);
-
-      if (widget.rendered) {
-        return;
-      }
-
-      widget.data = _.omit(widget.data, ['widget', '_dashboard']);
-
-      Blaze.renderWithData(
-        Template.WidgetShow, widget, template.find('#widgets'),
-        undefined, template.view
-      );
-
-      widget.rendered = true;
-      comp.stop();
-    }
-  });
-};
+Template.DashboardsShow.onCreated(function() {
+  this.widgetNodes = [];
+});
 
 Template.DashboardsShow.onRendered(function() {
   var self = this;
@@ -90,13 +64,16 @@ Template.DashboardsShow.onRendered(function() {
     });
   });
 
-  self.gridster = $('#dashboard > ul').gridster({
-    widget_selector: '',
+  self.gridster = self.$('#widgets').gridster({
+    widget_selector: self.widgetNodes,
     widget_margins: [dash.gutter / 2, dash.gutter / 2],
     widget_base_dimensions: [dash.columnWidth, dash.rowHeight],
     serialize_params: serializePositions,
     draggable: {
-      stop: function() { Widgets.updatePositions(dash, self.gridster.serialize()); }
+      stop: function() { Widgets.updatePositions(self.gridster.serialize()); }
     }
   }).data('gridster');
+
+  //Widgets.updatePositions(self.gridster.serialize());
+
 });

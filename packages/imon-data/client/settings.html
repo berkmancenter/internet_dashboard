@@ -1,0 +1,25 @@
+<template name="IMonSettings">
+{{# if Template.subscriptionsReady }}
+<div class="form-group">
+  <label for="country-select">Country</label>
+  <select class="country form-control" id="country-select" name="country">
+  {{# each countries }}
+  <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
+  {{/each}}
+</select>
+</div>
+
+<div class="form-group">
+  <label for="i-select">Indicator</label>
+  <select class="indicator form-control" id="i-select" name="indicator">
+  {{# each indicators country.code }}
+    <option value="{{ name }}" {{ isSelected name ../indicator.name }}>{{ name }}</option>
+  {{/each}}
+  </select>
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+{{ widgetLoading }}
+{{/if}}
+</template>

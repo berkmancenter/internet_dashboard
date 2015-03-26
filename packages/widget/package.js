@@ -13,9 +13,11 @@ Package.onUse(function(api) {
   api.use(['underscore', 'mongo', 'aldeed:simple-schema']);
   api.use(['templating'], 'client');
 
-  api.addFiles('widget.js');
+  api.addFiles(['widget.js', 'widget_types.js']);
+  api.addFiles(['server/publications.js', 'server/methods.js', 'server/seeds.js'], 'server');
   api.addFiles(['client/widget.html', 'client/widget.js'], 'client');
 
   api.export('Widget');
   api.export('Widgets');
+  api.export('WidgetTypes');
 });

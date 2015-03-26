@@ -1,0 +1,27 @@
+Package.describe({
+  name: 'connection-speed',
+  version: '0.0.1',
+  // Brief, one-line summary of the package.
+  summary: '',
+  // URL to the Git repository containing the source code for this package.
+  git: '',
+});
+
+Package.onUse(function(api) {
+  api.versionsFrom('1.0.4.2');
+
+  api.use(['imon-data', 'underscore', 'jquery', 'widget', 'mongo','aldeed:simple-schema']);
+  api.use(['templating'], 'client');
+
+  api.addFiles(['connection_speed.js']);
+  api.addFiles(['server/publications.js'], 'server');
+  api.addFiles([
+    'client/settings.html',
+    'client/settings.js',
+    'client/widget.html',
+    'client/widget.js',
+    'client/widget.css',
+    ], 'client');
+
+  api.export('ConnectionSpeed');
+});

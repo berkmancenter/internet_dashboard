@@ -1,87 +1,51 @@
 Template.WidgetShow.helpers({
   widgetTemplate: function() {
-    return Widgets.templateFor(this, 'Widget');
+    return Widget.templateFor(this, 'Widget');
   },
   settingsTemplate: function() {
-    return Widgets.templateFor(this, 'Settings');
+    return Widget.templateFor(this, 'Settings');
   },
   infoTemplate: function() {
-    return Widgets.templateFor(this, 'Info');
+    return Widget.templateFor(this, 'Info');
   },
   providesInfo: function() {
-    return Widgets.providesTemplate(this, 'Info');
+    return Widget.providesTemplate(this, 'Info');
   },
   providesSettings: function() {
-    return Widgets.providesTemplate(this, 'Settings');
+    return Widget.providesTemplate(this, 'Settings');
   },
   widgetId: function(aspect) {
     aspect = aspect || 'widget';
-    return this.fromPackage + '-' + this._id + '-' + aspect;
+    return this.packageName + '-' + this._id + '-' + aspect;
   },
   widgetClass: function() {
-    return this.fromPackage;
-  },
-  widgetData: function() {
-    this.data._dashboard = this.dashboard;
-    this.data.widget = this;
-    return this.data;
-  },
-  ready: function() {
-    return false;
+    return this.packageName;
   }
 });
 
-Template.WidgetShow.onCreated(function() {
-  var self = this;
-  _.each(self.data.requiredSubs, function(sub) {
-    self.subscribe(sub, self.data.data);
-  });
-});
-
 Template.WidgetShow.onRendered(function() {
-  var self = this;
-  var dashboardTemplate = Widgets.dashboardTemplate(this);
+  var dashboardTemplate = Dashboards.templateFromChild(this);
+  var widgetNode = this.firstNode;
+  var widgetData = $(widgetNode).data();
 
-  this.autorun(function(comp) {
-    if (self.subscriptionsReady()) {
-      var widgetNode = self.firstNode;
-      var widgetData = $(widgetNode).data();
-
-      dashboardTemplate.gridster.add_widget(
-        widgetNode, widgetData.sizex, widgetData.sizey,
-        widgetData.col, widgetData.row
-      );
-      comp.stop();
-
-      // Gridster exists if we already rendered the dashboard
-      // FIXME This needs to check to make sure a widget is being added
-      /*
-      if (dashboardTemplate.gridster) {
-        dashboardTemplate.gridster.add_widget(
-          widgetNode, widgetData.sizex, widgetData.sizey
-        );
-        Widgets.updatePositions(
-          dashboardTemplate.data,
-          dashboardTemplate.gridster.serialize()
-        );
-      }
-      */
-    }
-  });
+  if (dashboardTemplate.gridster) {
+    dashboardTemplate.gridster.add_widget(
+      widgetNode, widgetData.sizex, widgetData.sizey
+    );
+    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
+  } else {
+    dashboardTemplate.widgetNodes.push(widgetNode);
+  }
 });
 
 Template.WidgetShow.events({
   'click .remove-widget': function(ev, template) {
-    var dashboard = Widgets.dashboardData(template);
-    var dashboardTemplate = Widgets.dashboardTemplate(template);
+    var dashboardTemplate = Dashboards.templateFromChild(template);
+    var dashboard = dashboardTemplate.data;
 
     dashboardTemplate.gridster.remove_widget(template.firstNode);
-    Widgets.updatePositions(
-      dashboardTemplate.data,
-      dashboardTemplate.gridster.serialize()
-    );
-
-    Meteor.call('removeWidgetFromDashboard', dashboard._id, this._id);
+    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
+    dashboard.removeWidget(this);
   },
 });
 

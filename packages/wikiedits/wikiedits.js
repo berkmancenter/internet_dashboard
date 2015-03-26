@@ -11,10 +11,6 @@ Settings = {
   defaultChannel: 'all'
 };
 
-var requiredPublications = function() {
-  return ['wikiedits_binned', 'wikipedias'];
-};
-
 WikiWidget = function(doc) {
   Widget.call(this, doc);
 
@@ -23,11 +19,12 @@ WikiWidget = function(doc) {
     height: 1
   });
 
-  this.data = {
+  _.extend(this.data, {
     channel: 'all',
     historyLength: Settings.historyLength
-  };
-}
+  });
+};
+
 WikiWidget.prototype = Object.create(Widget.prototype);
 WikiWidget.prototype.constructor = WikiWidget;
 
@@ -35,6 +32,5 @@ WikiEdits = {
   displayName: 'Wikipedia edits',
   description: 'a steaming graph of the number of edits to various wikipedias',
   referenceUrl: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
-  requiredSubs: function() { return ['wikiedits_binned', 'wikipedias']; },
   constructor: WikiWidget
 };

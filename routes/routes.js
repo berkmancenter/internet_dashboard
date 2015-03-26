@@ -15,18 +15,14 @@ Router.route('/dashboards/:_id', {
   waitOn: function() {
     return [
       Meteor.subscribe('dashboard', this.params._id),
-      Meteor.subscribe('availableWidgets')
+      Meteor.subscribe('dashboardWidgets', this.params._id),
+      Meteor.subscribe('availableWidgets'),
     ];
   },
   data: function() {
     return Dashboards.findOne(this.params._id);
   },
-  onRerun: function() {
-    /*
-    console.log(this);
-    console.log(arguments);
-    console.log(this.data());
-    */
-    this.next();
+  action: function() { 
+    this.render();
   }
 });

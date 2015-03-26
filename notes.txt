@@ -30,44 +30,13 @@ Possibly:
   export provides URL
   export provides width and height
 
-Template rendering
-------------------
-We've got a bunch of templates:
-  the dashboard template
-  each widget template
+More Notes
+----------
+The templates themselves need to be subscribed? Is that true? What's the alternative?
+The templates themselves aren't subscribed to anything - it's just the data incoming
+that changes. What about things like the settings template? Th
 
-When should the dashboard template rerender? When widgets move? How do we
-handle when widgets move? Just do it in gridster - don't do it anywhere else.
-So the dashboard template should only rerender when new widgets are available.
-
-The widget templates should rerender whenever the widget data changes. The widget
-data can't be brought in from the dashboard because the data ends up stale. The
-widgets need to load data on their own. I don't think that should really be that 
-difficult. The widget data should depend reactively on the data from the database.
-It's just a matter of how the widget data gets loaded. The dashboard data
-needs to get bound before the widgets so stuff can load. Then we need to load the 
-widget subscriptions so we can init the widgets. Once each widget is inited, we can
-render the widgets. We need to connect the data that is being used to render 
-the widgets with the reactive data that is coming from the database. Maybe the
-easiest way to do that is just with a separate subscription? That subscription would
-need to exist in the onCreated method so when it changes it doesn't trigger stuff
-in the dashboard template. The widget data from that subscription would then need
-to filter through to all the widgets. So each widget really has two subscriptions
-that it relies on to get its data: the sub from the dashboard show all the widget
-setting-type data, and the sub from the widget's data source showing the source
-data changes. We need to rerender on either of those changes. Well, not rerender.
-Data source changes should be handled by the widget packages, while underlying 
-settings-type data changes should be handled by the widget package.
-
-The Meteor Manual is super helpful.
-
-Maybe I can do a thing with the dynamic templating. For each widgets, where widgets
-is actually a reactive helper that gets the widgets as they're initialized? 
-
-I need to make sure that each template actually gets reactive data sources.
-I'm not sure how to pass the widgets as reactive data sources.
-
-
-Move all the subscription management and stuff into the widget packages themselves.
-That should greatly simplfy things. Maybe make the widget data a reactive dict?
-Probably not necessary.
+What do I want to happen? I want to render the dashboard, then, as each widget
+subscription becomes available, render each widget. That means I'm subscribing
+to each widget independently. Is that necessary? I'm not sure it is. I think I can
+just subscribe to a publication for all the widgets in the dashboard.
