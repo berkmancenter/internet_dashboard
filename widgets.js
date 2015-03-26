@@ -1,1 +1,9 @@
-WidgetPackages = ['percent-online', 'wikiedits', 'akamaitraffic', 'akamaitraffic2', 'akamaiattacks', 'connection-speed'];
+WidgetPackages = [
+  'akamaiattacks',
+  'akamaitraffic',
+  'akamaitraffic2',
+  'percent-online',
+  'connection-speed',
+  'broadband-cost',
+  'wikiedits',
+];

@@ -16,6 +16,7 @@ binary-heap@1.0.3
 blaze@2.1.0
 blaze-tools@1.0.3
 boilerplate-generator@1.0.3
+broadband-cost@0.0.1
 callback-hook@1.0.3
 check@1.0.5
 connection-speed@0.0.1
