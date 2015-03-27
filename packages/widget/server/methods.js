@@ -24,6 +24,8 @@ Meteor.methods({
     Widgets.remove(widgetId);
   },
   updateWidgetData: function(widgetId, data) {
+    console.log('Updating widget data: ' + widgetId);
+    console.log(data);
     Widgets.update(widgetId, { $set: { data: data } });
   }
 });

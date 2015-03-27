@@ -1,14 +1,13 @@
 Edits = new Mongo.Collection('wikiedits');
-EditsOverTime = new Mongo.Collection('wikiedits_binned');
 
 if (Meteor.isClient) {
   Wikipedias = new Mongo.Collection('wikipedias');
 }
 
 Settings = {
-  historyLength: 5, // seconds
-  refreshEvery: 1000, // milliseconds
-  defaultChannel: 'all'
+  historyLength: moment.duration({ seconds: 5 }).asMilliseconds(),
+  refreshEvery: moment.duration({ seconds: 1 }).asMilliseconds(),
+  defaultChannel: { channel: '#all', name: 'all' }
 };
 
 WikiWidget = function(doc) {
@@ -19,8 +18,8 @@ WikiWidget = function(doc) {
     height: 1
   });
 
-  _.extend(this.data, {
-    channel: 'all',
+  _.defaults(this.data, {
+    channel: Settings.defaultChannel,
     historyLength: Settings.historyLength
   });
 };
