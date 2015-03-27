@@ -10,7 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
 
-  api.use(['imon-data', 'underscore', 'jquery', 'widget', 'mongo','aldeed:simple-schema']);
+  api.use(['less', 'imon-data', 'underscore', 'jquery', 'widget', 'mongo','aldeed:simple-schema']);
   api.use(['templating'], 'client');
 
   api.addFiles(['broadband_cost.js']);
@@ -20,7 +20,7 @@ Package.onUse(function(api) {
     'client/settings.js',
     'client/widget.html',
     'client/widget.js',
-    'client/widget.css',
+    'client/widget.css.less',
     ], 'client');
 
   api.export('BroadbandCost');
