@@ -7,7 +7,7 @@ ConnectionSpeedWidget = function(doc) {
 
   _.extend(this, {
     width: 2,
-    height: 1
+    height: 2
   });
 
   if (this.data.isEmpty()) {
