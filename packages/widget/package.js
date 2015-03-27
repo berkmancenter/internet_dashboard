@@ -14,8 +14,14 @@ Package.onUse(function(api) {
   api.use(['templating'], 'client');
 
   api.addFiles(['widget.js', 'widget_types.js']);
-  api.addFiles(['server/publications.js', 'server/methods.js', 'server/seeds.js'], 'server');
-  api.addFiles(['client/widget.html', 'client/widget.js'], 'client');
+  api.addFiles([
+    'server/publications.js',
+    'server/methods.js',
+    'server/seeds.js'], 'server');
+  api.addFiles([
+    'client/widget.html',
+    'client/widget.js',
+    'client/settings.js'], 'client');
 
   api.export('Widget');
   api.export('Widgets');

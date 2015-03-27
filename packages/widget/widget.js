@@ -56,8 +56,7 @@ _.extend(WidgetData.prototype, {
     ]);
   },
   isEmpty: function() {
-    // FIXME make the function pull from functions
-    return _.isEmpty(_.omit(this, ['widget', 'set', 'toJSON', 'isEmpty']));
+    return _.isEmpty(_.omit(this, ['widget'].concat(_.functions(this))));
   }
 });
 

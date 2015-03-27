@@ -13,10 +13,7 @@ Template.BroadbandCostSettings.events({
     var newData = {
       country: IMonCountries.findOne({ code: countryCode })
     };
-    //this.close();
-    console.log(this);
-    console.log(template);
-    console.log(ev);
     this.set(newData);
+    this.closeSettings(template);
   }
 });
