@@ -4,14 +4,15 @@
   <label for="wiki-language">Wiki</label>
   <select id="wiki-language" name="wiki-language">
     {{#each wikis }}
-    <option value="{{ channel }}">{{ wikiName }}</option>
+    <option value="{{ channel }}" {{ selected ../channel }}>{{ wikiName }}</option>
     {{/each}}
   </select>
 </div>
 
 <div class="form-group">
   <label for="wiki-history">History Length</label>
-  <input type="number" id="wiki-history" name="wiki-history" value={{ historyLength }}/>
+  <input class="form-control" type="number" id="wiki-history"
+    name="wiki-history" value="{{ historyLength }}" />
 </div>
 
 <button class="btn btn-primary save-settings">Save</button>

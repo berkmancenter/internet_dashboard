@@ -10,8 +10,10 @@ Template.WikiEditsSettings.helpers({
     return this.name.replace(' Wikipedia', '');
   },
   historyLength: function() {
-    console.log(this);
     return (this.historyLength / 1000).toString();
+  },
+  selected: function(channel) {
+    return ('#' + this.channel === channel.channel) ? 'selected' : '';
   }
 });
 

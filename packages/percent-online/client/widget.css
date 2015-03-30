@@ -7,7 +7,7 @@
 }
 
 .fa.online {
-  color: rgba(195, 213, 188, 0.8);
+  color: rgba(174, 203, 163, 0.8);
 }
 
 .fa.offline {
@@ -22,9 +22,9 @@
 
 .indicator-value {
   position: absolute;
-  right: 32px;
+  right: 78px;
   font-size: 82px;
   bottom: -12px;
-  font-weight: 100;
-  color: #919191;
+  font-weight: 700;
+  color: #DBDBDB;
 }
