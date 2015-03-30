@@ -1,3 +1,30 @@
 .percent-online {
   padding: 10px 20px;
 }
+
+.fa {
+  font-size: 14px;
+}
+
+.fa.online {
+  color: rgba(195, 213, 188, 0.8);
+}
+
+.fa.offline {
+  color: rgba(217, 217, 217, 0.55)
+}
+
+.online-users {
+  width: 275px;
+  line-height: 14px;
+  margin: -8px auto;
+}
+
+.indicator-value {
+  position: absolute;
+  right: 32px;
+  font-size: 82px;
+  bottom: -12px;
+  font-weight: 100;
+  color: #919191;
+}

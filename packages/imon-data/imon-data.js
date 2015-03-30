@@ -10,7 +10,7 @@ Settings = {
     'Broadband subscription charge as a percentage of GDP per capita PPP (>25 Mbps)',
   ],
   indicatorLinkSelector: 'a[href="/sources"]',
-  proxy: false
+  proxy: true
 };
 
 IMonCountry = function(doc) {
