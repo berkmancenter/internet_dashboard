@@ -1,4 +1,4 @@
-Template.WikiEditsWidget.onCreated(function() {
+Template.WikiEditCountsWidget.onCreated(function() {
   var template = this;
   template.WikiBins = new Mongo.Collection('wikibins');
 
@@ -16,7 +16,7 @@ Template.WikiEditsWidget.onCreated(function() {
   });
 });
 
-Template.WikiEditsWidget.onRendered(function() {
+Template.WikiEditCountsWidget.onRendered(function() {
   var template = this;
 
   var chart = this.$('.wiki-history').epoch({
@@ -40,7 +40,7 @@ Template.WikiEditsWidget.onRendered(function() {
   });
 });
 
-Template.WikiEditsWidget.helpers({
+Template.WikiEditCountsWidget.helpers({
   historyLength: function() {
     return (this.historyLength / 1000).toString();
   }

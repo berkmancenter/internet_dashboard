@@ -1,18 +1,12 @@
-<template name="WikiEditCountsSettings">
+<template name="WikiStreamSettings">
 {{# if Template.subscriptionsReady }}
 <div class="form-group">
   <label for="wiki-language">Wiki</label>
-  <select id="wiki-language" name="wiki-language" class="form-control">
+  <select id="wiki-language" name="wiki-language">
     {{#each wikis }}
     <option value="{{ channel }}" {{ selected ../channel }}>{{ wikiName }}</option>
     {{/each}}
   </select>
-</div>
-
-<div class="form-group">
-  <label for="wiki-history">History Length</label>
-  <input class="form-control" type="number" id="wiki-history"
-    name="wiki-history" value="{{ historyLength }}" />
 </div>
 
 <button class="btn btn-primary save-settings">Save</button>

@@ -1,7 +1,5 @@
-Edits = new Mongo.Collection('wikiedits');
-
 if (Meteor.isClient) {
-  Wikipedias = new Mongo.Collection('wikipedias');
+  Wikipedias = new Mongo.Collection('wikiedit_wikipedias');
 }
 
 Settings = {
@@ -27,7 +25,7 @@ WikiWidget = function(doc) {
 WikiWidget.prototype = Object.create(Widget.prototype);
 WikiWidget.prototype.constructor = WikiWidget;
 
-WikiEdits = {
+WikiEditCounts = {
   displayName: 'Wikipedia edits',
   description: 'a steaming graph of the number of edits to various wikipedias',
   referenceUrl: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
