@@ -3,9 +3,9 @@
   <label for="akamai-traffic-region">Region</label>
   <select id="akamai-traffic-region" name="akamai-traffic-region">
     {{#each regions }}
-    <option value="{{ code }}">{{ name }}</option>
+    <option value="{{ code }}" {{ isSelected code ../regionId }}>{{ name }}</option>
     {{/each}}
   </select>
 </div>
-<button class="btn btn-primary">Save</button>
+<button class="save btn btn-primary">Save</button>
 </template>

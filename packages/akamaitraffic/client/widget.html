@@ -1,7 +1,12 @@
 <template name="AkamaiTrafficWidget">
   <h1>Akamai Traffic</h1>
   <h2>{{ regionLabel }}</h2>
-  <div class="akamai-traffic-hour epoch"></div>
-  <div class="akamai-traffic-day epoch"></div>
+  <div class="akamai-traffic-day epoch">
+    <h3>Last 24 hours</h3>
+  </div>
+  <div class="akamai-traffic-funnel"></div>
+  <div class="akamai-traffic-hour epoch">
+    <h3>Last 60 minutes</h3>
+  </div>
   <div class="akamai-traffic-fetched"></div>
 </template>

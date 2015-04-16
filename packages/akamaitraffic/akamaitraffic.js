@@ -1,9 +1,18 @@
-
 VisitorFeed = new Mongo.Collection('visitor_feed');
 
 Settings = {
   downloadInterval: moment.duration({ minutes: 5 }).asMilliseconds(),
-  feedUrl: 'http://wwwnui.akamai.com/datavis/visitors_feed.xml'
+  feedUrl: 'http://wwwnui.akamai.com/datavis/visitors_feed.xml',
+  regions: [
+    { code: '0', name: 'The World'},
+    { code: '1', name: 'North America'},
+    { code: '2', name: 'South America'},
+    { code: '3', name: 'Europe'},
+    { code: '4', name: 'Asia (Pacific)'},
+    { code: '5', name: 'Africa'},
+    { code: '6', name: 'Australia'}
+  ],
+  funnelHeight: 60
 };
 
 TrafficWidget = function(doc) {
@@ -12,7 +21,7 @@ TrafficWidget = function(doc) {
     width: 2,
     height: 2
   });
-  _.extend(this.data, {
+  _.defaults(this.data, {
     regionId: '0',
     regionLabel: 'The World'
   });

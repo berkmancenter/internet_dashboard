@@ -2,17 +2,56 @@
   padding: 10px 20px;
 }
 
-.akamai-traffic-hour, .akamai-traffic-day {
-  position: relative;
-  height: 60px;
-  width: 120%;
-  left: -30px;
+.akamaitraffic h2 {
+  margin-top: 0.2em;
+  font-size: 1.6em;
+  margin-bottom: 0.4em;
 }
 
-.akamai-traffic-hour .hits .area {
-  fill: #428BCA;
+.akamai-traffic-hour, .akamai-traffic-day {
+  position: relative;
+  height: 80px;
+  width: 320px;
+  left: -20px;
+}
+
+.akamai-traffic-hour h3, .akamai-traffic-day h3 {
+  position: absolute;
+  font-size: 10pt;
+  font-family: 'Lato';
+  font-weight: 300;
+  left: 10px;
+  bottom: -2em;
+}
+.akamai-traffic-hour h3 {
+  bottom: 0;
+}
+
+.akamai-traffic-hour {
+  background-color: #E8E8E8;
+  height: 100px;
+}
+
+.akamai-traffic-funnel {
+  position: relative;
+  left: -20px;
+  height: 60px;
+  width: 320px;
+}
+
+.akamai-traffic-funnel polygon {
+  fill: #E8E8E8;
+}
+
+.funnel {
+  fill: #E8E8E8;
 }
 
 .akamai-traffic-day .hits .line {
-  stroke: red;
+  stroke: #A3CA98;
+  stroke-width: 5px;
+}
+.akamai-traffic-hour .hits .line {
+  stroke: #98BD8E;
+  stroke-width: 5px;
 }
