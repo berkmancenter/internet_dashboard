@@ -1,11 +1,8 @@
-if (Meteor.isClient) {
-  Wikipedias = new Mongo.Collection('wikiedit_wikipedias');
-}
-
 Settings = {
   historyLength: moment.duration({ seconds: 5 }).asMilliseconds(),
   refreshEvery: moment.duration({ seconds: 1 }).asMilliseconds(),
-  defaultChannel: { channel: '#all', name: 'all' }
+  defaultChannel: { channel: '#all', name: 'all' },
+  windowSize: 20
 };
 
 WikiWidget = function(doc) {

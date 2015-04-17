@@ -2,7 +2,7 @@
 {{# if Template.subscriptionsReady }}
 <div class="form-group">
   <label for="wiki-language">Wiki</label>
-  <select id="wiki-language" name="wiki-language">
+  <select id="wiki-language" name="wiki-language" class="form-control">
     {{#each wikis }}
     <option value="{{ channel }}" {{ selected ../channel }}>{{ wikiName }}</option>
     {{/each}}

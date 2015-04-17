@@ -11,6 +11,9 @@ Template.WikiStreamSettings.helpers({
   },
   selected: function(channel) {
     return ('#' + this.channel === channel.channel) ? 'selected' : '';
+  },
+  channel: function() {
+    return this.channel.replace('#', '');
   }
 });
 

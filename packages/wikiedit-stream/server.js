@@ -37,7 +37,7 @@ _.throttle = function(func, wait, options) {
 };
 
 var addEdit = function(edit) {
-  console.log('adding edit');
+  //console.log('adding edit');
   ThrottledWikiEdits.insert(edit);
 };
 

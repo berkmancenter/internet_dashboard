@@ -20,13 +20,20 @@ var fetchBin = function(channel, since) {
 
 Meteor.publish('wikiedits_binned', function(channel, historyLength) {
   var self = this;
+  var binIds = [];
   Meteor.setInterval(function() {
     var since = moment().subtract(historyLength, 'milliseconds').toDate();
     var bin = fetchBin(channel, since);
     if (bin[0]) {
       bin = bin[0];
       bin.time = since;
-      self.added('wikibins', Random.id(), bin);
+      var binId = Random.id();
+      binIds.push(binId);
+      if (binIds.length > Settings.windowSize) {
+        var removeId = binIds.shift();
+        self.removed('wikibins', removeId);
+      }
+      self.added('wikibins', binId, bin);
     }
   }, Settings.refreshEvery);
   self.ready();

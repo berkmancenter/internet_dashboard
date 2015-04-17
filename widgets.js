@@ -6,5 +6,5 @@ WidgetPackages = [
   'connection-speed',
   'broadband-cost',
   'wikiedits',
-  //'wikiedit-stream'
+  'wikiedit-stream'
 ];

@@ -1,13 +1,11 @@
 ThrottledWikiEdits = new Mongo.Collection('throttled_wikiedits');
 
-if (Meteor.isClient) {
-  Wikipedias = new Mongo.Collection('wikistream_wikipedias');
-}
-
 Settings = {
   throttleWait: moment.duration({ seconds: 2 }).asMilliseconds(),
   defaultChannel: { channel: '#en.wikipedia', name: 'English Wikipedia' },
-  listLength: 20
+  listLength: 20,
+  editScaleDomain: [1, 50],
+  editScaleRange: [12, 20],
 };
 
 WikiWidget = function(doc) {

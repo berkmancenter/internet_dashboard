@@ -9,8 +9,10 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
-  api.use(['mongo', 'underscore'], 'server');
+  api.use(['underscore'], 'server');
+  api.use(['mongo']);
   api.addFiles('wiki-data.js', 'server');
+  api.addFiles('client.js', 'client');
   api.export('WikiEdits');
   api.export('Wikipedias');
 });

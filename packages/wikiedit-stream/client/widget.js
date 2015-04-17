@@ -1,5 +1,7 @@
 Template.WikiStreamWidget.onCreated(function() {
   var template = this;
+  template.editScale = d3.scale.linear()
+    .domain(Settings.editScaleDomain).range(Settings.editScaleRange).clamp(true);
 
   template.autorun(function() {
     if (template.sub) {
@@ -18,9 +20,15 @@ Template.WikiStreamWidget.onRendered(function() {
 
   ThrottledWikiEdits.find().observe({
     added: function(edit) {
-      template.$('.wikiedits').prepend('<li><a target="_blank" class="' + 
-        (edit.delta > 0 ? 'text-success' : 'text-danger') + '" href="'
-        + edit.pageUrl + '">' + edit.page + '</a></li>');
+      d3.select(template.find('.wikiedits')).insert('li', ':first-child')
+      .append('a')
+      .attr({
+        target: "_blank",
+        class: function() { return (edit.delta > 0 ? 'text-success' : 'text-danger'); },
+        href: edit.pageUrl
+      })
+      .style('font-size', function() { return template.editScale(Math.abs(edit.delta)) + 'px'; })
+      .text(edit.page);
       template.$('.wikiedits li').slice(Settings.listLength - 1).remove();
     }
   });

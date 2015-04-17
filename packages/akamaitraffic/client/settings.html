@@ -1,7 +1,7 @@
 <template name="AkamaiTrafficSettings">
 <div class="form-group">
   <label for="akamai-traffic-region">Region</label>
-  <select id="akamai-traffic-region" name="akamai-traffic-region">
+  <select id="akamai-traffic-region" name="akamai-traffic-region" class="form-control">
     {{#each regions }}
     <option value="{{ code }}" {{ isSelected code ../regionId }}>{{ name }}</option>
     {{/each}}

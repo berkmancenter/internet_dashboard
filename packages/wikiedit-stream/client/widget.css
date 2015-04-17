@@ -1,5 +1,11 @@
-.wikiedits {
+.wikiedit-stream {
   padding: 8px 18px;
+}
+
+.wikiedit-stream h2 {
+  margin-top: 0.2em;
+  font-size: 1.6em;
+  margin-bottom: 0.4em;
 }
 
 .wiki-history {

@@ -21,7 +21,9 @@ Template.WikiEditCountsWidget.onRendered(function() {
 
   var chart = this.$('.wiki-history').epoch({
     axes: [],
-    windowSize: 20,
+    windowSize: Settings.windowSize,
+    historySize: Settings.windowSize,
+    queueSize: 120,
     type: 'time.area',
     margins: { top: 0, right: 0, bottom: 0, left: 0 },
     data: [ { label: 'Edits', values: [] } ]
