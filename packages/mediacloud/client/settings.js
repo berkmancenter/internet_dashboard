@@ -5,11 +5,11 @@ Template.MediaCloudSettings.helpers({
 
 Template.MediaCloudSettings.events({
   'click .save-settings': function(ev, template) {
-    var countryCode = template.find('.country').value;
-    console.log(template.find('.country'));
-    var newData = {
-      country: { code: countryCode, name: 'Test' }
+    var country = {
+      code: template.find('.country').value,
+      name: template.find('.country').selectedOptions[0].innerText
     };
+    var newData = { country: country };
     this.closeSettings(template);
     this.set(newData);
   }

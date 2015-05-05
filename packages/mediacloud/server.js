@@ -78,7 +78,7 @@ if (WordLists.find({}).count() === 0) {
 
 Meteor.setInterval(updateData, Settings.updateEvery);
 
-Meteor.publish('mc_wordlists', function(data) {
-  var countryCode = data ? data.countryCode : Settings.defaultCountry;
+Meteor.publish('mc_wordlists', function(countryCode) {
+  var countryCode = countryCode || Settings.defaultCountry.code;
   return WordLists.find({ 'country.code': countryCode }, { limit: 1 });
 });

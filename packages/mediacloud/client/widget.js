@@ -1,11 +1,13 @@
 Template.MediaCloudWidget.onCreated(function() {
-  this.subscribe('mc_wordlists');
+  var template = this;
+  this.autorun(function() {
+    template.subscribe('mc_wordlists', Template.currentData().country.code);
+  });
 });
 
 Template.MediaCloudWidget.helpers({
   words: function() {
     var words = WordLists.findOne({ 'country.code': this.country.code });
-    console.log(words);
     /*
     if (Settings.countCutoff > 0) {
       newWords = _.filter(newWords, function(row) {
@@ -13,7 +15,7 @@ Template.MediaCloudWidget.helpers({
       });
     }
     */
-    return words;
+    return words.words;
   },
   trimList: function(list) {
     return _.first(list, Settings.shownWords);
