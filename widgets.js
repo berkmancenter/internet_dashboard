@@ -5,6 +5,5 @@ WidgetPackages = [
   'percent-online',
   'connection-speed',
   'broadband-cost',
-  'wikiedits',
-  'wikiedit-stream'
+  'mediacloud'
 ];

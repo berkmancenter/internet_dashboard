@@ -1,9 +1,21 @@
+Template.MediaCloudWidget.onCreated(function() {
+  this.subscribe('mc_wordlists');
+});
+
 Template.MediaCloudWidget.helpers({
-  country: function() {
-    return _.findWhere(Settings.tagSet, { code: this.countryCode });
-  },
   words: function() {
-    var words = WordLists.findOne({ 'country.code': this.countryCode }).words;
-    return _.first(words, Settings.shownWords);
+    var words = WordLists.findOne({ 'country.code': this.country.code });
+    console.log(words);
+    /*
+    if (Settings.countCutoff > 0) {
+      newWords = _.filter(newWords, function(row) {
+        return row.count >= Settings.countCutoff;
+      });
+    }
+    */
+    return words;
+  },
+  trimList: function(list) {
+    return _.first(list, Settings.shownWords);
   }
 });

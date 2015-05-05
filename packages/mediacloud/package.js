@@ -24,6 +24,8 @@ Package.onUse(function(api) {
     'client/widget.html',
     'client/widget.js',
     'client/widget.css',
+    'client/settings.html',
+    'client/settings.js'
     ], 'client');
 
   api.export('MediaCloud');
