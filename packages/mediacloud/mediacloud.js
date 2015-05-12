@@ -21,7 +21,7 @@ MCWidget = function(doc) {
 
   _.extend(this, {
     width: 2,
-    height: 3
+    height: 2
   });
 
   _.defaults(this.data, {

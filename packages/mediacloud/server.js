@@ -4,8 +4,9 @@ var url = function(args) {
   args.endDate = args.endDate.format(dateFormat);
   args.numWords = args.numWords || Settings.fetchedWords;
   args.apiKey = args.apiKey || Settings.apiKey;
+  args.stopWordLangs = args.stopWordLangs || Settings.stopWordLangs;
 
-  var urlTemplate = 'https://api.mediacloud.org/api/v2/wc/list?languages=en%20fr&q=tags_id_media:<%= tagId %>&fq=publish_date%3A%5B<%= startDate %>T00%3A00%3A00Z%20TO%20<%= endDate %>T00%3A00%3A00Z%5D&num_words=<%= numWords %>&key=<%= apiKey %>';
+  var urlTemplate = 'https://api.mediacloud.org/api/v2/wc/list?languages=<%= stopWordLangs.join("%20") %>&q=tags_id_media:<%= tagId %>&fq=publish_date%3A%5B<%= startDate %>T00%3A00%3A00Z%20TO%20<%= endDate %>T00%3A00%3A00Z%5D&num_words=<%= numWords %>&key=<%= apiKey %>';
   return _.template(urlTemplate)(args);
 };
 

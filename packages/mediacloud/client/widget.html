@@ -1,24 +1,8 @@
 <template name="MediaCloudWidget">
 {{# if Template.subscriptionsReady }}
 <h1>{{ country.name }}</h1>
-  <div class="row">
-    <ul class="mc-wordlist baseline col-xs-4">
-      {{#each trimList words.baseline }}
-      <li>{{ term }} ({{ count }})</li>
-      {{/each}}
-    </ul>
-    <ul class="mc-wordlist recent col-xs-4">
-      {{#each trimList words.recent }}
-      <li>{{ term }} ({{ count }})</li>
-      {{/each}}
-    </ul>
-    <ul class="mc-wordlist new col-xs-4">
-      {{#each trimList words.new }}
-      <li>{{ term }} ({{ count }})</li>
-      {{/each}}
-    </ul>
-  </div>
 {{ else }}
   {{ widgetLoading }}
 {{/if}}
+<div class="mc-tagcloud"></div>
 </template>
