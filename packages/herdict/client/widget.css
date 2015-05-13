@@ -9,20 +9,22 @@
 .herdict-inaccessible, .herdict-accessible {
 }
 .herdict .herdict-domain {
-  font-weight: normal
+  font-weight: normal;
+  font-size: 1.1em;
 }
 .herdict li {
-  margin-bottom: 0.4em;
+  margin-bottom: 0.6em;
 }
 .herdict ol {
   list-style-type: none;
   padding-left: 0;
 }
 .herdict .herdict-title {
-  margin-left: 0.5em;
-  width: 80%;
+  margin-left: 1em;
+  width: 70%;
   height: 1.3em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: 0.8em;
 }
