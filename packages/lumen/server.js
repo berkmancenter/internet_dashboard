@@ -89,6 +89,7 @@ var updateLumenCounts = function() {
   });
 };
 
+updateLumenCounts();
 Meteor.setInterval(updateLumenCounts, Settings.updateEvery.asMilliseconds());
 
 Meteor.publish('lumen_counts', function() {

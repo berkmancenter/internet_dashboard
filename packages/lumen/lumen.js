@@ -7,12 +7,12 @@ LumenCounts.attachSchema(new SimpleSchema({
 }));
 
 Settings = {
-  binWidth: moment.duration({ hours: 24 }),
-  updateEvery: moment.duration({ minutes: 2 }), // TODO: Set this to bin width
+  binWidth: moment.duration({ hours: 6 }),
   numBins: 30,
   perPage: 50,
   startPage: 11 // at 50 per page, there are 11 pages of future-dated (messed up) notices
 };
+Settings.updateEvery = Settings.binWidth;
 
 LumenWidget = function(doc) {
   Widget.call(this, doc);
