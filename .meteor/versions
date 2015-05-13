@@ -54,17 +54,15 @@ less@1.0.14
 livedata@1.0.13
 localstorage@1.0.3
 logging@1.0.7
+lumen@0.0.1
 meteor@1.1.6
 meteor-platform@1.2.2
-meteorhacks:aggregate@1.2.1
-meteorhacks:collection-utils@1.2.0
 meteortoys:toykit@0.3.4
 minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3
 momentjs:moment@2.8.4
 mongo@1.1.0
-mongo-livedata@1.0.8
 msavin:mongol@1.0.22
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
@@ -94,5 +92,3 @@ webapp@1.2.0
 webapp-hashing@1.0.3
 widget@0.0.1
 wiki-data@0.0.1
-wikiedit-stream@0.0.1
-wikiedits@0.0.1

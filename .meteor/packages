@@ -15,7 +15,6 @@ accounts-ui
 widget
 random
 msavin:mongol
-wikiedits
 utils
 akamaitraffic
 akamaitraffic2
@@ -25,6 +24,6 @@ percent-online
 connection-speed
 broadband-cost
 wiki-data
-wikiedit-stream
 herdict
 html-scraper
+lumen
