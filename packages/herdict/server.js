@@ -1,32 +1,42 @@
-var inDoc = function(url, func) {
-  console.log('Fetching: ' + url);
-  var callOptions = {};
-
-  HTTP.get(url, callOptions, function (error, result) {
-    if (!error && result.statusCode === 200) {
-      var env = Npm.require('jsdom').env;
-      env(result.content, Meteor.bindEnvironment(function(error, window) {
-        var $ = Npm.require('jquery')(window);
-        func.call(this, $);
-      }));
-    }
-  });
-};
 var url = function(args) {
   var urlTemplate = 'http://herdict.org/explore/module/topsitescategory?40=&fc=<%= countryCode %>';
   return _.template(urlTemplate)(args);
 };
 
-var fetchHTML = function(url) {
-  var result = HTTP.get(url);
-  return result.content;
-};
+var updateData = function() {
+  _.each(Countries, function(country) {
+    var thisUrl = url({ countryCode: country.code });
+    var lists = [];
 
-_.each(Countries, function(country) {
-  var thisUrl = url({ countryCode: country.code });
-  inDoc(thisUrl, function($) {
-    $('h4').each(function() {
-      console.log(this);
+    HTMLScraper.inDoc(thisUrl, function($) {
+      $('h4').each(function() {
+        var category = $(this).text();
+        var sites = [];
+        $(this).next('.topitems-list').children('li').each(function() {
+          var $anchor = $(this).find('a.explore-navigation-link');
+          var site = {
+            domain: $anchor.text(),
+            title: $anchor.attr('title'),
+            stats: {
+              accessible: parseInt($(this).find('.accessible').text(), 10),
+              inaccessible: parseInt($(this).find('.inaccessible').text(), 10)
+            }
+          };
+          sites.push(site);
+        });
+
+        lists.push({ category: category, sites: sites });
+      });
+
+      CountryLists.upsert({ country: country }, { $set: { lists: lists } });
     });
   });
+};
+
+if (CountryLists.find().count() === 0) {
+  updateData();
+}
+
+Meteor.publish('herdict_country_lists', function(countryCode) {
+  return CountryLists.find({ 'country.code': countryCode });
 });

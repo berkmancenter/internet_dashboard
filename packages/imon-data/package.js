@@ -9,7 +9,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
-  api.use(['http'], 'server');
+  api.use(['html-scraper'], 'server');
   api.use(['underscore', 'mongo','aldeed:simple-schema']);
 
   api.addFiles(['imon-data.js']);
@@ -17,10 +17,4 @@ Package.onUse(function(api) {
 
   api.export('IMonCountries');
   api.export('IMonCountry');
-});
-
-Npm.depends({
-  jquery: '2.1.3',
-  jsdom: '3.1.2',
-  socks: '1.1.7'
 });

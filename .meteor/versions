@@ -32,6 +32,7 @@ fortawesome:fontawesome@4.3.0
 geojson-utils@1.0.3
 gwendall:session-json@0.1.7
 herdict@0.0.1
+html-scraper@0.0.1
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0

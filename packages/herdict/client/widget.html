@@ -1,0 +1,23 @@
+<template name="HerdictWidget">
+{{# if Template.subscriptionsReady }}
+<h1>{{ country.name }}</h1>
+<h2>{{ category.name }}</h2>
+<ol>
+  {{# each sites }}
+  <li>
+    <div class="herdict-stats pull-right">
+      <span class="text-danger herdict-inaccessible" 
+        title="Inaccessible Reports">{{ stats.inaccessible }}</span>
+      /
+      <span class="text-success herdict-accessible"
+        title="Accessible Reports">{{ stats.accessible }}</span>
+    </div>
+    <span class="herdict-domain">{{ domain }}</span>
+    <div class="herdict-title">{{ title }}</div>
+  </li>
+  {{/each}}
+</ol>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>

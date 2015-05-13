@@ -1,0 +1,28 @@
+.herdict {
+  padding: 10px 18px;
+}
+.herdict h2 {
+  margin-top: 0.3em;
+  margin-bottom: 0.4em;
+  font-size: 1.6em;
+}
+.herdict-inaccessible, .herdict-accessible {
+}
+.herdict .herdict-domain {
+  font-weight: normal
+}
+.herdict li {
+  margin-bottom: 0.4em;
+}
+.herdict ol {
+  list-style-type: none;
+  padding-left: 0;
+}
+.herdict .herdict-title {
+  margin-left: 0.5em;
+  width: 80%;
+  height: 1.3em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
