@@ -7,24 +7,3 @@
   font-size: 1.6em;
   margin-bottom: 0.4em;
 }
-
-.wiki-history {
-  position: relative;
-  height: 96px;
-  width: 120%;
-  left: -30px;
-}
-
-.wiki-history .edits .area {
-  fill: #428BCA;
-}
-
-.wiki-history-count{
-  position: absolute;
-  bottom: 5px;
-  right: 10px;
-  color: white;
-  font-size: 2em;
-  z-index: 1000;
-  font-weight: 300;
-}

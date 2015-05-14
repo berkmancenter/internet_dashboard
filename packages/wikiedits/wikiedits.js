@@ -1,8 +1,18 @@
+BinnedWikiEdits = new Mongo.Collection('wikiedits_binned');
+BinnedWikiEdits.attachSchema(new SimpleSchema({
+  channel: { type: String },
+  binWidth: { type: Number },
+  binStart: { type: Date }, // Reverse chrono, so the most recent edge of the bin
+  count: { type: Number }
+}));
+
 Settings = {
-  historyLength: moment.duration({ seconds: 5 }).asMilliseconds(),
-  refreshEvery: moment.duration({ seconds: 1 }).asMilliseconds(),
+  binWidth: moment.duration({ seconds: 5 }).asMilliseconds(),
+  numBins: 30,
+  updateEvery: moment.duration({ seconds: 1 }).asMilliseconds(),
   defaultChannel: { channel: '#all', name: 'all' },
-  windowSize: 20
+  maxBinSpace: 5 * 1024 * 1024, // 5 MB
+  maxBinNum: 4000
 };
 
 WikiWidget = function(doc) {
@@ -15,7 +25,7 @@ WikiWidget = function(doc) {
 
   _.defaults(this.data, {
     channel: Settings.defaultChannel,
-    historyLength: Settings.historyLength
+    binWidth: Settings.binWidth
   });
 };
 

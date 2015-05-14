@@ -1,7 +1,7 @@
 ThrottledWikiEdits = new Mongo.Collection('throttled_wikiedits');
 
 Settings = {
-  throttleWait: moment.duration({ seconds: 2 }).asMilliseconds(),
+  updateInterval: moment.duration({ seconds: 2 }).asMilliseconds(),
   defaultChannel: { channel: '#en.wikipedia', name: 'English Wikipedia' },
   listLength: 20,
   editScaleDomain: [1, 50],

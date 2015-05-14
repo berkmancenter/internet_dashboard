@@ -1,3 +1,7 @@
+BinnedWikiEdits._createCappedCollection(Settings.maxBinSpace, Settings.maxBinNum);
+BinnedWikiEdits._ensureIndex({ binStart: 1 },
+    { expireAfterSeconds: Settings.binWidth / 1000 * Settings.numBins });
+
 var fetchBin = function(channel, since) {
   var and = [ { created: { $gt: since } } ];
   if (channel !== '#all') {
@@ -15,26 +19,42 @@ var fetchBin = function(channel, since) {
   ];
 
   var result = WikiEdits.aggregate(pipeline);
-  return result;
+  if (result[0]) {
+    return result[0];
+  }
+  return { _id: null, count: 0 };
 };
 
-Meteor.publish('wikiedits_binned', function(channel, historyLength) {
-  var self = this;
-  var binIds = [];
-  Meteor.setInterval(function() {
-    var since = moment().subtract(historyLength, 'milliseconds').toDate();
-    var bin = fetchBin(channel, since);
-    if (bin[0]) {
-      bin = bin[0];
-      bin.time = since;
-      var binId = Random.id();
-      binIds.push(binId);
-      if (binIds.length > Settings.windowSize) {
-        var removeId = binIds.shift();
-        self.removed('wikibins', removeId);
-      }
-      self.added('wikibins', binId, bin);
-    }
-  }, Settings.refreshEvery);
-  self.ready();
+var insertBin = function(channel, binWidth) {
+  channel = channel || Settings.defaultChannel.channel;
+  binWidth = binWidth || Settings.binWidth;
+
+  var binStart = Date.now();
+  var binEnd = new Date(binStart - binWidth);
+  var bin = fetchBin(channel, binEnd);
+
+  _.extend(bin, {
+    binWidth: binWidth,
+    binStart: binStart,
+    channel: channel
+  });
+
+  BinnedWikiEdits.insert(bin);
+  return bin;
+};
+
+Meteor.publish('wikiedits_binned', function(channel, binWidth) {
+  var cursor = BinnedWikiEdits.find({ channel: channel, binWidth: binWidth },
+      { limit: Settings.numBins, sort: { binStart: -1 } });
+
+  if (cursor.count() === 0) {
+    var thisInsertCall = function() { insertBin(channel, binWidth); };
+    thisInsertCall();
+    var timerId = Meteor.setInterval(thisInsertCall, binWidth);
+    this.connection.onClose(Meteor.clearTimeout(timerId));
+  }
+
+  return cursor;
 });
+
+Meteor.setInterval(insertBin, Settings.updateEvery);

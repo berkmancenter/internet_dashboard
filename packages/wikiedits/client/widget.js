@@ -1,6 +1,5 @@
 Template.WikiEditCountsWidget.onCreated(function() {
   var template = this;
-  template.WikiBins = new Mongo.Collection('wikibins');
 
   template.autorun(function() {
     if (template.sub) {
@@ -11,7 +10,7 @@ Template.WikiEditCountsWidget.onCreated(function() {
     template.sub = template.subscribe(
       'wikiedits_binned',
       Template.currentData().channel.channel,
-      Template.currentData().historyLength
+      Template.currentData().binWidth
     );
   });
 });
@@ -19,32 +18,24 @@ Template.WikiEditCountsWidget.onCreated(function() {
 Template.WikiEditCountsWidget.onRendered(function() {
   var template = this;
 
-  var chart = this.$('.wiki-history').epoch({
+  var chart = template.$('.wiki-history').epoch({
     axes: [],
-    windowSize: Settings.windowSize,
-    historySize: Settings.windowSize,
-    queueSize: 120,
+    windowSize: Settings.numBins,
     type: 'time.area',
     margins: { top: 0, right: 0, bottom: 0, left: 0 },
     data: [ { label: 'Edits', values: [] } ]
   });
 
-  this.autorun(function() {
-    if (template.subscriptionsReady()) {
-      var latestBin = template.WikiBins.findOne({}, { sort: { time: -1 } });
-      if (!latestBin) {
-        return;
-      }
-      var data = [{ time: latestBin.time.valueOf() / 1000, y: latestBin.count }];
-      chart.push(data);
-      template.$('.wiki-history-count').text(data[0].y);
-    }
-  });
+  var bins = BinnedWikiEdits.find({}, { sort: ['binStart', 'desc'] });
+  bins.observe({ added: function(bin) {
+    var data = [{ time: bin.binStart.valueOf() / 1000, y: bin.count }];
+    chart.push(data);
+    template.$('.wiki-history-count').text(data[0].y);
+  }});
 });
 
 Template.WikiEditCountsWidget.helpers({
-  historyLength: function() {
-    return (this.historyLength / 1000).toString();
+  binWidth: function() {
+    return (this.binWidth / 1000).toString();
   }
 });
-

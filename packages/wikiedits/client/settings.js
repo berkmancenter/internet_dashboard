@@ -9,8 +9,8 @@ Template.WikiEditCountsSettings.helpers({
   wikiName: function() {
     return this.name.replace(' Wikipedia', '');
   },
-  historyLength: function() {
-    return (this.historyLength / 1000).toString();
+  binWidth: function() {
+    return (this.binWidth / 1000).toString();
   },
   selected: function(channel) {
     return this.channel === channel.channel ? 'selected' : '';
@@ -27,7 +27,7 @@ Template.WikiEditCountsSettings.events({
     var name = input.selectedOptions[0].innerText;
     var data = {
       channel: { channel: channel, name: name },
-      historyLength: parseInt(template.find('#wiki-history').value, 10) * 1000
+      binWidth: parseInt(template.find('#wiki-history').value, 10) * 1000
     };
     this.set(data);
     this.closeSettings(template);

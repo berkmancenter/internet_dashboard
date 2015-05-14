@@ -9,7 +9,6 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
-  api.use(['meteorhacks:aggregate@1.2.1', 'random'], 'server');
   api.use(['widget', 'mongo', 'tracker', 'underscore', 'momentjs:moment', 'wiki-data']);
   api.use(['templating', 'pfafman:epoch', 'jquery', 'd3js:d3'], 'client');
   api.addFiles('wikiedit-stream.js');
