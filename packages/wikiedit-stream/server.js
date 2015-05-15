@@ -1,8 +1,6 @@
 ThrottledWikiEdits._createCappedCollection(6 * 1000 * 1000, 1000);
 
 var addSampledEdit = function(wiki) {
-  //console.log('adding edit for ' + wiki.channel);
-
   var query = { namespace: 'article' };
   if (wiki.channel !== '#all') {
     query.channel= wiki.channel;

@@ -43,18 +43,47 @@ var insertBin = function(channel, binWidth) {
   return bin;
 };
 
+var binningJobs = [];
+var BinningJob = function(channel, binWidth, runEvery) {
+  this.channel = channel;
+  this.binWidth = binWidth;
+  this.runEvery = runEvery || Settings.updateEvery;
+  console.log('Wikiedits: Add binning job - ' + this.channel
+      + ', ' + this.binWidth + ', ' + this.runEvery);
+  console.log(this);
+
+  var insertCall = function() {
+    insertBin(channel, binWidth);
+  };
+
+  insertCall();
+  this.timerId = Meteor.setInterval(insertCall, this.runEvery);
+  binningJobs.push(this);
+};
+BinningJob.prototype.cancel = function() {
+  console.log('Wikiedits: Cancel binning job - ' + this.channel
+      + ', ' + this.binWidth + ', ' + this.runEvery);
+  console.log(this);
+  Meteor.clearTimeout(this.timerId);
+  binningJobs = _.without(binningJobs, this);
+};
+var binningJobExists = function(channel, binWidth, runEvery) {
+  runEvery = runEvery || Settings.updateEvery;
+  return !!_.findWhere(binningJobs, {
+    channel: channel, binWidth: binWidth, runEvery: runEvery
+  });
+};
+
 Meteor.publish('wikiedits_binned', function(channel, binWidth) {
   var cursor = BinnedWikiEdits.find({ channel: channel, binWidth: binWidth },
       { limit: Settings.numBins, sort: { binStart: -1 } });
 
-  if (cursor.count() === 0) {
-    var thisInsertCall = function() { insertBin(channel, binWidth); };
-    thisInsertCall();
-    var timerId = Meteor.setInterval(thisInsertCall, binWidth);
-    this.connection.onClose(Meteor.clearTimeout(timerId));
+  if (!binningJobExists(channel, binWidth)) {
+    var job = new BinningJob(channel, binWidth);
+    this.connection.onClose(job.cancel);
   }
 
   return cursor;
 });
 
-Meteor.setInterval(insertBin, Settings.updateEvery);
+new BinningJob(Settings.defaultChannel.channel, Settings.binWidth);
