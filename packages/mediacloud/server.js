@@ -4,8 +4,9 @@ var url = function(args) {
   args.endDate = args.endDate.format(dateFormat);
   args.numWords = args.numWords || Settings.fetchedWords;
   args.apiKey = args.apiKey || Settings.apiKey;
+  args.stopWordLangs = args.stopWordLangs || Settings.stopWordLangs;
 
-  var urlTemplate = 'https://api.mediacloud.org/api/v2/wc/list?q=tags_id_media:<%= tagId %>&fq=publish_date%3A%5B<%= startDate %>T00%3A00%3A00Z%20TO%20<%= endDate %>T00%3A00%3A00Z%5D&num_words=<%= numWords %>&key=<%= apiKey %>';
+  var urlTemplate = 'https://api.mediacloud.org/api/v2/wc/list?languages=<%= stopWordLangs.join("%20") %>&q=tags_id_media:<%= tagId %>&fq=publish_date%3A%5B<%= startDate %>T00%3A00%3A00Z%20TO%20<%= endDate %>T00%3A00%3A00Z%5D&num_words=<%= numWords %>&key=<%= apiKey %>';
   return _.template(urlTemplate)(args);
 };
 
@@ -14,7 +15,7 @@ var fetchData = function(url) {
   return result.data;
 };
 
-var diffWordLists = function(baseline, recent) {
+var parseWordLists = function(baseline, recent) {
 
   var baselineTerms = _.pluck(baseline, 'term');
   var recentTerms = _.pluck(recent, 'term');
@@ -23,13 +24,11 @@ var diffWordLists = function(baseline, recent) {
     return _.contains(newTerms, row.term);
   });
 
-  if (Settings.countCutoff > 0) {
-    newWords = _.filter(newWords, function(row) {
-      return row.count >= Settings.countCutoff;
-    });
-  }
-
-  return newWords;
+  return {
+    baseline: baseline,
+    recent: recent,
+    new: newWords
+  };
 };
 
 var updateData = function() {
@@ -44,7 +43,11 @@ var updateData = function() {
     var data = {
       country: country,
       updated: new Date(),
-      words: []
+      words: {
+        baseline: [],
+        recent: [],
+        new: []
+      }
     };
 
     var baselineWordListUrl = url({
@@ -62,8 +65,8 @@ var updateData = function() {
     var baselineData = fetchData(baselineWordListUrl);
     var recentData = fetchData(wordListUrl);
 
-    var newWords = diffWordLists(baselineData, recentData);
-    data.words = newWords;
+    var parsedWordLists = parseWordLists(baselineData, recentData);
+    data.words = parsedWordLists;
 
     WordLists.upsert({ 'country.code': data.country.code }, data);
   });
@@ -76,7 +79,7 @@ if (WordLists.find({}).count() === 0) {
 
 Meteor.setInterval(updateData, Settings.updateEvery);
 
-Meteor.publish('mc_wordlists', function(data) {
-  var countryCode = data ? data.countryCode : Settings.defaultCountry;
+Meteor.publish('mc_wordlists', function(countryCode) {
+  var countryCode = countryCode || Settings.defaultCountry.code;
   return WordLists.find({ 'country.code': countryCode }, { limit: 1 });
 });

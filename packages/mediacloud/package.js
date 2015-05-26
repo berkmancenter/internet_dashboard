@@ -10,7 +10,7 @@ Package.onUse(function(api) {
 
   api.use(['http'], 'server');
   api.use(['widget', 'mongo', 'underscore', 'momentjs:moment']);
-  api.use(['templating'], 'client');
+  api.use(['templating', 'tagcloud'], 'client');
 
   api.addFiles([
     'data/emm_countries.js',
@@ -24,6 +24,8 @@ Package.onUse(function(api) {
     'client/widget.html',
     'client/widget.js',
     'client/widget.css',
+    'client/settings.html',
+    'client/settings.js'
     ], 'client');
 
   api.export('MediaCloud');

@@ -5,6 +5,7 @@ WidgetPackages = [
   'percent-online',
   'connection-speed',
   'broadband-cost',
+  'mediacloud',
   'wikiedits',
   'wikiedit-stream',
   'herdict',
