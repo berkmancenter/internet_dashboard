@@ -5,8 +5,8 @@ WidgetPackages = [
   'percent-online',
   'connection-speed',
   'broadband-cost',
-//'wikiedits',
-  //'wikiedit-stream',
+  'wikiedits',
+  'wikiedit-stream',
   'herdict',
   'lumen'
 ];

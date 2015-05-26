@@ -25,7 +25,10 @@ Template.LumenWidget.onRendered(function() {
       template.$('.url-counts').epoch({
         type: 'time.bar',
         data: urlCounts,
-        axes: [],
+        axes: ['left', 'bottom'],
+        ticks: { left: 2, time: Settings.numBins / 3 },
+        tickFormats: { bottom: function(d) { return moment(d).fromNow(); } },
+        margins: { left: 30, top: 10, right: 20 },
         windowSize: Settings.numBins,
         historySize: Settings.numBins
       });

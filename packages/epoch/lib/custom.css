@@ -1,0 +1,7 @@
+.epoch {
+  font-family: 'Lato';
+}
+
+.epoch .axis path, .epoch .axis line {
+  stroke: #AEAEAE;
+}

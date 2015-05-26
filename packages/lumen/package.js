@@ -7,7 +7,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
 
   api.use(['widget', 'mongo', 'underscore', 'momentjs:moment', 'aldeed:collection2']);
-  api.use(['templating', 'pfafman:epoch'], 'client');
+  api.use(['templating', 'epoch'], 'client');
   api.use(['http'], 'server');
 
   api.addFiles('authToken.txt', 'server', { isAsset: true });
