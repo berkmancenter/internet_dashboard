@@ -26,7 +26,7 @@ Template.LumenWidget.onRendered(function() {
         type: 'time.bar',
         data: urlCounts,
         axes: ['left', 'bottom'],
-        ticks: { left: 2, time: Settings.numBins / 3 },
+        ticks: { left: 2, time: Math.round(Settings.numBins / 3) },
         tickFormats: { bottom: function(d) { return moment(d).fromNow(); } },
         margins: { left: 30, top: 10, right: 20 },
         windowSize: Settings.numBins,

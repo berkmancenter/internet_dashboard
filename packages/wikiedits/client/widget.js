@@ -27,7 +27,6 @@ Template.WikiEditCountsWidget.onRendered(function() {
     margins: { top: 0, right: 0, bottom: 0, left: 0 },
     data: [ { label: 'Edits', values: [] } ]
   });
-  console.log(chart.el);
 
   template.autorun(function() {
     var bins = BinnedWikiEdits.find({
