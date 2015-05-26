@@ -9,7 +9,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
   api.use(['mongo', 'widget', 'momentjs:moment', 'underscore', 'aldeed:simple-schema']);
   api.use(['http'], 'server');
-  api.use(['templating', 'pfafman:epoch'], 'client');
+  api.use(['templating', 'epoch'], 'client');
 
   api.addFiles('akamaiattacks.js');
   api.addFiles(['server.js'], 'server');

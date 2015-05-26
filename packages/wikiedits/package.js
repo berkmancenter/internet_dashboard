@@ -11,7 +11,7 @@ Package.onUse(function(api) {
       'widget', 'mongo', 'tracker', 'underscore',
       'momentjs:moment', 'wiki-data', 'aldeed:collection2'
   ]);
-  api.use(['templating', 'pfafman:epoch', 'jquery'], 'client');
+  api.use(['templating', 'epoch', 'jquery'], 'client');
 
   api.addFiles('wikiedits.js');
   api.addFiles('server.js', 'server');

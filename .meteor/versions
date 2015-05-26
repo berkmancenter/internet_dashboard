@@ -20,7 +20,6 @@ broadband-cost@0.0.1
 callback-hook@1.0.3
 check@1.0.5
 connection-speed@0.0.1
-d3@1.0.0
 d3js:d3@3.4.13
 dburles:mongo-collection-instances@0.3.3
 ddp@1.1.0
@@ -73,7 +72,6 @@ npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
 percent-online@0.0.1
-pfafman:epoch@0.1.1
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5
