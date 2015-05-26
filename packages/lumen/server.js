@@ -89,7 +89,13 @@ var updateLumenCounts = function() {
   });
 };
 
-updateLumenCounts();
+if (LumenCounts.find().count() === 0 ||
+    LumenCounts.findOne({}, { sort: { start: -1 } }).start +
+    Settings.updateEvery.asMilliseconds() < Date.now()) {
+  updateLumenCounts();
+} else {
+  console.log('Not updating Lumen counts.');
+}
 Meteor.setInterval(updateLumenCounts, Settings.updateEvery.asMilliseconds());
 
 Meteor.publish('lumen_counts', function() {
