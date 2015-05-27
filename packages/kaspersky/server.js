@@ -1,6 +1,13 @@
-
 var countryUrl = function(country, metric) {
   return Settings.dataDir + 'graphic_' + metric + '_d_' + country.key + '.xml';
+};
+
+var metricsExist = function() {
+  return !!CountryMetrics.findOne().metrics;
+};
+
+var countriesExist = function() {
+  return CountryMetrics.find().count() > 0;
 };
 
 var fetchCountryData = function(country, metric) {
@@ -34,6 +41,12 @@ var fetchCountries = function() {
   });
 };
 
-if (CountryMetrics.find().count() === 0) {
+if (!countriesExist()) {
   fetchCountries();
+}
+
+if (countriesExist() && !metricsExist()) {
+  CountryMetrics.find({ key: '109' }).forEach(function(country) {
+    fetchCountryData(country, Settings.defaultMetric);
+  });
 }
