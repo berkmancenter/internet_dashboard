@@ -14,10 +14,43 @@ Template.AkamaiAttacksWidget.onRendered(function() {
       return;
     }
 
-    var docs = CountryAttacks.find({}, { sort: { percentAboveAverage: -1 }, limit: Settings.limit });
     template.$('.akamai-attacks').html('');
-    docs.forEach(function(doc) {
-      template.$('.akamai-attacks').append('<li>' + doc.regionLabel + ' ' + doc.percentAboveAverage + '</li>');
-    });
+
+    var fillColor = d3.scale.quantize()
+      .domain([0, 10])
+      .range([
+        'rgb(254,229,217)',
+        'rgb(252,174,145)',
+        'rgb(251,106,74)',
+        'rgb(222,45,38)',
+        'rgb(165,15,21)'
+      ]);
+
+    var svg = d3.select(template.find('.world-map')).append("svg:svg")
+      .attr("width", Settings.mapWidth)
+      .attr("height", Settings.mapHeight);
+
+    var projection = d3.geo.winkel3()
+      .scale(Settings.mapScale)
+      .translate([Settings.mapWidth / 2, Settings.mapHeight / 2]);
+
+    var feature = svg.selectAll("path")
+      .data(WorldCountries.features)
+      .enter().append("svg:path")
+      .attr('class', 'country')
+      .style('fill', function(d) {
+        var country = CountryAttacks.findOne({ regionLabel: d.properties.name });
+        var fillValue = 0;
+        if (country) {
+          fillValue = country.percentAboveAverage;
+        }
+        return fillColor(fillValue);
+      })
+      .style('transform', 'scaleY(0.9)')
+      .attr("d", d3.geo.path().projection(projection));
+
+    feature.append("svg:title")
+      .text(function(d) { return d.properties.name; });
   });
+
 });

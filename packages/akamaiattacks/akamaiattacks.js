@@ -3,13 +3,16 @@ CountryAttacks = new Mongo.Collection('country_attacks');
 Settings = {
   downloadInterval: moment.duration({ minutes: 15 }).asMilliseconds(),
   feedUrl: 'http://wwwnui.akamai.com/gnet/data/attacks_4qErAbuRXsD73D3kcwrLeUreS5AD3E1.xml',
-  limit: 10
+  limit: 10,
+  mapWidth: 450,
+  mapHeight: 260,
+  mapScale: 85
 };
 
 AttacksWidget = function(doc) {
   Widget.call(this, doc);
   _.extend(this, {
-    width: 2,
+    width: 3,
     height: 2
   });
 };

@@ -1,3 +1,9 @@
 .akamaiattacks {
   padding: 10px 20px;
 }
+
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: 5px;
+}
