@@ -11,7 +11,14 @@ Package.onUse(function(api) {
   api.use(['http'], 'server');
 
   api.addFiles('kaspersky.js');
+  api.addFiles([
+      'client/widget.html',
+      'client/widget.js',
+      'client/widget.css'
+      ], 'client');
   api.addFiles(['server.js'], 'server');
+
+  api.export('Kaspersky');
 });
 
 Npm.depends({

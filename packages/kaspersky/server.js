@@ -1,9 +1,17 @@
 var countryUrl = function(country, metric) {
-  return Settings.dataDir + 'graphic_' + metric + '_d_' + country.key + '.xml';
+  return Settings.dataDir + 'graphic_' + metric.code + '_d_' + country.key + '.xml';
 };
 
-var metricsExist = function() {
-  return !!CountryMetrics.findOne().metrics;
+var metricsCurrent = function() {
+  var country = CountryMetrics.findOne({ key: Settings.defaultCountry.key });
+  return _.every(Settings.metrics, function(metric) {
+    if (!country.metrics[metric.code]) {
+      return false;
+    }
+
+    return moment(country.metrics[metric.code][0].updatedAt)
+        .isAfter(moment.utc().subtract(24, 'hours'));
+  });
 };
 
 var countriesExist = function() {
@@ -12,16 +20,45 @@ var countriesExist = function() {
 
 var fetchCountryData = function(country, metric) {
   var xmlParser = Npm.require('xml2js');
+  var xmlData;
 
-  var xmlData = HTTP.get(countryUrl(country, metric));
+  try { 
+    xmlData = HTTP.get(countryUrl(country, metric));
+  } catch (error) {
+    if (!error.response || error.response.statusCode !== 404) {
+      throw new Error(error);
+    }
+    //console.log('Kaspersky: ' + metric.name + ' data not available for ' + country.name);
+    return false;
+  }
+
+  var metricKey = 'metrics.' + metric.code;
+  var data = {};
+  data[metricKey] = [];
 
   xmlParser.parseString(xmlData.content, { attrkey: 'attr' }, function (error, result) {
     if (error) {
       throw new Error(error);
     }
 
-    console.log(result);
-    //doc.ts = new MongoInternals.MongoTimestamp(0, 0);
+    _.each(result.root.graphic[0].item, function(item) {
+      data[metricKey].push({
+        date: Date.parse(item.attr.date + ' +0000'),
+        count: parseInt(item.attr[metric.attrName], 10),
+        updatedAt: Date.parse(result.root.date[0] + ' +0000')
+      });
+    });
+
+    CountryMetrics.update({ key: country.key }, { $set: data });
+  });
+};
+
+var fetchAllCountryData = function() {
+  CountryMetrics.find().forEach(function(country) {
+    console.log('Kaspersky: Fetching data for ' + country.name);
+    _.each(Settings.metrics, function(metric) {
+      fetchCountryData(country, metric);
+    });
   });
 };
 
@@ -43,10 +80,18 @@ var fetchCountries = function() {
 
 if (!countriesExist()) {
   fetchCountries();
+} else {
+  console.log('Kaspersky: Not fetching countries');
 }
 
-if (countriesExist() && !metricsExist()) {
-  CountryMetrics.find({ key: '109' }).forEach(function(country) {
-    fetchCountryData(country, Settings.defaultMetric);
-  });
+if (countriesExist() && !metricsCurrent()) {
+  fetchAllCountryData();
+} else {
+  console.log('Kaspersky: Not fetching country metrics');
 }
+
+Meteor.setInterval(fetchAllCountryData, Settings.updateEvery.asMilliseconds());
+
+Meteor.publish('kasp_metrics', function(countryKey) {
+  return CountryMetrics.find({ key: countryKey });
+});

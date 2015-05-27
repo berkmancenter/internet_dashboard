@@ -1,0 +1,35 @@
+.kaspersky .epoch {
+  height: 80px;
+}
+
+.kaspersky.widget {
+  padding: 10px 18px;
+}
+
+.kaspersky h3 {
+  font-weight: 300;
+  font-size: 0.9em;
+  position: absolute;
+  top: -20px;
+  left: 42px;
+}
+
+.net-attacks .inbound-network-attacks .line {
+  stroke: #1f77b4;
+}
+
+.spam .spam-sent .line {
+  stroke: #ff7f0e;
+}
+
+.local-infections .detected-infections .line {
+  stroke: #2ca02c;
+}
+
+.vulns .vulnerabilities .line {
+  stroke: #d62728;
+}
+
+.web-threats .web-threats .line {
+  stroke: #9467bd;
+}

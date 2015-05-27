@@ -9,5 +9,6 @@ WidgetPackages = [
   'wikiedits',
   'wikiedit-stream',
   'herdict',
-  'lumen'
+  'lumen',
+  'kaspersky'
 ];

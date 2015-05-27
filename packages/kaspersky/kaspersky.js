@@ -7,15 +7,16 @@ Settings = {
   defaultMetric: 'ids',
   dataDir: 'http://securelist.kaspersky-labs.com/securelist/',
   updateEvery: moment.duration({ hours: 24 }),
-  metrics: {
-    'ids': 'Network Attacks',
-    'kas': 'Spam',
-    //'mav': 'unknown',
-    'oas': 'Local Infections',
-    //'ods': 'unknown',
-    'vul': 'Vulnerabilities',
-    'wav': 'Web Threats'
-  }
+  numPnts: 24,
+  metrics: [
+    { code: 'ids', name: 'Inbound Network Attacks', sel: '.net-attacks', attrName: 'count' },
+    { code: 'kas', name: 'Spam Sent', sel: '.spam', attrName: 'percent' },
+    { code: 'oas', name: 'Detected Infections', sel: '.local-infections', attrName: 'count' },
+    { code: 'vul', name: 'Vulnerabilities', sel: '.vulns', attrName: 'count' },
+    { code: 'wav', name: 'Web Threats', sel: '.web-threats', attrName: 'count' }
+    //{ code: 'ods', name: 'unknown',
+    //{ code: 'mav', name: 'unknown',
+  ]
 };
 Settings.countriesUrl = Settings.dataDir + 'countries_all.xml';
 
@@ -49,3 +50,23 @@ CountryMetrics.attachSchema(new SimpleSchema({
   'metrics.wav.$.count': { type: Number },
   'metrics.wav.$.updatedAt': { type: Date },
 }));
+
+KasperskyWidget = function(doc) {
+  Widget.call(this, doc);
+
+  _.extend(this, {
+    width: 2,
+    height: 3
+  });
+
+  _.defaults(this.data, { country: Settings.defaultCountry });
+};
+KasperskyWidget.prototype = Object.create(Widget.prototype);
+KasperskyWidget.prototype.constructor = KasperskyWidget;
+
+Kaspersky = {
+  displayName: 'Kaspersky Data',
+  description: 'A widget that shows hourly spam, attack, and infection data by country',
+  referenceUrl: 'https://securelist.com/',
+  constructor: KasperskyWidget,
+};
