@@ -22,7 +22,7 @@ var getBins = function() {
 
 var getNotices = function(page) {
   page = page || Settings.startPage;
-  console.log('Getting Lumen notices - page ' + page);
+  console.log('Lumen: Getting notices - page ' + page);
 
   // Header auth
   var options = {
@@ -94,7 +94,7 @@ if (LumenCounts.find().count() === 0 ||
     Settings.updateEvery.asMilliseconds() < Date.now()) {
   updateLumenCounts();
 } else {
-  console.log('Not updating Lumen counts.');
+  console.log('Lumen: Not updating notice and URL counts');
 }
 Meteor.setInterval(updateLumenCounts, Settings.updateEvery.asMilliseconds());
 

@@ -5,7 +5,7 @@ var countryUrl = function(country, metric) {
 var metricsCurrent = function() {
   var country = CountryMetrics.findOne({ key: Settings.defaultCountry.key });
   return _.every(Settings.metrics, function(metric) {
-    if (!country.metrics[metric.code]) {
+    if (!country.metrics || !country.metrics[metric.code]) {
       return false;
     }
     
