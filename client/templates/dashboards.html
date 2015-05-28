@@ -3,18 +3,20 @@
 </head>
 
 <body>
+  {{> Header }}
+  {{> Footer }}
 </body>
 
 <template name="DashboardsShow">
-  {{ test }}
-  <div id="dashboard" class="gridster">
+{{ test }}
+<div id="dashboard" class="gridster">
   <ul id="widgets">
     {{# each widgets }}
       {{> WidgetShow }}
     {{/each}}
   </ul>
-  </div>
-  {{> DashboardsAdd }}
+</div>
+{{> DashboardsAdd }}
 </template>
 
 <template name="DashboardsAdd">

@@ -7,7 +7,7 @@ body {
   background-size: cover;
   -moz-background-size: cover;*/
   background-color: #081F2C;
-  padding: 20px;
+  /*padding: 20px;*/
   font-family: Lato;
   font-weight: 300;
   overflow-y: scroll;
@@ -18,6 +18,7 @@ h1, h2 {
 
 #dashboard {
   position: relative;
+  padding: 135px 20px;
   /*width: 90%;
   margin: 0 auto;*/
   .preview-holder {
@@ -28,9 +29,9 @@ h1, h2 {
 }
 
 a.btn-add-widget {
-  position: absolute;
+  position: fixed;
   text-align: center;
-  bottom: 15px;
+  bottom: 55px;
   right: 15px;
   font-size: 72px;
   line-height: 40px;
@@ -120,4 +121,10 @@ a.btn-add-widget {
 
 .gridster > * { 
   margin: 0;
+}
+
+.jumbotron {
+  p {
+    font-weight: 300;
+  }
 }

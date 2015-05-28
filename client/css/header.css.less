@@ -1,0 +1,23 @@
+header {
+  position: fixed;
+  width: 100%;
+  z-index: 50;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+
+  h1 {
+    margin: 0;
+    background: white;
+    padding: 5px 20px;
+
+    .logo-image {
+      background: url("im_site_logo_hover.png");
+      display: inline-block;
+      height: 100px;
+      width: 439px;
+
+      &:hover {
+        background-position: 0 -100px
+      }
+    }
+  }
+}
