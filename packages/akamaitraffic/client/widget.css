@@ -49,9 +49,9 @@
 
 .akamai-traffic-day .hits .line {
   stroke: #A3CA98;
-  stroke-width: 5px;
+  stroke-width: 3px;
 }
 .akamai-traffic-hour .hits .line {
   stroke: #98BD8E;
-  stroke-width: 5px;
+  stroke-width: 3px;
 }

@@ -9,9 +9,6 @@ _.extend(Widget.prototype, {
   packageExports: function() {
     return Widgets.packageExports(this);
   },
-  requiredSubs: function() {
-    return this.packageExports().requiredSubs(this.data.toJSON());
-  },
   toJSON: function() {
     var widget = _.pick(this, [
       '_id', 'data', 'typeId', 'dashboardId', 'height',

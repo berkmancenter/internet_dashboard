@@ -20,6 +20,21 @@ Template.WidgetShow.helpers({
   },
   widgetClass: function() {
     return this.packageName;
+  },
+  widgetMetadata: function() {
+    return WidgetTypes.findOne({ packageName: this.packageName });
+  }
+});
+
+Template.DefaultWidgetInfo.helpers({
+  widgetMetadata: function() {
+    return WidgetTypes.findOne({ packageName: this.packageName });
+  }
+});
+
+Template.DefaultWidgetInfo.events({
+  'click .close-info': function(ev, template) {
+    this.data.closeInfo(template);
   }
 });
 
@@ -46,7 +61,7 @@ Template.WidgetShow.events({
     dashboardTemplate.gridster.remove_widget(template.firstNode);
     Widgets.updatePositions(dashboardTemplate.gridster.serialize());
     dashboard.removeWidget(this);
-  },
+  }
 });
 
 Template.registerHelper('widgetLoading', function() {

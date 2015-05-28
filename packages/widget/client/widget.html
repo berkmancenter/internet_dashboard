@@ -25,7 +25,7 @@
       {{# if providesInfo }}
         {{> Template.dynamic template=infoTemplate data=data }}
       {{else}}
-        {{ referenceUrl }}
+        {{> DefaultWidgetInfo }}
       {{/if}}
       </div>
 
@@ -36,4 +36,17 @@
 
     {{> Template.dynamic template=widgetTemplate data=data }}
   </li>
+</template>
+
+<template name="DefaultWidgetInfo">
+<p>
+  More information about the data backing this widget can be found at: 
+<a href="{{ widgetMetadata.referenceUrl }}" target="_blank">
+  {{ widgetMetadata.referenceUrl }}
+</a>
+</p>
+
+<button type="button" class="close close-info" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
 </template>
