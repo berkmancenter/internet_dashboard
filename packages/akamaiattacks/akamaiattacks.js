@@ -6,9 +6,9 @@ Settings = {
   limit: 10,
   mapWidth: 450,
   mapHeight: 270,
-  mapScale: 103,
-  mapSquash: 1,
-  mapBumpDown: 30,
+  mapScale: 114,
+  mapSquash: 0.9,
+  mapBumpDown: 40,
   mapBumpLeft: 30
 };
 

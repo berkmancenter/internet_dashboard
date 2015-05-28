@@ -18,7 +18,7 @@ Template.WikiStreamWidget.onCreated(function() {
 Template.WikiStreamWidget.onRendered(function() {
   var template = this;
 
-  ThrottledWikiEdits.find().observe({
+  ThrottledWikiEdits.find({ channel: Template.currentData().channel.channel }).observe({
     added: function(edit) {
       d3.select(template.find('.wikiedits')).insert('li', ':first-child')
       .append('a')
