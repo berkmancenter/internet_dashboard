@@ -5,8 +5,11 @@ Settings = {
   feedUrl: 'http://wwwnui.akamai.com/gnet/data/attacks_4qErAbuRXsD73D3kcwrLeUreS5AD3E1.xml',
   limit: 10,
   mapWidth: 450,
-  mapHeight: 260,
-  mapScale: 85
+  mapHeight: 270,
+  mapScale: 103,
+  mapSquash: 1,
+  mapBumpDown: 30,
+  mapBumpLeft: 30
 };
 
 AttacksWidget = function(doc) {

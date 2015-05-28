@@ -6,7 +6,7 @@ Settings = {
   },
   defaultMetric: 'ids',
   dataDir: 'http://securelist.kaspersky-labs.com/securelist/',
-  updateEvery: moment.duration({ hours: 24 }),
+  updateEvery: moment.duration({ hours: 48 }),
   numPnts: 24,
   metrics: [
     { code: 'ids', name: 'Inbound Network Attacks', sel: '.net-attacks', attrName: 'count' },

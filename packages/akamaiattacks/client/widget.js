@@ -32,7 +32,10 @@ Template.AkamaiAttacksWidget.onRendered(function() {
 
     var projection = d3.geo.winkel3()
       .scale(Settings.mapScale)
-      .translate([Settings.mapWidth / 2, Settings.mapHeight / 2]);
+      .translate([
+        Settings.mapWidth / 2 - Settings.mapBumpLeft,
+        Settings.mapHeight / 2 + Settings.mapBumpDown
+      ]);
 
     var feature = svg.selectAll("path")
       .data(WorldCountries.features)
@@ -46,7 +49,7 @@ Template.AkamaiAttacksWidget.onRendered(function() {
         }
         return fillColor(fillValue);
       })
-      .style('transform', 'scaleY(0.9)')
+      .style('transform', 'scaleY(' + Settings.mapSquash + ')')
       .attr("d", d3.geo.path().projection(projection));
 
     feature.append("svg:title")

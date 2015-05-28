@@ -8,9 +8,9 @@ var metricsCurrent = function() {
     if (!country.metrics[metric.code]) {
       return false;
     }
-
+    
     return moment(country.metrics[metric.code][0].updatedAt)
-        .isAfter(moment.utc().subtract(24, 'hours'));
+        .isAfter(moment.utc().subtract(Settings.updateEvery));
   });
 };
 
@@ -18,25 +18,17 @@ var countriesExist = function() {
   return CountryMetrics.find().count() > 0;
 };
 
-var fetchCountryData = function(country, metric) {
+var addCountryData = function(country, data) {
+  CountryMetrics.update({ key: country.key }, { $set: data });
+};
+
+var parseCountryData = function(response, country, metric) {
   var xmlParser = Npm.require('xml2js');
-  var xmlData;
-
-  try { 
-    xmlData = HTTP.get(countryUrl(country, metric));
-  } catch (error) {
-    if (!error.response || error.response.statusCode !== 404) {
-      throw new Error(error);
-    }
-    //console.log('Kaspersky: ' + metric.name + ' data not available for ' + country.name);
-    return false;
-  }
-
   var metricKey = 'metrics.' + metric.code;
   var data = {};
   data[metricKey] = [];
 
-  xmlParser.parseString(xmlData.content, { attrkey: 'attr' }, function (error, result) {
+  xmlParser.parseString(response.content, { attrkey: 'attr' }, function (error, result) {
     if (error) {
       throw new Error(error);
     }
@@ -49,7 +41,21 @@ var fetchCountryData = function(country, metric) {
       });
     });
 
-    CountryMetrics.update({ key: country.key }, { $set: data });
+    addCountryData(country, data);
+  });
+};
+
+var fetchCountryData = function(country, metric) {
+  HTTP.get(countryUrl(country, metric), function(error, response) {
+    if (error) {
+      if (!error.response || error.response.statusCode !== 404) {
+        throw new Error(error);
+      }
+      //console.log('Kaspersky: ' + metric.name + ' data not available for ' + country.name);
+      return false;
+    }
+
+    parseCountryData(response, country, metric);
   });
 };
 
