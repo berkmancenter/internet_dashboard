@@ -23,9 +23,16 @@ AttacksWidget.prototype = Object.create(Widget.prototype);
 AttacksWidget.prototype.constructor = AttacksWidget;
 
 AkamaiAttacks = {
-  displayName: 'Akamai Attack Monitor',
-  description: 'Shows country-level inbound network attack information from Akamai',
-  referenceUrl: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
-  constructor: AttacksWidget
+  org: {
+    name: 'Akamai Technologies, Inc.',
+    shortName: 'Akamai',
+    url: 'http://www.akamai.com/'
+  },
+  widget: {
+    name: 'Akamai Attack Monitor',
+    description: 'Shows country-level inbound network attack information from Akamai',
+    url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
+    constructor: AttacksWidget
+  }
 };
 

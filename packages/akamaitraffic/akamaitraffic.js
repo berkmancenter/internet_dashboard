@@ -30,8 +30,15 @@ TrafficWidget.prototype = Object.create(Widget.prototype);
 TrafficWidget.prototype.constructor = TrafficWidget;
 
 AkamaiTraffic = {
-  displayName: 'Akamai Traffic Monitor',
-  description: 'shows global traffic information from Akamai',
-  referenceUrl: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
-  constructor: TrafficWidget
+  widget: {
+    name: 'Requests per second',
+    description: 'Shows the number of HTTP hits per second the Akamai network receives from each continent',
+    url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
+    constructor: TrafficWidget
+  },
+  org: {
+    name: 'Akamai Technologies, Inc.',
+    shortName: 'Akamai',
+    url: 'http://www.akamai.com'
+  }
 };

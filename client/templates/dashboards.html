@@ -35,8 +35,9 @@
       <div class="modal-body">
         {{# each availableWidgets }}
         <div class="widget-option">
-          <a href="#" class="add-widget">Add {{ displayName }}</a>
-          <p>{{ description }}</p>
+          <a href="#" class="add-widget">Add {{ widget.name }}</a>
+          <p>{{ widget.description }}</p>
+          <p>Data provided by: <a href="{{ org.url }}" target="_blank">{{ org.name }}</a></p>
         </div>
         {{/each}}
       </div>

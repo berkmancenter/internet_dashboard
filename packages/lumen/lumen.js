@@ -28,8 +28,15 @@ LumenWidget.prototype = Object.create(Widget.prototype);
 LumenWidget.prototype.constructor = LumenWidget;
 
 Lumen = {
-  displayName: 'Lumen Widget',
-  description: 'Shine a light on content takedowns',
-  referenceUrl: 'http://chillingeffects.org',
-  constructor: LumenWidget
+  widget: {
+    name: 'DMCA Takedown Requests',
+    description: 'Shows the number DMCA takedown requests Chilling Effects has received over time',
+    url: 'https://www.chillingeffects.org/',
+    constructor: LumenWidget,
+  },
+  org: {
+    name: 'Chilling Effects',
+    shortName: 'Chilling Effects',
+    url: 'https://www.chillingeffects.org/',
+  }
 };

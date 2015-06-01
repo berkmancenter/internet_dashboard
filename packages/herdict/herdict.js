@@ -47,8 +47,15 @@ HerdictWidget.prototype = Object.create(Widget.prototype);
 HerdictWidget.prototype.constructor = HerdictWidget;
 
 Herdict = {
-  displayName: 'Herdict',
-  description: 'Recent reports from Herdict',
-  referenceUrl: 'http://herdict.org',
-  constructor: HerdictWidget
+  widget: {
+    name: 'Website Accessibility',
+    description: 'Shows the top URLs reported accessible or inaccessible by users on Herdict from each country',
+    url: 'http://herdict.org/explore/indepth',
+    constructor: HerdictWidget,
+  },
+  org: {
+    name: 'The Herdict Project',
+    shortName: 'Herdict',
+    url: 'http://herdict.org'
+  }
 };

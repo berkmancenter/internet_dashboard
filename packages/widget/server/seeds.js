@@ -7,11 +7,10 @@ Widgets.seed = function(packages) {
         exported = Package[packageName][exports];
 
     WidgetTypes.insert({
-      packageName     : packageName,
-      exportedVar     : exports,
-      displayName     : exported.displayName,
-      description     : exported.description,
-      referenceUrl    : exported.referenceUrl
+      packageName : packageName,
+      exportedVar : exports,
+      widget      : _.omit(exported.widget, 'constructor'),
+      org         : exported.org
     });
   });
 };

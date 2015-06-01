@@ -33,8 +33,15 @@ WikiWidget.prototype = Object.create(Widget.prototype);
 WikiWidget.prototype.constructor = WikiWidget;
 
 WikiEditCounts = {
-  displayName: 'Wikipedia edits',
-  description: 'a steaming graph of the number of edits to various wikipedias',
-  referenceUrl: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
-  constructor: WikiWidget
+  widget: {
+    name: 'Wikipedia edit volume',
+    description: 'Shows a streaming graph of the number of edits to each language\'s Wikipedia',
+    url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
+    constructor: WikiWidget
+  },
+  org: {
+    name: 'The Wikimedia Foundation, Inc.',
+    shortName: 'Wikipedia',
+    url: 'https://www.wikipedia.org/'
+  }
 };

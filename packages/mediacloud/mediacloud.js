@@ -32,8 +32,15 @@ MCWidget.prototype = Object.create(Widget.prototype);
 MCWidget.prototype.constructor = MCWidget;
 
 MediaCloud = {
-  displayName: 'Media Cloud',
-  description: 'a word cloud showing word usage in recent media in different countries',
-  referenceUrl: 'http://mediacloud.org',
-  constructor: MCWidget
+  widget: {
+    name: 'Recent News Topics',
+    description: 'Shows a word cloud of news topics from the past week from each country',
+    url: 'http://mediacloud.org',
+    constructor: MCWidget,
+  },
+  org: {
+    name: 'Media Cloud',
+    shortName: 'Media Cloud',
+    url: 'http://mediacloud.org'
+  }
 };

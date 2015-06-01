@@ -1,7 +1,6 @@
 Meteor.methods({
   updateWidgetPositions: function(widgetPositions) {
-    console.log('updating widget positions');
-    console.log(widgetPositions);
+    console.log('Widget: Updating positions');
     _.each(widgetPositions, function(widget) {
       var modifier = {
         $set: {
@@ -20,12 +19,11 @@ Meteor.methods({
     Widgets.insert(widget);
   },
   removeWidgetFromDashboard: function(widgetId) {
-    console.log('removing widget: ' + widgetId);
+    console.log('Widget: Removing ' + widgetId);
     Widgets.remove(widgetId);
   },
   updateWidgetData: function(widgetId, data) {
-    console.log('Updating widget data: ' + widgetId);
-    console.log(data);
+    console.log('Widget: Updating data for ' + widgetId);
     Widgets.update(widgetId, { $set: { data: data } });
   }
 });

@@ -44,8 +44,15 @@ _.extend(BroadbandCostWidget.prototype, {
 });
 
 BroadbandCost = {
-  constructor: BroadbandCostWidget,
-  displayName: 'Broadband Cost',
-  description: "Shows an overall broadband cost index that aggregates the proportionate costs across each tier for each country",
-  referenceUrl: 'http://thenetmonitor.org',
+  widget: {
+    name: 'Broadband Cost',
+    description: 'Shows an overall broadband cost index that aggregates the proportionate costs across each tier for each country',
+    url: 'https://thenetmonitor.org/sources',
+    constructor: BroadbandCostWidget
+  },
+  org: {
+    name: 'Internet Monitor',
+    shortName: 'Internet Monitor',
+    url: 'http://thenetmonitor.org'
+  }
 };

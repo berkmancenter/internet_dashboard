@@ -35,8 +35,15 @@ _.extend(PercentOnlineWidget.prototype, {
 });
 
 PercentOnline = {
-  constructor: PercentOnlineWidget,
-  displayName: 'Percent Online',
-  description: "Shows the percent of a country's population using the Internet regularly",
-  referenceUrl: 'http://thenetmonitor.org',
+  widget: {
+    name: 'Percent Online',
+    description: 'Shows the percent of a country\'s population using the Internet regularly',
+    url: 'https://thenetmonitor.org/sources',
+    constructor: PercentOnlineWidget
+  },
+  org: {
+    name: 'Internet Monitor',
+    shortName: 'Internet Monitor',
+    url: 'http://thenetmonitor.org'
+  }
 };

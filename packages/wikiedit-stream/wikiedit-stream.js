@@ -25,8 +25,15 @@ WikiWidget.prototype = Object.create(Widget.prototype);
 WikiWidget.prototype.constructor = WikiWidget;
 
 WikiStream = {
-  displayName: 'Wikipedia edit list',
-  description: 'a steaming list of the number of edits to various wikipedias',
-  referenceUrl: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
-  constructor: WikiWidget
+  widget: {
+    name: 'Wikipedia edits',
+    description: 'Shows a streaming list of edits to each language\'s Wikipedia',
+    url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
+    constructor: WikiWidget
+  },
+  org: {
+    name: 'The Wikimedia Foundation, Inc.',
+    shortName: 'Wikipedia',
+    url: 'https://www.wikipedia.org/'
+  }
 };

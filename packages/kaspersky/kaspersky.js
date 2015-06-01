@@ -65,8 +65,15 @@ KasperskyWidget.prototype = Object.create(Widget.prototype);
 KasperskyWidget.prototype.constructor = KasperskyWidget;
 
 Kaspersky = {
-  displayName: 'Kaspersky Data',
-  description: 'A widget that shows hourly spam, attack, and infection data by country',
-  referenceUrl: 'https://securelist.com/',
-  constructor: KasperskyWidget,
+  widget: {
+    name: 'Security Data',
+    description: 'Shows hourly spam, attack, and infection data by country',
+    url: 'https://securelist.com/',
+    constructor: KasperskyWidget
+  },
+  org: {
+    name: 'Kaspersky Lab ZAO',
+    shortName: 'Kaspersky',
+    url: 'http://www.kaspersky.com'
+  }
 };

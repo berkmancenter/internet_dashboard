@@ -35,8 +35,15 @@ _.extend(ConnectionSpeedWidget.prototype, {
 });
 
 ConnectionSpeed = {
-  constructor: ConnectionSpeedWidget,
-  displayName: 'Connection Speed',
-  description: "Shows how quickly (in kilobits per second) data can be transferred from the Internet to a local computer",
-  referenceUrl: 'http://thenetmonitor.org',
+  widget: {
+    name: 'Connection Speed',
+    description: "Shows how quickly (in kilobits per second) data can be transferred from the Internet to a local computer",
+    url: 'https://thenetmonitor.org/sources',
+    constructor: ConnectionSpeedWidget,
+  },
+  org: {
+    name: 'Internet Monitor',
+    shortName: 'Internet Monitor',
+    url: 'http://thenetmonitor.org'
+  }
 };

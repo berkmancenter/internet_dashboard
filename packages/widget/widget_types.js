@@ -7,15 +7,31 @@ WidgetTypes.attachSchema(new SimpleSchema({
   exportedVar: {
     type: String
   },
-  displayName: {
+  widget: {
+    type: Object
+  },
+  'widget.name': {
     type: String
   },
-  description: {
+  'widget.description': {
     type: String,
     optional: true
   },
-  referenceUrl: {
+  'widget.url': {
     type: String,
     regEx: SimpleSchema.RegEx.Url
   },
+  org: {
+    type: Object
+  },
+  'org.name': {
+    type: String
+  },
+  'org.shortName': {
+    type: String
+  },
+  'org.url': {
+    type: String,
+    regEx: SimpleSchema.RegEx.Url
+  }
 }));

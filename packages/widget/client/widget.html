@@ -35,14 +35,19 @@
     </div>
 
     {{> Template.dynamic template=widgetTemplate data=data }}
+    <p class="widget-data-source">
+      Source: <a href="{{ widgetMetadata.org.url }}" target="_blank">
+        {{ widgetMetadata.org.shortName }}
+      </a>
+    </p>
   </li>
 </template>
 
 <template name="DefaultWidgetInfo">
 <p>
   More information about the data backing this widget can be found at: 
-<a href="{{ widgetMetadata.referenceUrl }}" target="_blank">
-  {{ widgetMetadata.referenceUrl }}
+<a href="{{ widgetMetadata.widget.url }}" target="_blank">
+  {{ widgetMetadata.widget.url }}
 </a>
 </p>
 

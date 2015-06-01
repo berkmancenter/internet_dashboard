@@ -22,7 +22,7 @@ _.extend(Widget.prototype, {
 // Static methods
 _.extend(Widget, {
   construct: function(doc) {
-    return new Package[doc.packageName][doc.exportedVar].constructor(doc);
+    return new Package[doc.packageName][doc.exportedVar].widget.constructor(doc);
   },
 
   templateFor: function(widget, name) {
