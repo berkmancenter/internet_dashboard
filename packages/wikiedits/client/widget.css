@@ -1,5 +1,5 @@
 .wikiedits {
-  padding: 8px 18px;
+  padding: 6px 12px;
 }
 
 .wikiedits p {
@@ -8,9 +8,9 @@
 
 .wiki-history {
   position: relative;
-  height: 75px;
+  height: 77px;
   width: 320px;
-  left: -18px;
+  left: -12px;
 }
 
 .wiki-history .edits .area {
@@ -19,10 +19,14 @@
 
 .wiki-history-count{
   position: absolute;
-  bottom: 5px;
-  right: 10px;
-  color: #DFDFDF;
-  font-size: 2em;
+  bottom: 2px;
+  left: 12px;
+  color: #D0D0D0;
+  font-size: 2.2em;
   z-index: 1000;
   font-weight: 300;
+}
+
+.wikiedits .widget-data-source a {
+  color: #D3D3D3;
 }

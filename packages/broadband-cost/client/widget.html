@@ -1,10 +1,8 @@
 <template name="BroadbandCostWidget">
 {{# if Template.subscriptionsReady }}
-<h1>{{ country.name }}</h1>
+<h1>Broadband Cost</h1>
+<h2>{{ country.name }}</h2>
 <table class="cost-indicators table table-condensed">
-  <caption>
-    Broadband subscription charge as a percentage of GDP per capita PPP
-  </caption>
   <tbody>
     <tr>
     {{# each indicators }}

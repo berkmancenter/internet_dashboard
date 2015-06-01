@@ -1,5 +1,6 @@
 Settings = {
-  indicatorName: 'Average connection speed (kbps)'
+  indicatorName: 'Average connection speed (kbps)',
+  gaugeWidth: 292
 };
 
 ConnectionSpeedWidget = function(doc) {

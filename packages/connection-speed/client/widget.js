@@ -11,7 +11,7 @@ Template.ConnectionSpeedWidget.helpers({
 });
 
 Template.ConnectionSpeedWidget.onRendered(function() {
-    var width = 280,
+    var width = Settings.gaugeWidth,
         height = width / 2,
         radius = height;
 

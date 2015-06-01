@@ -14,11 +14,12 @@ Template.MediaCloudWidget.onRendered(function() {
     template.$('.mc-tagcloud').empty();
     var data = Template.currentData();
     var words = WordLists.findOne({ 'country.code': data.country.code }).words.new;
-    var width = data.widget.width * 160;
-    var height = data.widget.height * 135;
+    var width = data.widget.width * Settings.cloud.widthMulti;
+    var height = data.widget.height * Settings.cloud.heightMulti;
     var fill = d3.scale.category20();
     var maxCount = _.max(_.pluck(words, 'count'));
-    var fontScale = d3.scale.linear().domain([1, maxCount]).range([8, 30]);
+    var fontScale = d3.scale.linear().domain([1, maxCount])
+      .range(Settings.cloud.fontScale);
 
     function draw(words) {
       d3.select(template.find('.mc-tagcloud')).append("svg")
@@ -43,7 +44,8 @@ Template.MediaCloudWidget.onRendered(function() {
       .size([width, height])
       .words(words)
       .text(function(d) { return d.term; })
-      .rotate(function() { return Math.random() * 40 * (Math.random() > 0.5 ? 1 : -1); })
+      .rotate(function() { return Math.random() * Settings.cloud.maxRotation *
+        (Math.random() > 0.5 ? 1 : -1); })
       .font('Lato')
       .spiral('rectangular')
       .fontSize(function(d) { return fontScale(d.count); })

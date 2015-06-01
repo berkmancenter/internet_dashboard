@@ -1,9 +1,18 @@
 .wikiedit-stream {
-  padding: 8px 18px;
+  padding: 6px 12px;
 }
 
-.wikiedit-stream h2 {
-  margin-top: 0.2em;
-  font-size: 1.6em;
-  margin-bottom: 0.4em;
+.wikiedit-stream .wikiedits {
+  padding: 0;
+  /* box-shadow: inset 0 0px 8px rgba(0, 0, 0, 0.25);*/
+  max-height: 220px;
+  overflow-y: hidden;
+}
+
+.wikiedit-stream .wikiedits li {
+  padding: 3px 10px;
+}
+
+.wikiedit-stream .wikiedits li:nth-child(odd) {
+  background: #F4F4F4;
 }

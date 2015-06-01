@@ -1,6 +1,5 @@
 Settings = {
   defaultCountry: {
-    code: 'US',
     name: 'United States',
     key: '109'
   },
@@ -66,7 +65,7 @@ KasperskyWidget.prototype.constructor = KasperskyWidget;
 
 Kaspersky = {
   widget: {
-    name: 'Security Data',
+    name: 'Threat Data',
     description: 'Shows hourly spam, attack, and infection data by country',
     url: 'https://securelist.com/',
     constructor: KasperskyWidget

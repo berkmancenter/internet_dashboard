@@ -45,10 +45,16 @@
 
 <template name="DefaultWidgetInfo">
 <p>
-  More information about the data backing this widget can be found at: 
-<a href="{{ widgetMetadata.widget.url }}" target="_blank">
-  {{ widgetMetadata.widget.url }}
-</a>
+  The data backing this widget has been provided by:
+</p>
+<div class="text-center">
+  <a href="{{ widgetMetadata.org.url }}" target="_blank">
+  {{ widgetMetadata.org.name }}</a>
+</div>
+<hr />
+<p>
+  Click <a href="{{ widgetMetadata.widget.url }}" target="_blank">here</a> for
+  more information about this data.
 </p>
 
 <button type="button" class="close close-info" aria-label="Close">

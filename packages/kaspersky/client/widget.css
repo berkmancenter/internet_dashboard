@@ -1,9 +1,10 @@
 .kaspersky .epoch {
   height: 80px;
+  position: relative;
 }
 
 .kaspersky.widget {
-  padding: 10px 18px;
+  padding: 6px 15px;
 }
 
 .kaspersky h3 {

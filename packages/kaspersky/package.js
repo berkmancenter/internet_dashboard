@@ -14,7 +14,9 @@ Package.onUse(function(api) {
   api.addFiles([
       'client/widget.html',
       'client/widget.js',
-      'client/widget.css'
+      'client/widget.css',
+      'client/settings.html',
+      'client/settings.js'
       ], 'client');
   api.addFiles(['server.js'], 'server');
 

@@ -1,10 +1,5 @@
 .herdict {
-  padding: 10px 18px;
-}
-.herdict h2 {
-  margin-top: 0.3em;
-  margin-bottom: 0.4em;
-  font-size: 1.6em;
+  padding: 6px 15px;
 }
 .herdict-inaccessible, .herdict-accessible {
 }

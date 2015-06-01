@@ -12,7 +12,7 @@ Settings = {
     { code: '5', name: 'Africa'},
     { code: '6', name: 'Australia'}
   ],
-  funnelHeight: 60
+  funnelHeight: 64
 };
 
 TrafficWidget = function(doc) {

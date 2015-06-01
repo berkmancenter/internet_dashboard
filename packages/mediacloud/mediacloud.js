@@ -9,6 +9,12 @@ Settings = {
   fetchedWords: 500,
   shownWords: 20,
   countCutoff: 0,
+  cloud: {
+    heightMulti: 115,
+    widthMulti: 158,
+    maxRotation: 40,
+    fontScale: [8, 30]
+  },
 
   stopWordLangs: [
     'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'lt', 'nl', 'no',

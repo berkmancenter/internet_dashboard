@@ -1,3 +1,11 @@
+var ucWords = function(str) {
+  // From http://phpjs.org/functions/ucwords/
+  return (str + '')
+    .replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
+      return $1.toUpperCase();
+    });
+};
+
 var countryUrl = function(country, metric) {
   return Settings.dataDir + 'graphic_' + metric.code + '_d_' + country.key + '.xml';
 };
@@ -79,6 +87,7 @@ var fetchCountries = function() {
 
     var countries = result.root.countries[0].item;
     _.each(countries, function(country) {
+      country.attr.name = ucWords(country.attr.name);
       CountryMetrics.insert(country.attr);
     });
   });
@@ -98,6 +107,6 @@ if (countriesExist() && !metricsCurrent()) {
 
 Meteor.setInterval(fetchAllCountryData, Settings.updateEvery.asMilliseconds());
 
-Meteor.publish('kasp_metrics', function(countryKey) {
-  return CountryMetrics.find({ key: countryKey });
+Meteor.publish('kasp_metrics', function() {
+  return CountryMetrics.find();
 });

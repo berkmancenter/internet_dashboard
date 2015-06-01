@@ -1,18 +1,12 @@
 .akamaitraffic {
-  padding: 10px 20px;
-}
-
-.akamaitraffic h2 {
-  margin-top: 0.2em;
-  font-size: 1.6em;
-  margin-bottom: 0.4em;
+  padding: 6px 12px;
 }
 
 .akamai-traffic-hour, .akamai-traffic-day {
   position: relative;
   height: 80px;
   width: 320px;
-  left: -20px;
+  left: -12px;
 }
 
 .akamai-traffic-hour h3, .akamai-traffic-day h3 {
@@ -34,8 +28,8 @@
 
 .akamai-traffic-funnel {
   position: relative;
-  left: -20px;
-  height: 60px;
+  left: -12px;
+  height: 64px;
   width: 320px;
 }
 
@@ -52,6 +46,6 @@
   stroke-width: 3px;
 }
 .akamai-traffic-hour .hits .line {
-  stroke: #98BD8E;
+  stroke: #9CC392;
   stroke-width: 3px;
 }
