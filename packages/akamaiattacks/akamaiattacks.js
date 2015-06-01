@@ -6,9 +6,9 @@ Settings = {
   limit: 10,
   mapWidth: 450,
   mapHeight: 270,
-  mapScale: 114,
-  mapSquash: 0.9,
-  mapBumpDown: 40,
+  mapScale: 110,
+  mapSquash: 0.85,
+  mapBumpDown: 30,
   mapBumpLeft: 30
 };
 
@@ -24,7 +24,7 @@ AttacksWidget.prototype.constructor = AttacksWidget;
 
 AkamaiAttacks = {
   displayName: 'Akamai Attack Monitor',
-  description: 'Shows country-level attack information from Akamai',
+  description: 'Shows country-level inbound network attack information from Akamai',
   referenceUrl: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
   constructor: AttacksWidget
 };
