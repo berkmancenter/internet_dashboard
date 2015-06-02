@@ -34,7 +34,7 @@ WikiWidget.prototype.constructor = WikiWidget;
 
 WikiEditCounts = {
   widget: {
-    name: 'Wikipedia edit volume',
+    name: 'Wikipedia Edit Volume',
     description: 'Shows a streaming graph of the number of edits to each language\'s Wikipedia',
     url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
     constructor: WikiWidget

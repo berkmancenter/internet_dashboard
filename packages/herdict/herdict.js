@@ -48,8 +48,8 @@ HerdictWidget.prototype.constructor = HerdictWidget;
 
 Herdict = {
   widget: {
-    name: 'Website Accessibility',
-    description: 'Shows the top URLs reported accessible or inaccessible by users on Herdict from each country',
+    name: 'Website Availability',
+    description: 'Shows the top URLs reported accessible or inaccessible by users on Herdict',
     url: 'http://herdict.org/explore/indepth',
     constructor: HerdictWidget,
   },

@@ -26,7 +26,7 @@ WikiWidget.prototype.constructor = WikiWidget;
 
 WikiStream = {
   widget: {
-    name: 'Wikipedia edits',
+    name: 'Wikipedia Edits',
     description: 'Shows a streaming list of edits to each language\'s Wikipedia',
     url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
     constructor: WikiWidget

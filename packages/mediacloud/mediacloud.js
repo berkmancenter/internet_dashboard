@@ -39,7 +39,7 @@ MCWidget.prototype.constructor = MCWidget;
 
 MediaCloud = {
   widget: {
-    name: 'Recent News Topics',
+    name: 'News Topics',
     description: 'Shows a word cloud of news topics from the past week from each country',
     url: 'http://mediacloud.org',
     constructor: MCWidget,

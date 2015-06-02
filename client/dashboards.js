@@ -69,6 +69,7 @@ Template.DashboardsShow.onRendered(function() {
     widget_margins: [dash.gutter / 2, dash.gutter / 2],
     widget_base_dimensions: [dash.columnWidth, dash.rowHeight],
     serialize_params: serializePositions,
+    autogrow_cols: true,
     draggable: {
       stop: function() { Widgets.updatePositions(self.gridster.serialize()); }
     }
