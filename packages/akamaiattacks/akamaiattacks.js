@@ -29,8 +29,8 @@ AkamaiAttacks = {
     url: 'http://www.akamai.com/'
   },
   widget: {
-    name: 'Akamai Attack Monitor',
-    description: 'Shows country-level inbound network attack information from Akamai',
+    name: 'Network Attacks',
+    description: 'Shows country-level inbound network attack information',
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
     constructor: AttacksWidget
   }

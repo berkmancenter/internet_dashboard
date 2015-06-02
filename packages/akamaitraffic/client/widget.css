@@ -2,7 +2,7 @@
   position: relative;
   height: 80px;
   width: 320px;
-  left: -12px;
+  left: -15px;
 }
 
 .akamai-traffic-hour h3, .akamai-traffic-day h3 {
@@ -24,7 +24,7 @@
 
 .akamai-traffic-funnel {
   position: relative;
-  left: -12px;
+  left: -15px;
   height: 64px;
   width: 320px;
 }

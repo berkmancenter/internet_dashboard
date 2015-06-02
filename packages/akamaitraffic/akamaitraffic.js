@@ -31,7 +31,7 @@ TrafficWidget.prototype.constructor = TrafficWidget;
 
 AkamaiTraffic = {
   widget: {
-    name: 'Requests per second',
+    name: 'Web Requests',
     description: 'Shows the number of HTTP hits per second the Akamai network receives from each continent',
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
     constructor: TrafficWidget

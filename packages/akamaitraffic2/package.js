@@ -10,13 +10,13 @@ Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
   api.use(['mongo', 'widget', 'momentjs:moment', 'underscore', 'aldeed:simple-schema']);
   api.use(['http'], 'server');
-  api.use(['templating', 'epoch'], 'client');
+  api.use(['templating', 'epoch', 'd3js:d3'], 'client');
 
   api.addFiles('akamaitraffic2.js');
   api.addFiles(['server.js'], 'server');
   api.addFiles([
-    'client/settings.html',
-    'client/settings.js',
+    'client/lib/d3.geo.js',
+    'client/lib/world-countries.js',
     'client/widget.html',
     'client/widget.js',
     'client/widget.css',

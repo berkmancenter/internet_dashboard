@@ -16,8 +16,6 @@ Package.onUse(function(api) {
   api.addFiles([
     'client/lib/d3.geo.js',
     'client/lib/world-countries.js',
-    'client/settings.html',
-    'client/settings.js',
     'client/widget.html',
     'client/widget.js',
     'client/widget.css',
