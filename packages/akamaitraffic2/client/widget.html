@@ -1,5 +1,8 @@
 <template name="AkamaiTraffic2Widget">
   <h1>Bytes Delivered</h1>
   <p>Percent above average</p>
+  {{# unless Template.subscriptionsReady }}
+    {{ widgetLoading }}
+  {{/unless}}
   <div class="bytes-delivered world-map"></div>
 </template>

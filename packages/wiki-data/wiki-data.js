@@ -12,7 +12,7 @@ Wikipedias = _.map(_.keys(wikichanges.wikipedias), function(channelName) {
   return { channel: channelName, name: wikichanges.wikipedias[channelName].long };
 });
 
-Wikipedias.push({ channel: '#all', name: 'All of Wikipedia' });
+Wikipedias.push({ channel: '#all', name: 'All Wikipedia' });
 
 var changeListener = new wikichanges.WikiChanges({ircNickname: 'internet-dashboard'});
 
@@ -24,7 +24,7 @@ changeListener.listen(Meteor.bindEnvironment(function(change) {
 
 Meteor.publish('wikipedias', function() {
   _.each(Wikipedias, function(channel) {
-    this.added('wikipedias', Random.id(), channel);
+    this.added('wikipedias', channel.channel, channel);
   }, this);
   this.ready();
 });

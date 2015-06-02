@@ -27,7 +27,9 @@
         <ul class="list-group widget-options">
         {{# each availableWidgets }}
           <li class="widget-option list-group-item">
-            <a href="#" class="add-widget btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a href="#" class="add-widget btn btn-success btn-sm pull-right">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </a>
             <h2>{{ widget.name }}</h2>
             <p>{{ widget.description }}</p>
             <small class="provided-by">Data provided by: <a href="{{ org.url }}" target="_blank">{{ org.name }}</a></small>

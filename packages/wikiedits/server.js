@@ -3,7 +3,7 @@ BinnedWikiEdits._ensureIndex({ binStart: 1 },
     { expireAfterSeconds: Settings.binWidth / 1000 * Settings.numBins });
 
 var fetchBin = function(channel, since) {
-  var and = [ { created: { $gt: since } } ];
+  var and = [ { created: { $gt: since } }, { namespace: 'article' } ];
   if (channel !== '#all') {
     and.push({ channel: channel });
   }

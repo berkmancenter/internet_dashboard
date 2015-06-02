@@ -1,6 +1,9 @@
 <template name="AkamaiTrafficWidget">
   <h1>Web Requests</h1>
   <h2>{{ regionLabel }}</h2>
+  {{# unless Template.subscriptionsReady }}
+    {{ widgetLoading }}
+  {{/unless}}
   <div class="akamai-traffic-day epoch">
     <h3>Last 24 hours</h3>
   </div>

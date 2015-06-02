@@ -3,10 +3,8 @@ Template.WikiEditCountsWidget.onCreated(function() {
 
   template.autorun(function() {
     if (template.sub) {
-      console.log('stopping sub');
       template.sub.stop();
     }
-    console.log('subbing ' + Template.currentData().channel.channel);
     template.sub = template.subscribe(
       'wikiedits_binned',
       Template.currentData().channel.channel,

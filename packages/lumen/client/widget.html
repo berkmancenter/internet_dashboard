@@ -1,5 +1,8 @@
 <template name="LumenWidget">
 <h1>Takedown Requests</h1>
 <h2>URLs per {{ binWidth }}</h2>
+{{# unless Template.subscriptionsReady }}
+  {{ widgetLoading }}
+{{/unless}}
 <div class="url-counts epoch"></div>
 </template>

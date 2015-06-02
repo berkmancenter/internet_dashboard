@@ -1,6 +1,9 @@
 <template name="WikiStreamWidget">
   <h1>Wikipedia Edits</h1>
   <h2>{{ channel.name }} Wikipedia</h2>
+  {{# unless Template.subscriptionsReady }}
+    {{ widgetLoading }}
+  {{/unless}}
   <ul class="wikiedits list-unstyled">
   </ul>
 </template>

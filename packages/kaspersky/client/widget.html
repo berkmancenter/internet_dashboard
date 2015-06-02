@@ -1,12 +1,12 @@
 <template name="KasperskyWidget">
 <h1>Threat Data</h1>
 <h2>{{ country.name }} <small>&mdash; last 24 hours</small></h2>
+{{# unless Template.subscriptionsReady }}
+  {{ widgetLoading }}
+{{/unless}}
 <div class="epoch net-attacks"></div>
 <div class="epoch local-infections"></div>
 <div class="epoch vulns"></div>
 <div class="epoch web-threats"></div>
 <div class="epoch spam"></div>
-{{# unless Template.subscriptionsReady }}
-  {{ widgetLoading }}
-{{/unless}}
 </template>
