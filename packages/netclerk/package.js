@@ -16,11 +16,9 @@ Package.onuse( function( api ) {
   api.addFiles( [ 'netclerk.js' ] );
 
   api.addFiles( [
-    'client/settings.html',
-    'client/settings.js',
     'client/widget.html',
-    'client/widget.js',
-    'client/widget.css'
+    'client/widget.css',
+    'client/widget.js'
   ], 'client' );
     
   api.export( 'NetClerk' );
