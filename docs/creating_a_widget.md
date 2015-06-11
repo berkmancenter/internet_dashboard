@@ -114,7 +114,7 @@ ExampleWidget.prototype = Object.create(Widget.prototype);
 ExampleWidget.prototype.constructor = ExampleWidget;
 ```
 
-To ensure your widget data gets persisted correctly, your widget has a `set` method, which you should whenever you want to save your widget's data. Like this:
+To ensure your widget data gets persisted correctly, your widget has a `set` method, which you should call whenever you want to save your widget's data. Like this:
 
 ```javascript
 widgetInstance.set({
