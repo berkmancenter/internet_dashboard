@@ -1,3 +1,19 @@
+NetClerkWidget = function( doc ) {
+  Widget.call( this, doc );
+
+  _.extend( this, {
+    width: 3,
+    height: 1
+  } );
+
+  _.defaults( this.data {
+    country: null
+  } );
+};
+
+NetClerkWidget.prototype = Object.create( Widget.prototype );
+NetClerkWidget.prototype.constructor = NetClerkWidget;
+
 NetClerk = {
   widget: {
     name: 'URL Status by Country',
