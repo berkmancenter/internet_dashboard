@@ -21,14 +21,6 @@
                   }
                 }
               }
-            },
-            "iconv": {
-              "version": "2.1.6",
-              "dependencies": {
-                "nan": {
-                  "version": "1.6.2"
-                }
-              }
             }
           }
         },
