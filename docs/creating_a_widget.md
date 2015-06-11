@@ -19,7 +19,8 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  // Include this line as-is
+  // Include this line as-is,
+  // it matches the version of meteor we're using
   api.versionsFrom('1.1.0.2'); 
 
   // State this packages dependencies. Packages can be included on the client, the server, or both.
@@ -84,7 +85,7 @@ Example = {
 The Widget Object
 -----------------
 
-The widget object you create should be a use the `Widget` object's prototype as its prototype.
+The widget object you create should use the `Widget` object's prototype as its prototype.
 
 You'll also want to call the Widget object's constructor ahead of your own constructor. 
 
