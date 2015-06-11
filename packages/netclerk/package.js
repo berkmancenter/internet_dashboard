@@ -7,13 +7,15 @@ Package.describe( {
 Package.onuse( function( api ) {
   api.versionsFrom( '1.1.0.2' );
 
-  api.use( [ 'widget', 'mongo' ] );
+  api.use( [ 'widget', 'mongo', 'underscore' ] );
 
   api.use( [ 'templating' ], 'client' );
 
   //api.use( [ ], 'server' );
 
   api.addFiles( [ 'netclerk.js' ] );
+
+  api.addFiles( 'server.js', 'server' );
 
   api.addFiles( [
     'client/widget.html',

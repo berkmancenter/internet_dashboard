@@ -1,3 +1,5 @@
+RecentlyChanged = new Mongo.Collection( 'netclerk_recently_changed' );
+
 NetClerkWidget = function( doc ) {
   Widget.call( this, doc );
 
