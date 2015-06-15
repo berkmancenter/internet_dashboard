@@ -8,6 +8,7 @@ WidgetPackages = [
   'mediacloud',
   'wikiedits',
   'wikiedit-stream',
+  'netclerk',
   'herdict',
   'lumen',
   'kaspersky'
