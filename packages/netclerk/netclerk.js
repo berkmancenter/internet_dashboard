@@ -8,7 +8,7 @@ NetClerkWidget = function( doc ) {
     height: 1
   } );
 
-  _.defaults( this.data {
+  _.defaults( this.data, {
     country: null
   } );
 };
