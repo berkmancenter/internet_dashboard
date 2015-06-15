@@ -1,13 +1,12 @@
 var updateData = function() {
   var jsonData = HTTP.get( 'http://netclerk.dev.berkmancenter.org/statuses' );
   
-  RecentlyChanged.upsert({ $set: { lists: lists } });
-    });
-  });
+  RecentlyChanged.remove( {} );
+  RecentlyChanged.insert(jsonData);
 };
 
 updateData();
 
 Meteor.publish( 'netclerk_recently_changed', function() {
-  return CountryLists.all() );
+  return RecentlyChanged.all();
 });
