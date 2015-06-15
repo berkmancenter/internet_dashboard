@@ -19,7 +19,8 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  // Include this line as-is
+  // Include this line as-is,
+  // it matches the version of meteor we're using
   api.versionsFrom('1.1.0.2'); 
 
   // State this packages dependencies. Packages can be included on the client, the server, or both.
@@ -84,7 +85,7 @@ Example = {
 The Widget Object
 -----------------
 
-The widget object you create should be a use the `Widget` object's prototype as its prototype.
+The widget object you create should use the `Widget` object's prototype as its prototype.
 
 You'll also want to call the Widget object's constructor ahead of your own constructor. 
 
@@ -113,7 +114,7 @@ ExampleWidget.prototype = Object.create(Widget.prototype);
 ExampleWidget.prototype.constructor = ExampleWidget;
 ```
 
-To ensure your widget data gets persisted correctly, your widget has a `set` method, which you should whenever you want to save your widget's data. Like this:
+To ensure your widget data gets persisted correctly, your widget has a `set` method, which you should call whenever you want to save your widget's data. Like this:
 
 ```javascript
 widgetInstance.set({
