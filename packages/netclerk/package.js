@@ -4,7 +4,7 @@ Package.describe( {
   summary: 'Ticker showing changes to whether or not web content is being censored in various countries'
 } );
 
-Package.onuse( function( api ) {
+Package.onUse( function( api ) {
   api.versionsFrom( '1.1.0.2' );
 
   api.use( [ 'widget', 'mongo', 'underscore' ] );
