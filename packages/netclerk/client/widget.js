@@ -56,34 +56,18 @@ Template.NetClerkWidget.onRendered( function( ) {
       return;
     }
 
-    function animLoop( render, element ) {
-      var running, lastFrame = +new Date;
-
-      function loop( now ) {
-        // stop the loop if render returned false
-        if ( running !== false ) {
-          requestAnimationFrame( loop, element );
-          running = render( now - lastFrame, element );
-          lastFrame = now;
-        }
-      }
-
-      loop( lastFrame );
-    }
-
     // TODO: is there a better way to guarantee that the template has rendered?
     Meteor.setTimeout( function( ) {
-      var ul = template.$( 'ul' )[ 0 ];
-      var left = 0.0;
+      var ul = template.$( 'ul' );
 
-      if ( ul ) {
-        ul.style.left = "0em";
+      if ( ul.length ) {
+        var count = template.$( 'li' ).length;
 
-        animLoop( function( deltaT, element ) {
-          if ( deltaT > 0 ) {
-            element.style.left = ( left -= ( 0.1 * deltaT / 16.0 ) ) + "em";
-          }
-        }, ul );
+        ul.removeClass( 'netclerk-transition' );
+        ul.css( 'left', '0em' );
+
+        ul.addClass( 'netclerk-transition' );
+        ul.css( 'left', '-' + ( count * 60 ) + 'em' );
       }
     }, 500 );
   } );
