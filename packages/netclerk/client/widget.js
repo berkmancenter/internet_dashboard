@@ -5,7 +5,45 @@ Template.NetClerkWidget.helpers( {
 
 Template.NetClerkWidget.onCreated( function( ) {
   var template = this;
+
   this.autorun( function( ) {
     template.subscribe( 'netclerk_recently_changed' );
+  } );
+} );
+
+Template.NetClerkWidget.onRendered( function( ) {
+  var template = this;
+
+  this.autorun( function( ) {
+    if ( !template.subscriptionsReady() ) {
+      return;
+    }
+
+    function animLoop( render, element ) {
+      var running, lastFrame = +new Date;
+
+      function loop( now ) {
+        // stop the loop if render returned false
+        if ( running !== false ) {
+          requestAnimationFrame( loop, element );
+          running = render( now - lastFrame, element );
+          lastFrame = now;
+        }
+      }
+
+      loop( lastFrame );
+    }
+
+    // TODO: is there a better way to guarantee that the template has rendered?
+    setTimeout( function( ) {
+      var ul = template.$( 'ul' )[ 0 ];
+      var left = 0;
+
+      if ( ul ) {
+        animLoop( function( deltaT, element ) {
+          ul.style.left = ( left -= 4 ) + "px";
+        }, ul );
+      }
+    }, 500 );
   } );
 } );
