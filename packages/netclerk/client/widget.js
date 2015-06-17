@@ -77,6 +77,8 @@ Template.NetClerkWidget.onRendered( function( ) {
       var left = 0.0;
 
       if ( ul ) {
+        ul.style.left = "0em";
+
         animLoop( function( deltaT, element ) {
           if ( deltaT > 0 ) {
             element.style.left = ( left -= ( 0.1 * deltaT / 16.0 ) ) + "em";
