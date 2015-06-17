@@ -37,11 +37,13 @@ Template.NetClerkWidget.onRendered( function( ) {
     // TODO: is there a better way to guarantee that the template has rendered?
     setTimeout( function( ) {
       var ul = template.$( 'ul' )[ 0 ];
-      var left = 0;
+      var left = 0.0;
 
       if ( ul ) {
         animLoop( function( deltaT, element ) {
-          ul.style.left = ( left -= 4 ) + "px";
+          if ( deltaT > 0 ) {
+            element.style.left = ( left -= ( 0.1 * deltaT / 16.0 ) ) + "em";
+          }
         }, ul );
       }
     }, 500 );
