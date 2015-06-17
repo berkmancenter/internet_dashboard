@@ -9,9 +9,9 @@ Package.onUse( function( api ) {
 
   api.use( [ 'widget', 'mongo', 'underscore' ] );
 
-  api.use( [ 'templating' ], 'client' );
+  api.use( [ 'http' ], 'server' );
 
-  //api.use( [ ], 'server' );
+  api.use( [ 'templating' ], 'client' );
 
   api.addFiles( [ 'netclerk.js' ] );
 
