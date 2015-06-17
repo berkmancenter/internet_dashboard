@@ -30,6 +30,14 @@
   color: green;
 }
 
+.netclerk .up .delta:after {
+  content: '▲';
+}
+
 .netclerk .down {
   color: red;
+}
+
+.netclerk .down .delta:after {
+  content: '▼';
 }

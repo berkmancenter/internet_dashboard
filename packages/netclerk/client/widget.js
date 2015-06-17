@@ -1,6 +1,23 @@
 Template.NetClerkWidget.helpers( {
   statuses: function( ) { return RecentlyChanged.findOne().statuses.data; },
-  isUp: function( delta ) { return delta > 0 }
+  isUp: function( delta ) { return delta < 0 },
+  pageDisplay: function( page ) {
+    var l = document.createElement("a");
+    l.href = page.url;
+    return l.hostname.replace( /www\./, '' );
+  },
+  valueDisplay: function( value ) {
+    var values = [
+      'available',
+      'a bit different',
+      'very different',
+      'not available'
+    ];
+    return values[ value ];
+  },
+  deltaDisplay: function( delta ) {
+    return Math.abs( delta );
+  }
 } );
 
 Template.NetClerkWidget.onCreated( function( ) {
