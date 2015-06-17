@@ -1,0 +1,22 @@
+.netclerk ul {
+  font-family: 'bpdotssquaresregular', monospace;
+  font-size: 4.4em;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  white-space: nowrap;
+}
+
+.netclerk li {
+  display: inline-block;
+  margin: 0 1em;
+}
+
+.netclerk .up {
+  color: green;
+}
+
+.netclerk .down {
+  color: red;
+}

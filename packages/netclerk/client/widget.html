@@ -1,3 +1,15 @@
 <template name="NetClerkWidget">
+  <link rel="stylesheet" href="bpdotssquares_regular_macroman/stylesheet.css" type="text/css" charset="utf-8" />
+
   <h1>NetClerk</h1>
+  {{# if Template.subscriptionsReady }}
+
+  <ul>
+    {{# each statuses }}
+    <li class="{{#if isUp delta}}up{{else}}down{{/if}}">{{ country.iso3 }} {{ page.url }}</li>
+    {{/each}}
+  </ul>
+
+  {{/if}}
+  <span class="item"></span>
 </template>
