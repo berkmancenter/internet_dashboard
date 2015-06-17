@@ -20,7 +20,15 @@ Package.onUse( function( api ) {
   api.addFiles( [
     'client/widget.html',
     'client/widget.css',
-    'client/widget.js'
+    'client/widget.js',
+
+    'client/info.html',
+
+    'client/bpdotssquares_regular_macroman/stylesheet.css',
+    'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.eot',
+    'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.woff',
+    'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.ttf',
+    'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.svg'
   ], 'client' );
     
   api.export( 'NetClerk' );
