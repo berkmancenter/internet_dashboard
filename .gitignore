@@ -1,3 +1,6 @@
 ## vim swap
 *.swp
 *.swo
+
+## .npm folders (generated during build)
+packages/*/.npm
