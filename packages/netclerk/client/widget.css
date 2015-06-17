@@ -27,7 +27,7 @@
 }
 
 .netclerk .up {
-  color: green;
+  color: #90e990;
 }
 
 .netclerk .up .delta:after {
@@ -35,7 +35,7 @@
 }
 
 .netclerk .down {
-  color: red;
+  color: #f2908d;
 }
 
 .netclerk .down .delta:after {
