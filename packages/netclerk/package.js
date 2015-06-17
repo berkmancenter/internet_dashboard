@@ -7,7 +7,7 @@ Package.describe( {
 Package.onUse( function( api ) {
   api.versionsFrom( '1.1.0.2' );
 
-  api.use( [ 'widget', 'mongo', 'underscore' ] );
+  api.use( [ 'widget', 'mongo', 'momentjs:moment', 'underscore' ] );
 
   api.use( [ 'http' ], 'server' );
 

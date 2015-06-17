@@ -1,5 +1,25 @@
 Template.NetClerkWidget.helpers( {
-  statuses: function( ) { return RecentlyChanged.findOne().statuses.data; },
+  statuses: function( ) {
+    function shuffle(array) {
+      // Fisher-Yates (aka Knuth) Shuffle ( https://github.com/coolaj86/knuth-shuffle )
+      var currentIndex = array.length, temporaryValue, randomIndex ;
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    }
+
+
+
+    return shuffle( RecentlyChanged.findOne().statuses.data );
+  },
   isUp: function( delta ) { return delta < 0 },
   pageDisplay: function( page ) {
     var l = document.createElement("a");
@@ -52,7 +72,7 @@ Template.NetClerkWidget.onRendered( function( ) {
     }
 
     // TODO: is there a better way to guarantee that the template has rendered?
-    setTimeout( function( ) {
+    Meteor.setTimeout( function( ) {
       var ul = template.$( 'ul' )[ 0 ];
       var left = 0.0;
 

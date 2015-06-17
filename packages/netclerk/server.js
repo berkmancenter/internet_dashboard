@@ -7,6 +7,8 @@ var updateData = function() {
 
 updateData();
 
+Meteor.setInterval( updateData, moment.duration({ hours: 24 }).asMilliseconds() );
+
 Meteor.publish( 'netclerk_recently_changed', function() {
   return RecentlyChanged.find();
 });
