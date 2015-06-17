@@ -1,6 +1,19 @@
+@font-face {
+    font-family: 'bpdotssquaresregular';
+    src: url('bpdotssquares_regular_macroman/BPdotsSquare-webfont.eot');
+    src: url('bpdotssquares_regular_macroman/BPdotsSquare-webfont.eot?#iefix') format('embedded-opentype'),
+         url('bpdotssquares_regular_macroman/BPdotsSquare-webfont.woff') format('woff'),
+         url('bpdotssquares_regular_macroman/BPdotsSquare-webfont.ttf') format('truetype'),
+         url('bpdotssquares_regular_macroman/BPdotsSquare-webfont.svg#bpdotssquaresregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 .netclerk ul {
   font-family: 'bpdotssquaresregular', monospace;
   font-size: 4.4em;
+  left: 0px;
   list-style-type: none;
   margin: 0;
   padding: 0;

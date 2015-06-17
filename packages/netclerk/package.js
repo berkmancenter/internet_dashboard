@@ -24,7 +24,6 @@ Package.onUse( function( api ) {
 
     'client/info.html',
 
-    'client/bpdotssquares_regular_macroman/stylesheet.css',
     'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.eot',
     'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.woff',
     'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.ttf',
