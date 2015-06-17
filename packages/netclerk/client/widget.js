@@ -72,7 +72,7 @@ Template.NetClerkWidget.onRendered( function( ) {
     }
 
     // TODO: is there a better way to guarantee that the template has rendered?
-    setTimeout( function( ) {
+    Meteor.setTimeout( function( ) {
       var ul = template.$( 'ul' )[ 0 ];
       var left = 0.0;
 
