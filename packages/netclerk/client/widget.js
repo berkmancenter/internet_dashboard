@@ -16,16 +16,17 @@ Template.NetClerkWidget.helpers( {
       return array;
     }
 
-
-
     return shuffle( RecentlyChanged.findOne().data );
   },
+
   isUp: function( delta ) { return delta < 0 },
+
   pageDisplay: function( page ) {
     var l = document.createElement("a");
     l.href = page.url;
     return l.hostname.replace( /www\./, '' );
   },
+
   valueDisplay: function( value ) {
     var values = [
       'available',
@@ -35,6 +36,7 @@ Template.NetClerkWidget.helpers( {
     ];
     return values[ value ];
   },
+
   deltaDisplay: function( delta ) {
     return Math.abs( delta );
   }
