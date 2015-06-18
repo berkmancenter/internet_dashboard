@@ -2,7 +2,7 @@ var updateData = function() {
   var jsonData = HTTP.get( 'http://netclerk.dev.berkmancenter.org/statuses.json' );
   
   RecentlyChanged.remove( {} );
-  RecentlyChanged.insert( { statuses: jsonData } );
+  RecentlyChanged.insert( jsonData );
 };
 
 updateData();

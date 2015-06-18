@@ -18,7 +18,7 @@ Template.NetClerkWidget.helpers( {
 
 
 
-    return shuffle( RecentlyChanged.findOne().statuses.data );
+    return shuffle( RecentlyChanged.findOne().data );
   },
   isUp: function( delta ) { return delta < 0 },
   pageDisplay: function( page ) {
