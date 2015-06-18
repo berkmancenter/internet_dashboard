@@ -23,6 +23,8 @@ Package.onUse( function( api ) {
     'client/widget.js',
 
     'client/info.html',
+    'client/info.css',
+    'client/logo_96.png',
 
     'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.eot',
     'client/bpdotssquares_regular_macroman/BPdotsSquare-webfont.woff',
