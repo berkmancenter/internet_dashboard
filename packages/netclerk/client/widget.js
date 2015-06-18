@@ -58,20 +58,15 @@ Template.NetClerkWidget.onRendered( function( ) {
       return;
     }
 
-    // TODO: is there a better way to guarantee that the template has rendered?
-    Meteor.setTimeout( function( ) {
-      var ul = template.$( 'ul' );
+    var ul = template.$( 'ul' );
 
-      if ( ul.length ) {
-        ul.removeClass( 'netclerk-transition' );
-        ul.css( 'left', '20em' );
+    ul.removeClass( 'netclerk-transition' );
+    ul.css( 'left', '20em' );
 
-        var count = template.$( 'li' ).length;
+    var count = RecentlyChanged.findOne().data.length;
 
-        ul.css( 'transitionDuration', ( count * 14 ) + 's' );
-        ul.addClass( 'netclerk-transition' );
-        ul.css( 'left', '-' + ( count * 60 + 20 ) + 'em' );
-      }
-    }, 500 );
+    ul.css( 'transitionDuration', ( count * 14 ) + 's' );
+    ul.addClass( 'netclerk-transition' );
+    ul.css( 'left', '-' + ( count * 60 + 20 ) + 'em' );
   } );
 } );
