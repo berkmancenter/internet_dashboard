@@ -63,13 +63,14 @@ Template.NetClerkWidget.onRendered( function( ) {
       var ul = template.$( 'ul' );
 
       if ( ul.length ) {
+        ul.removeClass( 'netclerk-transition' );
+        ul.css( 'left', '20em' );
+
         var count = template.$( 'li' ).length;
 
-        ul.removeClass( 'netclerk-transition' );
-        ul.css( 'left', '0em' );
-
+        ul.css( 'transitionDuration', ( count * 14 ) + 's' );
         ul.addClass( 'netclerk-transition' );
-        ul.css( 'left', '-' + ( count * 60 ) + 'em' );
+        ul.css( 'left', '-' + ( count * 60 + 20 ) + 'em' );
       }
     }, 500 );
   } );

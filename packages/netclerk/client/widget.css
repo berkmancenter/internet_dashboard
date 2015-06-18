@@ -13,7 +13,7 @@
 .netclerk ul {
   font-family: 'bpdotssquaresregular', monospace;
   font-size: 3.6em;
-  left: 0px;
+  left: 20em;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -24,7 +24,6 @@
 .netclerk-transition {
   transition-timing-function: linear;
   transition-property: left;
-  transition-duration: 9000s;
 }
 
 .netclerk li {
