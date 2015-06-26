@@ -20,9 +20,9 @@ Template.LumenWidget.onRendered(function() {
 
     template.$('.url-counts').empty();
 
-    var urlCounts = LumenCounts.find().map(function(bin) {
-      return { x: bin.start, y: bin.urlCount };
-    });
+    var urlCounts = LumenCounts.find({}, { sort: { start: 1 } }).map(
+      function(bin) { return { x: bin.start, y: bin.urlCount }; }
+    );
 
     var binStarts = _.map(urlCounts, function(d) { return d.x; });
     var tickValues = function(binStarts, numTicks) {
