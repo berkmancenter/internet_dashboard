@@ -36,7 +36,7 @@ Template.LumenWidget.onRendered(function() {
       return ticks;
     };
 
-    var margin = {top: 5, right: 20, bottom: 40, left: 30},
+    var margin = {top: 5, right: 20, bottom: 40, left: 40},
         width = 300 - margin.left - margin.right,
         height = 90 - margin.top - margin.bottom;
 
