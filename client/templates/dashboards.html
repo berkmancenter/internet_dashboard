@@ -1,5 +1,20 @@
 <template name="DashboardsShow">
-{{ test }}
+{{# if noWidgets }}
+<div class="container">
+  <div class="jumbotron" id="instructions">
+    <h2 class="text-center">Welcome to your new dashboard!</h2>
+    <p>A few things to know:</p>
+    <ul>
+      <li><p>Click on the <span class="btn-add-widget">+</span> to add your first widget.</p></li>
+      <li><p>Dashboards can hold as many widgets as you like, each with their own settings.</p></li>
+      <li><p>To compare data across countries and regions, you can add multiple copies of widgets.</p></li>
+      <li><p>Once you've added some widgets, you can rearrange them however you'd like.</p></li>
+      <li><p>If you'd like to share this dashboard with others or visit it again later, make sure to keep a copy of the URL.</p></li>
+    </ul>
+  </div>
+</div>
+{{/if}}
+
 <div id="dashboard" class="gridster">
   <ul id="widgets">
     {{# each widgets }}

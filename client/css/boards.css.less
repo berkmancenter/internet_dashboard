@@ -35,21 +35,37 @@ h1, h2 {
   }
 }
 
+#instructions {
+  margin-top: 3%;
+}
+
+.btn-add-widget {
+  color: #428BCA;
+  border: 2px solid #428BCA;
+  border-radius: 50%;
+  text-align: center;
+}
+
+span.btn-add-widget {
+  width: 1em;
+  height: 1em;
+  line-height: 0.72em;
+  display: inline-block;
+}
+
 a.btn-add-widget {
   position: fixed;
-  text-align: center;
   bottom: 55px;
   right: 15px;
   font-size: 72px;
   line-height: 40px;
   width: 50px;
   height: 50px;
-  border: 2px solid #428BCA;
-  border-radius: 50%;
 
-  &:hover, &:focus {
+  &:hover, &:focus, &:visited {
     text-decoration: none;
     outline: none;
+    color: #428BCA;
   }
 }
 

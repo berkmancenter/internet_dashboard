@@ -4,6 +4,9 @@ Template.DashboardsShow.helpers({
   },
   widgets: function() {
     return Widgets.find();
+  },
+  noWidgets: function() {
+    return Widgets.find().count() === 0;
   }
 });
 
