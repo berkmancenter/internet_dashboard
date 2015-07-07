@@ -18,6 +18,7 @@ Package.onUse(function(api) {
     'mediacloud.js',
   ]);
 
+  api.addFiles('apiKey.txt', 'server', { isAsset: true });
   api.addFiles(['server.js'], 'server');
 
   api.addFiles([

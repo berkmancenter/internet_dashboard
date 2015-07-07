@@ -1,3 +1,5 @@
+Settings.apiKey = Assets.getText('apiKey.txt');
+
 var url = function(args) {
   var dateFormat = 'YYYY-MM-DD';
   args.startDate = args.startDate.format(dateFormat);

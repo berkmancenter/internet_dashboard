@@ -1,3 +1,5 @@
 ## vim swap
 *.swp
 *.swo
+authToken.txt
+apiKey.txt

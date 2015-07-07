@@ -15,7 +15,6 @@ Settings = {
     maxRotation: 40,
     fontScale: [8, 30]
   },
-
   stopWordLangs: [
     'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'lt', 'nl', 'no',
     'pt', 'ro', 'ru', 'sv', 'tr'
