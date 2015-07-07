@@ -67,7 +67,7 @@ Contact is managed through the [GitHub issue tracker](https://github.com/berkman
 License
 -------
 
-MIT
+MIT - See `LICENSE` for a copy.
 
 Copyright
 ---------
