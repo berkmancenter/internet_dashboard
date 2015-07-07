@@ -5,10 +5,10 @@ WidgetPackages = [
   'percent-online',
   'connection-speed',
   'broadband-cost',
-  'mediacloud',
+  //'mediacloud',
   'wikiedits',
   'wikiedit-stream',
   'herdict',
-  'lumen',
+  //'lumen',
   'kaspersky'
 ];

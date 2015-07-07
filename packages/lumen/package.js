@@ -10,7 +10,7 @@ Package.onUse(function(api) {
   api.use(['templating', 'd3js:d3'], 'client');
   api.use(['http'], 'server');
 
-  api.addFiles('authToken.txt', 'server', { isAsset: true });
+  api.addFiles('apiKey.txt', 'server', { isAsset: true });
   api.addFiles('lumen.js');
   api.addFiles(['server.js'], 'server');
   api.addFiles([

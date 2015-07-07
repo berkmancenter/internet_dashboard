@@ -1,4 +1,4 @@
-Settings.authToken = Assets.getText('authToken.txt');
+Settings.authToken = Assets.getText('apiKey.txt');
 
 var getBins = function() {
   var bins = [];
