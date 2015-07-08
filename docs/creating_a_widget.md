@@ -142,6 +142,16 @@ To close the settings popup from a template's event handler (if the user has cli
 
 For CSS, all your widgets will receive a class with the same name as your widget package (__not__ the name of your widget's export), e.g. `.example-widget`. Scope all CSS within this class to prevent clashes with other widgets.
 
+Adding the Widget
+-----------------
+
+Once you've built your widget, you'll want to add it to the dashboard:
+
+1. Move your widget package to the correct directory. Create a directory under `packages` with the same name you gave your package in `package.js`. Put all your code in it.
+2. Add your package to Meteor. At the root of the project, type `meteor add {your package name}`.
+3. Add your package to the list of widgets. Open `widgets.js` and add your package name to the array.
+4. That's it. Start Meteor with `meteor`.
+
 More Information
 ----------------
 
