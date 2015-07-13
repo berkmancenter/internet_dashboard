@@ -74,6 +74,7 @@ Template.DashboardsShow.onRendered(function() {
     serialize_params: serializePositions,
     autogrow_cols: true,
     draggable: {
+      handle: '.title-bar',
       stop: function() { Widgets.updatePositions(self.gridster.serialize()); }
     }
   }).data('gridster');

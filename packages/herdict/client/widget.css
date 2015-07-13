@@ -3,11 +3,12 @@
   font-size: 1.1em;
 }
 .herdict li {
-  margin-bottom: 0.6em;
+  margin-bottom: 1em;
 }
 .herdict ol {
   list-style-type: none;
   padding-left: 0;
+  margin-top: 1em;
 }
 .herdict .herdict-title {
   margin-left: 1em;

@@ -1,6 +1,6 @@
 .akamai-traffic-hour, .akamai-traffic-day {
   position: relative;
-  height: 80px;
+  height: 100px;
   width: 320px;
   left: -15px;
 }
