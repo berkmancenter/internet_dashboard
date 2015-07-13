@@ -13,7 +13,8 @@ Package.onUse(function(api) {
   api.addFiles([
     'client/widget.html',
     'client/settings.html',
-    'client/settings.js'
+    'client/settings.js',
+    'client/settings.css'
   ], 'client');
 
   api.export('ImageBlock');
