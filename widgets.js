@@ -10,5 +10,6 @@ WidgetPackages = [
   'wikiedit-stream',
   'herdict',
   //'lumen',
-  'kaspersky'
+  'kaspersky',
+  'image-block'
 ];
