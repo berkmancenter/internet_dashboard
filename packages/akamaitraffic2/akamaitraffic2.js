@@ -8,7 +8,7 @@ Settings = {
     width: 450,
     height: 270,
     scale: 110,
-    squash: 0.85,
+    squash: 0.90,
     bumpDown: 30,
     bumpLeft: 30
   }

@@ -7,7 +7,7 @@ Settings = {
   mapWidth: 450,
   mapHeight: 270,
   mapScale: 110,
-  mapSquash: 0.85,
+  mapSquash: 0.90,
   mapBumpDown: 30,
   mapBumpLeft: 30
 };

@@ -27,13 +27,13 @@ Dashboards.attachSchema(new SimpleSchema({
   },
   rowHeight: {
     type: Number,
-    defaultValue: 150,
+    defaultValue: 170,
   },
   gutter: {
     type: Number,
     defaultValue: 20
   },
-  default: { 
+  default: {
     type: Boolean,
     defaultValue: false
   }
