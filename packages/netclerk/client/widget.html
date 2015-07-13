@@ -1,0 +1,12 @@
+<template name="NetClerkWidget">
+  <h1>NetClerk</h1>
+
+  <ul>
+    {{# if Template.subscriptionsReady }}
+    {{# each statuses }}
+    <li class="{{#if isUp delta}}up{{else}}down{{/if}}">{{ pageDisplay page }} {{ country.iso3 }} <span class="value">{{ valueDisplay value }}</span> <span class="delta">{{ deltaDisplay delta }}</span></li>
+    {{/each}}
+    {{/if}}
+  </ul>
+
+</template>
