@@ -22,7 +22,8 @@ WidgetTypes.attachSchema(new SimpleSchema({
     regEx: SimpleSchema.RegEx.Url
   },
   org: {
-    type: Object
+    type: Object,
+    optional: true
   },
   'org.name': {
     type: String

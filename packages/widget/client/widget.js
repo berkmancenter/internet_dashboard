@@ -14,6 +14,9 @@ Template.WidgetShow.helpers({
   providesSettings: function() {
     return Widget.providesTemplate(this, 'Settings');
   },
+  fromOrg: function() {
+    return !!WidgetTypes.findOne({ packageName: this.packageName }).org;
+  },
   widgetId: function(aspect) {
     aspect = aspect || 'widget';
     return this.packageName + '-' + this._id + '-' + aspect;
