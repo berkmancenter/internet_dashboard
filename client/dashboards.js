@@ -73,6 +73,10 @@ Template.DashboardsShow.onRendered(function() {
     widget_base_dimensions: [dash.columnWidth, dash.rowHeight],
     serialize_params: serializePositions,
     autogrow_cols: true,
+    resize: {
+      enabled: true,
+      resize: dash.onWidgetResize.bind(dash)
+    },
     draggable: {
       handle: '.title-bar',
       stop: function() { Widgets.updatePositions(self.gridster.serialize()); }

@@ -1,6 +1,6 @@
 <template name="WidgetShow">
   <li id="{{ widgetId }}"
-      class="widget col-{{ width }} row-{{ height }} {{ widgetClass }}"
+      class="widget {{ widgetClass }}" data-mid="{{ _id }}"
       data-sizex="{{ width }}" data-sizey="{{ height }}"
       data-row="{{ position.x }}" data-col="{{ position.y }}">
 
@@ -42,10 +42,9 @@
         </div>
         {{/if}}
       </div>
-    </div>
 
     <div class="widget-body">
-      {{> Template.dynamic template=widgetTemplate data=data }}
+    {{> Template.dynamic template=widgetTemplate data=data }}
     </div>
   </li>
 </template>

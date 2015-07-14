@@ -24,12 +24,27 @@ _.extend(Widget, {
   construct: function(doc) {
     return new Package[doc.packageName][doc.exportedVar].widget.constructor(doc);
   },
-
   templateFor: function(widget, name) {
     return widget.exportedVar + name;
   },
   providesTemplate: function(widget, name) {
     return !_.isUndefined(Template[Widget.templateFor(widget, name)]);
+  },
+  onResize: function(ev, ui) {
+    console.log('here');
+    /*
+       var onWidgetResize = function(e, ui, $widget) {
+       var currentDims = [$widget.outerWidth(), $widget.outerHeight()];
+       var origDims = [
+       $widget.data('orig-sizex') * 150 + 20 * ($widget.data('orig-sizex') - 1),
+       $widget.data('orig-sizey') * 150 + 20 * ($widget.data('orig-sizey') - 1)
+       ];
+       $widget.find('.widget-body').css({
+       transform: 'scaleX(' + currentDims[0] / origDims[0] + ') ' +
+       'scaleY(' + currentDims[1] / origDims[1] + ')'
+       });
+       };
+       */
   }
 });
 
