@@ -13,6 +13,13 @@ _.extend(Dashboard.prototype, {
   },
   removeWidget: function(widget) {
     Meteor.call('removeWidgetFromDashboard', widget._id);
+  },
+  widgets: function() {
+    return Widgets.find({ dashboardId: this._id });
+  },
+  onWidgetResize: function(ev, ui, $widget) {
+    var widget = Widgets.findOne($widget.data('mid'));
+    widget.onResize(ev, ui);
   }
 });
 
