@@ -7,7 +7,7 @@ ImageBlockWidget = function(doc) {
   });
 
   _.defaults(this.data,{
-    imageUrl: 'http://lorempixel.com/150/150'
+    imageUrl: 'http://lorempixel.com/150/170'
   });
 };
 ImageBlockWidget.prototype = Object.create(Widget.prototype);
