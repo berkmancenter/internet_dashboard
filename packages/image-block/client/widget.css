@@ -1,0 +1,6 @@
+.image-block .title-bar {
+  position: absolute;
+}
+.image-block .title-bar .buttons a {
+  color: #9E9E9E;
+}
