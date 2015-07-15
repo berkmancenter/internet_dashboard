@@ -1,13 +1,14 @@
 Widget = function(doc) {
+  doc = doc || {};
   _.extend(this, doc);
 
-  this.data = new WidgetData(doc.data);
+  this.data = doc.data ? new WidgetData(doc.data) : new WidgetData();
   this.data.widget = this;
 };
 
 _.extend(Widget.prototype, {
-  packageExports: function() {
-    return Widgets.packageExports(this);
+  metadata: function() {
+    return WidgetTypes.findOne({ packageName: this.packageName });
   },
   toJSON: function() {
     var widget = _.pick(this, [
@@ -16,35 +17,32 @@ _.extend(Widget.prototype, {
     ]);
     widget.data = this.data.toJSON();
     return widget;
+  },
+  dashboard: function() {
+    return Dashboards.findOne(this.dashboardId);
+  },
+  templateFor: function(name) {
+    return this.exportedVar + name;
+  },
+  providesTemplate: function(name) {
+    return !_.isUndefined(Template[this.templateFor(name)]);
   }
 });
 
 // Static methods
 _.extend(Widget, {
   construct: function(doc) {
-    return new Package[doc.packageName][doc.exportedVar].widget.constructor(doc);
+    var packageExports = Package[doc.packageName][doc.exportedVar];
+    var widget = new packageExports.widget.constructor(doc);
+    if ((_.isUndefined(widget.width) || _.isUndefined(widget.height)) && 
+        packageExports.widget.dimensions) {
+      widget.width = packageExports.widget.dimensions.width;
+      widget.height = packageExports.widget.dimensions.height;
+    }
+    return widget;
   },
-  templateFor: function(widget, name) {
-    return widget.exportedVar + name;
-  },
-  providesTemplate: function(widget, name) {
-    return !_.isUndefined(Template[Widget.templateFor(widget, name)]);
-  },
-  onResize: function(ev, ui) {
-    console.log('here');
-    /*
-       var onWidgetResize = function(e, ui, $widget) {
-       var currentDims = [$widget.outerWidth(), $widget.outerHeight()];
-       var origDims = [
-       $widget.data('orig-sizex') * 150 + 20 * ($widget.data('orig-sizex') - 1),
-       $widget.data('orig-sizey') * 150 + 20 * ($widget.data('orig-sizey') - 1)
-       ];
-       $widget.find('.widget-body').css({
-       transform: 'scaleX(' + currentDims[0] / origDims[0] + ') ' +
-       'scaleY(' + currentDims[1] / origDims[1] + ')'
-       });
-       };
-       */
+  Settings: {
+    titleBar: { height: 20 }
   }
 });
 
@@ -94,14 +92,12 @@ Widgets.attachSchema(new SimpleSchema({
   },
   width: {
     type: Number,
-    min: 1,
-    max: 3,
-    defaultValue: 1
+    allowedValues: [1, 2, 3, 4, 5],
+    defaultValue: 2
   },
   height: {
     type: Number,
-    min: 1,
-    max: 3,
+    allowedValues: [1, 2, 3, 4, 5],
     defaultValue: 1
   },
   position: {

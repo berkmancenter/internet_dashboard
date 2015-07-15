@@ -41,7 +41,17 @@ var serializePositions = function($widget, position) {
 };
 
 Template.DashboardsShow.onCreated(function() {
-  this.widgetNodes = [];
+  var self = this;
+  self.widgetNodes = [];
+  self.onWidgetResize = {
+    start: function(ev, ui, $widget) {
+      $widget.trigger('gridster:resizestart', ev, ui);
+    },
+    stop: function(ev, ui, $widget) {
+      $widget.trigger('gridster:resizestop', ev, ui);
+      Widgets.updatePositions(self.gridster.serialize());
+    }
+  };
 });
 
 Template.DashboardsShow.onRendered(function() {
@@ -75,14 +85,12 @@ Template.DashboardsShow.onRendered(function() {
     autogrow_cols: true,
     resize: {
       enabled: true,
-      resize: dash.onWidgetResize.bind(dash)
+      start: self.onWidgetResize.start,
+      stop: self.onWidgetResize.stop
     },
     draggable: {
       handle: '.title-bar',
       stop: function() { Widgets.updatePositions(self.gridster.serialize()); }
     }
   }).data('gridster');
-
-  //Widgets.updatePositions(self.gridster.serialize());
-
 });

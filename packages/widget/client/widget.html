@@ -1,11 +1,9 @@
 <template name="WidgetShow">
-  <li id="{{ widgetId }}"
-      class="widget {{ widgetClass }}" data-mid="{{ _id }}"
-      data-sizex="{{ width }}" data-sizey="{{ height }}"
-      data-row="{{ position.x }}" data-col="{{ position.y }}">
+  <li id="{{ widgetId }}" class="widget {{ widgetClass }}"
+      data-mid="{{ _id }}" {{ gridAttrs }}>
 
-    <div class="title-bar">
-      {{# if fromOrg }}
+    <div class="title-bar" style="height: {{ titleBar.height }}px;">
+      {{# if widgetMetadata.org }}
       <p class="data-source">
         From <a href="{{ widgetMetadata.org.url }}" target="_blank">
           {{ widgetMetadata.org.shortName }}
@@ -42,15 +40,16 @@
         </div>
         {{/if}}
       </div>
+    </div>
 
     <div class="widget-body">
-    {{> Template.dynamic template=widgetTemplate data=data }}
+      {{> Template.dynamic template=widgetTemplate data=data }}
     </div>
   </li>
 </template>
 
 <template name="DefaultWidgetInfo">
-{{# if fromOrg }}
+{{# if widgetMetadata.org }}
 <p>
   The data backing this widget has been provided by:
 </p>
