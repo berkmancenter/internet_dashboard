@@ -1,6 +1,7 @@
-.image-block .title-bar {
+.widget.image-block .title-bar {
   position: absolute;
+  background-color: rgba(80, 80, 80, 0.6);
 }
 .image-block .title-bar .buttons a {
-  color: #9E9E9E;
+  color: #C5C5C5;
 }
