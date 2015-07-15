@@ -16,10 +16,6 @@ _.extend(Dashboard.prototype, {
   },
   widgets: function() {
     return Widgets.find({ dashboardId: this._id });
-  },
-  onWidgetResize: function(ev, ui, $widget) {
-    var widget = Widgets.findOne($widget.data('mid'));
-    widget.onResize(ev, ui);
   }
 });
 

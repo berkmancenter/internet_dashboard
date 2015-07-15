@@ -5,11 +5,6 @@ Settings = {
 PercentOnlineWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.extend(this, {
-    width: 2,
-    height: 1
-  });
-
   if (this.data.isEmpty()) {
     var self = this;
     Meteor.subscribe('imon_countries', function() {
@@ -39,6 +34,7 @@ PercentOnline = {
     name: 'Percent Online',
     description: 'Shows the percent of a country\'s population using the Internet regularly',
     url: 'https://thenetmonitor.org/sources',
+    dimensions: { width: 2, height: 1 },
     constructor: PercentOnlineWidget
   },
   org: {
