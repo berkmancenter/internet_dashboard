@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "flatten-obj": {
+      "version": "2.0.1",
+      "dependencies": {
+        "isobj": {
+          "version": "1.0.0"
+        }
+      }
+    }
+  }
+}

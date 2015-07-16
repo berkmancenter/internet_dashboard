@@ -18,14 +18,17 @@ WidgetTypes.attachSchema(new SimpleSchema({
     optional: true
   },
   'widget.dimensions': {
-    type: Object
+    type: Object,
+    optional: true
   },
   'widget.dimensions.width': {
     type: Number,
+    defaultValue: 2,
     allowedValues: [1, 2, 3, 4, 5]
   },
   'widget.dimensions.height': {
     type: Number,
+    defaultValue: 1,
     allowedValues: [1, 2, 3, 4, 5]
   },
   'widget.url': {
@@ -33,41 +36,50 @@ WidgetTypes.attachSchema(new SimpleSchema({
     regEx: SimpleSchema.RegEx.Url
   },
   'widget.resize': {
-    type: Object
+    type: Object,
+    optional: true
   },
   'widget.resize.mode': {
     type: String,
     defaultValue: 'scale',
+    optional: true,
     allowedValues: ['scale', 'reflow']
   },
   'widget.resize.constraints': {
-    type: Object
+    type: Object,
+    optional: true,
   },
   'widget.resize.constraints.width': {
-    type: Object
+    type: Object,
+    optional: true,
   },
   'widget.resize.constraints.width.min': {
     type: Number,
+    defaultValue: 1,
     allowedValues: [1, 2, 3, 4, 5],
-    defaultValue: 1
+    optional: true,
   },
   'widget.resize.constraints.width.max': {
     type: Number,
+    defaultValue: 5,
     allowedValues: [1, 2, 3, 4, 5],
-    defaultValue: 5
+    optional: true,
   },
   'widget.resize.constraints.height': {
-    type: Object
+    type: Object,
+    optional: true,
   },
   'widget.resize.constraints.height.min': {
     type: Number,
+    defaultValue: 1,
     allowedValues: [1, 2, 3, 4, 5],
-    defaultValue: 1
+    optional: true,
   },
   'widget.resize.constraints.height.max': {
     type: Number,
+    defaultValue: 5,
     allowedValues: [1, 2, 3, 4, 5],
-    defaultValue: 5
+    optional: true,
   },
   org: {
     type: Object,
