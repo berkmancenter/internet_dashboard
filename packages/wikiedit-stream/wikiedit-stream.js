@@ -11,11 +11,6 @@ Settings = {
 WikiWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.extend(this, {
-    width: 2,
-    height: 2
-  });
-
   _.defaults(this.data, {
     channel: Settings.defaultChannel
   });
@@ -29,6 +24,7 @@ WikiStream = {
     name: 'Wikipedia Edits',
     description: 'Shows a streaming list of edits to each language\'s Wikipedia',
     url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
+    dimensions: { width: 2, height: 2 },
     constructor: WikiWidget
   },
   org: {

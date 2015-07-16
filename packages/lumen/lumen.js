@@ -16,10 +16,6 @@ Settings.updateEvery = Settings.binWidth;
 
 LumenWidget = function(doc) {
   Widget.call(this, doc);
-  _.extend(this, {
-    width: 2,
-    height: 1
-  });
 
   _.defaults(this.data, {});
 };
@@ -32,6 +28,7 @@ Lumen = {
     name: 'Takedown Requests',
     description: 'Shows the number takedown requests Chilling Effects has received over time',
     url: 'https://www.chillingeffects.org/',
+    dimensions: { width: 2, height: 1 },
     constructor: LumenWidget,
   },
   org: {

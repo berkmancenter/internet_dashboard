@@ -14,11 +14,6 @@ Settings = {
 BroadbandCostWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.extend(this, {
-    width: 3,
-    height: 1
-  });
-
   if (this.data.isEmpty()) {
     var self = this;
     Meteor.subscribe('imon_countries', function() {
@@ -48,6 +43,9 @@ BroadbandCost = {
     name: 'Broadband Cost',
     description: 'Shows an overall broadband cost index that aggregates the proportionate costs across each tier for each country',
     url: 'https://thenetmonitor.org/sources',
+    dimensions: { width: 3, height: 1 },
+    resize: { mode: 'reflow',
+              constraints: { height: { min: 1, max: 1 }, width: { min: 2 } } },
     constructor: BroadbandCostWidget
   },
   org: {

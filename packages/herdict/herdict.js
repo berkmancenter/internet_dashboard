@@ -26,11 +26,6 @@ Settings = {
 HerdictWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.extend(this, {
-    width: 2,
-    height: 2
-  });
-
   _.defaults(this.data, {
     country: {
       code: 'US',
@@ -51,6 +46,7 @@ Herdict = {
     name: 'Website Availability',
     description: 'Shows the top URLs reported accessible or inaccessible by users on Herdict',
     url: 'http://herdict.org/explore/indepth',
+    dimensions: { width: 2, height: 2 },
     constructor: HerdictWidget,
   },
   org: {

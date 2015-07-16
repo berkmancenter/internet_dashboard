@@ -17,10 +17,6 @@ Settings = {
 
 TrafficWidget = function(doc) {
   Widget.call(this, doc);
-  _.extend(this, {
-    width: 2,
-    height: 2
-  });
   _.defaults(this.data, {
     regionId: '0',
     regionLabel: 'The World'
@@ -34,6 +30,7 @@ AkamaiTraffic = {
     name: 'Web Requests',
     description: 'Shows the number of HTTP hits per second the Akamai network receives from each continent',
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
+    dimensions: { width: 2, height: 2 },
     constructor: TrafficWidget
   },
   org: {
