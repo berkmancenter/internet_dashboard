@@ -108,6 +108,7 @@ Template.WidgetShow.onRendered(function() {
   if (this.data.metadata().widget.resize.mode === 'scale') {
     var originalGridDims = self.data.metadata().widget.dimensions;
     var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
+    originalPixelDims.height -= Widget.Settings.titleBar.height;
 
     // Pin the width and height so we don't get both reflows and transforms.
     self.$('.widget-body').css(originalPixelDims);

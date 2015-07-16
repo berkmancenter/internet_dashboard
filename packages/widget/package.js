@@ -27,3 +27,7 @@ Package.onUse(function(api) {
   api.export('Widgets');
   api.export('WidgetTypes');
 });
+
+Npm.depends({
+  'flatten-obj': '2.0.1'
+});

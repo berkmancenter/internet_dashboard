@@ -93,12 +93,10 @@ Widgets.attachSchema(new SimpleSchema({
   width: {
     type: Number,
     allowedValues: [1, 2, 3, 4, 5],
-    defaultValue: 2
   },
   height: {
     type: Number,
     allowedValues: [1, 2, 3, 4, 5],
-    defaultValue: 1
   },
   position: {
     type: Object,
