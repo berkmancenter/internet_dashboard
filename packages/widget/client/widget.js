@@ -59,34 +59,35 @@ Template.DefaultWidgetInfo.events({
 
 Template.WidgetShow.onCreated(function() {
   var self = this;
+  self.gridUnitsToPixels = function(dims) {
+    var dashboard = self.data.dashboard();
+    var currentDims = {
+      width: self.$('.widget').attr('data-sizex'),
+      height: self.$('.widget').attr('data-sizey')
+    };
+    dims = dims || currentDims;
+    return {
+      width: dims.width * dashboard.columnWidth +
+        dashboard.gutter * (dims.width - 1),
+      height: dims.height * dashboard.rowHeight +
+        dashboard.gutter * (dims.height - 1)
+    };
+  };
   self.scaleBody = function() {
     var widget = self.data;
-    var dashboard = widget.dashboard();
     var $widgetBody = self.$('.widget-body');
-    var originalDims = widget.metadata().widget.dimensions;
+
+    var currentPixelDims = self.gridUnitsToPixels();
+    var originalGridDims = widget.metadata().widget.dimensions;
+    var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
+
+    // We're just scaling the body, so don't count the title bar.
+    currentPixelDims.height -= Widget.Settings.titleBar.height;
+    originalPixelDims.height -= Widget.Settings.titleBar.height;
 
     $widgetBody.css({
-      width: '',
-      height: ''
-    });
-
-    var currentWidth = $widgetBody.outerWidth();
-    var currentHeight = $widgetBody.outerHeight() -
-      Widget.Settings.titleBar.height;
-    var originalWidth = originalDims.width * dashboard.columnWidth +
-      dashboard.gutter * (originalDims.width - 1);
-    var originalHeight = originalDims.height * dashboard.rowHeight +
-      dashboard.gutter * (originalDims.height - 1) -
-      Widget.Settings.titleBar.height;
-
-    $widgetBody.css({
-      width: originalWidth,
-      height: originalHeight
-    });
-
-    $widgetBody.css({
-      transform: 'scaleX(' + currentWidth / originalWidth + ') ' +
-                 'scaleY(' + currentHeight / originalHeight + ')'
+      transform: 'scaleX(' + currentPixelDims.width / originalPixelDims.width + ') ' +
+                 'scaleY(' + currentPixelDims.height / originalPixelDims.height + ')'
     });
   };
 });
@@ -94,16 +95,23 @@ Template.WidgetShow.onCreated(function() {
 Template.WidgetShow.onRendered(function() {
   var dashboardTemplate = Dashboards.templateFromChild(this);
   var widgetNode = this.firstNode;
+  var self = this;
 
   if (dashboardTemplate.gridster) {
-    dashboardTemplate.gridster.add_widget(widgetNode);
+    dashboardTemplate.gridster.add_widget(
+      widgetNode, $(widgetNode).data('sizex'), $(widgetNode).data('sizey'));
     Widgets.updatePositions(dashboardTemplate.gridster.serialize());
   } else {
     dashboardTemplate.widgetNodes.push(widgetNode);
   }
 
   if (this.data.metadata().widget.resize.mode === 'scale') {
-    this.scaleBody();
+    var originalGridDims = self.data.metadata().widget.dimensions;
+    var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
+
+    // Pin the width and height so we don't get both reflows and transforms.
+    self.$('.widget-body').css(originalPixelDims);
+    self.scaleBody();
   }
 });
 

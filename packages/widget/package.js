@@ -13,10 +13,9 @@ Package.onUse(function(api) {
   api.use(['underscore', 'less', 'mongo', 'aldeed:simple-schema']);
   api.use(['templating'], 'client');
 
-  api.addFiles(['widget.js', 'widget_types.js']);
+  api.addFiles(['widget.js', 'methods.js', 'widget_types.js']);
   api.addFiles([
     'server/publications.js',
-    'server/methods.js',
     'server/seeds.js'], 'server');
   api.addFiles([
     'client/widget.html',

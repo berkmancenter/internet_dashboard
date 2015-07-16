@@ -26,7 +26,7 @@ _.extend(Widget.prototype, {
   },
   providesTemplate: function(name) {
     return !_.isUndefined(Template[this.templateFor(name)]);
-  }
+  },
 });
 
 // Static methods
@@ -119,8 +119,5 @@ Widgets.attachSchema(new SimpleSchema({
 }));
 
 Widgets.updatePositions = function(positions) {
-  Meteor.call(
-    'updateWidgetPositions',
-    positions
-  );
+  Meteor.call('updateWidgetPositions', positions);
 };
