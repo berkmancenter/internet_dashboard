@@ -10,7 +10,7 @@ Settings = {
   shownWords: 20,
   countCutoff: 0,
   cloud: {
-    heightMulti: 115,
+    heightMulti: 130,
     widthMulti: 158,
     maxRotation: 40,
     fontScale: [8, 30]
@@ -24,11 +24,6 @@ Settings = {
 MCWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.extend(this, {
-    width: 2,
-    height: 2
-  });
-
   _.defaults(this.data, {
     country: Settings.defaultCountry
   });
@@ -41,6 +36,7 @@ MediaCloud = {
     name: 'News Topics',
     description: 'Shows a word cloud of news topics from the past week from each country',
     url: 'http://mediacloud.org',
+    dimensions: { width: 2, height: 2 },
     constructor: MCWidget,
   },
   org: {

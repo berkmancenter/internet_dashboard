@@ -6,11 +6,6 @@ Settings = {
 ConnectionSpeedWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.extend(this, {
-    width: 2,
-    height: 2
-  });
-
   if (this.data.isEmpty()) {
     var self = this;
     Meteor.subscribe('imon_countries', function() {
@@ -40,6 +35,7 @@ ConnectionSpeed = {
     name: 'Connection Speed',
     description: "Shows how quickly (in kilobits per second) data can be transferred from the Internet to a local computer",
     url: 'https://thenetmonitor.org/sources',
+    dimensions: { width: 2, height: 2 },
     constructor: ConnectionSpeedWidget,
   },
   org: {

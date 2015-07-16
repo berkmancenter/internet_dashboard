@@ -6,8 +6,9 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.0.4.2');
-  api.use(['mongo', 'widget', 'momentjs:moment', 'underscore', 'aldeed:simple-schema']);
+  api.versionsFrom('1.1.0.2');
+
+  api.use(['mongo', 'momentjs:moment', 'underscore', 'aldeed:simple-schema', 'widget']);
   api.use(['http'], 'server');
   api.use(['templating', 'epoch', 'd3js:d3'], 'client');
 

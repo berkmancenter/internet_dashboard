@@ -12,13 +12,7 @@ Settings = {
   mapBumpLeft: 30
 };
 
-AttacksWidget = function(doc) {
-  Widget.call(this, doc);
-  _.extend(this, {
-    width: 3,
-    height: 2
-  });
-};
+AttacksWidget = function(doc) { Widget.call(this, doc); };
 AttacksWidget.prototype = Object.create(Widget.prototype);
 AttacksWidget.prototype.constructor = AttacksWidget;
 
@@ -32,7 +26,7 @@ AkamaiAttacks = {
     name: 'Network Attacks',
     description: 'Shows country-level inbound network attack information',
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
+    dimensions: { width: 3, height: 2 },
     constructor: AttacksWidget
   }
 };
-

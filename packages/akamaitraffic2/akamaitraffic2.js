@@ -14,13 +14,7 @@ Settings = {
   }
 };
 
-TrafficWidget = function(doc) {
-  Widget.call(this, doc);
-  _.extend(this, {
-    width: 3,
-    height: 2
-  });
-};
+TrafficWidget = function(doc) { Widget.call(this, doc); };
 TrafficWidget.prototype = Object.create(Widget.prototype);
 TrafficWidget.prototype.constructor = TrafficWidget;
 
@@ -29,6 +23,7 @@ AkamaiTraffic2 = {
     name: 'Bytes Delivered',
     description: 'Shows which countries are above their typical averages in terms of bytes delivered by Akamai',
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
+    dimensions: { width: 3, height: 2 },
     constructor: TrafficWidget
   },
   org: {

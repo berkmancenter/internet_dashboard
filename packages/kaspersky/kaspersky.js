@@ -53,11 +53,6 @@ CountryMetrics.attachSchema(new SimpleSchema({
 KasperskyWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.extend(this, {
-    width: 2,
-    height: 3
-  });
-
   _.defaults(this.data, { country: Settings.defaultCountry });
 };
 KasperskyWidget.prototype = Object.create(Widget.prototype);
@@ -68,6 +63,7 @@ Kaspersky = {
     name: 'Threat Data',
     description: 'Shows hourly spam, attack, and infection data by country',
     url: 'https://securelist.com/',
+    dimensions: { width: 2, height: 3 },
     constructor: KasperskyWidget
   },
   org: {
