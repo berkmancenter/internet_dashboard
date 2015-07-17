@@ -1,5 +1,5 @@
 <template name="WidgetShow">
-  <li id="{{ widgetId }}" class="widget {{ widgetClass }}" style="display: none"
+  <li id="{{ componentId 'widget' }}" class="widget {{ widgetClass }} hidden"
       data-mid="{{ _id }}" {{ gridAttrs }}>
 
     <div class="title-bar" style="height: {{ titleBar.height }}px;">
@@ -16,27 +16,24 @@
           <span class="glyphicon glyphicon-remove"></span>
         </a>
 
-        <a class="about" href="#" id="{{ widgetId 'about' }}"
+        <a class="button-info" href="#" id="{{ componentId 'info' }}"
           title="About" data-toggle="popover" data-trigger="click"
           data-html="true" data-placement="auto right" data-container="body">
           <span class="glyphicon glyphicon-info-sign"></span>
         </a>
-        <div class="hidden for-{{ widgetId 'about' }}">
-        {{# if providesInfo }}
-          {{> Template.dynamic template=infoTemplate data=data }}
-        {{else}}
-          {{> DefaultWidgetInfo }}
-        {{/if}}
+        <div class="widget-info for-{{ componentId 'info' }}">
+          {{> WidgetInfo }}
         </div>
 
         {{# if providesSettings }}
-        <a class="settings" href="#" id="{{ widgetId 'settings' }}"
+        <a class="button-settings" href="#" id="{{ componentId 'settings' }}"
           title="Settings" data-toggle="popover" data-trigger="click"
           data-html="true" data-placement="auto right" data-container="body">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
-        <div class="hidden for-{{ widgetId 'settings' }}">
-          {{> Template.dynamic template=settingsTemplate data=data }}
+
+        <div class="widget-settings for-{{ componentId 'settings' }}">
+          {{> WidgetSettings }}
         </div>
         {{/if}}
       </div>
@@ -48,24 +45,40 @@
   </li>
 </template>
 
+<template name="WidgetSettings">
+  {{> Template.dynamic template=settingsTemplate data=data }}
+
+  <button type="button" class="close close-settings" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</template>
+
+<template name="WidgetInfo">
+  {{# if providesInfo }}
+    {{> Template.dynamic template=infoTemplate data=data }}
+  {{else}}
+    {{> DefaultWidgetInfo data }}
+  {{/if}}
+
+  <button type="button" class="close close-info" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</template>
+
 <template name="DefaultWidgetInfo">
-{{# if widgetMetadata.org }}
-<p>
-  The data backing this widget has been provided by:
-</p>
-<div class="text-center">
-  <a href="{{ widgetMetadata.org.url }}" target="_blank">
-  {{ widgetMetadata.org.name }}</a>
-</div>
-<hr />
-{{/if}}
+  {{# if widgetMetadata.org }}
+  <p>
+    The data backing this widget has been provided by:
+  </p>
+  <div class="text-center">
+    <a href="{{ widgetMetadata.org.url }}" target="_blank">
+    {{ widgetMetadata.org.name }}</a>
+  </div>
+  <hr />
+  {{/if}}
 
-<p>
-  Click <a href="{{ widgetMetadata.widget.url }}" target="_blank">here</a> for
-  more information about this data.
-</p>
-
-<button type="button" class="close close-info" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button>
+  <p>
+    Click <a href="{{ widgetMetadata.widget.url }}" target="_blank">here</a> for
+    more information about this data.
+  </p>
 </template>

@@ -14,9 +14,8 @@ Template.WidgetShow.helpers({
   providesSettings: function() {
     return this.providesTemplate('Settings');
   },
-  widgetId: function(aspect) {
-    aspect = aspect || 'widget';
-    return this.packageName + '-' + this._id + '-' + aspect;
+  componentId: function(component) {
+    return Template.currentData().componentId(component);
   },
   widgetClass: function() {
     return this.packageName;
@@ -47,11 +46,11 @@ Template.WidgetShow.helpers({
 
 Template.DefaultWidgetInfo.helpers({
   widgetMetadata: function() {
-    return WidgetTypes.findOne({ packageName: this.packageName });
+    return WidgetTypes.findOne({ packageName: this.widget.packageName });
   }
 });
 
-Template.DefaultWidgetInfo.events({
+Template.WidgetInfo.events({
   'click .close-info': function(ev, template) {
     this.data.closeInfo(template);
   }
@@ -60,39 +59,41 @@ Template.DefaultWidgetInfo.events({
 Template.WidgetShow.onCreated(function() {
   var self = this;
 
-  self.gridUnitsToPixels = function(dims) {
-    var dashboard = self.data.dashboard();
-    var currentDims = {
-      width: self.$('.widget').attr('data-sizex'),
-      height: self.$('.widget').attr('data-sizey')
-    };
-    dims = dims || currentDims;
-    _.defaults(dims, currentDims);
-    return {
-      width: dims.width * dashboard.columnWidth +
-        dashboard.gutter * (dims.width - 1),
-      height: dims.height * dashboard.rowHeight +
-        dashboard.gutter * (dims.height - 1)
-    };
-  };
+  _.extend(self, {
+    gridUnitsToPixels: function(dims) {
+      var dashboard = self.data.dashboard();
+      var currentDims = {
+        width: self.$('.widget').attr('data-sizex'),
+        height: self.$('.widget').attr('data-sizey')
+      };
+      dims = dims || currentDims;
+      _.defaults(dims, currentDims);
+      return {
+        width: dims.width * dashboard.columnWidth +
+          dashboard.gutter * (dims.width - 1),
+        height: dims.height * dashboard.rowHeight +
+          dashboard.gutter * (dims.height - 1)
+      };
+    },
 
-  self.scaleBody = function(newDims) {
-    var widget = self.data;
-    var $widgetBody = self.$('.widget-body');
+    scaleBody: function(newDims) {
+      var widget = self.data;
+      var $widgetBody = self.$('.widget-body');
 
-    var newPixelDims = self.gridUnitsToPixels(newDims);
-    var originalGridDims = widget.metadata().widget.dimensions;
-    var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
+      var newPixelDims = self.gridUnitsToPixels(newDims);
+      var originalGridDims = widget.metadata().widget.dimensions;
+      var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
 
-    // We're just scaling the body, so don't count the title bar.
-    newPixelDims.height -= Widget.Settings.titleBar.height;
-    originalPixelDims.height -= Widget.Settings.titleBar.height;
+      // We're just scaling the body, so don't count the title bar.
+      newPixelDims.height -= Widget.Settings.titleBar.height;
+      originalPixelDims.height -= Widget.Settings.titleBar.height;
 
-    $widgetBody.css({
-      transform: 'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
-                 'scaleY(' + newPixelDims.height / originalPixelDims.height + ')'
-    });
-  };
+      $widgetBody.css({
+        transform: 'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
+                   'scaleY(' + newPixelDims.height / originalPixelDims.height + ')'
+      });
+    }
+  });
 });
 
 Template.WidgetShow.onRendered(function() {
@@ -129,7 +130,18 @@ Template.WidgetShow.onRendered(function() {
     });
   });
 
-  $(widgetNode).show();
+  self.$infoContent = self.$('.widget-info').detach();
+  self.$settingsContent = self.$('.widget-settings').detach();
+
+  $(widgetNode).popover({
+    selector: '[data-toggle="popover"]',
+    content: function() {
+      var isSettings = $(this).attr('class').indexOf('settings') >= 0;
+      return isSettings ? self.$settingsContent.get(0) : self.$infoContent.get(0);
+    }
+  });
+
+  $(widgetNode).removeClass('hidden');
 });
 
 Template.WidgetShow.events({
@@ -154,6 +166,12 @@ Template.WidgetShow.events({
       template.$('.resizing-cover').remove();
     }
     ev.stopPropagation();
+  },
+});
+Template.WidgetSettings.events({
+  'click': function(ev, template) {
+    console.log('click');
+    this.data.closeSettings(template);
   }
 });
 

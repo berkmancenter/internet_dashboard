@@ -1,11 +1,9 @@
-var closePopover = function(template) {
-  // Really a static method, but handy to have here
-  var selector = '#' +
-    $(template.firstNode).parent().attr('class').replace(/^for-/, '');
-  $(selector).popover('hide');
+var closePopover = function(widget, component) {
+  console.log(widget);
+  $('#' + widget.componentId(component)).popover('hide');
 };
 
 _.extend(WidgetData.prototype, {
-  closeSettings: closePopover,
-  closeInfo: closePopover
+  closeSettings: function(template) { closePopover(template.data.widget, 'settings'); },
+  closeInfo: function(template) { closePopover(template.data, 'info'); },
 });
