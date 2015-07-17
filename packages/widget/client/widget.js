@@ -128,6 +128,8 @@ Template.WidgetShow.onRendered(function() {
       }
     });
   });
+
+  $(widgetNode).show();
 });
 
 Template.WidgetShow.events({
