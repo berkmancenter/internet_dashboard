@@ -59,6 +59,7 @@ Template.DefaultWidgetInfo.events({
 
 Template.WidgetShow.onCreated(function() {
   var self = this;
+
   self.gridUnitsToPixels = function(dims) {
     var dashboard = self.data.dashboard();
     var currentDims = {
@@ -66,6 +67,7 @@ Template.WidgetShow.onCreated(function() {
       height: self.$('.widget').attr('data-sizey')
     };
     dims = dims || currentDims;
+    _.defaults(dims, currentDims);
     return {
       width: dims.width * dashboard.columnWidth +
         dashboard.gutter * (dims.width - 1),
@@ -73,21 +75,22 @@ Template.WidgetShow.onCreated(function() {
         dashboard.gutter * (dims.height - 1)
     };
   };
-  self.scaleBody = function() {
+
+  self.scaleBody = function(newDims) {
     var widget = self.data;
     var $widgetBody = self.$('.widget-body');
 
-    var currentPixelDims = self.gridUnitsToPixels();
+    var newPixelDims = self.gridUnitsToPixels(newDims);
     var originalGridDims = widget.metadata().widget.dimensions;
     var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
 
     // We're just scaling the body, so don't count the title bar.
-    currentPixelDims.height -= Widget.Settings.titleBar.height;
+    newPixelDims.height -= Widget.Settings.titleBar.height;
     originalPixelDims.height -= Widget.Settings.titleBar.height;
 
     $widgetBody.css({
-      transform: 'scaleX(' + currentPixelDims.width / originalPixelDims.width + ') ' +
-                 'scaleY(' + currentPixelDims.height / originalPixelDims.height + ')'
+      transform: 'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
+                 'scaleY(' + newPixelDims.height / originalPixelDims.height + ')'
     });
   };
 });
@@ -114,6 +117,17 @@ Template.WidgetShow.onRendered(function() {
     self.$('.widget-body').css(originalPixelDims);
     self.scaleBody();
   }
+
+  // When other clients resize widgets
+  self.autorun(function() {
+    Widgets.find(self.data._id).observeChanges({
+      changed: function(id, fields) {
+        if (_(fields).has('width') || _(fields).has('height')) {
+          self.scaleBody(fields);
+        }
+      }
+    });
+  });
 });
 
 Template.WidgetShow.events({
@@ -129,6 +143,7 @@ Template.WidgetShow.events({
     if (this.metadata().widget.resize.mode === 'scale') {
       template.$('.widget-body').append('<div class="resizing-cover" />');
     }
+    // This was passed down from the dashboard - don't bubble it back up.
     ev.stopPropagation();
   },
   'gridster:resizestop': function(ev, template) {
