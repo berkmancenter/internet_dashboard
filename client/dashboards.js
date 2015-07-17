@@ -57,25 +57,6 @@ Template.DashboardsShow.onCreated(function() {
 Template.DashboardsShow.onRendered(function() {
   var self = this;
   var dash = self.data;
-  var popoverSelector = '[data-toggle="popover"]';
-
-  _.each(self.dashHandles, function(handles, widgetId) {
-    renderWidget(self, widgetId, handles);
-  });
-
-  $('body').popover({
-    selector: popoverSelector,
-    content: function() { return $('.for-' + this.id).removeClass('hidden').get(0); }
-  });
-
-  // We've got to do some tricky stuff here so we can reuse the same node
-  $('body').on('hide.bs.popover', popoverSelector, function(ev) {
-    var $node = $('.for-' + this.id);
-    // Wait for hidden so it doesn't disappear and look weird
-    $(this).on('hidden.bs.popover', function() {
-      $(this).after($node.addClass('hidden'));
-    });
-  });
 
   self.gridster = self.$('#widgets').gridster({
     widget_selector: self.widgetNodes,

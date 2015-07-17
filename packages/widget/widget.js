@@ -27,6 +27,11 @@ _.extend(Widget.prototype, {
   providesTemplate: function(name) {
     return !_.isUndefined(Template[this.templateFor(name)]);
   },
+  componentId: function(component) {
+    component = component || 'widget';
+    console.log(this);
+    return this.packageName + '-' + this._id + '-' + component;
+  }
 });
 
 // Static methods
