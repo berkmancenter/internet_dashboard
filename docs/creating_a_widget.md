@@ -27,7 +27,7 @@ Package.onUse(function(api) {
 
   // Always include the 'widget' package as both a client and server dependency.
   // Use 'mongo' on both if you want to persist stuff to the DB
-  api.use(['widget', 'mongo']);
+  api.use(['widget', 'mongo', 'underscore']);
 
   // Always include 'templating' as a client dependency.
   api.use(['templating'], 'client');
@@ -60,6 +60,13 @@ The object your package exports must have the following properties:
 * __widget.name__: the title of the widget as you want it to appear in the dashboard
 * __widget.description__: a paragraph-length description of the widget
 * __widget.url__: a URL users can visit to learn more about the data backing the widget
+* __widget.dimensions.width__: the width of your widget in number of columns
+* __widget.dimensions.height__: the height of your widget in number of rows
+* __widget.resize.mode__: *optional* - `scale` (default) or `reflow`
+* __widget.resize.constraints.width.min__: *optional* - the minimum width of your widget in number of columns
+* __widget.resize.constraints.width.max__: *optional* - the maximum width of your widget in number of columns
+* __widget.resize.constraints.height.min__: *optional* - the minimum height of your widget in number of rows
+* __widget.resize.constraints.height.max__: *optional* - the maximum height of your widget in number of rows
 * __widget.constructor__: the function to be called when a new widget instance is to be created
 * __org.name__: the official name of the organization contributing this widget
 * __org.shortName__: a short name to be used in space-constrained use cases
@@ -72,6 +79,8 @@ Example = {
     name: 'Example Widget',
     description: 'This widget is just an example of what a widget might look like.',
     url: 'http://example.com/data',
+    dimensions: { width: 2, height: 1 },
+    resize: { mode: 'scale', constraints: { width: { min: 2, max: 3 } } }
     constructor: ExampleWidget
   },
   org: {
@@ -89,9 +98,7 @@ The widget object you create should use the `Widget` object's prototype as its p
 
 You'll also want to call the Widget object's constructor ahead of your own constructor. 
 
-The Widget object adds a few attributes that you can overwrite and manipulate:
-* __width__: the number of columns the widget should span - either 1, 2 or 3
-* __height__: the number of rows the widget should span - either 1, 2 or 3
+The Widget object has one attribute that you can overwrite and manipulate:
 * __data__: the widget's data, which will be persisted to the database and used as the HTML template context
 
 Putting it all together looks like this:
@@ -100,12 +107,10 @@ Putting it all together looks like this:
 ExampleWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.extend(this, {
-    width: 2,
-    height: 1
+  _.defaults(this.data, {
+    countryCode: 'CA',
+    countryName: 'Canada'
   });
-
-  _.defaults(this.data,{});
 
   /* Other widget code */
 };
