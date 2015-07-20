@@ -16,7 +16,7 @@ Router.route('/dashboards/:_id', {
     return [
       Meteor.subscribe('dashboard', this.params._id),
       Meteor.subscribe('dashboardWidgets', this.params._id),
-      Meteor.subscribe('availableWidgets'),
+      Meteor.subscribe('activeWidgets'),
     ];
   },
   data: function() {

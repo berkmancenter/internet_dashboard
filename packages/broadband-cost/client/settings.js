@@ -14,6 +14,6 @@ Template.BroadbandCostSettings.events({
       country: IMonCountries.findOne({ code: countryCode })
     };
     this.set(newData);
-    this.closeSettings(template);
+    template.closeSettings();
   }
 });

@@ -18,12 +18,12 @@ Widgets.seed = function(packages) {
     };
 
     // This isn't an upsert so simple schema sets default values.
-    if (WidgetTypes.find({ packageName: packageName }).count() > 0) {
+    if (WidgetPackages.find({ packageName: packageName }).count() > 0) {
       // So we don't squash nested attributes
       data = Npm.require('flatten-obj')()(data);
-      WidgetTypes.update({ packageName: packageName }, { $set: data });
+      WidgetPackages.update({ packageName: packageName }, { $set: data });
     } else {
-      WidgetTypes.insert(data);
+      WidgetPackages.insert(data);
     }
   });
 };

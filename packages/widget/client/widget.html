@@ -16,7 +16,7 @@
           <span class="glyphicon glyphicon-remove"></span>
         </a>
 
-        <a class="button-info" href="#" id="{{ componentId 'info' }}"
+        <a class="button-info" href="#" id="{{ componentId 'Info' }}"
           title="About" data-toggle="popover" data-trigger="click"
           data-html="true" data-placement="auto right" data-container="body">
           <span class="glyphicon glyphicon-info-sign"></span>
@@ -26,7 +26,7 @@
         </div>
 
         {{# if providesSettings }}
-        <a class="button-settings" href="#" id="{{ componentId 'settings' }}"
+        <a class="button-settings" href="#" id="{{ componentId 'Settings' }}"
           title="Settings" data-toggle="popover" data-trigger="click"
           data-html="true" data-placement="auto right" data-container="body">
           <span class="glyphicon glyphicon-cog"></span>
@@ -43,42 +43,4 @@
       {{> Template.dynamic template=widgetTemplate data=data }}
     </div>
   </li>
-</template>
-
-<template name="WidgetSettings">
-  {{> Template.dynamic template=settingsTemplate data=data }}
-
-  <button type="button" class="close close-settings" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</template>
-
-<template name="WidgetInfo">
-  {{# if providesInfo }}
-    {{> Template.dynamic template=infoTemplate data=data }}
-  {{else}}
-    {{> DefaultWidgetInfo data }}
-  {{/if}}
-
-  <button type="button" class="close close-info" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</template>
-
-<template name="DefaultWidgetInfo">
-  {{# if widgetMetadata.org }}
-  <p>
-    The data backing this widget has been provided by:
-  </p>
-  <div class="text-center">
-    <a href="{{ widgetMetadata.org.url }}" target="_blank">
-    {{ widgetMetadata.org.name }}</a>
-  </div>
-  <hr />
-  {{/if}}
-
-  <p>
-    Click <a href="{{ widgetMetadata.widget.url }}" target="_blank">here</a> for
-    more information about this data.
-  </p>
 </template>

@@ -1,5 +1,6 @@
 Template.ConnectionSpeedWidget.onCreated(function() {
   this.subscribe('connection_speed');
+  this.subscribe('imon_countries');
 });
 
 Template.ConnectionSpeedWidget.helpers({
@@ -60,7 +61,7 @@ Template.ConnectionSpeedWidget.onRendered(function() {
     var updateSel = svg.selectAll(".arc").data(pie(data));
 
     updateSel.enter().append("g")
-        .attr("class", "arc") 
+        .attr("class", "arc")
       .append("path")
         .attr("d", arc)
         .style("fill", function(d, i) { return colors[i]; });

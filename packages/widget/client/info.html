@@ -1,0 +1,30 @@
+<template name="WidgetInfo">
+  {{# if providesInfo }}
+    {{> Template.dynamic template=infoTemplate data=data }}
+  {{else}}
+    {{> DefaultWidgetInfo data }}
+  {{/if}}
+
+  <button type="button" class="close close-info" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</template>
+
+<template name="DefaultWidgetInfo">
+  {{# if widgetMetadata.org }}
+  <p>
+    The data backing this widget has been provided by:
+  </p>
+  <div class="text-center">
+    <a href="{{ widgetMetadata.org.url }}" target="_blank">
+    {{ widgetMetadata.org.name }}</a>
+  </div>
+  <hr />
+  {{/if}}
+
+  <p>
+    Click <a href="{{ widgetMetadata.widget.url }}" target="_blank">here</a> for
+    more information about this data.
+  </p>
+</template>
+

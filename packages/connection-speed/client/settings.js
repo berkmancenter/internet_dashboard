@@ -13,7 +13,7 @@ Template.ConnectionSpeedSettings.events({
     var newData = {
       country: IMonCountries.findOne({ code: countryCode })
     };
-    this.closeSettings(template);
+    template.closeSettings();
     this.set(newData);
   }
 });

@@ -12,7 +12,7 @@ Template.DashboardsShow.helpers({
 
 Template.DashboardsAdd.helpers({
   availableWidgets: function() {
-    return WidgetTypes.find();
+    return WidgetPackages.find();
   }
 });
 

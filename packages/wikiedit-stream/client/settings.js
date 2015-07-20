@@ -26,6 +26,6 @@ Template.WikiStreamSettings.events({
       channel: { channel: channel, name: name },
     };
     this.set(data);
-    this.closeSettings(template);
+    template.closeSettings();
   }
 });
