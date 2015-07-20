@@ -18,7 +18,8 @@
 
         <a class="button-info" href="#" id="{{ componentId 'Info' }}"
           title="About" data-toggle="popover" data-trigger="click"
-          data-html="true" data-placement="auto right" data-container="body">
+          data-html="true" data-placement="auto right" data-viewport="#widgets"
+          data-container="#{{componentId 'widget' }}">
           <span class="glyphicon glyphicon-info-sign"></span>
         </a>
         <div class="widget-info for-{{ componentId 'info' }}">
@@ -28,7 +29,8 @@
         {{# if providesSettings }}
         <a class="button-settings" href="#" id="{{ componentId 'Settings' }}"
           title="Settings" data-toggle="popover" data-trigger="click"
-          data-html="true" data-placement="auto right" data-container="body">
+          data-html="true" data-placement="auto right" data-viewport="#widgets"
+          data-container="#{{componentId 'widget'}}">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
 

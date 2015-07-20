@@ -133,8 +133,8 @@ Template.WidgetShow.events({
     var dashboardTemplate = Dashboards.templateFromChild(template);
     var dashboard = dashboardTemplate.data;
 
-    Template.WidgetShow.closePopover(this, 'Settings');
-    Template.WidgetShow.closePopover(this, 'Info');
+    template.closeSettings();
+    template.closeInfo();
 
     dashboardTemplate.gridster.remove_widget(template.firstNode);
     Widgets.updatePositions(dashboardTemplate.gridster.serialize());
@@ -142,6 +142,9 @@ Template.WidgetShow.events({
   },
   'gridster:resizestart': function(ev, template) {
     if (this.package.widget.resize.mode === 'scale') {
+      template.closeSettings();
+      template.closeInfo();
+      template.$('.widget').addClass('hiding-overflow');
       template.$('.widget-body').append('<div class="resizing-cover" />');
     }
     // This was passed down from the dashboard - don't bubble it back up.
@@ -151,9 +154,20 @@ Template.WidgetShow.events({
     if (this.package.widget.resize.mode === 'scale') {
       template.scaleBody();
       template.$('.resizing-cover').remove();
+      template.$('.widget').removeClass('hiding-overflow');
     }
+    // This was passed down from the dashboard - don't bubble it back up.
     ev.stopPropagation();
   },
+  'gridster:dragstart': function(ev, template) {
+    console.log('here');
+  },
+  'show.bs.popover': function(ev, template) {
+    template.$('.widget').addClass('on-top');
+  },
+  'hidden.bs.popover': function(ev, template) {
+    template.$('.widget').removeClass('on-top');
+  }
 });
 
 Template.registerHelper('widgetLoading', function() {
@@ -180,6 +194,7 @@ var addPopoverCloserToTemplate = function(template, popoverName) {
 };
 
 var addPopoverCloser = function(popoverName) {
+  addPopoverCloserToTemplate(Template.WidgetShow, popoverName);
   addPopoverCloserToTemplate(Template['Widget' + popoverName], popoverName);
 
   WidgetPackages.find().observe({
