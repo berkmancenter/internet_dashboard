@@ -82,6 +82,7 @@ Template.WidgetShow.onRendered(function() {
   var dashboardTemplate = Dashboards.templateFromChild(this);
   var widgetNode = this.firstNode;
   var self = this;
+  var resizeMode = self.data.package.widget.resize.mode;
 
   if (dashboardTemplate.gridster) {
     dashboardTemplate.gridster.add_widget(
@@ -91,7 +92,7 @@ Template.WidgetShow.onRendered(function() {
     dashboardTemplate.widgetNodes.push(widgetNode);
   }
 
-  if (self.data.package.widget.resize.mode === 'scale') {
+  if (resizeMode === 'scale') {
     var originalGridDims = self.data.package.widget.dimensions;
     var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
     originalPixelDims.height -= Widget.Settings.titleBar.height;
@@ -105,7 +106,8 @@ Template.WidgetShow.onRendered(function() {
   self.autorun(function() {
     Widgets.find(self.data._id).observeChanges({
       changed: function(id, fields) {
-        if (_(fields).has('width') || _(fields).has('height')) {
+        if (resizeMode === 'scale' &&
+            (_(fields).has('width') || _(fields).has('height'))) {
           self.scaleBody(fields);
         }
       }
