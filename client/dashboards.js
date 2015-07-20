@@ -52,6 +52,20 @@ Template.DashboardsShow.onCreated(function() {
       Widgets.updatePositions(self.gridster.serialize());
     }
   };
+  self.onWidgetDrag = {
+    start: function(ev, ui) {
+      self.closeAllPopovers();
+    },
+    stop: function(ev, ui) {
+      Widgets.updatePositions(self.gridster.serialize());
+    }
+  };
+  self.closeAllPopovers = function() {
+    self.data.widgets().forEach(function(widget) {
+      Template.WidgetShow.closePopover(widget, 'Settings');
+      Template.WidgetShow.closePopover(widget, 'Info');
+    });
+  };
 });
 
 Template.DashboardsShow.onRendered(function() {
@@ -71,7 +85,8 @@ Template.DashboardsShow.onRendered(function() {
     },
     draggable: {
       handle: '.title-bar',
-      stop: function() { Widgets.updatePositions(self.gridster.serialize()); }
+      start: self.onWidgetDrag.start,
+      stop: self.onWidgetDrag.stop
     }
   }).data('gridster');
 });

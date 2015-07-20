@@ -1,5 +1,4 @@
 .widget {
-  overflow: hidden;
   position: relative;
   border: 0;
   cursor: default;
@@ -18,6 +17,25 @@
     margin-top: 0.2em;
     font-size: 1.6em;
     margin-bottom: 0.4em;
+  }
+
+  &.hiding-overflow {
+    overflow: hidden;
+  }
+
+  &.on-top {
+    z-index: 100 !important;
+  }
+
+  .popover {
+    max-width: 400px;
+    white-space: nowrap;
+
+    .close {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+    }
   }
 
   .title-bar {
@@ -63,6 +81,7 @@
   }
 
   .widget-body {
+    overflow: hidden;
     transform-origin: left top;
     height: 100%;
     padding: 7px 15px;
