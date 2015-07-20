@@ -1,3 +1,3 @@
 Meteor.startup(function() {
-  Widgets.seed(WidgetPackages);
+  Widgets.seed(ActiveWidgets);
 });

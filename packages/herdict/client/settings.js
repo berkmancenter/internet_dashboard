@@ -18,7 +18,7 @@ Template.HerdictSettings.events({
       country: country,
       category: category
     };
-    this.closeSettings(template);
+    template.closeSettings();
     this.set(newData);
   }
 });

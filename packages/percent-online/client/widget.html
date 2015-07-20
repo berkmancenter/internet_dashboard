@@ -1,13 +1,13 @@
 <template name="PercentOnlineWidget">
 {{# if Template.subscriptionsReady }}
-<h1>Percent Online</h1>
-<h2>{{ country.name }}</h2>
-<span class="indicator-value">{{ indicatorValue }}</span>
-<div class="online-users">
-{{# each users }}
-<i class="fa fa-user {{ online }}"></i>
-{{/each}}
-</div>
+  <h1>Percent Online</h1>
+  <h2>{{ country.name }}</h2>
+  <span class="indicator-value">{{ indicatorValue }}</span>
+  <div class="online-users">
+  {{# each users }}
+  <i class="fa fa-user {{ online }}"></i>
+  {{/each}}
+  </div>
 {{ else }}
   {{ widgetLoading }}
 {{/if}}

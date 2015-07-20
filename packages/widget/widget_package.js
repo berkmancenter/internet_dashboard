@@ -1,8 +1,29 @@
-WidgetTypes = new Mongo.Collection('widget_types');
+WidgetPackage = function(doc) {
+  doc = doc || {};
+  _.extend(this, doc);
+};
 
-WidgetTypes.attachSchema(new SimpleSchema({
+_.extend(WidgetPackage.prototype, {
+  metadata: function() {
+    return this;
+  },
+  templateFor: function(name) {
+    return this.exportedVar + name;
+  },
+  providesTemplate: function(name) {
+    return !_.isUndefined(Template[this.templateFor(name)]);
+  },
+});
+
+WidgetPackages = new Mongo.Collection('widget_packages', {
+  transform: function(doc) { return new WidgetPackage(doc); }
+});
+
+WidgetPackages.attachSchema(new SimpleSchema({
   packageName: {
-    type: String
+    type: String,
+    index: true,
+    unique: true
   },
   exportedVar: {
     type: String

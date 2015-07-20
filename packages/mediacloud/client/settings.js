@@ -10,7 +10,7 @@ Template.MediaCloudSettings.events({
       name: template.find('.country').selectedOptions[0].innerText
     };
     var newData = { country: country };
-    this.closeSettings(template);
+    template.closeSettings();
     this.set(newData);
   }
 });

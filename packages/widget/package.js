@@ -13,19 +13,24 @@ Package.onUse(function(api) {
   api.use(['underscore', 'less', 'mongo', 'aldeed:simple-schema']);
   api.use(['templating'], 'client');
 
-  api.addFiles(['widget.js', 'methods.js', 'widget_types.js']);
+  api.addFiles(['widget.js', 'methods.js', 'widget_package.js', 'widget_data.js']);
   api.addFiles([
     'server/publications.js',
     'server/seeds.js'], 'server');
   api.addFiles([
     'client/widget.html',
+    'client/settings.html',
+    'client/info.html',
     'client/widget.js',
+    'client/settings.js',
+    'client/info.js',
     'client/widget.css.less',
-    'client/settings.js'], 'client');
+  ], 'client');
 
   api.export('Widget');
   api.export('Widgets');
-  api.export('WidgetTypes');
+  api.export('WidgetPackage');
+  api.export('WidgetPackages');
 });
 
 Npm.depends({

@@ -1,4 +1,4 @@
-WidgetPackages = [
+ActiveWidgets = [
   'akamaiattacks',
   'akamaitraffic',
   'akamaitraffic2',

@@ -42,7 +42,7 @@ Template.ImageBlockSettings.events({
     var newImageUrl = template.$('#image-block-image-url').val();
     if (urlPattern.test(newImageUrl)) {
       this.set({ imageUrl: newImageUrl });
-      this.closeSettings(template);
+      template.closeSettings();
     } else {
       alert('Invalid url');
     }

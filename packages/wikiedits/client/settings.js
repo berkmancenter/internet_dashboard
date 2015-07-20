@@ -30,6 +30,6 @@ Template.WikiEditCountsSettings.events({
       binWidth: parseInt(template.find('#wiki-history').value, 10) * 1000
     };
     this.set(data);
-    this.closeSettings(template);
+    template.closeSettings();
   }
 });

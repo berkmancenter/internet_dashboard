@@ -143,7 +143,7 @@ To create templates, simple include templates in your package with following nam
 
 As a reminder, the "short code" is the name of the object your package exports.
 
-To close the settings popup from a template's event handler (if the user has clicked a save button, for example), call `this.closeSettings(template)`. The `template` variable is your widget's template instance, which is the second arg to the event handler.
+To close the settings popup from a template's event handler (if the user has clicked a save button, for example), call `template.closeSettings()` where `template` is the template instance.
 
 For CSS, all your widgets will receive a class with the same name as your widget package (__not__ the name of your widget's export), e.g. `.example-widget`. Scope all CSS within this class to prevent clashes with other widgets.
 

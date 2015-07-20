@@ -1,4 +1,5 @@
 Template.PercentOnlineWidget.onCreated(function() {
+  this.subscribe('imon_countries');
   this.subscribe('percent_online');
 });
 

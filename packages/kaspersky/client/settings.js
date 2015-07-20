@@ -20,6 +20,6 @@ Template.KasperskySettings.events({
     };
     var newData = { country: country };
     this.set(newData);
-    this.closeSettings(template);
+    template.closeSettings();
   }
 });

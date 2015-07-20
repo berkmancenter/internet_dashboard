@@ -1,33 +1,27 @@
 Template.WidgetShow.helpers({
   widgetTemplate: function() {
-    return this.templateFor('Widget');
-  },
-  settingsTemplate: function() {
-    return this.templateFor('Settings');
-  },
-  infoTemplate: function() {
-    return this.templateFor('Info');
+    return this.package.templateFor('Widget');
   },
   providesInfo: function() {
-    return this.providesTemplate('Info');
+    return this.package.providesTemplate('Info');
   },
   providesSettings: function() {
-    return this.providesTemplate('Settings');
+    return this.package.providesTemplate('Settings');
   },
   componentId: function(component) {
-    return Template.currentData().componentId(component);
+    return this.componentId(component);
   },
   widgetClass: function() {
     return this.packageName;
   },
   widgetMetadata: function() {
-    return this.metadata();
+    return this.package.metadata();
   },
   titleBar: function() {
     return Widget.Settings.titleBar;
   },
   gridAttrs: function() {
-    var resizeConstraints = this.metadata().widget.resize.constraints;
+    var resizeConstraints = this.package.widget.resize.constraints;
     var attrs = {
       'data-sizex': this.width,
       'data-sizey': this.height,
@@ -41,18 +35,6 @@ Template.WidgetShow.helpers({
       attrs['data-col'] = this.position.y;
     }
     return attrs;
-  }
-});
-
-Template.DefaultWidgetInfo.helpers({
-  widgetMetadata: function() {
-    return WidgetTypes.findOne({ packageName: this.widget.packageName });
-  }
-});
-
-Template.WidgetInfo.events({
-  'click .close-info': function(ev, template) {
-    this.data.closeInfo(template);
   }
 });
 
@@ -81,7 +63,7 @@ Template.WidgetShow.onCreated(function() {
       var $widgetBody = self.$('.widget-body');
 
       var newPixelDims = self.gridUnitsToPixels(newDims);
-      var originalGridDims = widget.metadata().widget.dimensions;
+      var originalGridDims = widget.package.widget.dimensions;
       var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
 
       // We're just scaling the body, so don't count the title bar.
@@ -109,8 +91,8 @@ Template.WidgetShow.onRendered(function() {
     dashboardTemplate.widgetNodes.push(widgetNode);
   }
 
-  if (this.data.metadata().widget.resize.mode === 'scale') {
-    var originalGridDims = self.data.metadata().widget.dimensions;
+  if (self.data.package.widget.resize.mode === 'scale') {
+    var originalGridDims = self.data.package.widget.dimensions;
     var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
     originalPixelDims.height -= Widget.Settings.titleBar.height;
 
@@ -149,32 +131,63 @@ Template.WidgetShow.events({
     var dashboardTemplate = Dashboards.templateFromChild(template);
     var dashboard = dashboardTemplate.data;
 
+    Template.WidgetShow.closePopover(this, 'Settings');
+    Template.WidgetShow.closePopover(this, 'Info');
+
     dashboardTemplate.gridster.remove_widget(template.firstNode);
     Widgets.updatePositions(dashboardTemplate.gridster.serialize());
     dashboard.removeWidget(this);
   },
   'gridster:resizestart': function(ev, template) {
-    if (this.metadata().widget.resize.mode === 'scale') {
+    if (this.package.widget.resize.mode === 'scale') {
       template.$('.widget-body').append('<div class="resizing-cover" />');
     }
     // This was passed down from the dashboard - don't bubble it back up.
     ev.stopPropagation();
   },
   'gridster:resizestop': function(ev, template) {
-    if (this.metadata().widget.resize.mode === 'scale') {
+    if (this.package.widget.resize.mode === 'scale') {
       template.scaleBody();
       template.$('.resizing-cover').remove();
     }
     ev.stopPropagation();
   },
 });
-Template.WidgetSettings.events({
-  'click': function(ev, template) {
-    console.log('click');
-    this.data.closeSettings(template);
-  }
-});
 
 Template.registerHelper('widgetLoading', function() {
   return 'Loading...';
 });
+
+Template.WidgetShow.closePopover = function(widget, component) {
+  $('#' + widget.componentId(component)).popover('hide');
+};
+
+var addPopoverCloserToTemplate = function(template, popoverName) {
+  var closeForTemplate = function() {
+    var widget;
+    if (this.data.constructor === WidgetData) {
+      widget = this.data.widget;
+    } else {
+      widget = this.data;
+    }
+    Template.WidgetShow.closePopover(widget, popoverName);
+  };
+  template.onCreated(function() {
+    this['close' + popoverName] = closeForTemplate;
+  });
+};
+
+var addPopoverCloser = function(popoverName) {
+  addPopoverCloserToTemplate(Template['Widget' + popoverName], popoverName);
+
+  WidgetPackages.find().observe({
+    added: function(package) {
+      if (!package.providesTemplate(popoverName)) { return; }
+      addPopoverCloserToTemplate(
+          Template[package.templateFor(popoverName)], popoverName);
+    }
+  });
+};
+
+addPopoverCloser('Settings');
+addPopoverCloser('Info');

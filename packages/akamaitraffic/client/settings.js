@@ -11,6 +11,6 @@ Template.AkamaiTrafficSettings.events({
       regionId: regionCode,
       regionLabel: regionLabel
     });
-    this.closeSettings(template);
+    template.closeSettings();
   }
 });
