@@ -141,10 +141,9 @@ Template.WidgetShow.events({
     dashboard.removeWidget(this);
   },
   'gridster:resizestart': function(ev, template) {
+    template.closeSettings();
+    template.closeInfo();
     if (this.package.widget.resize.mode === 'scale') {
-      template.closeSettings();
-      template.closeInfo();
-      template.$('.widget').addClass('hiding-overflow');
       template.$('.widget-body').append('<div class="resizing-cover" />');
     }
     // This was passed down from the dashboard - don't bubble it back up.
@@ -153,20 +152,10 @@ Template.WidgetShow.events({
   'gridster:resizestop': function(ev, template) {
     if (this.package.widget.resize.mode === 'scale') {
       template.scaleBody();
-      template.$('.resizing-cover').remove();
       template.$('.widget').removeClass('hiding-overflow');
     }
     // This was passed down from the dashboard - don't bubble it back up.
     ev.stopPropagation();
-  },
-  'gridster:dragstart': function(ev, template) {
-    console.log('here');
-  },
-  'show.bs.popover': function(ev, template) {
-    template.$('.widget').addClass('on-top');
-  },
-  'hidden.bs.popover': function(ev, template) {
-    template.$('.widget').removeClass('on-top');
   }
 });
 
