@@ -1,0 +1,25 @@
+<template name="UserContentSettings">
+  <div class="form-group">
+    <label for="user-content-text">Text</label>
+    <input type="text" id="user-content-text" class="form-control"
+           value="{{ text }}" name="text" />
+  </div>
+  <div class="form-group">
+    <label for="user-content-text-color">Text Color</label>
+    <input type="text" class="color-picker form-control"
+           id="user-content-text-color" value="{{ textColor }}"
+           name="text-color" />
+  </div>
+  <div class="form-group">
+    <label for="user-content-background-color">Background Color</label>
+    <input type="text" class="color-picker form-control"
+           id="user-content-background-color"
+           value="{{ backgroundColor }}" name="background-color" />
+  </div>
+  <div class="form-group">
+    <label for="user-content-image-url">Image URL</label>
+    <input type="url" class="form-control" name="image-url"
+           id="user-content-image-url" value="{{ imageUrl }}"/>
+  </div>
+  <button class="btn btn-primary" id="user-content-save">Save</button>
+</template>
