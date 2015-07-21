@@ -47,7 +47,9 @@
             </a>
             <h2>{{ widget.name }}</h2>
             <p>{{ widget.description }}</p>
+            {{# if org }}
             <small class="provided-by">Data provided by: <a href="{{ org.url }}" target="_blank">{{ org.name }}</a></small>
+            {{/if}}
           </li>
         {{/each}}
         </ul>
