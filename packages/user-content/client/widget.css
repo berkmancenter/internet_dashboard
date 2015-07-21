@@ -1,0 +1,18 @@
+.user-content .widget-body {
+  padding: 0 !important;
+}
+.widget.user-content .title-bar {
+  position: absolute;
+  background-color: rgba(80, 80, 80, 0.6);
+}
+.user-content .title-bar .buttons a {
+  color: #DADADA;
+}
+.user-content-wrapper {
+  height: 100%;
+  width: 100%;
+  padding: 30px 10px;
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+}
