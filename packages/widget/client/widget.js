@@ -152,7 +152,7 @@ Template.WidgetShow.events({
   'gridster:resizestop': function(ev, template) {
     if (this.package.widget.resize.mode === 'scale') {
       template.scaleBody();
-      template.$('.widget').removeClass('hiding-overflow');
+      template.$('.widget-body .resizing-cover').remove();
     }
     // This was passed down from the dashboard - don't bubble it back up.
     ev.stopPropagation();
