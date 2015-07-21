@@ -11,5 +11,5 @@ ActiveWidgets = [
   'herdict',
   //'lumen',
   'kaspersky',
-  'image-block'
+  'user-content'
 ];

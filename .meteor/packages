@@ -19,7 +19,6 @@ utils
 percent-online
 html-scraper
 tagcloud
-image-block
 akamaiattacks
 akamaitraffic
 akamaitraffic2
@@ -29,3 +28,4 @@ wikiedits
 wikiedit-stream
 herdict
 kaspersky
+user-content

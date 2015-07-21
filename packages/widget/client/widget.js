@@ -178,7 +178,23 @@ Template.WidgetShow.closePopover = function(widget, component) {
   $('#' + widget.componentId(component)).popover('hide');
 };
 
-var addPopoverCloserToTemplate = function(template, popoverName) {
+var extendTemplate = function(template, attrs) {
+  template.onCreated(function() {
+    _.extend(this, attrs);
+  });
+};
+
+var extendAllTemplates = function(aspect, attrs) {
+  aspect = aspect || 'Widget';
+  WidgetPackages.find().observe({
+    added: function(package) {
+      if (!package.providesTemplate(aspect)) { return; }
+      extendTemplate(Template[package.templateFor(aspect)], attrs);
+    }
+  });
+};
+
+var addPopoverCloser = function(popoverName) {
   var closeForTemplate = function() {
     var widget;
     if (this.data.constructor === WidgetData) {
@@ -188,22 +204,14 @@ var addPopoverCloserToTemplate = function(template, popoverName) {
     }
     Template.WidgetShow.closePopover(widget, popoverName);
   };
-  template.onCreated(function() {
-    this['close' + popoverName] = closeForTemplate;
-  });
-};
+  
+  attrs = {};
+  attrs['close' + popoverName] = closeForTemplate;
 
-var addPopoverCloser = function(popoverName) {
-  addPopoverCloserToTemplate(Template.WidgetShow, popoverName);
-  addPopoverCloserToTemplate(Template['Widget' + popoverName], popoverName);
+  extendTemplate(Template.WidgetShow, attrs);
+  extendTemplate(Template['Widget' + popoverName], attrs);
 
-  WidgetPackages.find().observe({
-    added: function(package) {
-      if (!package.providesTemplate(popoverName)) { return; }
-      addPopoverCloserToTemplate(
-          Template[package.templateFor(popoverName)], popoverName);
-    }
-  });
+  extendAllTemplates(popoverName, attrs);
 };
 
 addPopoverCloser('Settings');
