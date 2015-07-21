@@ -1,4 +1,5 @@
 .widget {
+  overflow: hidden;
   position: relative;
   border: 0;
   cursor: default;
@@ -19,24 +20,6 @@
     margin-bottom: 0.4em;
   }
 
-  &.hiding-overflow {
-    overflow: hidden;
-  }
-
-  &.on-top {
-    z-index: 100 !important;
-  }
-
-  .popover {
-    max-width: 400px;
-    white-space: nowrap;
-
-    .close {
-      position: absolute;
-      top: 6px;
-      right: 10px;
-    }
-  }
 
   .title-bar {
     width: 100%;
@@ -81,7 +64,6 @@
   }
 
   .widget-body {
-    overflow: hidden;
     transform-origin: left top;
     height: 100%;
     padding: 7px 15px;
@@ -95,5 +77,15 @@
       z-index: 1000;
       background-color: rgba(255, 255, 255, 0.8);
     }
+  }
+}
+
+.popover {
+  max-width: 400px;
+
+  .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
   }
 }
