@@ -9,25 +9,26 @@ Template.MediaCloudWidget.onRendered(function() {
   var template = this;
   var oldData = { country: {} };
   this.autorun(function() {
-    if (!template.subscriptionsReady()) {
-      return;
-    }
     var data = Template.currentData();
     if (_.isEqual(data.country, oldData.country)) {
       return;
     }
-    oldData = data;
+    template.$('.mc-tagcloud').empty();
+    if (!template.subscriptionsReady()) {
+      return;
+    }
+
+    oldData.country = data.country;
     var words = WordLists.findOne({ 'country.code': data.country.code }).words.new;
-    var width = data.widget.metadata().widget.dimensions.width *
+    var width = data.widget.package.widget.dimensions.width *
       Settings.cloud.widthMulti;
-    var height = data.widget.metadata().widget.dimensions.height *
+    var height = data.widget.package.widget.dimensions.height *
       Settings.cloud.heightMulti;
     var fill = d3.scale.category20();
     var maxCount = _.max(_.pluck(words, 'count'));
     var fontScale = d3.scale.linear().domain([1, maxCount])
       .range(Settings.cloud.fontScale);
 
-    template.$('.mc-tagcloud').empty();
 
     function draw(words) {
       d3.select(template.find('.mc-tagcloud')).append("svg")
