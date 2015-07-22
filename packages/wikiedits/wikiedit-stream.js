@@ -2,17 +2,16 @@ ThrottledWikiEdits = new Mongo.Collection('throttled_wikiedits');
 
 Settings = {
   updateInterval: moment.duration({ seconds: 2 }).asMilliseconds(),
-  defaultChannel: { channel: '#en.wikipedia', name: 'English' },
-  listLength: 15,
-  editScaleDomain: [1, 50],
-  editScaleRange: [12, 20],
+  defaultWiki: { channel: '#en.wikipedia', name: 'English' },
+  listLength: 35,
+  editScale: { domain: [1, 50], range: [12, 20] }
 };
 
 WikiWidget = function(doc) {
   Widget.call(this, doc);
 
   _.defaults(this.data, {
-    channel: Settings.defaultChannel
+    wiki: Settings.defaultWiki
   });
 };
 
@@ -25,6 +24,7 @@ WikiStream = {
     description: 'Shows a streaming list of edits to each language\'s Wikipedia',
     url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
     dimensions: { width: 2, height: 2 },
+    resize: { mode: 'reflow' },
     constructor: WikiWidget
   },
   org: {
