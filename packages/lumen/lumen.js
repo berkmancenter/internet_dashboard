@@ -7,10 +7,10 @@ LumenCounts.attachSchema(new SimpleSchema({
 }));
 
 Settings = {
-  binWidth: moment.duration({ hours: 6 }),
-  numBins: 20,
-  perPage: 50,
-  startPage: 11 // at 50 per page, there are 11 pages of future-dated (messed up) notices
+  binWidth: moment.duration({ days: 1 }),
+  numBins: 30,
+  perPage: 25,
+  countUrls: false
 };
 Settings.updateEvery = Settings.binWidth;
 

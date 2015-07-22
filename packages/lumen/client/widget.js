@@ -20,11 +20,11 @@ Template.LumenWidget.onRendered(function() {
 
     template.$('.url-counts').empty();
 
-    var urlCounts = LumenCounts.find({}, { sort: { start: 1 } }).map(
-      function(bin) { return { x: bin.start, y: bin.urlCount }; }
+    var noticeCounts = LumenCounts.find({}, { sort: { start: 1 } }).map(
+      function(bin) { return { x: bin.start, y: bin.noticeCount }; }
     );
 
-    var binStarts = _.map(urlCounts, function(d) { return d.x; });
+    var binStarts = _.map(noticeCounts, function(d) { return d.x; });
     var tickValues = function(binStarts, numTicks) {
       var total = binStarts.length;
       var step = Math.ceil(total / numTicks) || 0;
@@ -64,7 +64,7 @@ Template.LumenWidget.onRendered(function() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     x.domain(binStarts);
-    y.domain([0, d3.max(urlCounts, function(d) { return d.y; })]);
+    y.domain([0, d3.max(noticeCounts, function(d) { return d.y; })]);
 
     svg.append("g")
         .attr("class", "x axis")
@@ -76,7 +76,7 @@ Template.LumenWidget.onRendered(function() {
         .call(yAxis);
 
     svg.selectAll(".bar")
-        .data(urlCounts)
+        .data(noticeCounts)
       .enter().append("rect")
         .attr("class", "bar")
         .attr("x", function(d) { return x(d.x); })
