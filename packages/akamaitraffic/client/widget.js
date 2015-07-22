@@ -1,4 +1,4 @@
-var addFunnel = function(dayChart) {
+var addFunnel = function(dayChart, template) {
   var startPercent = 100.0 / 24 * 23;
   var highlightWidth = 100.0 / 24;
   var highlightHeight = Settings.funnelHeight;
@@ -10,7 +10,7 @@ var addFunnel = function(dayChart) {
     height: '100%',
     class: 'funnel'
   });
-  d3.select('.akamai-traffic-funnel')
+  d3.select(template.find('.akamai-traffic-funnel'))
   .append('svg').attr({
     height: highlightHeight,
     width: totalWidth
@@ -68,7 +68,7 @@ Template.AkamaiTrafficWidget.onRendered(function() {
     dayChart.update(dayData);
 
     if (dayChart.g.select('rect').empty()) {
-      addFunnel(dayChart);
+      addFunnel(dayChart, template);
     }
 
     template.$('.akamai-traffic-fetched').text(latestFeed.fetchedAt);
