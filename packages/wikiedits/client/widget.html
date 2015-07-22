@@ -1,9 +1,17 @@
-<template name="WikiEditCountsWidget">
+<template name="WikiStreamWidget">
   <h1>Wikipedia Edits</h1>
-  <p>Edits in the last {{ binWidth }} seconds to {{ channel.name }} Wikipedia</p>
+  <h2>{{ wikiName }}</h2>
   {{# unless Template.subscriptionsReady }}
     {{ widgetLoading }}
   {{/unless}}
-  <div class="wiki-history epoch"></div>
-  <div class="wiki-history-count"></div>
+  <ul class="wikiedits list-unstyled">
+  </ul>
+</template>
+
+<template name="WikiStreamEdit">
+<li>
+  <a href="{{ pageUrl }}" target="_blank" class="{{ class }}" style="{{ style }}">
+    {{ page }}
+  </a>
+</li>
 </template>
