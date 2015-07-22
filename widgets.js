@@ -7,7 +7,7 @@ ActiveWidgets = [
   'broadband-cost',
   //'mediacloud',
   'wikiedits',
-  'wikiedit-stream',
+  'wikivolume',
   'herdict',
   //'lumen',
   'kaspersky',
