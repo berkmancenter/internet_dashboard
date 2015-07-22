@@ -12,7 +12,7 @@ Template.DashboardsShow.helpers({
 
 Template.DashboardsAdd.helpers({
   availableWidgets: function() {
-    return WidgetPackages.find();
+    return WidgetPackages.find({}, { sort: { sortPosition: 1 } });
   }
 });
 

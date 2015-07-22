@@ -28,6 +28,9 @@ WidgetPackages.attachSchema(new SimpleSchema({
   exportedVar: {
     type: String
   },
+  sortPosition: {
+    type: Number
+  },
   widget: {
     type: Object
   },

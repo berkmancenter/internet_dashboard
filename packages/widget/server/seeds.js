@@ -1,7 +1,7 @@
 Widgets.seed = function(packages) {
   console.log('Widget: Updating widget packages');
 
-  _.each(packages, function(packageName) {
+  _.each(packages, function(packageName, i) {
     if (_.isUndefined(Package[packageName])) {
       console.log('Package "' + packageName + '" does not exist in this project.');
       return;
@@ -13,6 +13,7 @@ Widgets.seed = function(packages) {
     var data = {
       packageName : packageName,
       exportedVar : exports,
+      sortPosition: i,
       widget      : _.omit(exported.widget, 'constructor'),
       org         : exported.org
     };
