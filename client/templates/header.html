@@ -1,8 +1,16 @@
 <template name="Header">
-<header>
-  <h1>
-    <span style="display:none;">Internet Monitor</span>
-    <a href="/"><span class="logo-image"></span></a>
-  </h1>
-</header>
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">
+            <span class="logo-image" title="Internet Monitor"></span>
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          {{> loginButtons }}
+        </ul>
+      </div>
+    </nav>
+  </header>
 </template>
