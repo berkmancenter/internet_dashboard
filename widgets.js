@@ -1,15 +1,16 @@
 ActiveWidgets = [
-  'akamaiattacks',
-  'akamaitraffic',
-  'akamaitraffic2',
+  'wikiedits',
+  'wikivolume',
   'percent-online',
   'connection-speed',
   'broadband-cost',
+  'akamaiattacks',
+  'akamaitraffic',
+  'akamaitraffic2',
   //'mediacloud',
-  'wikiedits',
-  'wikivolume',
-  'herdict',
   //'lumen',
+  'herdict',
   'kaspersky',
-  'user-content'
+  'user-content',
+  'embed'
 ];

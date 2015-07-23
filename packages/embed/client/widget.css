@@ -1,0 +1,12 @@
+.widget.embed .widget-body {
+  text-align: center;
+}
+.widget.embed {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.widget.embed .title-bar {
+  background-color: rgba(80, 80, 80, 0.6);
+}
+.embed .title-bar .buttons a {
+  color: #DADADA;
+}
