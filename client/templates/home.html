@@ -5,9 +5,64 @@
     <p>Internet Monitor lets you explore, create, customize, and share
     dashboards of data visualizations about multiple facets of the Internet.</p>
     <div class="text-center">
-    <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards.new' }}">
-      Get Started
-    </a>
+    {{# if currentUser }}
+      <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards.new' }}">
+        Get Started
+      </a>
+    {{else}}
+      <button type="button" class="btn btn-success btn-lg" data-toggle="modal"
+        data-target=".sign-in-or-anon">
+          Get Started
+      </button>
+    {{/if}}
+    </div>
+  </div>
+</div>
+
+<div class="modal fade sign-in-or-anon" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">New Dashboard</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4 class="text-center">Sign in</h4>
+            If you create an account or sign in now:
+            <ul>
+              <li>anyone with the link will be able to view your dashboard,
+                but you'll be the only one that can edit it</li>
+              <li>the dashboard will show up in your list of dashboards</li>
+            </ul>
+          </div>
+
+          <div class="col-sm-6">
+            <h4 class="text-center">Continue anonymously</h4>
+            If you continue anonymously:
+            <ul>
+              <li>anyone with the link can view <strong>and edit</strong> your dashboard</li>
+              <li>the dashboard won't show up in any listings (so save the link)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-sm-6 text-center">
+            <button type="button" data-dismiss="modal" class="btn btn-primary btn-lg">Sign in</button>
+          </div>
+          <div class="col-sm-6 text-center">
+            <a class="btn btn-success btn-lg" data-dismiss="modal"
+               href="{{ pathFor route='dashboards.new' }}">
+              Continue
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

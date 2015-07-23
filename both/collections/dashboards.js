@@ -16,6 +16,15 @@ _.extend(Dashboard.prototype, {
   },
   widgets: function() {
     return Widgets.find({ dashboardId: this._id });
+  },
+  publiclyEditable: function() {
+    return !this.ownerId;
+  },
+  ownedBy: function(user) {
+    return user._id === this.ownerId;
+  },
+  editableBy: function(user) {
+    return this.publiclyEditable() || this.ownedBy(user);
   }
 });
 
@@ -36,9 +45,10 @@ Dashboards.attachSchema(new SimpleSchema({
     type: Number,
     defaultValue: 20
   },
-  default: {
-    type: Boolean,
-    defaultValue: false
+  ownerId: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+    optional: true
   }
 }));
 

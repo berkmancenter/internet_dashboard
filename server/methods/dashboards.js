@@ -1,6 +1,7 @@
 Meteor.methods({
   newDashboard: function() {
-    return Dashboards.insert(new Dashboard());
+    var dashboard = new Dashboard({ ownerId: Meteor.userId() });
+    return Dashboards.insert(dashboard);
   }
 });
 
