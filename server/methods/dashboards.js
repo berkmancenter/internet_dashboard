@@ -1,7 +1,18 @@
 Meteor.methods({
   newDashboard: function() {
-    var dashboard = new Dashboard({ ownerId: Meteor.userId() });
-    return Dashboards.insert(dashboard);
+    var userId = Meteor.userId();
+    var dashboard = {};
+
+    if (userId) {
+      _.extend(dashboard, {
+        ownerId: userId,
+        editorIds: [userId],
+        publiclyEditable: false
+      });
+    }
+
+    var newDash = new Dashboard(dashboard);
+    return Dashboards.insert(newDash);
   }
 });
 

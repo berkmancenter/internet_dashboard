@@ -1,0 +1,58 @@
+<template name="SignInOrAnon">
+<div class="text-center">
+  <button type="button" class="btn btn-success btn-lg" id="get-started">
+      Get Started
+  </button>
+</div>
+
+<div class="modal fade sign-in-or-anon" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">New Dashboard</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4 class="text-center">Sign in</h4>
+            If you create an account or sign in now:
+            <ul>
+              <li>anyone with the link will be able to view your dashboard,
+                but you'll be the only one that can edit it</li>
+              <li>the dashboard will show up in your list of dashboards</li>
+            </ul>
+          </div>
+
+          <div class="col-sm-6">
+            <h4 class="text-center">Continue anonymously</h4>
+            If you continue anonymously:
+            <ul>
+              <li>anyone with the link can view <strong>and edit</strong> your dashboard</li>
+              <li>the dashboard won't show up in any listings (so save the link)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-sm-6 text-center">
+            <a href="{{ pathFor route='sign-in' }}"
+              class="btn btn-primary btn-lg">
+              Sign in
+            </a>
+          </div>
+          <div class="col-sm-6 text-center">
+            <a class="btn btn-success btn-lg"
+               href="{{ pathFor route='dashboards.new' }}">
+              Continue
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</template>

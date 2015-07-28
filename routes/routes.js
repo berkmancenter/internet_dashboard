@@ -26,3 +26,4 @@ Router.route('/dashboards/:_id', {
     this.render();
   }
 });
+
