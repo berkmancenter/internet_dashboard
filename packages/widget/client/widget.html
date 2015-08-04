@@ -12,9 +12,11 @@
       {{/if}}
 
       <div class="buttons">
+        {{# if dashboard.editable }}
         <a href="#" class="remove-widget" title="Remove widget">
           <span class="glyphicon glyphicon-remove"></span>
         </a>
+        {{/if}}
 
         <a class="button-info" href="#" id="{{ componentId 'Info' }}"
           title="About" data-toggle="popover" data-trigger="click"
@@ -26,17 +28,19 @@
           {{> WidgetInfo }}
         </div>
 
-        {{# if providesSettings }}
-        <a class="button-settings" href="#" id="{{ componentId 'Settings' }}"
-          title="Settings" data-toggle="popover" data-trigger="click"
-          data-html="true" data-placement="auto right" data-viewport="#dashboard"
-          data-container="body">
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
+        {{# if dashboard.editable }}
+          {{# if providesSettings }}
+          <a class="button-settings" href="#" id="{{ componentId 'Settings' }}"
+            title="Settings" data-toggle="popover" data-trigger="click"
+            data-html="true" data-placement="auto right" data-viewport="#dashboard"
+            data-container="body">
+            <span class="glyphicon glyphicon-cog"></span>
+          </a>
 
-        <div class="widget-settings for-{{ componentId 'settings' }}">
-          {{> WidgetSettings }}
-        </div>
+          <div class="widget-settings for-{{ componentId 'settings' }}">
+            {{> WidgetSettings }}
+          </div>
+          {{/if}}
         {{/if}}
       </div>
     </div>

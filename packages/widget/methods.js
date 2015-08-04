@@ -1,15 +1,8 @@
-var authorize = function(dashboard) {
-  if (!dashboard.editableBy(Meteor.user())) {
-    throw new Meteor.Error('not-owner',
-        'Must be the current owner of the dashboard to edit.');
-  }
-};
-
 Meteor.methods({
   updateWidgetPositions: function(widgetPositions) {
     if (_.isEmpty(widgetPositions)) { return; }
     var dashboard = Widgets.findOne(_.first(widgetPositions).id).dashboard();
-    authorize(dashboard);
+    dashboard.authorize();
     console.log('Widget: Updating positions');
 
     _.each(widgetPositions, function(widget) {
@@ -29,20 +22,20 @@ Meteor.methods({
           'Widget object must have dashboard id.');
     }
     var dashboard = Dashboards.findOne(widget.dashboardId);
-    authorize(dashboard);
+    dashboard.authorize();
 
     Widgets.insert(widget);
   },
   removeWidgetFromDashboard: function(widgetId) {
     var dashboard = Widgets.findOne(widgetId).dashboard();
-    authorize(dashboard);
+    dashboard.authorize();
 
     console.log('Widget: Removing ' + widgetId);
     Widgets.remove(widgetId);
   },
   updateWidgetData: function(widgetId, data) {
     var dashboard = Widgets.findOne(widgetId).dashboard();
-    authorize(dashboard);
+    dashboard.authorize();
 
     console.log('Widget: Updating data for ' + widgetId);
     Widgets.update(widgetId, { $set: { data: data } });

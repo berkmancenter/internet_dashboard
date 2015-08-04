@@ -79,7 +79,7 @@ Template.DashboardsShow.onRendered(function() {
     serialize_params: serializePositions,
     autogrow_cols: true,
     resize: {
-      enabled: true,
+      enabled: dash.editable(),
       start: self.onWidgetResize.start,
       stop: self.onWidgetResize.stop
     },
@@ -89,4 +89,15 @@ Template.DashboardsShow.onRendered(function() {
       stop: self.onWidgetDrag.stop
     }
   }).data('gridster');
+
+  if (!dash.editable()) { self.gridster.disable(); }
+});
+
+Template.DashboardsSettings.events({
+  'click .save-settings': function(ev, template) {
+    var attrs = {};
+    attrs.publiclyEditable = template.$('#dash-public-edit').prop('checked');
+    Meteor.call('updateDashboard', this._id, attrs);
+    template.$('.dash-settings').modal('hide');
+  }
 });
