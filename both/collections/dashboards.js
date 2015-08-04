@@ -21,7 +21,7 @@ _.extend(Dashboard.prototype, {
     return user._id === this.ownerId;
   },
   editableBy: function(user) {
-    return this.publiclyEditable || _(this.editorIds).includes(user._id);
+    return this.publiclyEditable || _.contains(this.editorIds, user._id);
   }
 });
 

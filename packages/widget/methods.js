@@ -7,6 +7,7 @@ var authorize = function(dashboard) {
 
 Meteor.methods({
   updateWidgetPositions: function(widgetPositions) {
+    if (_.isEmpty(widgetPositions)) { return; }
     var dashboard = Widgets.findOne(_.first(widgetPositions).id).dashboard();
     authorize(dashboard);
     console.log('Widget: Updating positions');
