@@ -24,22 +24,18 @@
           data-container="body">
           <span class="glyphicon glyphicon-info-sign"></span>
         </a>
-        <div class="widget-info for-{{ componentId 'info' }}">
-          {{> WidgetInfo }}
-        </div>
+        {{> WidgetInfo }}
 
         {{# if dashboard.editable }}
           {{# if providesSettings }}
-          <a class="button-settings" href="#" id="{{ componentId 'Settings' }}"
-            title="Settings" data-toggle="popover" data-trigger="click"
-            data-html="true" data-placement="auto right" data-viewport="#dashboard"
-            data-container="body">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
+            <a class="button-settings" href="#" id="{{ componentId 'Settings' }}"
+              title="Settings" data-toggle="popover" data-trigger="click"
+              data-html="true" data-placement="auto right" data-viewport="#dashboard"
+              data-container="body">
+              <span class="glyphicon glyphicon-cog"></span>
+            </a>
 
-          <div class="widget-settings for-{{ componentId 'settings' }}">
             {{> WidgetSettings }}
-          </div>
           {{/if}}
         {{/if}}
       </div>

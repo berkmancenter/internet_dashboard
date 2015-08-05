@@ -24,6 +24,7 @@ Meteor.methods({
     var dashboard = Dashboards.findOne(widget.dashboardId);
     dashboard.authorize();
 
+    console.log('Widget: Adding widget to dashboard ' + dashboard._id);
     Widgets.insert(widget);
   },
   removeWidgetFromDashboard: function(widgetId) {
@@ -34,7 +35,9 @@ Meteor.methods({
     Widgets.remove(widgetId);
   },
   updateWidgetData: function(widgetId, data) {
-    var dashboard = Widgets.findOne(widgetId).dashboard();
+    var widget = Widgets.findOne(widgetId);
+    if (!widget) { return; }
+    var dashboard = widget.dashboard();
     dashboard.authorize();
 
     console.log('Widget: Updating data for ' + widgetId);

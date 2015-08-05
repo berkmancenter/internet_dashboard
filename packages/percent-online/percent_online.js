@@ -22,9 +22,11 @@ _.extend(PercentOnlineWidget.prototype, {
   // FIXME Implement this
   onCountryChange: function(newCountry) { return true; },
   getCountry: function() {
+    if (_.isEmpty(this.data.country)) { return; }
     return IMonCountries.findOne({ code: this.data.country.code });
   },
   getIndicator: function() {
+    if (_.isEmpty(this.getCountry())) { return; }
     return _.findWhere(this.getCountry().indicators, { name: Settings.indicatorName });
   }
 });

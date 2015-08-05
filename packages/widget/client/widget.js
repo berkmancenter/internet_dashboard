@@ -114,9 +114,6 @@ Template.WidgetShow.onRendered(function() {
     });
   });
 
-  self.$infoContent = self.$('.widget-info').detach();
-  self.$settingsContent = self.$('.widget-settings').detach();
-
   $(widgetNode).popover({
     selector: '[data-toggle="popover"]',
     content: function() {
@@ -132,13 +129,15 @@ Template.WidgetShow.events({
   'click .remove-widget': function(ev, template) {
     var dashboardTemplate = Dashboards.templateFromChild(template);
     var dashboard = dashboardTemplate.data;
+    var widget = this;
 
     template.closeSettings();
     template.closeInfo();
 
-    dashboardTemplate.gridster.remove_widget(template.firstNode);
-    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
-    dashboard.removeWidget(this);
+    dashboardTemplate.gridster.remove_widget(template.firstNode, function() {
+      dashboard.removeWidget(widget);
+      Widgets.updatePositions(dashboardTemplate.gridster.serialize());
+    });
   },
   'gridster:resizestart': function(ev, template) {
     template.closeSettings();
@@ -193,7 +192,7 @@ var addPopoverCloser = function(popoverName) {
     }
     Template.WidgetShow.closePopover(widget, popoverName);
   };
-  
+
   attrs = {};
   attrs['close' + popoverName] = closeForTemplate;
 
@@ -201,6 +200,16 @@ var addPopoverCloser = function(popoverName) {
   extendTemplate(Template['Widget' + popoverName], attrs);
 
   extendAllTemplates(popoverName, attrs);
+};
+
+Templates = {
+  ancestorByName: function(template, name) {
+    var view = template.view;
+    while (view.name !== name && view.parentView) {
+      view = view.parentView;
+    }
+    return view.templateInstance();
+  }
 };
 
 addPopoverCloser('Settings');

@@ -14,7 +14,6 @@ Package.onUse(function(api) {
   api.use(['templating', 'fortawesome:fontawesome@4.3.0'], 'client');
 
   api.addFiles(['percent_online.js']);
-  api.addFiles(['server/publications.js'], 'server');
   api.addFiles([
     'client/settings.html',
     'client/settings.js',

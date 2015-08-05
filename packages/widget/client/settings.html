@@ -1,8 +1,10 @@
 <template name="WidgetSettings">
-  {{> Template.dynamic template=settingsTemplate data=data }}
+  <div class="widget-settings for-{{ componentId 'settings' }}">
+    {{> Template.dynamic template=settingsTemplate data=data }}
 
-  <button type="button" class="close close-settings" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
+    <button type="button" class="close close-settings" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 </template>
 

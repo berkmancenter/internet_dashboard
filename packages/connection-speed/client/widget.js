@@ -1,9 +1,11 @@
 Template.ConnectionSpeedWidget.onCreated(function() {
-  this.subscribe('connection_speed');
   this.subscribe('imon_countries');
 });
 
 Template.ConnectionSpeedWidget.helpers({
+  ready: function() {
+    return Template.instance().subscriptionsReady() && !this.isEmpty();
+  },
   indicatorName: function() { return Settings.indicatorName; },
   indicatorPercent: function() { return this.widget.getIndicator().value * 100; },
   indicatorValue: function() {
@@ -41,7 +43,8 @@ Template.ConnectionSpeedWidget.onRendered(function() {
       .style('font-size', '22px');
 
   this.autorun(function() {
-    if (!Template.instance().subscriptionsReady()) {
+    if (!Template.instance().subscriptionsReady() ||
+        Template.currentData().isEmpty()) {
       return;
     }
 

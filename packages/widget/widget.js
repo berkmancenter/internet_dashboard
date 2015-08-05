@@ -84,5 +84,7 @@ Widgets.attachSchema(new SimpleSchema({
 }));
 
 Widgets.updatePositions = function(positions) {
-  Meteor.call('updateWidgetPositions', positions);
+  if (Dashboards.findOne().editable()) {
+    Meteor.call('updateWidgetPositions', positions);
+  }
 };

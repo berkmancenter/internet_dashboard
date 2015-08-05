@@ -36,6 +36,7 @@ var nodeIdToWidgetId = function(nodeId) {
 };
 
 var serializePositions = function($widget, position) {
+  if (!position) { return; } // In case the widget doesn't exist yet
   position.id = nodeIdToWidgetId($widget.attr('id'));
   return _.pick(position, ['col', 'row', 'size_x', 'size_y', 'id']);
 };
@@ -79,7 +80,7 @@ Template.DashboardsShow.onRendered(function() {
     serialize_params: serializePositions,
     autogrow_cols: true,
     resize: {
-      enabled: dash.editable(),
+      enabled: true,
       start: self.onWidgetResize.start,
       stop: self.onWidgetResize.stop
     },
@@ -89,8 +90,6 @@ Template.DashboardsShow.onRendered(function() {
       stop: self.onWidgetDrag.stop
     }
   }).data('gridster');
-
-  if (!dash.editable()) { self.gridster.disable(); }
 });
 
 Template.DashboardsSettings.events({
