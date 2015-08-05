@@ -5,7 +5,7 @@
     <h2 class="text-center">Welcome to your new dashboard!</h2>
     <p>A few things to know:</p>
     <ul>
-      <li><p>Click on the <span class="btn-add-widget dash-btn">+</span> to add your first widget.</p></li>
+      <li><p>Click on the <span class="btn-add-widget dash-btn"><span class="glyphicon glyphicon-plus"></span></span> to add your first widget.</p></li>
       <li><p>Dashboards can hold as many widgets as you like, each with their own settings.</p></li>
       <li><p>To compare data across countries and regions, you can add multiple copies of widgets.</p></li>
       <li><p>Once you've added some widgets, you can rearrange them however you'd like.</p></li>
@@ -62,7 +62,9 @@
 </template>
 
 <template name="DashboardsAdd">
-<a href="#" class="btn-add-widget dash-btn" data-toggle="modal" data-target=".add-widget-modal">+</a>
+<a href="#" class="btn-add-widget dash-btn" data-toggle="modal" data-target=".add-widget-modal">
+  <span class="glyphicon glyphicon-plus"></span>
+</a>
 
 <div class="add-widget-modal modal fade" tabindex="-1" role="dialog" aria-labelledby="addWidget" aria-hidden="true">
   <div class="modal-dialog">

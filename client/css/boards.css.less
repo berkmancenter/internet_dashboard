@@ -23,7 +23,7 @@ h1, h2 {
 
 #dashboard {
   position: relative;
-  padding: 0 20px;
+  padding: 0 20px 20px;
   .preview-holder {
     background: #428BCA !important;
     border-radius: 5px;
@@ -40,18 +40,22 @@ h1, h2 {
 }
 
 span.btn-add-widget {
-  width: 1em;
-  height: 1em;
+  width: 24px;
+  height: 24px;
   line-height: 0.72em;
   display: inline-block;
+  font-size: 14px;
+  line-height: 21px;
+  padding-left: 2px;
 }
 
 a.btn-add-widget {
   position: fixed;
   bottom: 55px;
   right: 15px;
-  font-size: 72px;
-  line-height: 40px;
+  font-size: 28px;
+  padding-left: 3px;
+  line-height: 48px;
   width: 50px;
   height: 50px;
   z-index: 1000;
@@ -61,7 +65,7 @@ a.btn-add-widget {
 .dash-btn {
   color: #428BCA;
   border: 2px solid #428BCA;
-  border-radius: 20%;
+  border-radius: 50%;
   text-align: center;
 
   &:hover, &:focus, &:visited {
@@ -78,19 +82,19 @@ a.btn-add-widget {
 
 .btn-dash-settings {
   position: fixed;
-  bottom: 115px;
+  bottom: 112px;
   right: 15px;
-  font-size: 19px;
-  line-height: 30px;
-  width: 30px;
-  height: 30px;
+  font-size: 18px;
+  line-height: 35px;
+  width: 35px;
+  height: 35px;
 }
 
 .modal-dialog {
   z-index: 1050;
 }
 
-.gridster > * { 
+.gridster > * {
   margin: 0;
 }
 

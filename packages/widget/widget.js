@@ -69,11 +69,11 @@ Widgets.attachSchema(new SimpleSchema({
     type: Object,
     optional: true
   },
-  'position.x': {
+  'position.row': {
     type: Number,
     min: 0
   },
-  'position.y': {
+  'position.col': {
     type: Number,
     min: 0
   },

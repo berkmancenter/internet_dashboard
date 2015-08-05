@@ -31,8 +31,8 @@ Template.WidgetShow.helpers({
       'data-max-sizey': resizeConstraints.height.max
     };
     if (this.position) {
-      attrs['data-row'] = this.position.x;
-      attrs['data-col'] = this.position.y;
+      attrs['data-row'] = this.position.row;
+      attrs['data-col'] = this.position.col;
     }
     return attrs;
   }
@@ -87,7 +87,6 @@ Template.WidgetShow.onRendered(function() {
   if (dashboardTemplate.gridster) {
     dashboardTemplate.gridster.add_widget(
       widgetNode, $(widgetNode).data('sizex'), $(widgetNode).data('sizey'));
-    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
   } else {
     dashboardTemplate.widgetNodes.push(widgetNode);
   }
@@ -123,6 +122,10 @@ Template.WidgetShow.onRendered(function() {
   });
 
   $(widgetNode).removeClass('hidden');
+
+  if (dashboardTemplate.gridster) {
+    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
+  }
 });
 
 Template.WidgetShow.events({

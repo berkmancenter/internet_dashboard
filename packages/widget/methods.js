@@ -8,7 +8,7 @@ Meteor.methods({
     _.each(widgetPositions, function(widget) {
       var modifier = {
         $set: {
-          position: { x: widget.row, y: widget.col },
+          position: { col: widget.col, row: widget.row },
           width: widget.size_x,
           height: widget.size_y,
         }
