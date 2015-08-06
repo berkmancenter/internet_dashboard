@@ -4,7 +4,7 @@ Widget = function(doc) {
 
   this.data = doc.data ? new WidgetData(doc.data) : new WidgetData();
   this.data.widget = this;
-  
+
   this.package = WidgetPackages.findOne({ packageName: this.packageName });
 };
 
@@ -22,7 +22,7 @@ _.extend(Widget.prototype, {
   componentId: function(component) {
     component = component || 'widget';
     return this.packageName + '-' + this._id + '-' + component;
-  }
+  },
 });
 
 // Static methods
@@ -30,14 +30,19 @@ _.extend(Widget, {
   construct: function(doc) {
     var package = WidgetPackages.findOne({ packageName: doc.packageName });
     var widgetInfo = Package[package.packageName][package.exportedVar].widget;
-    var widget = new widgetInfo.constructor(doc);
 
-    if ((_.isUndefined(widget.width) || _.isUndefined(widget.height)) && 
+    if ((_.isUndefined(doc.width) || _.isUndefined(doc.height)) &&
         widgetInfo.dimensions) {
-      widget.width = widgetInfo.dimensions.width;
-      widget.height = widgetInfo.dimensions.height;
+      doc.width = widgetInfo.dimensions.width;
+      doc.height = widgetInfo.dimensions.height;
     }
-    return widget;
+
+    if (_.isUndefined(doc.resize) && widgetInfo.resize) {
+      doc.resize = widgetInfo.resize;
+    }
+
+    doc = Widgets.simpleSchema().clean(doc);
+    return new widgetInfo.constructor(doc);
   },
   Settings: {
     titleBar: { height: 20 }
@@ -76,6 +81,52 @@ Widgets.attachSchema(new SimpleSchema({
   'position.col': {
     type: Number,
     min: 0
+  },
+  'resize': {
+    type: Object,
+    optional: true
+  },
+  'resize.mode': {
+    type: String,
+    defaultValue: 'scale',
+    optional: true,
+    allowedValues: ['scale', 'reflow']
+  },
+  'resize.constraints': {
+    type: Object,
+    optional: true,
+  },
+  'resize.constraints.width': {
+    type: Object,
+    optional: true,
+  },
+  'resize.constraints.width.min': {
+    type: Number,
+    defaultValue: 1,
+    allowedValues: [1, 2, 3, 4, 5],
+    optional: true,
+  },
+  'resize.constraints.width.max': {
+    type: Number,
+    defaultValue: 5,
+    allowedValues: [1, 2, 3, 4, 5],
+    optional: true,
+  },
+  'resize.constraints.height': {
+    type: Object,
+    optional: true,
+  },
+  'resize.constraints.height.min': {
+    type: Number,
+    defaultValue: 1,
+    allowedValues: [1, 2, 3, 4, 5],
+    optional: true,
+  },
+  'resize.constraints.height.max': {
+    type: Number,
+    defaultValue: 5,
+    allowedValues: [1, 2, 3, 4, 5],
+    optional: true,
   },
   data: {
     type: Object,

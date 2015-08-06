@@ -3,10 +3,10 @@
       data-mid="{{ _id }}" {{ gridAttrs }}>
 
     <div class="title-bar" style="height: {{ titleBar.height }}px;">
-      {{# if widgetMetadata.org }}
+      {{# if package.metadata.org }}
       <p class="data-source">
-        From <a href="{{ widgetMetadata.org.url }}" target="_blank">
-          {{ widgetMetadata.org.shortName }}
+        From <a href="{{ package.metadata.org.url }}" target="_blank">
+          {{ package.metadata.org.shortName }}
         </a>
       </p>
       {{/if}}

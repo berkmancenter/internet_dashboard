@@ -10,6 +10,7 @@ Package.onUse(function(api) {
   api.use(['templating'], 'client');
 
   api.addFiles('embed.js');
+  api.addFiles(['server.js'], 'server');
   api.addFiles([
     'client/widget.html',
     'client/widget.css',
@@ -18,3 +19,5 @@ Package.onUse(function(api) {
     ], 'client');
   api.export('Embed');
 });
+
+Npm.depends({ 'sanitize-html': '1.7.2' });

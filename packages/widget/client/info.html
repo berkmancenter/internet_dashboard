@@ -13,20 +13,20 @@
 </template>
 
 <template name="DefaultWidgetInfo">
-  {{# if widgetMetadata.org }}
+  {{# if widget.package.metadata.org }}
   <p>
     The data backing this widget has been provided by:
   </p>
   <div class="text-center">
-    <a href="{{ widgetMetadata.org.url }}" target="_blank">
-    {{ widgetMetadata.org.name }}</a>
+    <a href="{{ widget.package.metadata.org.url }}" target="_blank">
+    {{ widget.package.metadata.org.name }}</a>
   </div>
   <hr />
   {{/if}}
 
   <p>
-    Click <a href="{{ widgetMetadata.widget.url }}" target="_blank">here</a> for
-    more information about this data.
+    Click <a href="{{ widget.package.metadata.widget.url }}" target="_blank">here</a> for
+    more information about this widget.
   </p>
 </template>
 

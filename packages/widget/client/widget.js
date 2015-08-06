@@ -14,14 +14,11 @@ Template.WidgetShow.helpers({
   widgetClass: function() {
     return this.packageName;
   },
-  widgetMetadata: function() {
-    return this.package.metadata();
-  },
   titleBar: function() {
     return Widget.Settings.titleBar;
   },
   gridAttrs: function() {
-    var resizeConstraints = this.package.widget.resize.constraints;
+    var resizeConstraints = this.resize.constraints;
     var attrs = {
       'data-sizex': this.width,
       'data-sizey': this.height,
@@ -63,7 +60,7 @@ Template.WidgetShow.onCreated(function() {
       var $widgetBody = self.$('.widget-body');
 
       var newPixelDims = self.gridUnitsToPixels(newDims);
-      var originalGridDims = widget.package.widget.dimensions;
+      var originalGridDims = widget.package.metadata().widget.dimensions;
       var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
 
       // We're just scaling the body, so don't count the title bar.
@@ -82,12 +79,11 @@ Template.WidgetShow.onRendered(function() {
   var dashboardTemplate = Dashboards.templateFromChild(this);
   var widgetNode = this.firstNode;
   var self = this;
-  var resizeMode = self.data.package.widget.resize.mode;
 
   $(widgetNode).trigger('widget:rendered', [self]);
 
-  if (resizeMode === 'scale') {
-    var originalGridDims = self.data.package.widget.dimensions;
+  if (self.data.resize.mode === 'scale') {
+    var originalGridDims = self.data.package.metadata().widget.dimensions;
     var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
     originalPixelDims.height -= Widget.Settings.titleBar.height;
 
@@ -100,7 +96,7 @@ Template.WidgetShow.onRendered(function() {
   self.autorun(function() {
     Widgets.find(self.data._id).observeChanges({
       changed: function(id, fields) {
-        if (resizeMode === 'scale' &&
+        if (self.data.resize.mode === 'scale' &&
             (_(fields).has('width') || _(fields).has('height'))) {
           self.scaleBody(fields);
         }
@@ -137,14 +133,14 @@ Template.WidgetShow.events({
   'gridster:resizestart': function(ev, template) {
     template.closeSettings();
     template.closeInfo();
-    if (this.package.widget.resize.mode === 'scale') {
+    if (this.resize.mode === 'scale') {
       template.$('.widget-body').append('<div class="resizing-cover" />');
     }
     // This was passed down from the dashboard - don't bubble it back up.
     ev.stopPropagation();
   },
   'gridster:resizestop': function(ev, template) {
-    if (this.package.widget.resize.mode === 'scale') {
+    if (this.resize.mode === 'scale') {
       template.scaleBody();
       template.$('.widget-body .resizing-cover').remove();
     }
