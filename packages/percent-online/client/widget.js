@@ -1,9 +1,11 @@
 Template.PercentOnlineWidget.onCreated(function() {
   this.subscribe('imon_countries');
-  this.subscribe('percent_online');
 });
 
 Template.PercentOnlineWidget.helpers({
+  ready: function() {
+    return Template.instance().subscriptionsReady() && !this.isEmpty();
+  },
   indicatorName: function() { return Settings.indicatorName; },
   indicatorPercent: function() { return this.widget.getIndicator().percent * 100; },
   indicatorValue: function() { return this.widget.getIndicator().value; },

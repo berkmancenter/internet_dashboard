@@ -1,12 +1,12 @@
 Router.route('/', { name: 'home' });
 
 Router.route('/dashboards/new', {
+  name: 'dashboards.new',
   action: function() {
     Meteor.call('newDashboard', function(error, id) {
       Router.go('dashboards.show', { _id: id });
     });
-  },
-  name: 'dashboards.new'
+  }
 });
 
 Router.route('/dashboards/:_id', {
@@ -26,3 +26,4 @@ Router.route('/dashboards/:_id', {
     this.render();
   }
 });
+

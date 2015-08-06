@@ -16,6 +16,29 @@ _.extend(Dashboard.prototype, {
   },
   widgets: function() {
     return Widgets.find({ dashboardId: this._id });
+  },
+  isOwned: function() {
+    return !!this.ownerId;
+  },
+  iAmOwner: function() {
+    return Meteor.user() && this.isOwned() && this.ownedBy(Meteor.user());
+  },
+  ownedBy: function(user) {
+    return !!user && user._id === this.ownerId;
+  },
+  editable: function() {
+    return this.editableBy(Meteor.user());
+  },
+  editableBy: function(user) {
+    return this.publiclyEditable || (!!user && _.contains(this.editorIds, user._id));
+  },
+  authorize: function() {
+    if (!this.editableBy(Meteor.user())) {
+      throw new Meteor.Error('not-owner',
+          'Must be the current owner of the dashboard to edit.');
+    } else {
+      return true;
+    }
   }
 });
 
@@ -36,9 +59,19 @@ Dashboards.attachSchema(new SimpleSchema({
     type: Number,
     defaultValue: 20
   },
-  default: {
+  ownerId: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+    optional: true
+  },
+  editorIds: {
+    type: [String],
+    regEx: SimpleSchema.RegEx.Id,
+    optional: true
+  },
+  publiclyEditable: {
     type: Boolean,
-    defaultValue: false
+    defaultValue: true
   }
 }));
 

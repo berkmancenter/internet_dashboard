@@ -5,7 +5,7 @@
     <h2 class="text-center">Welcome to your new dashboard!</h2>
     <p>A few things to know:</p>
     <ul>
-      <li><p>Click on the <span class="btn-add-widget">+</span> to add your first widget.</p></li>
+      <li><p>Click on the <span class="btn-add-widget dash-btn"><span class="glyphicon glyphicon-plus"></span></span> to add your first widget.</p></li>
       <li><p>Dashboards can hold as many widgets as you like, each with their own settings.</p></li>
       <li><p>To compare data across countries and regions, you can add multiple copies of widgets.</p></li>
       <li><p>Once you've added some widgets, you can rearrange them however you'd like.</p></li>
@@ -22,11 +22,51 @@
     {{/each}}
   </ul>
 </div>
-{{> DashboardsAdd }}
+{{# if editable }}
+  {{> DashboardsSettings }}
+  {{> DashboardsAdd }}
+{{/if}}
+</template>
+
+<template name="DashboardsSettings">
+<a href="#" class="btn-dash-settings dash-btn"
+  data-toggle="modal" data-target=".dash-settings">
+  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+</a>
+
+<div class="dash-settings modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="Settings" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Dashboard Settings</h4>
+      </div>
+      <div class="modal-body">
+        {{# if iAmOwner }}
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="dash-public-edit" checked="{{ publiclyEditable }}">
+            Anyone with the link can edit this dashboard
+          </label>
+        </div>
+        {{/if}}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary save-settings">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <template name="DashboardsAdd">
-<a href="#" class="btn-add-widget" data-toggle="modal" data-target=".add-widget-modal">+</a>
+<a href="#" class="btn-add-widget dash-btn" data-toggle="modal" data-target=".add-widget-modal">
+  <span class="glyphicon glyphicon-plus"></span>
+</a>
 
 <div class="add-widget-modal modal fade" tabindex="-1" role="dialog" aria-labelledby="addWidget" aria-hidden="true">
   <div class="modal-dialog">

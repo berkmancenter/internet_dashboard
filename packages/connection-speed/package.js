@@ -14,7 +14,6 @@ Package.onUse(function(api) {
   api.use(['templating', 'd3js:d3'], 'client');
 
   api.addFiles(['connection_speed.js']);
-  api.addFiles(['server/publications.js'], 'server');
   api.addFiles([
     'client/settings.html',
     'client/settings.js',

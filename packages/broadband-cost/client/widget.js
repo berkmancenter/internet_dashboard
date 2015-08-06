@@ -1,9 +1,11 @@
 Template.BroadbandCostWidget.onCreated(function() {
-  this.subscribe('broadband_cost');
   this.subscribe('imon_countries');
 });
 
 Template.BroadbandCostWidget.helpers({
+  ready: function() {
+    return Template.instance().subscriptionsReady() && !this.isEmpty();
+  },
   roundedPercent: function() { return Math.round(this.percent * 100); },
   speed: function() {
     var match = this.name.match(Settings.speedRegex)[0];

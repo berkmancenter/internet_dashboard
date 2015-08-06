@@ -1,22 +1,31 @@
-header {
-  position: fixed;
-  width: 100%;
-  z-index: 50;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+body {
+  padding-top: 50px;
+}
 
-  h1 {
-    margin: 0;
-    background: white;
-    padding: 5px 20px;
+header {
+  z-index: 50;
+
+  .navbar {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    .navbar-brand {
+      padding: 5px 10px;
+    }
+
+    .navbar-right {
+      padding-right: 10px;
+      a {
+        margin-right: 5px;
+      }
+    }
 
     .logo-image {
-      background: url("im_site_logo_hover.png");
+      background: url("imon_logo_banner.png");
       display: inline-block;
-      height: 95px;
-      width: 439px;
+      height: 40px;
+      width: 383px;
 
       &:hover {
-        background-position: 0 -100px
+        background-position: 0 -40px;
       }
     }
   }

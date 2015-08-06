@@ -31,8 +31,8 @@ Template.WidgetShow.helpers({
       'data-max-sizey': resizeConstraints.height.max
     };
     if (this.position) {
-      attrs['data-row'] = this.position.x;
-      attrs['data-col'] = this.position.y;
+      attrs['data-row'] = this.position.row;
+      attrs['data-col'] = this.position.col;
     }
     return attrs;
   }
@@ -84,13 +84,7 @@ Template.WidgetShow.onRendered(function() {
   var self = this;
   var resizeMode = self.data.package.widget.resize.mode;
 
-  if (dashboardTemplate.gridster) {
-    dashboardTemplate.gridster.add_widget(
-      widgetNode, $(widgetNode).data('sizex'), $(widgetNode).data('sizey'));
-    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
-  } else {
-    dashboardTemplate.widgetNodes.push(widgetNode);
-  }
+  $(widgetNode).trigger('widget:rendered', [self]);
 
   if (resizeMode === 'scale') {
     var originalGridDims = self.data.package.widget.dimensions;
@@ -114,9 +108,6 @@ Template.WidgetShow.onRendered(function() {
     });
   });
 
-  self.$infoContent = self.$('.widget-info').detach();
-  self.$settingsContent = self.$('.widget-settings').detach();
-
   $(widgetNode).popover({
     selector: '[data-toggle="popover"]',
     content: function() {
@@ -128,17 +119,20 @@ Template.WidgetShow.onRendered(function() {
   $(widgetNode).removeClass('hidden');
 });
 
+Template.WidgetShow.onDestroyed(function() {
+  $('#' + this.data.componentId()).trigger('widget:destroyed', [this]);
+});
+
 Template.WidgetShow.events({
   'click .remove-widget': function(ev, template) {
     var dashboardTemplate = Dashboards.templateFromChild(template);
     var dashboard = dashboardTemplate.data;
+    var widget = this;
 
     template.closeSettings();
     template.closeInfo();
 
-    dashboardTemplate.gridster.remove_widget(template.firstNode);
-    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
-    dashboard.removeWidget(this);
+    dashboard.removeWidget(widget);
   },
   'gridster:resizestart': function(ev, template) {
     template.closeSettings();
@@ -193,7 +187,7 @@ var addPopoverCloser = function(popoverName) {
     }
     Template.WidgetShow.closePopover(widget, popoverName);
   };
-  
+
   attrs = {};
   attrs['close' + popoverName] = closeForTemplate;
 
@@ -201,6 +195,16 @@ var addPopoverCloser = function(popoverName) {
   extendTemplate(Template['Widget' + popoverName], attrs);
 
   extendAllTemplates(popoverName, attrs);
+};
+
+Templates = {
+  ancestorByName: function(template, name) {
+    var view = template.view;
+    while (view.name !== name && view.parentView) {
+      view = view.parentView;
+    }
+    return view.templateInstance();
+  }
 };
 
 addPopoverCloser('Settings');

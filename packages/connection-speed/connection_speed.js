@@ -6,7 +6,7 @@ Settings = {
 ConnectionSpeedWidget = function(doc) {
   Widget.call(this, doc);
 
-  if (this.data.isEmpty()) {
+  if (this.data.isEmpty() && Meteor.isClient) {
     var self = this;
     Meteor.subscribe('imon_countries', function() {
       self.data.set({

@@ -1,7 +1,5 @@
 accounts-base@1.2.0
 accounts-password@1.1.1
-accounts-ui@1.1.5
-accounts-ui-unstyled@1.1.7
 akamaiattacks@0.0.1
 akamaitraffic@0.0.1
 akamaitraffic2@0.0.1
@@ -20,6 +18,7 @@ broadband-cost@0.0.1
 callback-hook@1.0.3
 check@1.0.5
 claviska:jquery-minicolors@2.1.12
+coffeescript@1.0.6
 connection-speed@0.0.1
 d3js:d3@3.4.13
 dburles:mongo-collection-instances@0.3.4
@@ -69,7 +68,7 @@ mobile-status-bar@1.0.3
 momentjs:moment@2.8.4
 mongo@1.1.0
 mongo-livedata@1.0.8
-msavin:mongol@1.0.102
+msavin:mongol@1.1.0
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
@@ -83,6 +82,7 @@ routepolicy@1.0.5
 service-configuration@1.0.4
 session@1.1.0
 sha@1.0.3
+softwarerero:accounts-t9n@1.0.9
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
@@ -94,6 +94,8 @@ ui@1.0.6
 underscore@1.0.3
 url@1.0.4
 user-content@0.0.1
+useraccounts:bootstrap@1.11.1
+useraccounts:core@1.11.1
 utils@0.0.1
 webapp@1.2.0
 webapp-hashing@1.0.3

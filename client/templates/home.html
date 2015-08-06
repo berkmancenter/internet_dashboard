@@ -4,11 +4,16 @@
     <h1>Welcome!</h1>
     <p>Internet Monitor lets you explore, create, customize, and share
     dashboards of data visualizations about multiple facets of the Internet.</p>
-    <div class="text-center">
-    <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards.new' }}">
-      Get Started
-    </a>
-    </div>
+    {{# if currentUser }}
+      <div class="text-center">
+        <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards.new' }}">
+          Get Started
+        </a>
+      </div>
+    {{else}}
+      {{> SignInOrAnon }}
+    {{/if}}
   </div>
 </div>
+
 </template>
