@@ -84,12 +84,7 @@ Template.WidgetShow.onRendered(function() {
   var self = this;
   var resizeMode = self.data.package.widget.resize.mode;
 
-  if (dashboardTemplate.gridster) {
-    dashboardTemplate.gridster.add_widget(
-      widgetNode, $(widgetNode).data('sizex'), $(widgetNode).data('sizey'));
-  } else {
-    dashboardTemplate.widgetNodes.push(widgetNode);
-  }
+  $(widgetNode).trigger('widget:rendered', [self]);
 
   if (resizeMode === 'scale') {
     var originalGridDims = self.data.package.widget.dimensions;
@@ -122,10 +117,10 @@ Template.WidgetShow.onRendered(function() {
   });
 
   $(widgetNode).removeClass('hidden');
+});
 
-  if (dashboardTemplate.gridster) {
-    Widgets.updatePositions(dashboardTemplate.gridster.serialize());
-  }
+Template.WidgetShow.onDestroyed(function() {
+  $('#' + this.data.componentId()).trigger('widget:destroyed', [this]);
 });
 
 Template.WidgetShow.events({
@@ -137,10 +132,7 @@ Template.WidgetShow.events({
     template.closeSettings();
     template.closeInfo();
 
-    dashboardTemplate.gridster.remove_widget(template.firstNode, function() {
-      dashboard.removeWidget(widget);
-      Widgets.updatePositions(dashboardTemplate.gridster.serialize());
-    });
+    dashboard.removeWidget(widget);
   },
   'gridster:resizestart': function(ev, template) {
     template.closeSettings();

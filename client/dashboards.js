@@ -26,6 +26,23 @@ Template.DashboardsShow.events({
     var widget = Widget.construct(widgetAttrs);
     dashboard.addWidget(widget);
     $('.add-widget-modal').modal('hide');
+  },
+  'widget:rendered': function(ev, dashTemplate, widgetTemplate) {
+    var widgetNode = widgetTemplate.firstNode;
+    if (dashTemplate.gridster) {
+      dashTemplate.gridster.add_widget(
+          widgetNode, $(widgetNode).data('sizex'), $(widgetNode).data('sizey'));
+      Widgets.updatePositions(dashTemplate.gridster.serialize());
+    } else {
+      dashTemplate.widgetNodes.push(widgetNode);
+    }
+  },
+  'widget:destroyed': function(ev, dashTemplate, widgetTemplate) {
+    if (dashTemplate.gridster) {
+      dashTemplate.gridster.remove_widget(ev.target, function() {
+        Widgets.updatePositions(dashTemplate.gridster.serialize());
+      });
+    }
   }
 });
 
