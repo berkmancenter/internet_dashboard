@@ -11,7 +11,8 @@ Widget = function(doc) {
 _.extend(Widget.prototype, {
   toJSON: function() {
     var widget = _.pick(this, [
-      '_id', 'packageName', 'dashboardId', 'height', 'width', 'position', 'data'
+      '_id', 'packageName', 'dashboardId', 'height', 'width',
+      'resize', 'position', 'data'
     ]);
     widget.data = this.data.toJSON();
     return widget;
