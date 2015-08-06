@@ -5,6 +5,9 @@ var url = function(args) {
 
 var updateData = function() {
   _.each(Countries, function(country) {
+
+    console.log('Herdict: Fetching ' + country.name);
+
     var thisUrl = url({ countryCode: country.code });
     var lists = [];
 
@@ -36,6 +39,9 @@ var updateData = function() {
 if (CountryLists.find().count() === 0) {
   updateData();
 }
+
+Settings.updateEvery = moment.duration({ days: 1 }).asMilliseconds();
+Meteor.setInterval(updateData, Settings.updateEvery);
 
 Meteor.publish('herdict_country_lists', function(countryCode) {
   return CountryLists.find({ 'country.code': countryCode });

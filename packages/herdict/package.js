@@ -7,7 +7,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
 
   api.use(['underscore', 'mongo', 'aldeed:collection2', 'widget']);
-  api.use(['html-scraper'], 'server');
+  api.use(['html-scraper', 'momentjs:moment'], 'server');
   api.use(['templating'], 'client');
 
   api.addFiles(['herdict.js','countries.js']);
