@@ -3,6 +3,25 @@
     <label for="embed-code">Embed Code</label>
     <textarea id="embed-code" class="form-control"
               name="embed-code" >{{ embedCode }}</textarea>
+    <span class="help-block">Only <code>iframe</code> tags are supported.</span>
   </div>
+  <!--
+  <div class="form-group">
+    <div class="radio">
+      <label>
+        <input type="radio" name="embed-resize" value="scale"
+               checked="{{ resizeModeIs 'scale' }}">
+        Scale
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="embed-resize" value="reflow"
+               checked="{{ resizeModeIs 'reflow' }}">
+        Reflow
+      </label>
+    </div>
+  </div>
+  -->
   <button class="btn btn-primary" id="embed-save">Save</button>
 </template>

@@ -6,12 +6,12 @@ WidgetData = function(doc) {
 _.extend(WidgetData.prototype, {
   set: function(doc) {
     _.extend(this, doc);
-    if (Dashboards.findOne().editable()) {
+    if (this.widget.dashboard().editable()) {
       Meteor.call( 'updateWidgetData', this.widget._id, this.toJSON());
     }
   },
   toJSON: function() {
-    return _.omit(this, [ '_dashboard', 'widget', 'set', 'toJSON' ]);
+    return _.omit(this, ['widget', 'set', 'toJSON']);
   },
   isEmpty: function() {
     var functionNames = ['widget'].concat(_.functions(this));

@@ -42,5 +42,13 @@ Meteor.methods({
 
     console.log('Widget: Updating data for ' + widgetId);
     Widgets.update(widgetId, { $set: { data: data } });
+  },
+  updateWidget: function(id, attrs) {
+    var widget = Widgets.findOne(id);
+    if (!widget) { return; }
+    var dashboard = widget.dashboard();
+    dashboard.authorize();
+
+    Widgets.update(id, { $set: attrs });
   }
 });

@@ -24,6 +24,9 @@ _.extend(Widget.prototype, {
     component = component || 'widget';
     return this.packageName + '-' + this._id + '-' + component;
   },
+  set: function(attrs) {
+    Meteor.call('updateWidget', this._id, attrs);
+  }
 });
 
 // Static methods

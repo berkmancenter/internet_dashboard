@@ -11,8 +11,8 @@ Template.WidgetShow.helpers({
   componentId: function(component) {
     return this.componentId(component);
   },
-  widgetClass: function() {
-    return this.packageName;
+  widgetClasses: function() {
+    return 'widget ' + this.packageName + ' resize-' + this.resize.mode;
   },
   titleBar: function() {
     return Widget.Settings.titleBar;
@@ -71,6 +71,12 @@ Template.WidgetShow.onCreated(function() {
         transform: 'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
                    'scaleY(' + newPixelDims.height / originalPixelDims.height + ')'
       });
+    },
+
+    reflowBody: function() {
+      var widget = self.data;
+      var $widgetBody = self.$('.widget-body');
+      $widgetBody.css({ transform: '', width: '', height: '' });
     }
   });
 });
@@ -78,24 +84,30 @@ Template.WidgetShow.onCreated(function() {
 Template.WidgetShow.onRendered(function() {
   var dashboardTemplate = Dashboards.templateFromChild(this);
   var widgetNode = this.firstNode;
+  $(widgetNode).addClass('hidden');
   var self = this;
 
   $(widgetNode).trigger('widget:rendered', [self]);
 
-  if (self.data.resize.mode === 'scale') {
-    var originalGridDims = self.data.package.metadata().widget.dimensions;
-    var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
-    originalPixelDims.height -= Widget.Settings.titleBar.height;
+  self.autorun(function() {
+    var resizeMode = Template.currentData().resize.mode;
+    if (resizeMode === 'scale') {
+      var originalGridDims = self.data.package.metadata().widget.dimensions;
+      var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
+      originalPixelDims.height -= Widget.Settings.titleBar.height;
 
-    // Pin the width and height so we don't get both reflows and transforms.
-    self.$('.widget-body').css(originalPixelDims);
-    self.scaleBody();
-  }
+      // Pin the width and height so we don't get both reflows and transforms.
+      self.$('.widget-body').css(originalPixelDims);
+      self.scaleBody();
+    } else if (resizeMode === 'reflow') {
+      self.reflowBody();
+    }
+  });
 
-  // When other clients resize widgets
   self.autorun(function() {
     Widgets.find(self.data._id).observeChanges({
       changed: function(id, fields) {
+        // When other clients resize widgets
         if (self.data.resize.mode === 'scale' &&
             (_(fields).has('width') || _(fields).has('height'))) {
           self.scaleBody(fields);

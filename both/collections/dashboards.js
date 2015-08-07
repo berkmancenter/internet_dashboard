@@ -4,11 +4,7 @@ Dashboard = function(doc) {
 
 _.extend(Dashboard.prototype, {
   addWidget: function(widget) {
-    widget.dashboard = this;
     widget.dashboardId = this._id;
-
-    // Because widget templates only see the data bit
-    widget.data._dashboard = this;
     Meteor.call('addWidgetToDashboard', widget.toJSON());
   },
   removeWidget: function(widget) {
