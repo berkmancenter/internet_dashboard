@@ -34,13 +34,13 @@ ConnectionSpeed = {
   widget: {
     name: 'Connection Speed',
     description: "Shows how quickly (in kilobits per second) data can be transferred from the Internet to a local computer",
-    url: 'https://thenetmonitor.org/sources',
+    url: 'https://thenetmonitor.org/sources#akamai',
     dimensions: { width: 2, height: 2 },
     constructor: ConnectionSpeedWidget,
   },
   org: {
-    name: 'Internet Monitor',
-    shortName: 'Internet Monitor',
-    url: 'http://thenetmonitor.org'
+    name: 'Akamai Technologies, Inc.',
+    shortName: 'Akamai',
+    url: 'http://www.akamai.com/'
   }
 };

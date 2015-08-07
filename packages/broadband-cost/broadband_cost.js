@@ -41,16 +41,16 @@ _.extend(BroadbandCostWidget.prototype, {
 BroadbandCost = {
   widget: {
     name: 'Broadband Cost',
-    description: 'Shows an overall broadband cost index that aggregates the proportionate costs across each tier for each country',
-    url: 'https://thenetmonitor.org/sources',
+    description: 'Shows the cost of broadband access, as a proportion of per capita income, across five tiers based on download speed',
+    url: 'https://thenetmonitor.org/sources#bbprice',
     dimensions: { width: 3, height: 1 },
     resize: { mode: 'reflow',
               constraints: { height: { min: 1, max: 1 }, width: { min: 2 } } },
     constructor: BroadbandCostWidget
   },
   org: {
-    name: 'Internet Monitor',
-    shortName: 'Internet Monitor',
-    url: 'http://thenetmonitor.org'
+    name: 'Google Policy by the Numbers and Communications Chambers',
+    shortName: 'Google',
+    url: 'http://policybythenumbers.blogspot.com/'
   }
 };

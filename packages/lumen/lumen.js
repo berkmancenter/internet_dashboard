@@ -26,7 +26,7 @@ LumenWidget.prototype.constructor = LumenWidget;
 Lumen = {
   widget: {
     name: 'Takedown Requests',
-    description: 'Shows the number takedown requests Chilling Effects has received over time',
+    description: 'Shows the number of requests for removal of online materials Chilling Effects has received over time',
     url: 'https://www.chillingeffects.org/',
     dimensions: { width: 2, height: 1 },
     constructor: LumenWidget,
