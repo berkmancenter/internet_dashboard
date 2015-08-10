@@ -1,5 +1,7 @@
 Settings.apiKey = Assets.getText('apiKey.txt');
 
+var Future = Npm.require('fibers/future');
+
 var url = function(args) {
   var dateFormat = 'YYYY-MM-DD';
   args.startDate = args.startDate.format(dateFormat);
@@ -12,9 +14,10 @@ var url = function(args) {
   return _.template(urlTemplate)(args);
 };
 
-var fetchData = function(url) {
-  var result = HTTP.get(url);
-  return result.data;
+var fetchData = function(url, onComplete) {
+  HTTP.get(url, function(error, result) {
+    onComplete(error, result.data);
+  });
 };
 
 var parseWordLists = function(baseline, recent) {
@@ -33,44 +36,58 @@ var parseWordLists = function(baseline, recent) {
   };
 };
 
+var updateCountryData = function(country, baselineStartDate, startDate, endDate) {
+  console.log('Media Cloud: Fetching ' + country.name);
+
+  var data = {
+    country: country,
+    updated: new Date(),
+    words: {
+      baseline: [],
+      recent: [],
+      new: []
+    }
+  };
+
+  var baselineWordListUrl = url({
+    tagId: country.tagId,
+    startDate: baselineStartDate,
+    endDate: endDate
+  });
+
+  var wordListUrl = url({
+    tagId: country.tagId,
+    startDate: startDate,
+    endDate: endDate
+  });
+
+  var baselineFuture = new Future();
+  var recentFuture = new Future();
+
+  var baselineOnComplete = baselineFuture.resolver();
+  var recentOnComplete = recentFuture.resolver();
+
+  fetchData(baselineWordListUrl, baselineOnComplete);
+  fetchData(wordListUrl, recentOnComplete);
+
+  Future.wait([baselineFuture, recentFuture]);
+
+  var baselineData = baselineFuture.get();
+  var recentData = recentFuture.get();
+
+  var parsedWordLists = parseWordLists(baselineData, recentData);
+  data.words = parsedWordLists;
+
+  WordLists.upsert({ 'country.code': data.country.code }, data);
+};
+
 var updateData = function() {
   var baselineStartDate = moment().subtract(Settings.longInterval);
   var startDate = moment().subtract(Settings.shortInterval);
   var endDate = moment();
             
   _.each(Settings.tagSet, function(country) {
-
-    console.log('Media Cloud: Fetching ' + country.name);
-
-    var data = {
-      country: country,
-      updated: new Date(),
-      words: {
-        baseline: [],
-        recent: [],
-        new: []
-      }
-    };
-
-    var baselineWordListUrl = url({
-      tagId: country.tagId,
-      startDate: baselineStartDate,
-      endDate: endDate
-    });
-
-    var wordListUrl = url({
-      tagId: country.tagId,
-      startDate: startDate,
-      endDate: endDate
-    });
-
-    var baselineData = fetchData(baselineWordListUrl);
-    var recentData = fetchData(wordListUrl);
-
-    var parsedWordLists = parseWordLists(baselineData, recentData);
-    data.words = parsedWordLists;
-
-    WordLists.upsert({ 'country.code': data.country.code }, data);
+    updateCountryData(country, baselineStartDate, startDate, endDate);
   });
 };
 
