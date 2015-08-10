@@ -85,10 +85,13 @@
             <a href="#" class="add-widget btn btn-success btn-sm pull-right">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </a>
-            <h2>{{ widget.name }}</h2>
-            <p>{{ widget.description }}</p>
-            {{# if org }}
-            <small class="provided-by">Data provided by: <a href="{{ org.url }}" target="_blank">{{ org.name }}</a></small>
+            <h2>{{ metadata.widget.name }}</h2>
+            <p>{{ metadata.widget.description }}</p>
+            {{# if metadata.org }}
+            <small class="provided-by">
+              Data provided by:
+              <a href="{{ metadata.org.url }}" target="_blank">{{ metadata.org.name }}</a>
+            </small>
             {{/if}}
           </li>
         {{/each}}

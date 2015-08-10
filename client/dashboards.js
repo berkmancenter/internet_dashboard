@@ -18,8 +18,7 @@ Template.DashboardsAdd.helpers({
 
 Template.DashboardsShow.events({
   'click a.add-widget': function(ev, template) {
-    var dashboard = Dashboards.dataFromChild(template);
-    var dashboardTemplate = Dashboards.templateFromChild(template);
+    var dashboard = Template.parentData();
     var widgetAttrs = _.pick(this, 'packageName', 'exportedVar');
     widgetAttrs.typeId = this._id;
 
