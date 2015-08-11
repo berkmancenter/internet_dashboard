@@ -10,22 +10,7 @@ Template.DashboardsShow.helpers({
   }
 });
 
-Template.DashboardsAdd.helpers({
-  availableWidgets: function() {
-    return WidgetPackages.find({}, { sort: { sortPosition: 1 } });
-  }
-});
-
 Template.DashboardsShow.events({
-  'click a.add-widget': function(ev, template) {
-    var dashboard = Template.parentData();
-    var widgetAttrs = _.pick(this, 'packageName', 'exportedVar');
-    widgetAttrs.typeId = this._id;
-
-    var widget = Widget.construct(widgetAttrs);
-    dashboard.addWidget(widget);
-    $('.add-widget-modal').modal('hide');
-  },
   'widget:rendered': function(ev, dashTemplate, widgetTemplate) {
     var widgetNode = widgetTemplate.firstNode;
     if (dashTemplate.gridster) {
