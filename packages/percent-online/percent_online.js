@@ -42,6 +42,6 @@ PercentOnline = {
   org: {
     name: 'International Telecommunications Union',
     shortName: 'ITU',
-    url: 'https://thenetmonitor.org/sources#itu'
+    url: 'http://www.itu.int/'
   }
 };
