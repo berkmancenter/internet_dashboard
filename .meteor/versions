@@ -30,6 +30,7 @@ email@1.0.6
 embed@0.0.1
 epoch@0.6.0
 fastclick@1.0.3
+feed@0.0.1
 fortawesome:fontawesome@4.3.0
 geojson-utils@1.0.3
 gwendall:session-json@0.1.7
@@ -61,6 +62,7 @@ logging@1.0.7
 meteor@1.1.6
 meteor-platform@1.2.2
 meteorhacks:aggregate@1.2.1
+meteorhacks:async@1.0.0
 meteorhacks:collection-utils@1.2.0
 meteortoys:toykit@0.8.2
 minifiers@1.1.5

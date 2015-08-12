@@ -1,0 +1,9 @@
+<template name="FeedSettings">
+  <div class="form-group">
+    <label for="feed-url">Feed URL</label>
+    <input id="feed-url" class="form-control" type="url"
+           name="feed-url" value="{{ feed }}" >
+    <span class="help-block">RSS and Atom feeds are supported.</span>
+  </div>
+  <button class="btn btn-primary" id="feed-save">Save</button>
+</template>

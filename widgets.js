@@ -14,4 +14,5 @@ ActiveWidgets = [
   'kaspersky',
   'user-content',
   'embed',
+  'feed'
 ];
