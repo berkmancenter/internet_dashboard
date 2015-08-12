@@ -1,4 +1,7 @@
 Settings = {
+  baseUrl: 'https://thenetmonitor.org',
+  proxy: false,
+  indicatorLinkSelector: 'a[href="/sources"]',
   toCollect: [
     'Percentage of individuals using the Internet',
     'Average connection speed (kbps)',
@@ -9,8 +12,6 @@ Settings = {
     'Broadband subscription charge as a percentage of GDP per capita PPP (>10-25 Mbps)',
     'Broadband subscription charge as a percentage of GDP per capita PPP (>25 Mbps)',
   ],
-  indicatorLinkSelector: 'a[href="/sources"]',
-  proxy: false
 };
 
 IMonCountry = function(doc) {
@@ -26,6 +27,24 @@ IMonCountries.attachSchema(new SimpleSchema({
     type: String
   },
   code: {
+    type: String
+  },
+  imageUrl: {
+    type: String,
+    optional: true
+  },
+  access: {
+    type: Object,
+    optional: true
+  },
+  'access.score': {
+    type: Number,
+    decimal: true
+  },
+  'access.rank': {
+    type: Number
+  },
+  'access.url': {
     type: String
   },
   indicators: {

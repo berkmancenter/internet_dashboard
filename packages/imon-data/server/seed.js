@@ -1,11 +1,14 @@
+var countryUrl = function(country) {
+  return Settings.baseUrl + '/countries/' + country.code;
+};
 var shouldCollect = function($node) {
   return _.contains(Settings.toCollect,
     $node.find(Settings.indicatorLinkSelector).text()
   );
 };
 
-var fetchIndicators = function(country) {
-  var url = 'https://thenetmonitor.org/countries/' + country.code + '/access';
+var fetchCountryData = function(country) {
+  var url = countryUrl(country) + '/access';
   HTMLScraper.inDoc(url, function($) {
     $('.indicators dt').each(function() {
       if (!shouldCollect($(this))) {
@@ -24,13 +27,26 @@ var fetchIndicators = function(country) {
       };
 
       country.indicators.push(indicator);
-      IMonCountries.update(country._id, { $set: { indicators: country.indicators }});
     });
+
+    var access = {
+      score: parseFloat($('.imon-score').text()),
+      rank: parseInt($('.imon-rank').text().replace(/\D/, '')),
+      url: url
+    };
+
+    IMonCountries.update(country._id, { $set: {
+      imageUrl: countryUrl(country) + '/thumb',
+      access: access,
+      indicators: country.indicators,
+    }});
+
+
   }, { proxy: Settings.proxy });
 };
 
 IMonCountries.seedCountries = function() {
-  var url = 'https://thenetmonitor.org/countries/usa/access';
+  var url = Settings.baseUrl + '/countries/usa/access';
   HTMLScraper.inDoc(url, function($) {
     $('.countries-nav-list a').each(function() {
       var r = new RegExp('/countries/([a-z]{3})/');
@@ -41,7 +57,7 @@ IMonCountries.seedCountries = function() {
       };
 
       IMonCountries.insert(country, function(error, id) {
-        fetchIndicators(IMonCountries.findOne(id));
+        fetchCountryData(IMonCountries.findOne(id));
       });
     });
   });

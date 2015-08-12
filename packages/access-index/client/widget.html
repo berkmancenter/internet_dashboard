@@ -1,0 +1,32 @@
+<template name="AccessIndexWidget">
+{{# if ready }}
+  {{# with country }}
+    <h1>IM Access Index</h1>
+    <h2>{{ name }} <small>
+        <a class="out-link" href="{{ access.url }}" target="_blank"
+          title="Visit this country in Internet Monitor">
+          <span class="glyphicon glyphicon-new-window"></span></a></small></h2>
+    <div class="clearfix">
+      <img class="country-thumb img-thumbnail" src="{{ imageUrl }}" />
+      <div class="ranking">
+        <h3>Rank</h3>
+        <ul class="rank-list">
+        {{# each ranks }}
+        <li class="access-rank {{ rankClass }}">{{ rank }}. {{ country.name }}</li>
+        {{/each}}
+        </ul>
+      </div>
+    </div>
+    <h3 class="score-title">Score</h3>
+    <div class="progress">
+      <div class="progress-bar progress-bar-success access-score" role="progressbar"
+        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+       style="width: {{ barWidth }}%;">
+        {{ access.score }}
+      </div>
+    </div>
+  {{/with}}
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>

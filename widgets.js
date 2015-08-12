@@ -1,6 +1,7 @@
 ActiveWidgets = [
   'wikiedits',
   'wikivolume',
+  'access-index',
   'percent-online',
   'connection-speed',
   'broadband-cost',
@@ -12,5 +13,5 @@ ActiveWidgets = [
   'herdict',
   'kaspersky',
   'user-content',
-  'embed'
+  'embed',
 ];
