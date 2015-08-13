@@ -1,3 +1,7 @@
 <template name="EmbedWidget">
-  {{{ embedCode }}}
+  {{# if embedCode }}
+    {{{ embedCode }}}
+  {{ else }}
+    <p>Use this widget's settings (the gear icon above) to add an embed code.</p>
+  {{/if}}
 </template>
