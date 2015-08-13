@@ -5,6 +5,7 @@ ActiveWidgets = [
   'percent-online',
   'connection-speed',
   'broadband-cost',
+  'tor-clients',
   'akamaiattacks',
   'akamaitraffic',
   'akamaitraffic2',

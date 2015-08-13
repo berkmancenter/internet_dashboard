@@ -1,0 +1,8 @@
+<template name="TorClientsWidget">
+  <h1>Tor Clients</h1>
+  <h2>{{ countryCode }}</h2>
+  {{# unless Template.subscriptionsReady }}
+    {{ widgetLoading }}
+  {{/unless}}
+  <div class="epoch tor-clients"></div>
+</template>

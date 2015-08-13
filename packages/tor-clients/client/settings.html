@@ -1,0 +1,17 @@
+<template name="TorClientsSettings">
+<div class="form-group">
+  {{# if Template.subscriptionsReady }}
+    <label for="country-select">Country</label>
+    <select class="country form-control" id="country-select" name="country">
+    {{# each countries }}
+    <option value="{{ code }}" {{ isSelected code ../countryCode }}>{{ name }}</option>
+    {{/each}}
+    </select>
+  {{else}}
+    {{ widgetLoading }}
+  {{/if}}
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+</template>
+
