@@ -27,6 +27,20 @@ Template.DashboardsShow.events({
         Widgets.updatePositions(dashTemplate.gridster.serialize());
       });
     }
+  },
+  'mousedown': function(ev, template) {
+    // Popovers are inserted as children of body, so clicks on them never pass
+    // to this template. Therefore, any click on this template that isn't
+    // supposed to open a popover can safely close all popovers.
+    if ($(ev.target).closest('*[data-toggle="popover"]').length === 0) {
+      template.closeAllPopovers();
+    }
+  },
+  'show.bs.popover': function(ev, template) {
+    var type = $(ev.target).attr('class').match(/\bbutton-(\w+)\b/)[1];
+    type = s.capitalize(type);
+    var except = [this, type];
+    template.closeAllPopovers(except);
   }
 });
 
@@ -62,10 +76,14 @@ Template.DashboardsShow.onCreated(function() {
       Widgets.updatePositions(self.gridster.serialize());
     }
   };
-  self.closeAllPopovers = function() {
+  self.closeAllPopovers = function(except) {
+    var types = ['Settings', 'Info'];
+
     self.data.widgets().forEach(function(widget) {
-      Template.WidgetShow.closePopover(widget, 'Settings');
-      Template.WidgetShow.closePopover(widget, 'Info');
+      _.each(types, function(type) {
+        if (except && _.isEqual(except, [widget, type])) { return; }
+        Template.WidgetShow.closePopover(widget, type);
+      });
     });
   };
 });
