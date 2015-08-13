@@ -68,8 +68,8 @@ var fetchCountryData = function(country, metric) {
 };
 
 var fetchAllCountryData = function() {
+  console.log('Kaspersky: Fetching data for all countries');
   CountryMetrics.find().forEach(function(country) {
-    console.log('Kaspersky: Fetching data for ' + country.name);
     _.each(Settings.metrics, function(metric) {
       fetchCountryData(country, metric);
     });
@@ -77,6 +77,7 @@ var fetchAllCountryData = function() {
 };
 
 var fetchCountries = function() {
+  console.log('Kaspersky: Fetching countries');
   var xmlParser = Npm.require('xml2js');
 
   var xmlData = HTTP.get(Settings.countriesUrl);
