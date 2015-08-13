@@ -8,6 +8,13 @@
           </a>
         </div>
         <div class="navbar-right">
+          {{# if onDashboard }}
+          <a class="btn btn-success"
+             href="{{ pathFor route='dashboards.new' }}">
+            New Dashboard
+          </a>
+          {{/if}}
+
           {{# if currentUser }}
             <button class="btn btn-primary sign-out navbar-btn" id="sign-out">
               Sign Out
