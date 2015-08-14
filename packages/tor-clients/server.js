@@ -37,7 +37,8 @@ var maxDateInDB = function() {
   return date;
 };
 
-if (moment(maxDateInDB()).add(Settings.dataOldAfter).isBefore(moment())) {
+if (TorData.find().count() === 0
+    || moment(maxDateInDB()).add(Settings.dataOldAfter).isBefore(moment())) {
   updateData();
 } else {
   console.log('TorClients: Not updating data - most recent from ' +
