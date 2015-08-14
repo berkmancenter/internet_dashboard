@@ -50,7 +50,8 @@ var jobs = [];
 var Job = function(feed, runEvery) {
   this.feed = feed;
   this.runEvery = runEvery || Settings.updateEvery;
-  console.log('Feed: Add fetching job - ' + this.feed + ', ' + this.runEvery);
+  console.log('Feed: Add fetching job - ' + this.feed + ' every ' +
+      moment.duration(this.runEvery).asMinutes() + ' minutes');
 
   var call = function() {
     fetchFeed(feed);
@@ -62,7 +63,8 @@ var Job = function(feed, runEvery) {
 };
 
 Job.prototype.cancel = function() {
-  console.log('Feed: Cancel job - ' + this.feed + ', ' + this.runEvery);
+  console.log('Feed: Cancel job - ' + this.feed + ' every ' + 
+      moment.duration(this.runEvery).asMinutes() + ' minutes');
   Meteor.clearTimeout(this.timerId);
   jobs = _.without(jobs, this);
 };
@@ -74,7 +76,7 @@ var jobExists = function(feed, runEvery) {
 
 Meteor.publish('feed_items', function(url) {
   var cursor = FeedItems.find({ 'feed.url': url },
-      { limit: Settings.numItems, sort: { pubDate: -1 } });
+      { limit: Settings.numItems, sort: { pubdate: -1 } });
 
   if (!jobExists(url)) {
     var job = new Job(url);

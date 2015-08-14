@@ -5,6 +5,12 @@
   <ul class="feed-items list-unstyled">
     {{# each feedItems }}
       {{> FeedItem }}
+    {{ else }}
+      <li>
+        <p class="feed-no-feed">
+          Use this widget's settings (the gear icon above) to add a feed URL.
+        </p>
+      </li>
     {{/each}}
   </ul>
   {{else}}

@@ -3,7 +3,7 @@ Template.FeedWidget.onCreated(function() {
 
   template.autorun(function() {
     var feedUrl = Template.currentData().feedUrl;
-    template.subscribe('feed_items', feedUrl);
+    if (feedUrl) { template.subscribe('feed_items', feedUrl); }
   });
 
 });
@@ -23,6 +23,6 @@ Template.FeedWidget.helpers({
 
 Template.FeedItem.helpers({
   niceDate: function() {
-    return moment(this.date).format('h:mm A - ddd, MMM Do, YYYY');
+    return moment(this.pubdate).format('h:mm A - ddd, MMM Do, YYYY');
   }
 });

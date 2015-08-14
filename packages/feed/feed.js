@@ -27,7 +27,7 @@ FeedItems.attachSchema(new SimpleSchema({
     type: Object,
     optional: true
   },
-  'image.url': { 
+  'image.url': {
     type: String,
     regEx: SimpleSchema.RegEx.Url,
     optional: true
