@@ -1,7 +1,10 @@
-Template.DefaultWidgetInfo.helpers({
+Template.WidgetInfo.helpers({
+  providesInfo: function() {
+    return this.package.providesTemplate('Info');
+  },
   infoTemplate: function() {
-    return this.widget.package.templateFor('Info');
-  }
+    return this.package.templateFor('Info');
+  },
 });
 
 Template.WidgetInfo.onRendered(function() {
