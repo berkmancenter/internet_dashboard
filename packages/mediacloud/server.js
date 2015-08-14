@@ -14,10 +14,8 @@ var url = function(args) {
   return _.template(urlTemplate)(args);
 };
 
-var fetchData = function(url, onComplete) {
-  HTTP.get(url, function(error, result) {
-    onComplete(error, result.data);
-  });
+var fetchData = function(url) {
+  return Future.wrap(HTTP.get)(url);
 };
 
 var parseWordLists = function(baseline, recent) {
@@ -37,8 +35,6 @@ var parseWordLists = function(baseline, recent) {
 };
 
 var updateCountryData = function(country, baselineStartDate, startDate, endDate) {
-  console.log('Media Cloud: Fetching ' + country.name);
-
   var data = {
     country: country,
     updated: new Date(),
@@ -61,19 +57,13 @@ var updateCountryData = function(country, baselineStartDate, startDate, endDate)
     endDate: endDate
   });
 
-  var baselineFuture = new Future();
-  var recentFuture = new Future();
+  var baselineDataFut = fetchData(baselineWordListUrl);
+  var recentDataFut = fetchData(wordListUrl);
 
-  var baselineOnComplete = baselineFuture.resolver();
-  var recentOnComplete = recentFuture.resolver();
+  Future.wait(baselineDataFut, recentDataFut);
 
-  fetchData(baselineWordListUrl, baselineOnComplete);
-  fetchData(wordListUrl, recentOnComplete);
-
-  Future.wait([baselineFuture, recentFuture]);
-
-  var baselineData = baselineFuture.get();
-  var recentData = recentFuture.get();
+  var baselineData = baselineDataFut.get().data;
+  var recentData = recentDataFut.get().data;
 
   var parsedWordLists = parseWordLists(baselineData, recentData);
   data.words = parsedWordLists;
@@ -82,17 +72,18 @@ var updateCountryData = function(country, baselineStartDate, startDate, endDate)
 };
 
 var updateData = function() {
+  console.log('Mediacloud: Fetching data');
   var baselineStartDate = moment().subtract(Settings.longInterval);
   var startDate = moment().subtract(Settings.shortInterval);
   var endDate = moment();
-            
+  var futures = [];
   _.each(Settings.tagSet, function(country) {
-    updateCountryData(country, baselineStartDate, startDate, endDate);
+    futures.push(
+      updateCountryData.future()(country, baselineStartDate, startDate, endDate));
   });
 };
 
-
-if (WordLists.find({}).count() === 0) {
+if (WordLists.find().count() === 0) {
   updateData();
 }
 

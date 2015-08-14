@@ -62,21 +62,20 @@ var countBinUrls = function(bin) {
 }
 
 var updateLumenCounts = function() {
+  console.log('Lumen: Fetching notice counts');
   var bins = getBins();
 
   LumenCounts.remove({});
 
   _.each(bins, function(bin) {
     var request = binRequest(bin);
-    console.log('Lumen: Fetching notice count from ' +
-        new Date(bin.end).toUTCString() + ' to ' +
-        new Date(bin.start).toUTCString());
-    var result = HTTP.get(request.url, request.options);
-    bin.noticeCount = result.data.meta.total_entries;
-    if (Settings.countUrls) {
-      bin.urlCount = countBinUrls(bin);
-    }
-    LumenCounts.insert(bin);
+    HTTP.get(request.url, request.options, function(err, result) {
+      bin.noticeCount = result.data.meta.total_entries;
+      if (Settings.countUrls) {
+        bin.urlCount = countBinUrls(bin);
+      }
+      LumenCounts.insert(bin);
+    });
   });
 };
 
@@ -87,7 +86,7 @@ if (LumenCounts.find().count() === 0 ||
     Settings.updateEvery.asMilliseconds() < Date.now()) {
   updateLumenCounts();
 } else {
-  console.log('Lumen: Not updating notice and URL counts');
+  console.log('Lumen: Not updating notice counts');
 }
 Meteor.setInterval(updateLumenCounts, Settings.updateEvery.asMilliseconds());
 

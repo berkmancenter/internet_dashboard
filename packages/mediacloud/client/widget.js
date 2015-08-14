@@ -20,10 +20,9 @@ Template.MediaCloudWidget.onRendered(function() {
 
     oldData.country = data.country;
     var words = WordLists.findOne({ 'country.code': data.country.code }).words.new;
-    var width = data.widget.package.widget.dimensions.width *
-      Settings.cloud.widthMulti;
-    var height = data.widget.package.widget.dimensions.height *
-      Settings.cloud.heightMulti;
+    var dims = data.widget.package.metadata().widget.dimensions;
+    var width = dims.width * Settings.cloud.widthMulti;
+    var height = dims.height * Settings.cloud.heightMulti;
     var fill = d3.scale.category20();
     var maxCount = _.max(_.pluck(words, 'count'));
     var fontScale = d3.scale.linear().domain([1, maxCount])
