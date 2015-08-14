@@ -145,7 +145,7 @@ As a reminder, the "short code" is the name of the object your package exports.
 
 To close the settings popup from a template's event handler (if the user has clicked a save button, for example), call `template.closeSettings()` where `template` is the template instance.
 
-For CSS, all your widgets will receive a class with the same name as your widget package (__not__ the name of your widget's export), e.g. `.example-widget`. Scope all CSS within this class to prevent clashes with other widgets.
+For CSS, all your widgets will receive a class with the same name as your widget package (__not__ the name of your widget's export), e.g. `.example-widget`. Any custom info or settings popup you create will receive the same class with the popup type appended, e.g. `.example-widget-info` or `.example-widget-settings`. Scope all CSS you write within these classes to prevent clashes with other widgets.
 
 Adding the Widget
 -----------------
