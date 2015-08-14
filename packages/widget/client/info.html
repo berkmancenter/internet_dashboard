@@ -1,5 +1,5 @@
 <template name="WidgetInfo">
-  <div class="widget-info for-{{ componentId 'info' }}">
+  <div class="widget-info for-{{ componentId 'info' }} {{ package.packageName }}-info">
     {{# if providesInfo }}
       {{> Template.dynamic template=infoTemplate data=data }}
     {{else}}
@@ -24,7 +24,7 @@
   <hr />
   {{/if}}
 
-  <p>
+  <p class="text-center">
     <a href="{{ widget.package.metadata.widget.url }}" target="_blank">
       Explore the data
     </a>

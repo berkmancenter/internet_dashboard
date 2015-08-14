@@ -1,0 +1,30 @@
+<template name="TorClientsSettings">
+  {{# if Template.subscriptionsReady }}
+  <div class="form-group">
+    <label for="country-select">Country</label>
+    <select class="country form-control" id="country-select" name="country">
+      {{# each countries }}
+      <option value="{{ code }}" {{ isSelected code ../countryCode }}>{{ name }}</option>
+      {{/each}}
+    </select>
+  </div>
+  <fieldset>
+    <legend>First Node Type</legend>
+    <div class="radio">
+      <input type="radio" name="tor-node-type" value="relay"
+             id="tor-node-relay" {{ isChecked "relay" nodeType }}>
+      <label for="tor-node-relay">Relay</label>
+    </div>
+    <div class="radio">
+      <input type="radio" name="tor-node-type" value="bridge"
+             id="tor-node-bridge" {{ isChecked "bridge" nodeType }}>
+      <label for="tor-node-bridge">Bridge</label>
+    </div>
+  </fieldset>
+  {{else}}
+    {{ widgetLoading }}
+  {{/if}}
+
+<button class="btn btn-primary save-settings">Save</button>
+</template>
+

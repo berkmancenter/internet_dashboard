@@ -1,0 +1,32 @@
+<template name="TorClientsInfo">
+  <p>
+    Tor clients connect to many intermediate nodes before connecting to the
+    intended destination, but there are two types of nodes the client can
+    connect to first:
+  </p>
+  <dl class="dl-horizontal">
+    <dt>relay</dt>
+    <dd>a publicly-listed node in the Tor network that forwards traffic on
+    behalf of clients, and that registers itself with the directory
+    authorities</dd>
+    <dt>bridge</dt>
+    <dd>a relay whose existence is non-public and which can therefore provide
+    access for blocked clients</dd>
+  </dl>
+  <p>
+    This widget displays the appoximate daily number of connections to each
+    of these first-node types for a specific country over the last
+    {{ windowLength }} days.
+  </p>
+  <hr />
+  <p>
+    The data backing this widget has been provided by
+    <a href="{{ widget.package.metadata.org.url }}" target="_blank">
+      {{ widget.package.metadata.org.name }}</a>.
+  </p>
+  <p>
+    See
+    <a href="{{ widget.package.metadata.widget.url }}" target="_blank">this page</a>
+    for more information about the data.
+  </p>
+</template>

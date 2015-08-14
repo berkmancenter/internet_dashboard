@@ -1,5 +1,5 @@
 <template name="WidgetSettings">
-  <div class="widget-settings for-{{ componentId 'settings' }}">
+  <div class="widget-settings for-{{ componentId 'settings' }} {{ package.packageName }}-settings">
     {{> Template.dynamic template=settingsTemplate data=data }}
 
     <button type="button" class="close close-settings" aria-label="Close">

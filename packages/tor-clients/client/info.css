@@ -1,0 +1,12 @@
+@media (min-width: 768px) {
+  .tor-clients-info .dl-horizontal dt {
+    width: 50px;
+  }
+  .tor-clients-info .dl-horizontal dd {
+    margin-left: 60px;
+    margin-bottom: 0.5em;
+  }
+}
+.tor-clients-info {
+  font-size: 0.9em;
+}
