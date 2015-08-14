@@ -1,16 +1,15 @@
 Settings = {
   dataUrl: 'https://metrics.torproject.org/stats/clients.csv',
   updateEvery: moment.duration({ days: 1 }),
-  windowLength: moment.duration({ days: 30 }),
+  windowLength: moment.duration({ days: 60 }),
+  dataOldAfter: moment.duration({ days: 5 })
 };
 
 TorData = new Meteor.Collection('tor_data');
 TorData.attachSchema(new SimpleSchema({
   date: { type: Date },
   node: { type: String },
-  country: { type: Object },
-  'country.name': { type: String },
-  'country.code': { type: String },
+  country: { type: String },
   clients: { type: Number },
   frac: { type: Number }
 }));
@@ -18,7 +17,8 @@ TorData.attachSchema(new SimpleSchema({
 TorClientsWidget = function(doc) {
   Widget.call(this, doc);
   _.defaults(this.data, {
-    countryCode: 'us'
+    countryCode: 'us',
+    nodeType: 'relay'
   });
 };
 TorClientsWidget.prototype = Object.create(Widget.prototype);

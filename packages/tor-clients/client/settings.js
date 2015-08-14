@@ -4,14 +4,18 @@ Template.TorClientsSettings.onCreated(function() {
 });
 
 Template.TorClientsSettings.helpers({
-  countries: function() { return Template.instance().countries.find(); },
+  countries: function() {
+    return Template.instance().countries.find({}, { sort: { name: 1 } });
+  },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
+  isChecked: function(a, b) { return a === b ? 'checked' : ''; },
 });
 
 Template.TorClientsSettings.events({
   'click .save-settings': function(ev, template) {
     var countryCode = template.find('.country').value;
-    var newData = { countryCode: countryCode };
+    var nodeType = template.$('input[name="tor-node-type"]:checked').val();
+    var newData = { countryCode: countryCode, nodeType: nodeType };
     this.set(newData);
     template.closeSettings();
   }

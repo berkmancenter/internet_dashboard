@@ -5,6 +5,12 @@ Template.TorClientsWidget.onCreated(function() {
   });
 });
 
+Template.TorClientsWidget.helpers({
+  countryName: function() {
+    return CountryCodes.countryName(this.countryCode.toUpperCase());
+  }
+});
+
 Template.TorClientsWidget.onRendered(function() {
   var template = this;
   template.autorun(function() {
@@ -13,7 +19,7 @@ Template.TorClientsWidget.onRendered(function() {
     var $graphNode = template.$('.tor-clients');
     var data = TorData.find({
       country: Template.currentData().countryCode,
-      node: 'relay'
+      node: Template.currentData().nodeType
     }, { sort: { date: 1 } });
     var pnts = data.map(function(d) { return { x: d.date, y: d.clients }; });
 
@@ -27,8 +33,8 @@ Template.TorClientsWidget.onRendered(function() {
         data: pnts,
         axes: ['left', 'bottom'],
         ticks: { left: 3, bottom: 3 },
-        tickFormats: { bottom: function(d) { return moment(d).fromNow(); } }
-        /*margins: { left: 40, right: 5, top: 20, bottom: 20 },*/
+        tickFormats: { bottom: function(d) { return moment(d).fromNow(); } },
+        margins: { left: 40 }
       });
     }
   });

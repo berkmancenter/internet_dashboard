@@ -1,3 +1,20 @@
 .tor-clients .tor-clients {
   height: 65px;
 }
+.tor-clients h1 small {
+  font-size: 65%;
+  font-weight: 300;
+  margin-left: 0.2em;
+}
+.tor-clients h2 {
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.tor-clients-settings legend {
+  margin-bottom: 0;
+  font-size: 1em;
+  font-weight: bold;
+  border-width: 0;
+}

@@ -31,7 +31,18 @@ var updateData = function() {
   });
 };
 
-updateData();
+var maxDateInDB = function() {
+  var pipeline = [ { $group: { _id: null, max: { $max: "$date" } } } ];
+  var date = TorData.aggregate(pipeline)[0].max;
+  return date;
+};
+
+if (moment(maxDateInDB()).add(Settings.dataOldAfter).isBefore(moment())) {
+  updateData();
+} else {
+  console.log('TorClients: Not updating data - most recent from ' +
+      moment(maxDateInDB()).format('YYYY-MM-DD'));
+}
 Meteor.setInterval(updateData, Settings.updateEvery.asMilliseconds());
 
 Meteor.publish('tor_data', function(countryCode) {
@@ -41,13 +52,15 @@ Meteor.publish('tor_data', function(countryCode) {
 Meteor.publish('tor_countries', function() {
   var self = this;
   var pipeline = [
-  { $group: { _id: '$country' } },
-  { $sort: { _id: 1 } }
+    { $group: { _id: '$country' } },
+    { $sort: { _id: 1 } }
   ];
   var codes = _.pluck(TorData.aggregate(pipeline), '_id');
 
   _.each(codes, function(code) {
-    self.added('tor_countries', code, { code: code });
+    var countryName = CountryCodes.countryName(code.toUpperCase());
+    if (!countryName) { return; }
+    self.added('tor_countries', code, { name: countryName, code: code });
   });
 
   self.ready();
