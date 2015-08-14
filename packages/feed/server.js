@@ -7,7 +7,8 @@ var fetchFeed = function(feed) {
   FeedParser = Npm.require('feedparser');
   feedparser = new FeedParser();
 
-  console.log('Feed: Fetching ' + feed);
+  console.log('Feed: Fetching ' + feed + ' - next fetch at ' + 
+      moment().add(Settings.updateEvery).format('HH:mm:ss'));
 
   var response = Async.runSync(function(done) {
     var req, rss;
