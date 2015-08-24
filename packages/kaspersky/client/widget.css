@@ -7,8 +7,8 @@
   font-weight: 300;
   font-size: 0.9em;
   position: absolute;
-  top: -20px;
-  left: 42px;
+  top: 0;
+  left: 44px;
 }
 
 .net-attacks .inbound-network-attacks .line {
