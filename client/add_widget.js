@@ -27,6 +27,9 @@ Template.DashboardsAdd.events({
     template.$('.sort-by-btn-group button').removeClass('active');
     template.$grid.isotope({ sortBy: $(ev.target).addClass('active').data('sort-by') });
   },
+  'shown.bs.modal .add-widget-modal': function(ev, template) {
+    template.$grid.isotope('layout');
+  },
   'click .btn-add-widgets': function(ev, template) {
     var dashboard = Template.parentData();
     var addedWidgets = template.$('input[type=checkbox]:checked').map(function() {
