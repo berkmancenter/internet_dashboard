@@ -7,12 +7,19 @@ var fetchFeed = function(feed) {
   FeedParser = Npm.require('feedparser');
   feedparser = new FeedParser();
 
+  var options = {
+    url: feed,
+    headers: {
+      'User-Agent': 'InternetMonitorDashboard/1.0 FeedWidget/0.1'
+    }
+  };
+
   console.log('Feed: Fetching ' + feed + ' - next fetch at ' + 
       moment().add(Settings.updateEvery).format('HH:mm:ss'));
 
   var response = Async.runSync(function(done) {
     var req, rss;
-    req = request(feed);
+    req = request(options);
     req.on('error', function(error) { return done(error, null); });
     req.on('response', function(res) {
       var stream;
