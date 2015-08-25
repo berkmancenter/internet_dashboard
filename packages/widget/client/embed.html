@@ -1,7 +1,7 @@
-<template name="WidgetShow">
-  <li id="{{ componentId 'widget' }}" class="{{ widgetClasses }}"
-      data-mid="{{ _id }}" {{ gridAttrs }}>
-
+<template name="WidgetsEmbed">
+  <div id="{{ componentId 'widget' }}" class="{{ widgetClasses }}"
+    data-mid="{{ _id }}"
+    style="width: {{ pixelDims.width }}px; height: {{ pixelDims.height }}px;">
     <div class="title-bar" style="height: {{ titleBar.height }}px;">
       {{# if package.metadata.org }}
       <p class="data-source">
@@ -12,12 +12,6 @@
       {{/if}}
 
       <div class="buttons">
-        {{# if dashboard.editable }}
-        <a href="#" class="remove-widget" title="Remove widget">
-          <span class="glyphicon glyphicon-remove"></span>
-        </a>
-        {{/if}}
-
         <a class="button-info" href="#" id="{{ componentId 'Info' }}"
           title="About" data-toggle="popover" data-trigger="click"
           data-html="true" data-placement="auto right" data-viewport="#dashboard"
@@ -25,24 +19,11 @@
           <span class="glyphicon glyphicon-info-sign"></span>
         </a>
         {{> WidgetInfo }}
-
-        {{# if dashboard.editable }}
-          {{# if providesSettings }}
-            <a class="button-settings" href="#" id="{{ componentId 'Settings' }}"
-              title="Settings" data-toggle="popover" data-trigger="click"
-              data-html="true" data-placement="auto right" data-viewport="#dashboard"
-              data-container="body">
-              <span class="glyphicon glyphicon-cog"></span>
-            </a>
-
-            {{> WidgetSettings }}
-          {{/if}}
-        {{/if}}
       </div>
     </div>
 
     <div class="widget-body" style="{{ resizeTransform }}">
       {{> Template.dynamic template=widgetTemplate data=data }}
     </div>
-  </li>
+  </div>
 </template>

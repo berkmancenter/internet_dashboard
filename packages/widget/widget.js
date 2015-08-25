@@ -26,7 +26,19 @@ _.extend(Widget.prototype, {
   },
   set: function(attrs) {
     Meteor.call('updateWidget', this._id, attrs);
-  }
+  },
+  pixelDims: function(gridDims) {
+    var dashboard = this.dashboard();
+    var currentDims = { width: this.width, height: this.height };
+    gridDims = _.clone(gridDims) || currentDims;
+    _.defaults(gridDims, currentDims);
+    return {
+      width: gridDims.width * dashboard.columnWidth +
+        dashboard.gutter * (gridDims.width - 1),
+      height: gridDims.height * dashboard.rowHeight +
+        dashboard.gutter * (gridDims.height - 1)
+    };
+  },
 });
 
 // Static methods

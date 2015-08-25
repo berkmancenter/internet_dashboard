@@ -109,6 +109,18 @@ Template.DashboardsShow.onRendered(function() {
       stop: self.onWidgetDrag.stop
     }
   }).data('gridster');
+
+  // Keep gridster up to date when other clients resize
+  Widgets.find({ dashboardId: dash._id }).observeChanges({
+    changed: function(id, fields) {
+      var widget = Widgets.findOne(id);
+      if (_(fields).has('width') || _(fields).has('height')) {
+        var $widgetNode = self.$('#' + widget.componentId());
+        self.gridster.resize_widget(
+            $widgetNode, fields.width, fields.height, false);
+      }
+    }
+  });
 });
 
 Template.DashboardsSettings.events({

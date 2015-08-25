@@ -6,10 +6,15 @@
       {{> DefaultWidgetInfo data }}
     {{/if}}
 
+    {{> WidgetEmbedCode }}
     <button type="button" class="close close-info" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+</template>
+
+<template name="WidgetEmbedCode">
+<pre>&lt;iframe {{{ embedAttrs }}}&gt;&lt;/iframe&gt;</pre>
 </template>
 
 <template name="DefaultWidgetInfo">

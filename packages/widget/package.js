@@ -10,10 +10,16 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
 
-  api.use(['underscore', 'less', 'mongo', 'aldeed:simple-schema']);
+  api.use(['underscore', 'less', 'mongo', 'aldeed:simple-schema', 'iron:router']);
   api.use(['templating'], 'client');
 
-  api.addFiles(['widget.js', 'methods.js', 'widget_package.js', 'widget_data.js']);
+  api.addFiles([
+    'widget.js',
+    'methods.js',
+    'widget_package.js',
+    'widget_data.js',
+    'routes.js'
+  ]);
   api.addFiles([
     'server/publications.js',
     'server/seeds.js'], 'server');
@@ -21,9 +27,11 @@ Package.onUse(function(api) {
     'client/widget.html',
     'client/settings.html',
     'client/info.html',
+    'client/embed.html',
     'client/widget.js',
     'client/settings.js',
     'client/info.js',
+    'client/embed.js',
     'client/widget.css.less',
   ], 'client');
 

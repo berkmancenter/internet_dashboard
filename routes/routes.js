@@ -1,3 +1,7 @@
+Router.configure({
+  layoutTemplate: 'ApplicationLayout'
+});
+
 Router.route('/', { name: 'home' });
 
 Router.route('/dashboards/new', {
@@ -27,3 +31,6 @@ Router.route('/dashboards/:_id', {
   }
 });
 
+if (Meteor.isClient) {
+  Router.plugin('bodyClasses');
+}

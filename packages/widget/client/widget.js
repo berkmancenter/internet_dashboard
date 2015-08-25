@@ -32,102 +32,46 @@ Template.WidgetShow.helpers({
       attrs['data-col'] = this.position.col;
     }
     return attrs;
+  },
+  resizeTransform: function() {
+    if (this.resize.mode === 'reflow') { return ''; }
+    var newPixelDims = this.pixelDims();
+    var originalGridDims = this.package.metadata().widget.dimensions;
+    var originalPixelDims = this.pixelDims(originalGridDims);
+
+    // We're just scaling the body, so don't count the title bar.
+    newPixelDims.height -= Widget.Settings.titleBar.height;
+    originalPixelDims.height -= Widget.Settings.titleBar.height;
+
+    return 'width: ' + originalPixelDims.width + 'px;' +
+      'height: ' + originalPixelDims.height + 'px;' +
+      'transform: ' +
+      'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
+      'scaleY(' + newPixelDims.height / originalPixelDims.height + ');';
   }
 });
 
-Template.WidgetShow.onCreated(function() {
-  var self = this;
-
-  _.extend(self, {
-    gridUnitsToPixels: function(dims) {
-      var dashboard = self.data.dashboard();
-      var currentDims = {
-        width: self.$('.widget').attr('data-sizex'),
-        height: self.$('.widget').attr('data-sizey')
-      };
-      dims = dims || currentDims;
-      _.defaults(dims, currentDims);
-      return {
-        width: dims.width * dashboard.columnWidth +
-          dashboard.gutter * (dims.width - 1),
-        height: dims.height * dashboard.rowHeight +
-          dashboard.gutter * (dims.height - 1)
-      };
-    },
-
-    scaleBody: function(newDims) {
-      var widget = self.data;
-      var $widgetBody = self.$('.widget-body');
-
-      var newPixelDims = self.gridUnitsToPixels(newDims);
-      var originalGridDims = widget.package.metadata().widget.dimensions;
-      var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
-
-      // We're just scaling the body, so don't count the title bar.
-      newPixelDims.height -= Widget.Settings.titleBar.height;
-      originalPixelDims.height -= Widget.Settings.titleBar.height;
-
-      $widgetBody.css({
-        transform: 'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
-                   'scaleY(' + newPixelDims.height / originalPixelDims.height + ')'
-      });
-    },
-
-    reflowBody: function() {
-      var widget = self.data;
-      var $widgetBody = self.$('.widget-body');
-      $widgetBody.css({ transform: '', width: '', height: '' });
-    }
-  });
-});
-
 Template.WidgetShow.onRendered(function() {
-  var dashboardTemplate = Dashboards.templateFromChild(this);
-  var widgetNode = this.firstNode;
-  $(widgetNode).addClass('hidden');
-  var self = this;
+  var template = this;
+  var $widgetNode = $(template.firstNode);
 
-  $(widgetNode).trigger('widget:rendered', [self]);
+  $widgetNode.addClass('hidden');
 
-  self.autorun(function() {
-    var resizeMode = Template.currentData().resize.mode;
-    if (resizeMode === 'scale') {
-      var originalGridDims = self.data.package.metadata().widget.dimensions;
-      var originalPixelDims = self.gridUnitsToPixels(originalGridDims);
-      originalPixelDims.height -= Widget.Settings.titleBar.height;
-
-      // Pin the width and height so we don't get both reflows and transforms.
-      self.$('.widget-body').css(originalPixelDims);
-      self.scaleBody();
-    } else if (resizeMode === 'reflow') {
-      self.reflowBody();
-    }
-  });
-
-  self.autorun(function() {
-    Widgets.find(self.data._id).observeChanges({
-      changed: function(id, fields) {
-        // When other clients resize widgets
-        if (self.data.resize.mode === 'scale' &&
-            (_(fields).has('width') || _(fields).has('height'))) {
-          self.scaleBody(fields);
-        }
-      }
-    });
-  });
-
-  $(widgetNode).popover({
+  $widgetNode.popover({
     selector: '[data-toggle="popover"]',
     content: function() {
       var isSettings = $(this).attr('class').indexOf('settings') >= 0;
-      return isSettings ? self.$settingsContent.get(0) : self.$infoContent.get(0);
+      return isSettings ? template.$settingsContent.get(0) : template.$infoContent.get(0);
     }
   });
 
-  $(widgetNode).removeClass('hidden');
+  $widgetNode.removeClass('hidden');
+
+  $widgetNode.trigger('widget:rendered', [template]);
 });
 
 Template.WidgetShow.onDestroyed(function() {
+  this.resizeQuery.stop();
   $('#' + this.data.componentId()).trigger('widget:destroyed', [this]);
 });
 
@@ -153,7 +97,6 @@ Template.WidgetShow.events({
   },
   'gridster:resizestop': function(ev, template) {
     if (this.resize.mode === 'scale') {
-      template.scaleBody();
       template.$('.widget-body .resizing-cover').remove();
     }
     // This was passed down from the dashboard - don't bubble it back up.
