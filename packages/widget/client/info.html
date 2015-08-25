@@ -14,7 +14,10 @@
 </template>
 
 <template name="WidgetEmbedCode">
-<pre>&lt;iframe {{{ embedAttrs }}}&gt;&lt;/iframe&gt;</pre>
+<a role="button" data-toggle="collapse" href="#{{ componentId 'Embed' }}">
+  <small>Embed Code</small>
+</a>
+<pre id="{{ componentId 'Embed' }}" class="collapse">&lt;iframe {{{ embedAttrs }}}&gt;&lt;/iframe&gt;</pre>
 </template>
 
 <template name="DefaultWidgetInfo">

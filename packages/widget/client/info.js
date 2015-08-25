@@ -9,11 +9,22 @@ Template.WidgetInfo.helpers({
 
 Template.WidgetInfo.onRendered(function() {
   var template = this;
-  var showTemplate = Templates.ancestorByName(template, 'Template.WidgetShow');
-  showTemplate.$infoContent = template.$('.widget-info').detach();
+  var templates = ['WidgetShow', 'WidgetsEmbed'];
+  var infoTemplate;
 
-  // Because using the events map doesn't work once detached or something
-  showTemplate.$infoContent.on('click', '.close-info', function() {
-    template.closeInfo();
+  _.each(templates, function(templateName) {
+    var widgetTemplate =
+      Templates.ancestorByName(template, 'Template.' + templateName);
+    if (widgetTemplate) {
+      if (template.$('.widget-info').length > 0) {
+        infoTemplate = template.$('.widget-info').detach();
+      }
+      widgetTemplate.$infoContent = infoTemplate;
+
+      // Because using the events map doesn't work once detached or something
+      widgetTemplate.$infoContent.on('click', '.close-info', function() {
+        template.closeInfo();
+      });
+    }
   });
 });

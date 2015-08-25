@@ -36,3 +36,23 @@ Template.WidgetEmbedCode.helpers({
       'height="' + this.pixelDims().height + '"';
   }
 });
+
+Template.WidgetsEmbed.onRendered(function() {
+  var template = this;
+  var $widgetNode = $(template.firstNode);
+
+  $widgetNode.addClass('hidden');
+
+  $widgetNode.popover({
+    selector: '[data-toggle="popover"]',
+    content: function() {
+      var isSettings = $(this).attr('class').indexOf('settings') >= 0;
+      return isSettings ?
+        template.$settingsContent.get(0) : template.$infoContent.get(0);
+    }
+  });
+
+  $widgetNode.removeClass('hidden');
+
+  $widgetNode.trigger('widget:rendered', [template]);
+});

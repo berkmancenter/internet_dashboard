@@ -61,7 +61,8 @@ Template.WidgetShow.onRendered(function() {
     selector: '[data-toggle="popover"]',
     content: function() {
       var isSettings = $(this).attr('class').indexOf('settings') >= 0;
-      return isSettings ? template.$settingsContent.get(0) : template.$infoContent.get(0);
+      return isSettings ?
+        template.$settingsContent.get(0) : template.$infoContent.get(0);
     }
   });
 
@@ -71,7 +72,6 @@ Template.WidgetShow.onRendered(function() {
 });
 
 Template.WidgetShow.onDestroyed(function() {
-  this.resizeQuery.stop();
   $('#' + this.data.componentId()).trigger('widget:destroyed', [this]);
 });
 
