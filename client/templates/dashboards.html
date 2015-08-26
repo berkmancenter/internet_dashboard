@@ -27,38 +27,3 @@
   {{> DashboardsAdd }}
 {{/if}}
 </template>
-
-<template name="DashboardsSettings">
-<a href="#" class="btn-dash-settings dash-btn"
-  data-toggle="modal" data-target=".dash-settings">
-  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-</a>
-
-<div class="dash-settings modal fade" tabindex="-1" role="dialog"
-  aria-labelledby="Settings" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Dashboard Settings</h4>
-      </div>
-      <div class="modal-body">
-        {{# if iAmOwner }}
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" id="dash-public-edit" checked="{{ publiclyEditable }}">
-            Anyone with the link can edit this dashboard
-          </label>
-        </div>
-        {{/if}}
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary save-settings">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-</template>

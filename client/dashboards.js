@@ -122,12 +122,3 @@ Template.DashboardsShow.onRendered(function() {
     }
   });
 });
-
-Template.DashboardsSettings.events({
-  'click .save-settings': function(ev, template) {
-    var attrs = {};
-    attrs.publiclyEditable = template.$('#dash-public-edit').prop('checked');
-    Meteor.call('updateDashboard', this._id, attrs);
-    template.$('.dash-settings').modal('hide');
-  }
-});

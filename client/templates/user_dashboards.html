@@ -6,7 +6,9 @@
       <ul class="list-unstyled">
       {{# each dashboards }}
       <li>
-        <a href="{{ pathFor route='dashboards.show' data=dashParams }}">Dashboard</a>
+        <a href="{{ pathFor route='dashboards.show' data=dashParams }}">
+          {{ title }}
+        </a>
       </li>
       {{else}}
         <li>

@@ -43,6 +43,11 @@ Dashboards = new Mongo.Collection('dashboards', {
 });
 
 Dashboards.attachSchema(new SimpleSchema({
+  title: {
+    type: String,
+    max: 255,
+    optional: true
+  },
   columnWidth: {
     type: Number,
     defaultValue: 150

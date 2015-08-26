@@ -1,0 +1,40 @@
+<template name="DashboardsSettings">
+<a href="#" class="btn-dash-settings dash-btn"
+  data-toggle="modal" data-target=".dash-settings">
+  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+</a>
+
+<div class="dash-settings modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="Settings" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Dashboard Settings</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="dashboard-title">Title</label>
+          <input type="text" id="dashboard-title" name="dashboard-title"
+                 class="form-control" value={{ title }} />
+          <span class="help-block">Give this dashboard a name</span>
+        </div>
+        {{# if iAmOwner }}
+        <div class="checkbox">
+          <input type="checkbox" id="dash-public-edit" checked="{{ publiclyEditable }}">
+          <label for="dash-public-edit">
+            Anyone with the link can edit this dashboard
+          </label>
+        </div>
+        {{/if}}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary save-settings">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
