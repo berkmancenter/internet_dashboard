@@ -41,9 +41,6 @@ Template.DashboardsShow.events({
     type = s.capitalize(type);
     var except = [this, type];
     template.closeAllPopovers(except);
-  },
-  'click #toggle-selecting': function(ev, template) {
-    selectionMode.toggle();
   }
 });
 
@@ -79,6 +76,7 @@ var selectionMode = {
 Template.DashboardsShow.onCreated(function() {
   var self = this;
   self.widgetNodes = [];
+  self.selectionMode = selectionMode;
   self.onWidgetResize = {
     start: function(ev, ui, $widget) {
       $widget.trigger('gridster:resizestart', ev, ui);
