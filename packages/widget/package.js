@@ -24,6 +24,7 @@ Package.onUse(function(api) {
     'server/publications.js',
     'server/seeds.js'], 'server');
   api.addFiles([
+    'client/common.js',
     'client/widget.html',
     'client/settings.html',
     'client/info.html',

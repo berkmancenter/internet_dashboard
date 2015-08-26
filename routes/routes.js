@@ -25,9 +25,17 @@ Router.route('/dashboards/:_id', {
   },
   data: function() {
     return Dashboards.findOne(this.params._id);
-  },
-  action: function() { 
-    this.render();
+  }
+});
+
+Router.route('/user', {
+  name: 'users.profile',
+  loadingTemplate: 'Loading',
+  waitOn: function() {
+    return [
+      Meteor.subscribe('userData'),
+      Meteor.subscribe('userDashboards')
+    ];
   }
 });
 
