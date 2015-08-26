@@ -1,0 +1,22 @@
+<template name="UsersDashboards">
+<div class="container page">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <h2>My Dashboards</h2>
+      <ul class="list-unstyled">
+      {{# each dashboards }}
+      <li>
+        <a href="{{ pathFor route='dashboards.show' data=dashParams }}">Dashboard</a>
+      </li>
+      {{else}}
+        <li>
+          <p>You do not currently own any dashboards, so it's time to
+          <a href="{{ pathFor route='dashboards.new' }}">make one!</a>
+          </p>
+        </li>
+      {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
+</template>

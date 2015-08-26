@@ -8,24 +8,34 @@
           </a>
         </div>
         <div class="navbar-right">
-          {{# if onDashboard }}
-          <a class="btn btn-success"
+          {{# if notHome }}
+          <a class="btn btn-success navbar-btn new-dashboard"
              href="{{ pathFor route='dashboards.new' }}">
             New Dashboard
           </a>
           {{/if}}
-
           {{# if currentUser }}
-            <button class="btn btn-primary sign-out navbar-btn" id="sign-out">
-              Sign Out
-            </button>
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                  role="button" aria-haspopup="true" aria-expanded="false">
+                  My Account <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="{{ pathFor route='users.profile' }}">My Profile</a>
+                  </li>
+                  <li>
+                    <a href="{{ pathFor route='users.dashboards' }}">My Dashboards</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li><a class="sign-out" id="sign-out">Sign Out</a></li>
+                </ul>
+              </li>
+            </ul>
           {{else}}
-            <a href="/users/sign-in" class="btn btn-primary navbar-btn">
-              Sign In
-            </a>
-            <a href="/users/sign-up" class="btn btn-info navbar-btn">
-              Sign Up
-            </a>
+            <a href="/users/sign-in" class="btn btn-info navbar-btn">Sign In</a>
+            <a href="/users/sign-up" class="btn btn-primary navbar-btn">Sign Up</a>
           {{/if}}
         </div>
       </div>

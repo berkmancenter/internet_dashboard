@@ -28,15 +28,38 @@ Router.route('/dashboards/:_id', {
   }
 });
 
-Router.route('/user', {
+Router.route('/users/me', {
   name: 'users.profile',
+  loadingTemplate: 'Loading',
+  waitOn: function() {
+    return [
+      Meteor.subscribe('userData'),
+    ];
+  },
+  data: function() {
+    return Meteor.user();
+  }
+});
+
+Router.route('/users/me/dashboards', {
+  name: 'users.dashboards',
   loadingTemplate: 'Loading',
   waitOn: function() {
     return [
       Meteor.subscribe('userData'),
       Meteor.subscribe('userDashboards')
     ];
+  },
+  data: function() {
+    return {
+      user: Meteor.user(),
+      dashboards: Dashboards.find({ ownerId: Meteor.userId() })
+    };
   }
+});
+
+Router.plugin('ensureSignedIn', {
+    only: ['users.profile', 'users.dashboards']
 });
 
 if (Meteor.isClient) {

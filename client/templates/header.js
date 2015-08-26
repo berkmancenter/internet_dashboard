@@ -1,7 +1,7 @@
 Template.Header.helpers({
-  onDashboard: function() {
+  notHome: function() {
     return Router.current() &&
-      Router.current().route.getName() === 'dashboards.show';
+      Router.current().route.getName() !== 'home';
   }
 });
 Template.Header.events({
