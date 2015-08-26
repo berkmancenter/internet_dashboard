@@ -7,6 +7,13 @@ Template.DashboardsShow.helpers({
   },
   noWidgets: function() {
     return Widgets.find().count() === 0;
+  },
+  duplicating: function() { return Session.get('duplicating'); },
+  duplicatingState: function() {
+    return Session.get('duplicating') ? 'duplicating' : '';
+  },
+  duplicatingTitle: function() {
+    return Session.get('duplicating') ? 'Copy Widgets' : 'Click to Finish';
   }
 });
 
@@ -41,6 +48,20 @@ Template.DashboardsShow.events({
     type = s.capitalize(type);
     var except = [this, type];
     template.closeAllPopovers(except);
+  },
+  'click .btn-dash-duplicate': function(ev, template) {
+    if (Session.get('duplicating')) {
+      Session.set('duplicating', false);
+      template.selectionMode.off();
+      var selected = Session.get('selected');
+      var dashboard = this;
+      _.each(selected, function(id) {
+        dashboard.addWidget(Widgets.findOne(id).clone());
+      });
+    } else {
+      Session.set('duplicating', true);
+      template.selectionMode.on();
+    }
   }
 });
 

@@ -23,7 +23,22 @@
   </ul>
 </div>
 {{# if editable }}
+  {{# unless noWidgets }}
+  <a href="#" class="btn-dash-duplicate dash-btn {{ duplicatingState }}"
+     title="{{ duplicatingTitle }}">
+    <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+  </a>
+  {{/unless}}
   {{> DashboardsSettings }}
   {{> DashboardsAdd }}
+
+  {{# if duplicating }}
+    <div class="alert alert-warning alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      Select the widgets you want to copy and click the button again to finish.
+    </div>
+  {{/if}}
 {{/if}}
 </template>

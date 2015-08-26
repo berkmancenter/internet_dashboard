@@ -1,5 +1,5 @@
 <template name="DashboardsSettings">
-<a href="#" class="btn-dash-settings dash-btn"
+<a href="#" class="btn-dash-settings dash-btn" title="Settings"
   data-toggle="modal" data-target=".dash-settings">
   <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 </a>
@@ -16,11 +16,13 @@
         <h4 class="modal-title" id="myModalLabel">Dashboard Settings</h4>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label for="dashboard-title">Title</label>
-          <input type="text" id="dashboard-title" name="dashboard-title"
-                 class="form-control" value={{ title }} />
-          <span class="help-block">Give this dashboard a name</span>
+        <div class="form-group row">
+          <div class="col-md-8">
+            <label for="dashboard-title">Title</label>
+            <input type="text" id="dashboard-title" name="dashboard-title"
+                   class="form-control" value={{ title }} />
+            <span class="help-block">Give this dashboard a name</span>
+          </div>
         </div>
         {{# if iAmOwner }}
         <div class="checkbox">

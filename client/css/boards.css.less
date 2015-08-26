@@ -44,11 +44,11 @@ h1, h2, h3 {
 span.btn-add-widget {
   width: 24px;
   height: 24px;
-  line-height: 0.72em;
   display: inline-block;
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 13px;
+  line-height: 20px;
   padding-left: 2px;
+  background-color: transparent;
 }
 
 a.btn-add-widget {
@@ -61,7 +61,6 @@ a.btn-add-widget {
   width: 50px;
   height: 50px;
   z-index: 1000;
-  background-color: rgba(8, 31, 44, 0.15);
 }
 
 .dash-btn {
@@ -69,6 +68,7 @@ a.btn-add-widget {
   border: 2px solid #428BCA;
   border-radius: 50%;
   text-align: center;
+  background-color: rgba(8, 31, 44, 0.15);
 
   &:hover, &:focus, &:visited {
     text-decoration: none;
@@ -91,7 +91,32 @@ a.btn-add-widget {
   width: 35px;
   height: 35px;
   z-index: 1000;
-  background-color: rgba(8, 31, 44, 0.15);
+}
+
+.btn-dash-duplicate {
+  position: fixed;
+  bottom: 154px;
+  right: 15px;
+  font-size: 14px;
+  line-height: 32px;
+  width: 35px;
+  height: 35px;
+  z-index: 1000;
+
+  &.duplicating {
+    background-color: #FDFDA9;
+    color: #E6B604;
+    border-color: #E6B604;
+  }
+}
+
+.alert {
+  z-index: 1050;
+  position: fixed;
+  bottom: 34px;
+  right: 76px;
+  font-weight: normal;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.35);
 }
 
 .modal-dialog {

@@ -39,6 +39,9 @@ _.extend(Widget.prototype, {
         dashboard.gutter * (gridDims.height - 1)
     };
   },
+  clone: function() {
+    return Widget.construct(_.omit(this.toJSON(), ['_id']));
+  }
 });
 
 // Static methods
