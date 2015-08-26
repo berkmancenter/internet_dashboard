@@ -41,6 +41,9 @@ Template.DashboardsShow.events({
     type = s.capitalize(type);
     var except = [this, type];
     template.closeAllPopovers(except);
+  },
+  'click #toggle-selecting': function(ev, template) {
+    selectionMode.toggle();
   }
 });
 
@@ -54,6 +57,23 @@ var serializePositions = function($widget, position) {
   if (!position) { return; } // In case the widget doesn't exist yet
   position.id = nodeIdToWidgetId($widget.attr('id'));
   return _.pick(position, ['col', 'row', 'size_x', 'size_y', 'id']);
+};
+
+var selectionMode = {
+  on: function() {
+    Session.set('selecting', true);
+    Session.set('selected', []);
+  },
+  off: function() {
+    Session.set('selecting', false);
+  },
+  toggle: function() {
+    if (Session.get('selecting')) {
+      selectionMode.off();
+    } else {
+      selectionMode.on();
+    }
+  }
 };
 
 Template.DashboardsShow.onCreated(function() {

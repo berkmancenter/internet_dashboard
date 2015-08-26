@@ -2,6 +2,16 @@
   <li id="{{ componentId 'widget' }}" class="{{ widgetClasses }}"
       data-mid="{{ _id }}" {{ gridAttrs }}>
 
+    {{# if selecting }}
+    <div class="selecting-cover">
+      <div class="checkbox checkbox-success checkbox-big select-check">
+        <input type="checkbox" id="{{ componentId 'select' }}"
+               name="{{ componentId 'select' }}" value="{{ _id }}" />
+        <label for="{{ componentId 'select' }}"></label>
+      </div>
+    </div>
+    {{/if}}
+
     <div class="title-bar" style="height: {{ titleBar.height }}px;">
       {{# if package.metadata.org }}
       <p class="data-source">

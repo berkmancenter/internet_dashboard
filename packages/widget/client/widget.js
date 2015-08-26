@@ -21,6 +21,7 @@ Template.WidgetShow.helpers(_.extend(CommonHelpers, {
     }
     return attrs;
   },
+  selecting: function() { return Session.get('selecting'); }
 }));
 
 Template.WidgetShow.onRendered(CommonOnRendered);
@@ -55,6 +56,15 @@ Template.WidgetShow.events({
     }
     // This was passed down from the dashboard - don't bubble it back up.
     ev.stopPropagation();
+  },
+  'change .select-check input[type=checkbox]': function(ev, template) {
+    var selected = Session.get('selected');
+    if (ev.target.checked && !_.contains(selected, this._id)) {
+      selected.push(this._id);
+    } else {
+      selected = _.without(selected, this._id);
+    }
+    Session.set('selected', selected);
   }
 });
 
