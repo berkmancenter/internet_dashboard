@@ -13,15 +13,15 @@ Template.DashboardsShow.helpers({
     return Session.get('duplicating') ? 'active' : '';
   },
   duplicatingTitle: function() {
-    return Session.get('duplicating') ? 'Copy Widgets' : 'Click to Finish';
+    return Session.get('duplicating') ? 'Click to finish' : 'Copy widgets';
   },
   settingCountry: function() { return Session.get('setting-country'); },
   settingCountryState: function() {
     return Session.get('setting-country') ? 'active' : '';
   },
   settingCountryTitle: function() {
-    return Session.get('setting-country') ? 'Set country for multiple widgets' :
-      'Click to finish';
+    return Session.get('setting-country') ? 'Click to finish' :
+      'Set country for multiple widgets';
   },
   countries: function() {
     return _.map(CountryCodes.getList(), function(name, code) {
