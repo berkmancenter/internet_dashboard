@@ -68,6 +68,12 @@ Template.WidgetShow.events({
       selected = _.without(selected, this._id);
     }
     Session.set('selected', selected);
+  },
+  'click .selecting-cover': function(ev, template) {
+    if ($(ev.target).hasClass('selecting-cover')) {
+      var checkbox = template.$('.select-check input[type=checkbox]');
+      checkbox.click();
+    }
   }
 });
 
