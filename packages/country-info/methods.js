@@ -1,11 +1,15 @@
-countries = Npm.require('country-data').countries;
+var data = Npm.require('country-data');
+_.each(data.continents, function(continent, machineName) {
+  continent.machineName = machineName;
+});
 
 Meteor.methods({
   countryByCode: function(code) {
-    var country = countries[code.toUpperCase()];
-    country.continent = _.find(continents, function(continent) {
+    var country = data.countries[code.toUpperCase()];
+    var continent = _.find(data.continents, function(continent) {
       return _.contains(continent.countries, country.alpha2);
     });
+    country.continent = _.pick(continent, ['name', 'regions', 'machineName']);
     return country;
   }
 });

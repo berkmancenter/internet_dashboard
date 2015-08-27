@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
   api.use(['underscore'], 'server');
   api.addFiles('country_info.js');
-  api.addFiles(['methods.js', 'continent_info.js'], 'server');
+  api.addFiles(['methods.js'], 'server');
   api.export('CountryInfo');
 });
 
