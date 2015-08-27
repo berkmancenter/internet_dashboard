@@ -8,7 +8,7 @@ Package.onUse(function(api) {
 
   api.use(['meteorhacks:aggregate@1.2.1', 'random'], 'server');
   api.use([
-      'widget', 'mongo', 'tracker', 'underscore',
+      'widget', 'mongo', 'tracker', 'underscore', 'country-info',
       'momentjs:moment', 'wiki-data', 'aldeed:collection2'
   ]);
   api.use(['templating', 'epoch', 'jquery'], 'client');

@@ -43,5 +43,8 @@ Template.WikiEditCountsWidget.onRendered(function() {
 Template.WikiEditCountsWidget.helpers({
   binWidth: function() {
     return (this.binWidth / 1000).toString();
+  },
+  channelName: function() {
+    return this.channel.name.replace(' Wikipedia', '');
   }
 });

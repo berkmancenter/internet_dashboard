@@ -4,14 +4,14 @@ Settings = {
   downloadInterval: moment.duration({ minutes: 5 }).asMilliseconds(),
   feedUrl: 'http://wwwnui.akamai.com/datavis/visitors_feed.xml',
   regions: [
-    { code: '0', name: 'The World'},
-    { code: '1', name: 'North America'},
-    { code: '2', name: 'South America'},
-    { code: '3', name: 'Europe'},
-    { code: '4', name: 'Asia (Pacific)'},
-    { code: '5', name: 'Africa'},
-    { code: '6', name: 'Australia'}
-  ],
+    { code: '0', name: 'The World'     , machineName: '' },
+    { code: '1', name: 'North America' , machineName: 'northAmerica' },
+    { code: '2', name: 'South America' , machineName: 'southAmerica' },
+    { code: '3', name: 'Europe'        , machineName: 'europe' },
+    { code: '4', name: 'Asia (Pacific)', machineName: 'asia' },
+    { code: '5', name: 'Africa'        , machineName: 'africa' },
+    { code: '6', name: 'Australia'     , machineName: 'oceania' }
+  ]             ,
   funnelHeight: 64
 };
 
@@ -24,6 +24,20 @@ TrafficWidget = function(doc) {
 };
 TrafficWidget.prototype = Object.create(Widget.prototype);
 TrafficWidget.prototype.constructor = TrafficWidget;
+_.extend(TrafficWidget.prototype, {
+  setCountry: function(code) {
+    var widget = this;
+    CountryInfo.byCode(code, function(country) {
+      if (country.continent) {
+        var region = _.findWhere(Settings.regions,
+            { machineName: country.continent.machineName });
+        if (region) {
+          widget.data.set({ regionId: region.code, regionLabel: region.name });
+        }
+      }
+    });
+  }
+});
 
 AkamaiTraffic = {
   widget: {

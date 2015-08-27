@@ -10,7 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['widget', 'less', 'underscore', 'imon-data']);
+  api.use(['widget', 'less', 'underscore', 'imon-data', 'country-info']);
   api.use(['templating'], 'client');
 
   api.addFiles(['access-index.js']);

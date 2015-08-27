@@ -32,7 +32,10 @@ _.extend(BroadbandCostWidget.prototype, {
     var widget = this;
     CountryInfo.byCode(countryCode, function(country) {
       var code = country.alpha3.toLowerCase();
-      widget.data.set({ country: IMonCountries.findOne({ code: code }) });
+      var country = IMonCountries.findOne({ code: code });
+      if (country) {
+        widget.data.set({ country: country });
+      }
     });
   },
   getCountry: function() {

@@ -20,8 +20,16 @@ ConnectionSpeedWidget.prototype = Object.create(Widget.prototype);
 ConnectionSpeedWidget.prototype.constructor = ConnectionSpeedWidget;
 
 _.extend(ConnectionSpeedWidget.prototype, {
-  // FIXME Implement this
-  onCountryChange: function(newCountry) { return true; },
+  setCountry: function(countryCode) {
+    var widget = this;
+    CountryInfo.byCode(countryCode, function(country) {
+      var code = country.alpha3.toLowerCase();
+      var country = IMonCountries.findOne({ code: code });
+      if (country) {
+        widget.data.set({ country: country });
+      }
+    });
+  },
   getCountry: function() {
     return IMonCountries.findOne({ code: this.data.country.code });
   },

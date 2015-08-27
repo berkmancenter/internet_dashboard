@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'country-info',
+  name: 'similar-string',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -9,10 +9,6 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
-  api.use(['underscore'], 'server');
-  api.addFiles(['country_info.js', 'simple_countries.js']);
-  api.addFiles(['methods.js'], 'server');
-  api.export('CountryInfo');
+  api.addFiles('similar_string.js');
 });
 
-Npm.depends({ 'country-data': '0.0.22' });

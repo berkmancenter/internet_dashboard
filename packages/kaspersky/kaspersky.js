@@ -58,6 +58,22 @@ KasperskyWidget = function(doc) {
 KasperskyWidget.prototype = Object.create(Widget.prototype);
 KasperskyWidget.prototype.constructor = KasperskyWidget;
 
+_.extend(KasperskyWidget.prototype, {
+  setCountry: function(code) {
+    var widget = this;
+    var kaspCountries = CountryMetrics.find({}, {
+      fields: { name: 1, key: 1 },
+      sort: { name: 1 }
+    }).fetch();
+
+    CountryInfo.byCode(code, function(country) {
+      var matches = country.name.fuzzy(_.pluck(kaspCountries, 'name'));
+      var kaspMatch = _.findWhere(kaspCountries, { name: matches[0] });
+      widget.data.set({ country: kaspMatch });
+    });
+  }
+});
+
 Kaspersky = {
   widget: {
     name: 'Threat Data',

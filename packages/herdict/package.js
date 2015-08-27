@@ -6,11 +6,11 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
 
-  api.use(['underscore', 'mongo', 'aldeed:collection2', 'widget']);
+  api.use(['underscore', 'mongo', 'aldeed:collection2', 'widget', 'country-info']);
   api.use(['html-scraper', 'momentjs:moment'], 'server');
   api.use(['templating'], 'client');
 
-  api.addFiles(['herdict.js','countries.js']);
+  api.addFiles(['herdict.js']);
   api.addFiles('server.js', 'server');
   api.addFiles([
     'client/widget.html',

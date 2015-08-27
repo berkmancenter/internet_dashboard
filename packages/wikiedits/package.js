@@ -9,7 +9,8 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
-  api.use(['widget', 'mongo', 'tracker', 'underscore', 'momentjs:moment', 'wiki-data']);
+  api.use(['widget', 'mongo', 'tracker', 'underscore', 'momentjs:moment',
+      'country-info', 'wiki-data']);
   api.use(['templating', 'epoch', 'jquery', 'd3js:d3'], 'client');
   api.addFiles('wikiedit-stream.js');
   api.addFiles('server.js', 'server');

@@ -19,8 +19,16 @@ PercentOnlineWidget.prototype = Object.create(Widget.prototype);
 PercentOnlineWidget.prototype.constructor = PercentOnlineWidget;
 
 _.extend(PercentOnlineWidget.prototype, {
-  // FIXME Implement this
-  onCountryChange: function(newCountry) { return true; },
+  setCountry: function(countryCode) {
+    var widget = this;
+    CountryInfo.byCode(countryCode, function(country) {
+      var code = country.alpha3.toLowerCase();
+      var country = IMonCountries.findOne({ code: code });
+      if (country) {
+        widget.data.set({ country: country });
+      }
+    });
+  },
   getCountry: function() {
     if (_.isEmpty(this.data.country)) { return; }
     return IMonCountries.findOne({ code: this.data.country.code });

@@ -30,6 +30,14 @@ MCWidget = function(doc) {
 };
 MCWidget.prototype = Object.create(Widget.prototype);
 MCWidget.prototype.constructor = MCWidget;
+_.extend(MCWidget.prototype, {
+  setCountry: function(code) {
+    var country = _.findWhere(Settings.tagSet, { code: code });
+    if (country) {
+      this.data.set({ country: country });
+    }
+  }
+});
 
 MediaCloud = {
   widget: {

@@ -1,6 +1,6 @@
 <template name="WikiEditCountsWidget">
   <h1>Wikipedia Edits</h1>
-  <p>Edits in the last {{ binWidth }} seconds to {{ channel.name }} Wikipedia</p>
+  <p>Edits in the last {{ binWidth }} seconds to {{ channelName }} Wikipedia</p>
   {{# unless Template.subscriptionsReady }}
     {{ widgetLoading }}
   {{/unless}}

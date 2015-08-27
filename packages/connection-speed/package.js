@@ -10,7 +10,8 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
 
-  api.use(['imon-data', 'underscore', 'jquery', 'widget', 'mongo','aldeed:simple-schema']);
+  api.use(['imon-data', 'underscore', 'jquery', 'widget', 'mongo', 'country-info',
+      'aldeed:simple-schema']);
   api.use(['templating', 'd3js:d3'], 'client');
 
   api.addFiles(['connection_speed.js']);

@@ -30,3 +30,7 @@
 .web-threats .web-threats .line {
   stroke: #9467bd;
 }
+
+.kaspersky .no-data {
+  padding-top: 1.5em;
+}

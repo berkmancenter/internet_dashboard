@@ -9,10 +9,14 @@ WikiEdits._createCappedCollection(Settings.maxCollectionSpace, Settings.maxColle
 var wikichanges = Npm.require('wikichanges');
 
 Wikipedias = _.map(_.keys(wikichanges.wikipedias), function(channelName) {
-  return { channel: channelName, name: wikichanges.wikipedias[channelName].long };
+  return {
+    channel: channelName,
+    name: wikichanges.wikipedias[channelName].long,
+    code: wikichanges.wikipedias[channelName].short,
+  };
 });
 
-Wikipedias.push({ channel: '#all', name: 'All Wikipedia' });
+Wikipedias.push({ channel: '#all', name: 'All Wikipedia', code: 'zz' });
 
 var changeListener = new wikichanges.WikiChanges({ircNickname: 'internet-dashboard'});
 

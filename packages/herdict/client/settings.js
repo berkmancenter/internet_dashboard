@@ -1,5 +1,5 @@
 Template.HerdictSettings.helpers({
-  countries: function() { return Countries; },
+  countries: function() { return CountryInfo.countries; },
   categories: function() { return Settings.categories; },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
 });

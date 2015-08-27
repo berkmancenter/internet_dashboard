@@ -40,6 +40,11 @@ HerdictWidget = function(doc) {
 
 HerdictWidget.prototype = Object.create(Widget.prototype);
 HerdictWidget.prototype.constructor = HerdictWidget;
+_.extend(HerdictWidget.prototype, {
+  setCountry: function(code) {
+    this.data.set({ country: _.findWhere(CountryInfo.countries, { code: code }) });
+  }
+});
 
 Herdict = {
   widget: {
