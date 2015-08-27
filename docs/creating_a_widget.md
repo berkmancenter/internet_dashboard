@@ -128,6 +128,25 @@ widgetInstance.set({
 });
 ```
 
+### Integrating with Global Country Setting
+
+The dashboard provides users the ability to set a country across a number of widgets at once where relevant. If you create a widget that has a geographic component to it, you should integrate with this feature. If you do not implement `setCountry`, users will not be able to select your widget when choosing the widgets to alter.
+
+All it takes to achieve this integration is to provide a `setCountry` method on your widget that takes an ISO 3166-1 alpha-2 country code and performs whatever operations are necessary to show the relevant info.
+
+The dashboard also provides a `country-info` package that can help resolve country codes to broader country information like language, region, continent, currency, etc. You can add it by adding `country-info` as a package dependency. See the `country-info` package's source for hints on how to use it.
+
+An example of providing `setCountry`:
+
+```javascript
+ExampleWidget.prototype.setCountry = function(countryCode) {
+  var widget = this;
+  CountryInfo.byCode(countryCode, function(country) {
+    widget.data.set({ country: { code: country.code, name: country.name } });
+  });
+};
+```
+
 HTML Templates
 --------------
 
