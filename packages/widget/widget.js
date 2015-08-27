@@ -41,7 +41,8 @@ _.extend(Widget.prototype, {
   },
   clone: function() {
     return Widget.construct(_.omit(this.toJSON(), ['_id']));
-  }
+  },
+  setCountry: function() {}
 });
 
 // Static methods

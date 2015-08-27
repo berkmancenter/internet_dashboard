@@ -4,11 +4,13 @@
 
     {{# if selecting }}
     <div class="selecting-cover">
+      {{# if selectable }}
       <div class="checkbox checkbox-warning checkbox-big select-check">
         <input type="checkbox" id="{{ componentId 'select' }}"
                name="{{ componentId 'select' }}" value="{{ _id }}" />
         <label for="{{ componentId 'select' }}"></label>
       </div>
+      {{/if}}
     </div>
     {{/if}}
 

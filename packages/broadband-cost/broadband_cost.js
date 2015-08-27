@@ -28,8 +28,13 @@ BroadbandCostWidget.prototype = Object.create(Widget.prototype);
 BroadbandCostWidget.prototype.constructor = BroadbandCostWidget;
 
 _.extend(BroadbandCostWidget.prototype, {
-  // FIXME Implement this
-  onCountryChange: function(newCountry) { return true; },
+  setCountry: function(countryCode) {
+    var widget = this;
+    CountryInfo.byCode(countryCode, function(country) {
+      var code = country.alpha3.toLowerCase();
+      widget.data.set({ country: IMonCountries.findOne({ code: code }) });
+    });
+  },
   getCountry: function() {
     return IMonCountries.findOne({ code: this.data.country.code });
   },

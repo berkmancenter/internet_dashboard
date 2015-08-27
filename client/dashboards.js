@@ -10,10 +10,23 @@ Template.DashboardsShow.helpers({
   },
   duplicating: function() { return Session.get('duplicating'); },
   duplicatingState: function() {
-    return Session.get('duplicating') ? 'duplicating' : '';
+    return Session.get('duplicating') ? 'active' : '';
   },
   duplicatingTitle: function() {
     return Session.get('duplicating') ? 'Copy Widgets' : 'Click to Finish';
+  },
+  settingCountry: function() { return Session.get('setting-country'); },
+  settingCountryState: function() {
+    return Session.get('setting-country') ? 'active' : '';
+  },
+  settingCountryTitle: function() {
+    return Session.get('setting-country') ? 'Set country for multiple widgets' :
+      'Click to finish';
+  },
+  countries: function() {
+    return _.map(CountryCodes.getList(), function(name, code) {
+      return { name: name, code: code };
+    });
   }
 });
 
@@ -53,14 +66,28 @@ Template.DashboardsShow.events({
     if (Session.get('duplicating')) {
       Session.set('duplicating', false);
       template.selectionMode.off();
-      var selected = Session.get('selected');
       var dashboard = this;
-      _.each(selected, function(id) {
-        dashboard.addWidget(Widgets.findOne(id).clone());
+      template.selectionMode.selected().forEach(function(widget) {
+        dashboard.addWidget(widget.clone());
       });
     } else {
       Session.set('duplicating', true);
       template.selectionMode.on();
+    }
+  },
+  'click .btn-dash-set-country': function(ev, template) {
+    var dashboard = this;
+    if (Session.get('setting-country')) {
+      Session.set('setting-country', false);
+      template.selectionMode.off();
+      var countryCode = template.$('#set-country-country').val();
+      template.selectionMode.selected().forEach(function(widget) {
+        widget.setCountry(countryCode);
+      });
+    } else {
+      Session.set('setting-country', true);
+      var selectable = _.pluck(dashboard.widgetsProviding('setCountry'), '_id');
+      template.selectionMode.on(selectable);
     }
   }
 });
@@ -78,12 +105,15 @@ var serializePositions = function($widget, position) {
 };
 
 var selectionMode = {
-  on: function() {
+  on: function(selectable) {
+    selectable = selectable || Widgets.find().map(function(w) { return w._id; });
     Session.set('selecting', true);
+    Session.set('selectable', selectable);
     Session.set('selected', []);
   },
   off: function() {
     Session.set('selecting', false);
+    Session.set('selectable', []);
   },
   toggle: function() {
     if (Session.get('selecting')) {
@@ -91,7 +121,10 @@ var selectionMode = {
     } else {
       selectionMode.on();
     }
-  }
+  },
+  selected: function() {
+    return Widgets.find({ _id: { $in: Session.get('selected') } });
+  },
 };
 
 Template.DashboardsShow.onCreated(function() {

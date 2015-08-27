@@ -13,6 +13,11 @@ _.extend(Dashboard.prototype, {
   widgets: function() {
     return Widgets.find({ dashboardId: this._id });
   },
+  widgetsProviding: function(functionName) {
+    return _.filter(this.widgets().fetch(), function(widget) {
+      return _.has(Object.getPrototypeOf(widget), functionName);
+    });
+  },
   isOwned: function() {
     return !!this.ownerId;
   },
