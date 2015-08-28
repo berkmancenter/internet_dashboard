@@ -4,7 +4,7 @@ var url = function(args) {
 };
 
 var updateData = function() {
-  _.each(Countries, function(country) {
+  _.each(CountryInfo.countries, function(country) {
 
     console.log('Herdict: Fetching ' + country.name);
 
