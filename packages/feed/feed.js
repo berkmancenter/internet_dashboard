@@ -49,7 +49,7 @@ FeedWidget = function(doc) {
   Widget.call(this, doc);
 
   _.defaults(this.data, {
-    feedUrl: ''
+    feedUrl: '',
   });
 };
 FeedWidget.prototype = Object.create(Widget.prototype);
