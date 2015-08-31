@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
 
   api.use(['imon-data', 'underscore', 'jquery', 'widget', 'mongo',
-      'country-info', 'aldeed:simple-schema']);
+      'country-info', 'aldeed:collection2']);
   api.use(['templating', 'fortawesome:fontawesome@4.3.0'], 'client');
 
   api.addFiles(['percent_online.js']);

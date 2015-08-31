@@ -10,7 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
   api.use(['html-scraper'], 'server');
-  api.use(['underscore', 'mongo','aldeed:simple-schema']);
+  api.use(['underscore', 'mongo','aldeed:collection2']);
 
   api.addFiles(['imon-data.js']);
   api.addFiles(['server/seed.js'], 'server');
