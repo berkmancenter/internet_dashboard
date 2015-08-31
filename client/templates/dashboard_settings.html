@@ -24,6 +24,21 @@
             <span class="help-block">Give this dashboard a name</span>
           </div>
         </div>
+        <dl>
+          <dt>Owner</dt>
+          <dd>
+          {{# if isOwned }}
+            {{# if iAmOwner }}
+            You own this dashboard.
+            {{else}}
+            {{ owner.username }}
+            {{/if}}
+          {{else}}
+            This dashboard was created anonymously. Anyone with the link can view and
+            edit this dashboard.
+          {{/if}}
+          </dd>
+        </dl>
         {{# if iAmOwner }}
         <div class="checkbox">
           <input type="checkbox" id="dash-public-edit" checked="{{ publiclyEditable }}">

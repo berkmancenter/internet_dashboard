@@ -27,6 +27,9 @@ _.extend(Dashboard.prototype, {
   iAmOwner: function() {
     return Meteor.user() && this.isOwned() && this.ownedBy(Meteor.user());
   },
+  owner: function() {
+    return Meteor.users.findOne(this.ownerId);
+  },
   ownedBy: function(user) {
     return !!user && user._id === this.ownerId;
   },
@@ -43,7 +46,7 @@ _.extend(Dashboard.prototype, {
     } else {
       return true;
     }
-  }
+  },
 });
 
 Dashboards = new Mongo.Collection('dashboards', {
