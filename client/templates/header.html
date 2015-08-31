@@ -8,6 +8,12 @@
           </a>
         </div>
         <div class="navbar-right">
+          {{# if onDashboard }}
+          <a class="btn btn-warning navbar-btn new-dashboard" id="copy-dashboard"
+             title="Make a new copy of this dashboard">
+            Duplicate
+          </a>
+          {{/if}}
           {{# if notHome }}
           <a class="btn btn-success navbar-btn new-dashboard"
              href="{{ pathFor route='dashboards.new' }}">

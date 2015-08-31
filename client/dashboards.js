@@ -3,10 +3,10 @@ Template.DashboardsShow.helpers({
     console.log('rendered dash');
   },
   widgets: function() {
-    return Widgets.find();
+    return Widgets.find({ dashboardId: this._id });
   },
   noWidgets: function() {
-    return Widgets.find().count() === 0;
+    return Widgets.find({ dashboardId: this._id }).count() === 0;
   },
   duplicating: function() { return Session.get('duplicating'); },
   duplicatingState: function() {
@@ -63,16 +63,18 @@ Template.DashboardsShow.events({
     template.closeAllPopovers(except);
   },
   'click .btn-dash-duplicate': function(ev, template) {
+    var dashboard = this;
+
     if (Session.get('duplicating')) {
       Session.set('duplicating', false);
       template.selectionMode.off();
-      var dashboard = this;
       template.selectionMode.selected().forEach(function(widget) {
-        dashboard.addWidget(widget.clone());
+        dashboard.addWidget(widget.copy());
       });
     } else {
       Session.set('duplicating', true);
-      template.selectionMode.on();
+      var selectable = _.pluck(dashboard.widgets().fetch(), '_id');
+      template.selectionMode.on(selectable);
     }
   },
   'click .btn-dash-set-country': function(ev, template) {
@@ -106,7 +108,6 @@ var serializePositions = function($widget, position) {
 
 var selectionMode = {
   on: function(selectable) {
-    selectable = selectable || Widgets.find().map(function(w) { return w._id; });
     Session.set('selecting', true);
     Session.set('selectable', selectable);
     Session.set('selected', []);
@@ -114,13 +115,6 @@ var selectionMode = {
   off: function() {
     Session.set('selecting', false);
     Session.set('selectable', []);
-  },
-  toggle: function() {
-    if (Session.get('selecting')) {
-      selectionMode.off();
-    } else {
-      selectionMode.on();
-    }
   },
   selected: function() {
     return Widgets.find({ _id: { $in: Session.get('selected') } });

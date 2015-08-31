@@ -10,10 +10,7 @@ Widget = function(doc) {
 
 _.extend(Widget.prototype, {
   toJSON: function() {
-    var widget = _.pick(this, [
-      '_id', 'packageName', 'dashboardId', 'height', 'width',
-      'resize', 'position', 'data'
-    ]);
+    var widget = Widgets.simpleSchema().clean(_.clone(this));
     widget.data = this.data.toJSON();
     return widget;
   },
@@ -39,7 +36,7 @@ _.extend(Widget.prototype, {
         dashboard.gutter * (gridDims.height - 1)
     };
   },
-  clone: function() {
+  copy: function() {
     return Widget.construct(_.omit(this.toJSON(), ['_id']));
   },
   setCountry: function() {}
@@ -155,7 +152,5 @@ Widgets.attachSchema(new SimpleSchema({
 }));
 
 Widgets.updatePositions = function(positions) {
-  if (Dashboards.findOne().editable()) {
-    Meteor.call('updateWidgetPositions', positions);
-  }
+  Meteor.call('updateWidgetPositions', positions);
 };

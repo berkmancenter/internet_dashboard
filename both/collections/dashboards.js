@@ -39,6 +39,12 @@ _.extend(Dashboard.prototype, {
   editableBy: function(user) {
     return this.publiclyEditable || (!!user && _.contains(this.editorIds, user._id));
   },
+  copy: function(callback) {
+    var dashboard = this;
+    Meteor.call('copyDashboard', dashboard._id, function(error, newId) {
+      callback && callback.apply(dashboard, [error, newId]);
+    });
+  },
   authorize: function() {
     if (!this.editableBy(Meteor.user())) {
       throw new Meteor.Error('not-owner',
