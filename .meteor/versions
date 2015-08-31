@@ -80,6 +80,8 @@ msavin:mongol@1.1.5
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
+ostrio:iron-router-helper-class@1.0.0
+ostrio:iron-router-title@1.0.0
 percent-online@0.0.1
 random@1.0.3
 reactive-dict@1.1.0

@@ -18,6 +18,9 @@ _.extend(Dashboard.prototype, {
       return _.has(Object.getPrototypeOf(widget), functionName);
     });
   },
+  getTitle: function() {
+    return this.title || 'Dashboard ' + this._id.slice(0, 5);
+  },
   isOwned: function() {
     return !!this.ownerId;
   },

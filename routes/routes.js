@@ -1,14 +1,29 @@
+// From https://github.com/iron-meteor/iron-router/issues/1189
+RouteController.prototype.redirect = function (routeOrPath, params, options) {
+    options = options || {};
+    if (!options.hasOwnProperty("replaceState")) {
+        options.replaceState = true;
+    }
+    return this.router.go(routeOrPath, params, options);
+};
+
 Router.configure({
-  layoutTemplate: 'ApplicationLayout'
+  layoutTemplate: 'ApplicationLayout',
+  title: 'Internet Monitor Dashboard'
 });
 
-Router.route('/', { name: 'home' });
+Router.route('/', {
+  name: 'home',
+  title: 'Home | Internet Monitor Dashboard'
+});
 
 Router.route('/dashboards/new', {
   name: 'dashboards.new',
   action: function() {
+    // We don't want the new dashboard URL to show up in history
+    var router = this;
     Meteor.call('newDashboard', function(error, id) {
-      Router.go('dashboards.show', { _id: id });
+      router.redirect('dashboards.show', { _id: id });
     });
   }
 });
@@ -25,6 +40,12 @@ Router.route('/dashboards/:_id', {
   },
   data: function() {
     return Dashboards.findOne(this.params._id);
+  },
+  title: function() {
+    if (this.data()) {
+      return this.data().getTitle() + ' | Internet Monitor Dashboard';
+    }
+    return 'Dashboard | Internet Monitor Dashboard';
   }
 });
 
@@ -38,7 +59,8 @@ Router.route('/users/me', {
   },
   data: function() {
     return Meteor.user();
-  }
+  },
+  title: 'My Profile | Internet Monitor Dashboard'
 });
 
 Router.route('/users/me/dashboards', {
@@ -55,7 +77,8 @@ Router.route('/users/me/dashboards', {
       user: Meteor.user(),
       dashboards: Dashboards.find({ ownerId: Meteor.userId() })
     };
-  }
+  },
+  title: 'My Dashboards | Internet Monitor Dashboard'
 });
 
 Router.plugin('ensureSignedIn', {
