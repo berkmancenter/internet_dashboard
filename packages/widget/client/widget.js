@@ -24,6 +24,9 @@ Template.WidgetShow.helpers(_.extend(CommonHelpers, {
   selecting: function() { return Session.get('selecting'); },
   selectable: function() {
     return _.contains(Session.get('selectable'), this._id);
+  },
+  categoryStyle: function() {
+    return 'background-color: ' + tinycolor(this.category().color).lighten(20);
   }
 }));
 

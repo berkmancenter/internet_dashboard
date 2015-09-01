@@ -45,6 +45,7 @@ MediaCloud = {
     description: 'Shows a word cloud of news topics from the past week from each country',
     url: 'http://mediacloud.org',
     dimensions: { width: 2, height: 2 },
+    category: 'activity',
     constructor: MCWidget,
   },
   org: {

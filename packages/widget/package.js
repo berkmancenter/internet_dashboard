@@ -10,7 +10,9 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
 
-  api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router']);
+  api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router',
+      'aramk:tinycolor'
+  ]);
   api.use(['templating'], 'client');
 
   api.addFiles([

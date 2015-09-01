@@ -20,11 +20,12 @@
           <div class="btn-group sort-by-btn-group" role="group" aria-label="Sort by">
             <button type="button" data-sort-by="original-order" class="active btn btn-default">Featured</button>
             <button type="button" data-sort-by="name" class="btn btn-default">Name</button>
+            <button type="button" data-sort-by="category" class="btn btn-default">Category</button>
             <button type="button" data-sort-by="org" class="btn btn-default">Data Provider</button>
           </div>
         </div>
         <ul class="add-widget-grid">
-        {{# each availableWidgets }}
+        {{# each widgetPackages }}
           <li class="addable-widget">
             <div class="checkbox checkbox-success checkbox-big">
               <input type="checkbox" id="checkbox-{{ packageName }}">
@@ -32,12 +33,21 @@
             </div>
             <h2>{{ metadata.widget.name }}</h2>
             <p>{{ metadata.widget.description }}</p>
-            {{# if metadata.org }}
-            <small class="provided-by">
-              Data provided by
-              <a href="{{ metadata.org.url }}" target="_blank">{{ metadata.org.name }}</a>
-            </small>
-            {{/if}}
+            <footer>
+              {{# if metadata.org }}
+              <div class="provided-by">
+                <small>
+                  Data provided by
+                  <a href="{{ metadata.org.url }}" target="_blank">{{ metadata.org.name }}</a>
+                </small>
+              </div>
+              {{/if}}
+              {{# if metadata.widget.category }}
+                <div class="package-category" style="{{ categoryStyle }}">
+                  <small>{{ category.name }}</small>
+                </div>
+              {{/if}}
+            </footer>
           </li>
         {{/each}}
         </ul>

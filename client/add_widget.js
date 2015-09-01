@@ -6,7 +6,8 @@ Template.DashboardsAdd.onRendered(function() {
     isInitLayout: false,
     getSortData: {
       name: 'h2',
-      org: function(elem) { return $(elem).find('.provided-by a').text() || 'ZZZZ'; }
+      org: function(elem) { return $(elem).find('.provided-by a').text() || 'ZZZZ'; },
+      category: function(elem) { return $(elem).find('.package-category').text() || 'ZZZZ'; }
     }
   });
   template.$('.modal-body > *').css('visibility', 'hidden');
@@ -17,8 +18,11 @@ Template.DashboardsAdd.onRendered(function() {
 });
 
 Template.DashboardsAdd.helpers({
-  availableWidgets: function() {
+  widgetPackages: function() {
     return WidgetPackages.find({}, { sort: { sortPosition: 1 } });
+  },
+  categoryStyle: function() {
+    return 'background-color: ' + tinycolor(this.category().color).lighten(35);
   }
 });
 

@@ -39,7 +39,10 @@ _.extend(Widget.prototype, {
   copy: function() {
     return Widget.construct(_.omit(this.toJSON(), ['_id']));
   },
-  setCountry: function() {}
+  setCountry: function() {},
+  category: function() {
+    return this.package.category();
+  }
 });
 
 // Static methods
@@ -62,7 +65,24 @@ _.extend(Widget, {
     return new widgetInfo.constructor(doc);
   },
   Settings: {
-    titleBar: { height: 20 }
+    titleBar: { height: 20 },
+    categories: [
+      {
+        slug: 'access',
+        name: 'Access/Infrastructure',
+        color: '#F15C23'
+      },
+      {
+        slug: 'control',
+        name: 'Control',
+        color: '#5EC1A5'
+      },
+      {
+        slug: 'activity',
+        name: 'Activity',
+        color: '#AAA04E'
+      }
+    ]
   }
 });
 

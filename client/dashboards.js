@@ -170,7 +170,7 @@ Template.DashboardsShow.onRendered(function() {
       stop: self.onWidgetResize.stop
     },
     draggable: {
-      handle: '.title-bar',
+      handle: '.title-bar, .title-bar *:not(a)',
       start: self.onWidgetDrag.start,
       stop: self.onWidgetDrag.stop
     }

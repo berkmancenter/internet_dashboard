@@ -12,6 +12,11 @@ _.extend(WidgetPackage.prototype, {
   },
   metadata: function() {
     return Package[this.packageName][this.exportedVar];
+  },
+  category: function() {
+    var slug = this.metadata().widget.category;
+    if (!slug) { return; }
+    return _.findWhere(Widget.Settings.categories, { slug: slug.toLowerCase() });
   }
 });
 
