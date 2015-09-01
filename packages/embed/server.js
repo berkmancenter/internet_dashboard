@@ -5,11 +5,13 @@ Meteor.methods({
     var cleanContent = sanitize(content, {
       allowedTags: ['iframe'],
       allowedAttributes: {
-        'iframe': ['width', 'height', 'src', 'allowfullscreen']
+        'iframe': ['width', 'height', 'src', 'allowfullscreen',
+                   'sandbox', 'frameborder']
       },
       transformTags: {
         'iframe':
-          sanitize.simpleTransform('iframe', { sandbox: '', frameborder: 0 })
+          sanitize.simpleTransform('iframe',
+              { sandbox: 'allow-scripts allow-same-origin', frameborder: 0 })
       }
     });
     widget.data.set({ embedCode: cleanContent });

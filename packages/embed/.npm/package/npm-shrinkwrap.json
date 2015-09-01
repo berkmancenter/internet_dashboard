@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "sanitize-html": {
-      "version": "1.7.2",
+      "version": "1.10.0",
       "dependencies": {
         "htmlparser2": {
           "version": "3.8.3",

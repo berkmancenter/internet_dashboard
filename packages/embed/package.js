@@ -20,4 +20,4 @@ Package.onUse(function(api) {
   api.export('Embed');
 });
 
-Npm.depends({ 'sanitize-html': '1.7.2' });
+Npm.depends({ 'sanitize-html': '1.10.0' });
