@@ -5,6 +5,10 @@ Settings = {
   dataOldAfter: moment.duration({ days: 5 })
 };
 
+if (Meteor.isClient) {
+  TorCountries = new Mongo.Collection('tor_countries');
+}
+
 TorData = new Meteor.Collection('tor_data');
 TorData.attachSchema(new SimpleSchema({
   date: { type: Date },
@@ -23,6 +27,12 @@ TorClientsWidget = function(doc) {
 };
 TorClientsWidget.prototype = Object.create(Widget.prototype);
 TorClientsWidget.prototype.constructor = TorClientsWidget;
+
+_.extend(TorClientsWidget.prototype, {
+  setCountry: function(countryCode) {
+    this.data.set({ countryCode: countryCode.toLowerCase() });
+  }
+});
 
 TorClients = {
   widget: {
