@@ -53,6 +53,7 @@ Herdict = {
     url: 'http://herdict.org/explore/indepth',
     dimensions: { width: 2, height: 2 },
     constructor: HerdictWidget,
+    category: 'control'
   },
   org: {
     name: 'Herdict',

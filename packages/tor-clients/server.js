@@ -1,8 +1,11 @@
 var updateData = function() {
   console.log('TorClients: Updating data');
   HTTP.get(Settings.dataUrl, function(error, result) {
-    if (error) { console.log(error); }
-    if (result && result.statusCode !== 200) { console.log(result.statusCode); }
+    if (error) { console.log(error); return; }
+    if (result && result.statusCode !== 200) {
+      console.log(result.statusCode);
+      return;
+    }
 
     TorData.remove({});
 

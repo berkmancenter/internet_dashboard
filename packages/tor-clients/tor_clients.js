@@ -30,6 +30,7 @@ TorClients = {
     description: 'Shows the daily average number of clients connecting to the Tor network from each country',
     url: 'https://metrics.torproject.org/clients-data.html',
     dimensions: { width: 2, height: 1 },
+    category: 'access',
     constructor: TorClientsWidget
   },
   org: {

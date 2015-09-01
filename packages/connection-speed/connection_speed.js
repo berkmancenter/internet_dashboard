@@ -44,6 +44,7 @@ ConnectionSpeed = {
     description: "Shows how quickly (in kilobits per second) data can be transferred from the Internet to a local computer",
     url: 'https://thenetmonitor.org/sources#akamai',
     dimensions: { width: 2, height: 2 },
+    category: 'access',
     constructor: ConnectionSpeedWidget,
   },
   org: {

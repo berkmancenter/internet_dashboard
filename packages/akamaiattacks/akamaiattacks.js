@@ -27,6 +27,7 @@ AkamaiAttacks = {
     description: 'Shows country-level inbound network attack information',
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
     dimensions: { width: 3, height: 2 },
+    category: 'control',
     constructor: AttacksWidget
   }
 };

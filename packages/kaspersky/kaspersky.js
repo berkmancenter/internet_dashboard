@@ -80,6 +80,7 @@ Kaspersky = {
     description: 'Shows hourly spam, attack, and infection data by country',
     url: 'https://cybermap.kaspersky.com/',
     dimensions: { width: 2, height: 3 },
+    category: 'control',
     constructor: KasperskyWidget
   },
   org: {

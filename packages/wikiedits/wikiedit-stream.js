@@ -37,6 +37,7 @@ WikiStream = {
     url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
     dimensions: { width: 2, height: 2 },
     resize: { mode: 'reflow' },
+    category: 'activity',
     constructor: WikiWidget
   },
   org: {

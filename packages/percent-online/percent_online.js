@@ -45,7 +45,8 @@ PercentOnline = {
     description: 'Shows the percent of a country\'s population using the Internet regularly',
     url: 'https://thenetmonitor.org/sources#itu',
     dimensions: { width: 2, height: 1 },
-    constructor: PercentOnlineWidget
+    constructor: PercentOnlineWidget,
+    category: 'access'
   },
   org: {
     name: 'International Telecommunications Union',

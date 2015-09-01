@@ -37,6 +37,7 @@ AccessIndex = {
     description: 'Shows the Internet Monitor Access rank and score for countries',
     url: 'https://thenetmonitor.org/faq/a-hackable-access-index',
     dimensions: { width: 2, height: 2 },
+    category: 'access',
     constructor: AccessWidget
   },
   org: {

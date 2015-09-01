@@ -45,6 +45,7 @@ WikiEditCounts = {
     description: 'Shows a streaming graph of the number of edits to each language\'s Wikipedia',
     url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
     dimensions: { width: 2, height: 1 },
+    category: 'activity',
     constructor: WikiWidget
   },
   org: {

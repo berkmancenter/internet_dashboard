@@ -24,6 +24,7 @@ AkamaiTraffic2 = {
     description: 'Shows which countries are above their typical averages in terms of bytes delivered by Akamai',
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
     dimensions: { width: 3, height: 2 },
+    category: 'access',
     constructor: TrafficWidget
   },
   org: {
