@@ -56,7 +56,7 @@ Npm.depends({
 Exported Object
 ---------------
 
-The object your package exports must have the following properties:
+The object your package exports may have the following properties:
 * __widget.name__: the title of the widget as you want it to appear in the dashboard
 * __widget.description__: a paragraph-length description of the widget
 * __widget.url__: a URL users can visit to learn more about the data backing the widget
@@ -67,6 +67,7 @@ The object your package exports must have the following properties:
 * __widget.resize.constraints.width.max__: *optional* - the maximum width of your widget in number of columns
 * __widget.resize.constraints.height.min__: *optional* - the minimum height of your widget in number of rows
 * __widget.resize.constraints.height.max__: *optional* - the maximum height of your widget in number of rows
+* __widget.category__: *optional* - the type of data this widget is showing: `access`, `activity`, or `control`
 * __widget.constructor__: the function to be called when a new widget instance is to be created
 * __org.name__: the official name of the organization contributing this widget
 * __org.shortName__: a short name to be used in space-constrained use cases
@@ -80,7 +81,8 @@ Example = {
     description: 'This widget is just an example of what a widget might look like.',
     url: 'http://example.com/data',
     dimensions: { width: 2, height: 1 },
-    resize: { mode: 'scale', constraints: { width: { min: 2, max: 3 } } }
+    resize: { mode: 'scale', constraints: { width: { min: 2, max: 3 } } },
+    category: 'access',
     constructor: ExampleWidget
   },
   org: {
