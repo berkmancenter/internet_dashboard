@@ -1,6 +1,9 @@
 var updateData = function() {
   console.log('TorClients: Updating data');
-  HTTP.get(Settings.dataUrl, function(error, result) {
+  var options = {
+    timeout: 10 * 1000
+  };
+  HTTP.get(Settings.dataUrl, options, function(error, result) {
     if (error) { console.log(error); return; }
     if (result && result.statusCode !== 200) {
       console.log(result.statusCode);
@@ -40,8 +43,8 @@ var maxDateInDB = function() {
   return date;
 };
 
-if (TorData.find().count() === 0
-    || moment(maxDateInDB()).add(Settings.dataOldAfter).isBefore(moment())) {
+if (TorData.find().count() === 0 ||
+    moment(maxDateInDB()).add(Settings.dataOldAfter).isBefore(moment())) {
   updateData();
 } else {
   console.log('TorClients: Not updating data - most recent from ' +

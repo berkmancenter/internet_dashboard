@@ -16,7 +16,7 @@ var metricsCurrent = function() {
     if (!country.metrics || !country.metrics[metric.code]) {
       return false;
     }
-    
+
     return moment(country.metrics[metric.code][0].updatedAt)
         .isAfter(moment.utc().subtract(Settings.updateEvery));
   });
@@ -54,10 +54,18 @@ var parseCountryData = function(response, country, metric) {
 };
 
 var fetchCountryData = function(country, metric) {
-  HTTP.get(countryUrl(country, metric), function(error, response) {
+  var options = {
+    timeout: 2 * 1000, 
+    headers: {
+      'User-Agent': 'InternetMonitorDashboard/1.0 KasperskyWidget/0.1'
+    }
+  };
+
+  HTTP.get(countryUrl(country, metric), options, function(error, response) {
     if (error) {
       if (!error.response || error.response.statusCode !== 404) {
-        throw new Error(error);
+        console.log('Kaspersky: Error fetching ' + countryUrl(country, metric));
+        //throw new Error(error);
       }
       //console.log('Kaspersky: ' + metric.name + ' data not available for ' + country.name);
       return false;

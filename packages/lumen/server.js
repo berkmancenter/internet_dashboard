@@ -26,7 +26,7 @@ var binRequest = function(bin) {
       headers: {
         AUTHENTICATION_TOKEN: Settings.authToken,
         Accept: 'application/json',
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       },
       params: {
         per_page: 1,
@@ -45,12 +45,14 @@ var countNoticeUrls = function(notice) {
 var countBinUrls = function(bin) {
   var request = binRequest(bin);
   request.options.params.per_page = Settings.perPage;
+  request.options.timeout = 10 * 1000;
   var totalPages = HTTP.get(request.url, request.options).data.meta.total_pages;
 
   _(totalPages).times(function(i) {
     var page = i + 1;
     request.options.params.page = page;
-    console.log('Lumen: Fetching url counts (page ' + page + ' of ' + totalPages + 
+    request.options.timeout = 10 * 1000;
+    console.log('Lumen: Fetching url counts (page ' + page + ' of ' + totalPages +
         ') from ' + new Date(bin.end).toUTCString() + ' to ' +
         new Date(bin.start).toUTCString());
     var result = HTTP.get(request.url, request.options);
@@ -59,7 +61,7 @@ var countBinUrls = function(bin) {
     });
   });
   return bin.urlCount;
-}
+};
 
 var updateLumenCounts = function() {
   console.log('Lumen: Fetching notice counts');
@@ -69,6 +71,7 @@ var updateLumenCounts = function() {
 
   _.each(bins, function(bin) {
     var request = binRequest(bin);
+    request.options.timeout = 10 * 1000;
     HTTP.get(request.url, request.options, function(err, result) {
       bin.noticeCount = result.data.meta.total_entries;
       if (Settings.countUrls) {

@@ -1,26 +1,20 @@
 Settings = {
   defaultCountry: { code: 'US', name: 'United States' },
-  shownWords: 20,
-  countCutoff: 0,
-  tagSet: EMMCountries,
-  cloud: {
-    heightMulti: 130,
-    widthMulti: 158,
-    maxRotation: 40,
-    fontScale: [8, 30]
-  },
+  defaultTerm: 'Internet',
+  tagSet: EMMCountries
 };
 
-MCWidget = function(doc) {
+MCStoryWidget = function(doc) {
   Widget.call(this, doc);
 
   _.defaults(this.data, {
-    country: Settings.defaultCountry
+    country: Settings.defaultCountry,
+    term: Settings.defaultTerm
   });
 };
-MCWidget.prototype = Object.create(Widget.prototype);
-MCWidget.prototype.constructor = MCWidget;
-_.extend(MCWidget.prototype, {
+MCStoryWidget.prototype = Object.create(Widget.prototype);
+MCStoryWidget.prototype.constructor = MCStoryWidget;
+_.extend(MCStoryWidget.prototype, {
   setCountry: function(code) {
     var country = _.findWhere(Settings.tagSet, { code: code });
     if (country) {
@@ -29,14 +23,14 @@ _.extend(MCWidget.prototype, {
   }
 });
 
-MediaCloud = {
+MediaCloudStories = {
   widget: {
-    name: 'News Topics',
-    description: 'Shows a word cloud of news topics from the past week from each country',
+    name: 'Term Usage',
+    description: 'Shows a list of recent articles from a selected country that include a selected term',
     url: 'http://mediacloud.org',
     dimensions: { width: 2, height: 2 },
     category: 'activity',
-    constructor: MCWidget,
+    constructor: MCStoryWidget,
   },
   org: {
     name: 'Media Cloud',

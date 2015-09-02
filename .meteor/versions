@@ -66,6 +66,7 @@ logging@1.0.7
 lookback:body-class@0.3.0
 lumen@0.0.1
 mediacloud@0.0.1
+mediacloud-data@0.0.1
 meteor@1.1.6
 meteor-platform@1.2.2
 meteorhacks:aggregate@1.2.1

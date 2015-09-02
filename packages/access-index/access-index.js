@@ -23,7 +23,7 @@ _.extend(AccessWidget.prototype, {
     var widget = this;
     CountryInfo.byCode(code, function(country) {
       var code = country.alpha3.toLowerCase();
-      var country = IMonCountries.findOne({ code: code });
+      country = IMonCountries.findOne({ code: code });
       if (country) {
         widget.data.set({ country: country });
       }

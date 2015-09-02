@@ -48,8 +48,8 @@ var BinningJob = function(channel, binWidth, runEvery) {
   this.channel = channel;
   this.binWidth = binWidth;
   this.runEvery = runEvery || Settings.updateEvery;
-  console.log('Wikiedits: Add binning job - ' + this.channel
-      + ', ' + this.binWidth + ', ' + this.runEvery);
+  console.log('Wikiedits: Add binning job - ' + this.channel +
+      ', ' + this.binWidth + ', ' + this.runEvery);
 
   var insertCall = function() {
     insertBin(channel, binWidth);
@@ -60,8 +60,8 @@ var BinningJob = function(channel, binWidth, runEvery) {
   binningJobs.push(this);
 };
 BinningJob.prototype.cancel = function() {
-  console.log('Wikiedits: Cancel binning job - ' + this.channel
-      + ', ' + this.binWidth + ', ' + this.runEvery);
+  console.log('Wikiedits: Cancel binning job - ' + this.channel +
+      ', ' + this.binWidth + ', ' + this.runEvery);
   Meteor.clearTimeout(this.timerId);
   binningJobs = _.without(binningJobs, this);
 };

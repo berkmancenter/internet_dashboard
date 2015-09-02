@@ -1,5 +1,5 @@
 Template.MediaCloudSettings.helpers({
-  countries: function() { return Settings.tagSet },
+  countries: function() { return Settings.tagSet; },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
 });
 

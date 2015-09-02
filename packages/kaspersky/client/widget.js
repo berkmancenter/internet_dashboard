@@ -4,6 +4,13 @@ Template.KasperskyWidget.onCreated(function() {
 
 Template.KasperskyWidget.onRendered(function() {
   var template = this;
+  var hideGraph = function($graph) {
+    $graph.find('svg').hide();
+    if ($graph.find('.no-data').length === 0) {
+      $graph.append('<p class="no-data">No data available.</p>');
+    }
+  };
+
   this.autorun(function() {
     if (!template.subscriptionsReady()) {
       return;
@@ -13,13 +20,16 @@ Template.KasperskyWidget.onRendered(function() {
     if (!country) { return; }
 
     _.each(Settings.metrics, function(metric) {
-      var data = country.metrics[metric.code];
       var $graph = template.$(metric.sel);
+
+      if (_.isUndefined(country.metrics)) {
+        hideGraph($graph);
+        return;
+      }
+
+      var data = country.metrics[metric.code];
       if (_.isEmpty(data)) {
-        $graph.find('svg').hide();
-        if ($graph.find('.no-data').length === 0) {
-          $graph.append('<p class="no-data">No data available.</p>');
-        }
+        hideGraph($graph);
         return;
       } else {
         $graph.find('.no-data').remove();

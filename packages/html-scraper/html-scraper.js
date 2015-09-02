@@ -6,7 +6,8 @@ HTMLScraper = {
       proxy: false,
       proxyHost: '127.0.0.1',
       proxyPort: 2020,
-      proxyType: 5
+      proxyType: 5,
+      timeout: 15 * 1000,
     });
 
     var callOptions = {};
