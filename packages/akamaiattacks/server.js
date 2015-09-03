@@ -1,3 +1,5 @@
+var Future = Npm.require('fibers/future');
+
 CountryAttacks.attachSchema(new SimpleSchema({
   regionId: {
     type: String
@@ -82,26 +84,31 @@ var dataToDocs = function(xmlData) {
 };
 
 var fetchData = function() {
-  var xmlData = HTTP.get(Settings.feedUrl);
-  var content = '<xml>' + xmlData.content + '</xml>'; 
+  console.log('AkamaiAttacks: Fetching data');
+  var xmlData = Future.wrap(HTTP.get)(Settings.feedUrl).wait();
+  var content = '<xml>' + xmlData.content + '</xml>';
 
-  xmlParser.parseString(content, { attrkey: 'attr' }, function (error, result) {
-      if (error) {
-          console.error(error);
-      } else {
-        var docs = dataToDocs(result);
-        if (docs.length > 0) {
-          CountryAttacks.remove({});
-        }
-        _.each(docs, function(doc) {
-          CountryAttacks.insert(doc);
-        });
-      }
+  var future = Future.wrap(xmlParser.parseString)(content, { attrkey: 'attr' });
+  var result;
+  try {
+    result = future.wait();
+  } catch (error) {
+    console.error(error);
+  }
+
+  var docs = dataToDocs(result);
+  if (docs.length > 0) {
+    CountryAttacks.remove({});
+  }
+  _.each(docs, function(doc) {
+    CountryAttacks.insert(doc);
   });
+
+  console.log('AkamaiAttacks: Fetched data');
 };
 
-fetchData();
-Meteor.setInterval(fetchData, Settings.downloadInterval);
+Future.task(fetchData);
+Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
 
 Meteor.publish('country_attacks', function() {
   return CountryAttacks.find();

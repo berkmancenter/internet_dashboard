@@ -1,17 +1,19 @@
+var Future = Npm.require('fibers/future');
+
 var url = function(args) {
   var urlTemplate = 'http://herdict.org/explore/module/topsitescategory?40=&fc=<%= countryCode %>';
   return _.template(urlTemplate)(args);
 };
 
 var updateData = function() {
+  console.log('Herdict: Fetching new data');
+  var futures = [];
   _.each(CountryInfo.countries, function(country) {
-
-    console.log('Herdict: Fetching ' + country.name);
 
     var thisUrl = url({ countryCode: country.code });
     var lists = [];
 
-    HTMLScraper.inDoc(thisUrl, function($) {
+    var future = HTMLScraper.inDoc(thisUrl, function($) {
       $('h4').each(function() {
         var category = $(this).text();
         var sites = [];
@@ -33,15 +35,19 @@ var updateData = function() {
 
       CountryLists.upsert({ country: country }, { $set: { lists: lists } });
     });
+    futures.push(future);
+    future.wait(); // Make fetching synchronous so we don't completely eat the CPU
   });
+  Future.wait(futures);
+  console.log('Herdict: Fetched new data');
 };
 
 if (CountryLists.find().count() === 0) {
-  updateData();
+  Future.task(updateData);
 }
 
 Settings.updateEvery = moment.duration({ days: 1 }).asMilliseconds();
-Meteor.setInterval(updateData, Settings.updateEvery);
+Meteor.setInterval(updateData.future(), Settings.updateEvery);
 
 Meteor.publish('herdict_country_lists', function(countryCode) {
   return CountryLists.find({ 'country.code': countryCode });

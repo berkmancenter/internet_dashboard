@@ -1,6 +1,8 @@
+var Future = Npm.require('fibers/future');
+
 HTMLScraper = {
   inDoc: function(url, func, options) {
-    console.log('Fetching: ' + url);
+    //console.log('Fetching: ' + url);
     options = options || {};
     _.defaults(options, {
       proxy: false,
@@ -27,18 +29,18 @@ HTMLScraper = {
       callOptions.npmRequestOptions = { agent: socksAgent };
     }
 
-    HTTP.get(url, callOptions, function (error, result) {
-      if (error) {
-        throw new Error(error);
-      }
+    var future = Future.wrap(HTTP.get)(url, callOptions);
+    var result;
+    try {
+      result = future.wait();
+    } catch (error) {
+      throw new Error(error);
+    }
 
-      if (!error && result.statusCode === 200) {
-        var env = Npm.require('jsdom').env;
-        env(result.content, Meteor.bindEnvironment(function(error, window) {
-          var $ = Npm.require('jquery')(window);
-          func.call(this, $);
-        }));
-      }
-    });
-  }
+    var env = Npm.require('jsdom').env;
+    env(result.content, Meteor.bindEnvironment(function(error, window) {
+      var $ = Npm.require('jquery')(window);
+      func.call(this, $);
+    }));
+  }.future()
 };

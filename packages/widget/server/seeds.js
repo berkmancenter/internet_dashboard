@@ -1,6 +1,4 @@
 Widgets.seed = function(packages) {
-  console.log('Widget: Updating widget packages');
-
   _.each(packages, function(packageName, i) {
     if (_.isUndefined(Package[packageName])) {
       console.log('Package "' + packageName + '" does not exist in this project.');
@@ -27,4 +25,6 @@ Widgets.seed = function(packages) {
       WidgetPackages.insert(data);
     }
   });
+
+  console.log('Widget: Updated widget packages');
 };

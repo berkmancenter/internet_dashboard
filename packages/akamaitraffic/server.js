@@ -1,3 +1,5 @@
+var Future = Npm.require('fibers/future');
+
 VisitorFeed._createCappedCollection(6 * Math.pow(2, 20), 10);
 VisitorFeed.attachSchema(new SimpleSchema({
   regionId: {
@@ -118,25 +120,29 @@ var dataToDocs = function(xmlData) {
 };
 
 var fetchData = function() {
-  var xmlData = HTTP.get(Settings.feedUrl);
-  var content = '<xml>' + xmlData.content + '</xml>'; 
+  console.log('AkamaiTraffic: Fetching data');
+  var xmlData = Future.wrap(HTTP.get)(Settings.feedUrl).wait();
+  var content = '<xml>' + xmlData.content + '</xml>';
   content = content.replace(/1hour>/g, 'onehour>');
   content = content.replace(/24hour>/g, 'oneday>');
 
-  xmlParser.parseString(content, { attrkey: 'attr' }, function (error, result) {
-      if (error) {
-          console.error(error);
-      } else {
-        _.each(dataToDocs(result), function(doc) {
-          doc.ts = new MongoInternals.MongoTimestamp(0, 0);
-          VisitorFeed.insert(doc);
-        });
-      }
+  var future = Future.wrap(xmlParser.parseString)(content, { attrkey: 'attr' });
+  var result;
+  try {
+    result = future.wait();
+  } catch (error) {
+    console.error(error);
+  }
+
+  _.each(dataToDocs(result), function(doc) {
+    doc.ts = new MongoInternals.MongoTimestamp(0, 0);
+    VisitorFeed.insert(doc);
   });
+  console.log('AkamaiTraffic: Fetched data');
 };
 
-fetchData();
-Meteor.setInterval(fetchData, Settings.downloadInterval);
+Future.task(fetchData);
+Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
 
 Meteor.publish('visitor_feed', function(regionId) {
   return VisitorFeed.find({ regionId: regionId });

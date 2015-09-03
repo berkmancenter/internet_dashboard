@@ -1,5 +1,6 @@
 Meteor.publish('dashboard', function(id) {
   var dashboard = Dashboards.findOne(id);
+  if (!dashboard) { return; }
   var currentUser = Meteor.users.find(this.userId);
   if (dashboard.editableBy(currentUser)) {
     return [

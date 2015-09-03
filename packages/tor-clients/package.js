@@ -6,7 +6,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['harrison:babyparse', 'http', 'meteorhacks:aggregate'], 'server');
+  api.use(['harrison:babyparse', 'http', 'meteorhacks:aggregate@1.3.0'], 'server');
   api.use([
       'widget', 'mongo', 'underscore',
       'momentjs:moment@2.9.0', 'aldeed:collection2', '3stack:country-codes'

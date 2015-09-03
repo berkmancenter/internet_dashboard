@@ -1,3 +1,5 @@
+var Future = Npm.require('fibers/future');
+
 var countryUrl = function(country) {
   return Settings.baseUrl + '/countries/' + country.code;
 };
@@ -47,6 +49,7 @@ var fetchCountryData = function(country) {
 
 IMonCountries.seedCountries = function() {
   var url = Settings.baseUrl + '/countries/usa/access';
+  console.log('IMonData: Fetching data');
   HTMLScraper.inDoc(url, function($) {
     $('.countries-nav-list a').each(function() {
       var r = new RegExp('/countries/([a-z]{3})/');
@@ -60,11 +63,12 @@ IMonCountries.seedCountries = function() {
         fetchCountryData(IMonCountries.findOne(id));
       });
     });
+    console.log('IMonData: Fetched data');
   });
 };
 
 if (IMonCountries.find().count() === 0) {
-  IMonCountries.seedCountries();
+  Future.task(IMonCountries.seedCountries);
 }
 
 Meteor.publish('imon_countries', function() {

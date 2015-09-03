@@ -64,8 +64,8 @@ WordList = {
       baselineData = baselineDataFut.wait().data;
       recentData = recentDataFut.wait().data;
     } catch (error) {
-      console.log('MediaCloud: Error fetching topics');
-      console.log(error);
+      console.error('MediaCloud: Error fetching topics');
+      console.error(error);
       throw new Error(error);
     }
 
@@ -75,8 +75,8 @@ WordList = {
     try {
       WordLists.upsert({ country: data.country }, { $set: data });
     } catch (error) {
-      console.log('MediaCloud: Error inserting topics');
-      console.log(error);
+      console.error('MediaCloud: Error inserting topics');
+      console.error(error);
       throw new Error(error);
     }
   },

@@ -7,7 +7,9 @@ Template.HerdictWidget.onCreated(function() {
 
 Template.HerdictWidget.helpers({
   sites: function() {
-    var lists = CountryLists.findOne({ 'country.code': this.country.code }).lists;
+    var country = CountryLists.findOne({ 'country.code': this.country.code });
+    if (!country) { return []; }
+    var lists = country.lists;
     var list = _.findWhere(lists, { category: this.category.name });
     return list ? list.sites : [];
   }

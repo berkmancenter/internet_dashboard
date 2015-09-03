@@ -40,7 +40,8 @@ Story = {
       Stories.remove({ 'country.code': country.code, term: term });
       Stories.insert(data);
     } catch (error) {
-      console.log(error);
+      console.log('MediaCloud: Error inserting data');
+      console.error(error);
     }
 
     console.log('MediaCloud: Fetched data for "' + term + '" in ' +

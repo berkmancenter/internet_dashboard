@@ -12,7 +12,6 @@ Package.onUse(function(api) {
 
   api.use(['widget', 'less', 'underscore', 'momentjs:moment', 'aldeed:collection2']);
   api.use(['templating'], 'client');
-  api.use(['meteorhacks:async'], 'server');
 
   api.addFiles(['feed.js']);
   api.addFiles(['server.js'], 'server');

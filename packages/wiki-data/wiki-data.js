@@ -3,6 +3,8 @@ Settings = {
   maxCollectionNum: 10000 // Number of docs in collection
 };
 
+var Future = Npm.require('fibers/future');
+
 WikiEdits = new Mongo.Collection('wikiedits');
 WikiEdits._createCappedCollection(Settings.maxCollectionSpace, Settings.maxCollectionNum);
 
@@ -18,13 +20,16 @@ Wikipedias = _.map(_.keys(wikichanges.wikipedias), function(channelName) {
 
 Wikipedias.push({ channel: '#all', name: 'All Wikipedia', code: 'zz' });
 
-var changeListener = new wikichanges.WikiChanges({ircNickname: 'internet-dashboard'});
+var changeListener = Future.task(function() {
+  return new wikichanges.WikiChanges({ircNickname: 'internet-dashboard'});
+}).wait();
 
 changeListener.listen(Meteor.bindEnvironment(function(change) {
   change.ts = new MongoInternals.MongoTimestamp(0, 0);
   change.created = new Date();
   WikiEdits.insert(change);
 }));
+console.log('WikiData: Listening for wiki edits');
 
 Meteor.publish('wikipedias', function() {
   _.each(Wikipedias, function(channel) {

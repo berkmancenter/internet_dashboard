@@ -6,7 +6,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
 
-  api.use(['meteorhacks:aggregate@1.2.1', 'random'], 'server');
+  api.use(['meteorhacks:aggregate@1.3.0', 'random'], 'server');
   api.use([
       'widget', 'mongo', 'tracker', 'underscore', 'country-info',
       'momentjs:moment', 'wiki-data', 'aldeed:collection2'

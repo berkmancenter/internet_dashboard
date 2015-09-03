@@ -1,4 +1,8 @@
 Settings.authToken = Assets.getText('apiKey.txt');
+Settings.timeout = 10 * 1000;
+
+var Future = Npm.require('fibers/future');
+var get = Future.wrap(HTTP.get);
 
 var getBins = function() {
   var bins = [];
@@ -45,17 +49,17 @@ var countNoticeUrls = function(notice) {
 var countBinUrls = function(bin) {
   var request = binRequest(bin);
   request.options.params.per_page = Settings.perPage;
-  request.options.timeout = 10 * 1000;
-  var totalPages = HTTP.get(request.url, request.options).data.meta.total_pages;
+  request.options.timeout = Settings.timeout;
+  var totalPages = get(request.url, request.options).wait().data.meta.total_pages;
 
   _(totalPages).times(function(i) {
     var page = i + 1;
     request.options.params.page = page;
-    request.options.timeout = 10 * 1000;
+    request.options.timeout = Settings.timeout;
     console.log('Lumen: Fetching url counts (page ' + page + ' of ' + totalPages +
         ') from ' + new Date(bin.end).toUTCString() + ' to ' +
         new Date(bin.start).toUTCString());
-    var result = HTTP.get(request.url, request.options);
+    var result = get(request.url, request.options).wait();
     _.each(result.data.notices, function(notice) {
       bin.urlCount += countNoticeUrls(notice);
     });
@@ -66,20 +70,34 @@ var countBinUrls = function(bin) {
 var updateLumenCounts = function() {
   console.log('Lumen: Fetching notice counts');
   var bins = getBins();
+  var futures = [];
 
   LumenCounts.remove({});
 
   _.each(bins, function(bin) {
     var request = binRequest(bin);
-    request.options.timeout = 10 * 1000;
-    HTTP.get(request.url, request.options, function(err, result) {
-      bin.noticeCount = result.data.meta.total_entries;
-      if (Settings.countUrls) {
-        bin.urlCount = countBinUrls(bin);
-      }
-      LumenCounts.insert(bin);
-    });
+    request.options.timeout = Settings.timeout;
+    var future = get(request.url, request.options);
+    futures.push(future);
+    var result;
+    try {
+      result = future.wait();
+    } catch (error) {
+      console.error('Lumen: Fetch error');
+      console.error(error);
+      throw new Error(error);
+    }
+
+    bin.noticeCount = result.data.meta.total_entries;
+
+    if (Settings.countUrls) {
+      bin.urlCount = countBinUrls(bin);
+    }
+    LumenCounts.insert(bin);
   });
+
+  Future.wait(futures);
+  console.log('Lumen: Fetched notice counts');
 };
 
 // If we don't have any counts or our most recent is older than our update
@@ -87,11 +105,12 @@ var updateLumenCounts = function() {
 if (LumenCounts.find().count() === 0 ||
     LumenCounts.findOne({}, { sort: { start: -1 } }).start +
     Settings.updateEvery.asMilliseconds() < Date.now()) {
-  updateLumenCounts();
+  Future.task(updateLumenCounts);
 } else {
   console.log('Lumen: Not updating notice counts');
 }
-Meteor.setInterval(updateLumenCounts, Settings.updateEvery.asMilliseconds());
+Meteor.setInterval(updateLumenCounts.future(),
+                   Settings.updateEvery.asMilliseconds());
 
 Meteor.publish('lumen_counts', function() {
   return LumenCounts.find();

@@ -1,3 +1,6 @@
+Settings.timeout = 60 * 1000;
+var Future = Npm.require('fibers/future');
+
 var ucWords = function(str) {
   // From http://phpjs.org/functions/ucwords/
   return (str + '')
@@ -36,85 +39,115 @@ var parseCountryData = function(response, country, metric) {
   var data = {};
   data[metricKey] = [];
 
-  xmlParser.parseString(response.content, { attrkey: 'attr' }, function (error, result) {
-    if (error) {
-      throw new Error(error);
-    }
+  var future = Future.wrap(xmlParser.parseString)(response.content,
+                                                  { attrkey: 'attr' });
+  var result;
+  try {
+    result = future.wait();
+  } catch (error) {
+    console.error('Kaspersky: Parsing error');
+    console.error(error);
+    throw new Error(error);
+  }
 
-    _.each(result.root.graphic[0].item, function(item) {
-      data[metricKey].push({
-        date: Date.parse(item.attr.date + ' +0000'),
-        count: parseInt(item.attr[metric.attrName], 10),
-        updatedAt: Date.parse(result.root.date[0] + ' +0000')
-      });
+  _.each(result.root.graphic[0].item, function(item) {
+    data[metricKey].push({
+      date: Date.parse(item.attr.date + ' +0000'),
+      count: parseInt(item.attr[metric.attrName], 10),
+      updatedAt: Date.parse(result.root.date[0] + ' +0000')
     });
-
-    addCountryData(country, data);
   });
+
+  addCountryData(country, data);
 };
 
 var fetchCountryData = function(country, metric) {
   var options = {
-    timeout: 2 * 1000, 
+    timeout: Settings.timeout,
     headers: {
       'User-Agent': 'InternetMonitorDashboard/1.0 KasperskyWidget/0.1'
     }
   };
 
-  HTTP.get(countryUrl(country, metric), options, function(error, response) {
-    if (error) {
-      if (!error.response || error.response.statusCode !== 404) {
-        console.log('Kaspersky: Error fetching ' + countryUrl(country, metric));
-        //throw new Error(error);
-      }
-      //console.log('Kaspersky: ' + metric.name + ' data not available for ' + country.name);
-      return false;
-    }
+  var response;
+  var future = Future.wrap(HTTP.get)(countryUrl(country, metric), options);
 
-    parseCountryData(response, country, metric);
-  });
+  try {
+    response = future.wait();
+  } catch(error) {
+    if (!error.response || error.response.statusCode !== 404) {
+      console.error('Kaspersky: Error fetching ' + countryUrl(country, metric));
+      console.error(error);
+      throw new Error(error);
+    }
+    //console.log('Kaspersky: ' + metric.name + ' data not available for ' + country.name);
+    return false;
+  }
+
+  parseCountryData(response, country, metric);
 };
 
 var fetchAllCountryData = function() {
   console.log('Kaspersky: Fetching data for all countries');
-  CountryMetrics.find().forEach(function(country) {
+  CountryMetrics.find().forEach(function(country,i) {
     _.each(Settings.metrics, function(metric) {
+      // Each of these could be in a separate fiber, but they then eat all the
+      // CPU when parsing.
       fetchCountryData(country, metric);
     });
   });
+  console.log('Kaspersky: Fetched data for all countries');
 };
 
 var fetchCountries = function() {
   console.log('Kaspersky: Fetching countries');
   var xmlParser = Npm.require('xml2js');
 
-  var xmlData = HTTP.get(Settings.countriesUrl);
-  xmlParser.parseString(xmlData.content, { attrkey: 'attr' }, function (error, result) {
-    if (error) {
-      throw new Error(error);
-    }
+  var future = Future.wrap(HTTP.get)(Settings.countriesUrl,
+                                  { timeout: Settings.timeout });
+  var xmlData;
+  try {
+    xmlData = future.wait();
+  } catch (error) {
+    console.error('Kaspersky: Fetch error');
+    console.error(error);
+    throw new Error(error);
+  }
 
-    var countries = result.root.countries[0].item;
-    _.each(countries, function(country) {
-      country.attr.name = ucWords(country.attr.name);
-      CountryMetrics.insert(country.attr);
-    });
+  var parseFuture = Future.wrap(xmlParser.parseString)(xmlData.content,
+                                                       { attrkey: 'attr' });
+  var result;
+  try {
+    result = parseFuture.wait();
+  } catch (error) {
+    console.error('Kaspersky: Parsing error');
+    console.error(error);
+    throw new Error(error);
+  }
+
+  var countries = result.root.countries[0].item;
+  _.each(countries, function(country) {
+    country.attr.name = ucWords(country.attr.name);
+    CountryMetrics.insert(country.attr);
   });
 };
 
-if (!countriesExist()) {
-  fetchCountries();
-} else {
-  console.log('Kaspersky: Not fetching countries');
-}
+Future.task(function() {
+  if (!countriesExist()) {
+    fetchCountries();
+  } else {
+    console.log('Kaspersky: Not fetching countries');
+  }
 
-if (countriesExist() && !metricsCurrent()) {
-  fetchAllCountryData();
-} else {
-  console.log('Kaspersky: Not fetching country metrics');
-}
+  if (countriesExist() && !metricsCurrent()) {
+    fetchAllCountryData();
+  } else {
+    console.log('Kaspersky: Not fetching country metrics');
+  }
+});
 
-Meteor.setInterval(fetchAllCountryData, Settings.updateEvery.asMilliseconds());
+Meteor.setInterval(fetchAllCountryData.future(),
+                   Settings.updateEvery.asMilliseconds());
 
 Meteor.publish('kasp_metrics', function() {
   return CountryMetrics.find();
