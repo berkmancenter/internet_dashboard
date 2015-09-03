@@ -1,13 +1,19 @@
 <template name="MediaCloudStoriesWidget">
 <h1>{{ country.name }}</h1>
-<h2>{{ term }}</h2>
-<ul>
+<h2>"{{ term }}"</h2>
+<ul class="list-unstyled">
 {{# each stories }}
-<li>
-  <h3>{{ title }}</h3>
-  <a href="{{ url }}" target="_blank">View article</a>
-  <h4>{{ media_name }}</h4>
-</li>
+  <li class="story">
+    <h3><a href="{{ url }}" target="_blank">{{ title }}</a></h3>
+    <div class="story-meta text-right">
+      <small>
+        <a href="{{ media_url }}" target="_blank">{{ media_name }}</a> &mdash;
+      </small>
+      <small>{{ niceDate }}</small>
+    </div>
+  </li>
+{{else}}
+  <p>No data.</p>
 {{/each}}
 </ul>
 </template>

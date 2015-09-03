@@ -1,6 +1,7 @@
 Settings = {
   apiKey: Assets.getText('apiKey.txt'),
   baseUrl: 'https://api.mediacloud.org/api/v2/',
+  timeout: 60 * 1000, // MediaCloud can be slow to respond to concurrent requests
   stories: {
     defaultTerm: 'Internet',
     defaultCountry: 'US',
@@ -15,7 +16,8 @@ Settings = {
     defaultCountry: { code: 'US', name: 'United States' },
     longInterval: { years: 1 }, // Moment.js syntax
     shortInterval: { days: 7 },
-    fetchedWords: 500,
+    fetchedWords: 300,
+    storedWords: 150,
     stopWordLangs: [
       'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'lt', 'nl', 'no',
       'pt', 'ro', 'ru', 'sv', 'tr'
@@ -26,7 +28,7 @@ Settings = {
 var Future = Npm.require('fibers/future');
 
 fetchData = function(url) {
-  return Future.wrap(HTTP.get)(url, { timeout: 5 * 1000 });
+  return Future.wrap(HTTP.get)(url, { timeout: Settings.timeout });
 };
 
 countryCodeToTagId = function(code) {

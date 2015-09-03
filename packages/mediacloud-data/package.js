@@ -8,7 +8,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['http', 'meteorhacks:aggregate'], 'server');
+  api.use(['http'], 'server');
   api.use(['mongo', 'underscore', 'momentjs:moment', 'aldeed:collection2']);
 
   api.addFiles([

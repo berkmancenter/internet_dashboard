@@ -1,3 +1,5 @@
+var Future = Npm.require('fibers/future');
+
 Story = {
   url: function(args) {
     var dateFormat = 'YYYY-MM-DD';
@@ -25,8 +27,6 @@ Story = {
     console.log('MediaCloud: Fetching data for "' + term + '" in ' +
         countryCode);
     var stories = fetchData(url).wait().data;
-    console.log('MediaCloud: Fetched data for "' + term + '" in ' +
-        countryCode);
     var country = _.findWhere(Settings.stories.tagSet, { code: countryCode });
     var data = {
       country: country,
@@ -34,27 +34,19 @@ Story = {
       updated: new Date(),
       stories: stories
     };
-    var mostRecent = Story.mostRecentDate(term, countryCode);
-    Stories.insert(data);
 
-    // Throw away the old stories so we don't grow forever
-    Stories.remove({
-      'country.code': country.code,
-      term: term,
-      updated: { $lte: mostRecent }
-    });
+    try {
+      // Throw away the old stories so we don't grow forever
+      Stories.remove({ 'country.code': country.code, term: term });
+      Stories.insert(data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    console.log('MediaCloud: Fetched data for "' + term + '" in ' +
+        countryCode);
   },
   jobs: [],
-  mostRecentDate: function(term, countryCode) {
-    var pipeline = [
-      { $match: { 'country.code': countryCode, term: term } },
-      { $group: { _id: null, max: { $max: "$updated" } } }
-    ];
-    var agg = Stories.aggregate(pipeline);
-    if (agg.length > 0) {
-      return agg[0].max;
-    }
-  }
 };
 
 Story.Job = function(term, countryCode, runEvery) {
@@ -67,7 +59,7 @@ Story.Job = function(term, countryCode, runEvery) {
 
   var call = function() {
     Story.fetch(term, countryCode);
-  };
+  }.future();
 
   call();
   this.timerId = Meteor.setInterval(call, this.runEvery);
@@ -83,7 +75,7 @@ Story.Job.prototype.cancel = function() {
 };
 
 Story.Job.exists = function(term, countryCode, runEvery) {
-  runEvery = runEvery || Settings.updateEvery;
+  runEvery = runEvery || Settings.stories.updateEvery;
   return !!_.findWhere(Story.jobs,
       { term: term, countryCode: countryCode, runEvery: runEvery });
 };
@@ -91,5 +83,10 @@ Story.Job.exists = function(term, countryCode, runEvery) {
 new Story.Job(Settings.stories.defaultTerm, Settings.stories.defaultCountry);
 
 Meteor.publish('mc_stories', function(term, countryCode) {
+  if (!Story.Job.exists(term, countryCode)) {
+    var job = new Story.Job(term, countryCode);
+    this.connection.onClose(job.cancel.bind(job));
+  }
+
   return Stories.find({ 'term': term, 'country.code': countryCode });
 });

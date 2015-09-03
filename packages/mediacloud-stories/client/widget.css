@@ -1,0 +1,12 @@
+.mediacloud-stories .story {
+  padding: 0.3em 2em 0.6em;
+  margin: 0 -20px;
+}
+.mediacloud-stories .story h3 {
+  font-size: 1.1em;
+  line-height: 1.3em;
+}
+.mediacloud-stories .story:nth-child(odd) {
+  background-color: #EEE;
+}
+

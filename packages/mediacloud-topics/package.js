@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'mediacloud',
+  name: 'mediacloud-topics',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.use(['widget', 'mongo', 'underscore', 'mediacloud-data']);
   api.use(['templating', 'tagcloud'], 'client');
 
-  api.addFiles([ 'mediacloud.js' ]);
+  api.addFiles([ 'mediacloud_topics.js' ]);
 
   api.addFiles([
     'client/widget.html',
@@ -21,5 +21,5 @@ Package.onUse(function(api) {
     'client/settings.js'
     ], 'client');
 
-  api.export('MediaCloud');
+  api.export('MediaCloudTopics');
 });

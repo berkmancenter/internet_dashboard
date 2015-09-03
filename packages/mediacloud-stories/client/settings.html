@@ -1,0 +1,21 @@
+<template name="MediaCloudStoriesSettings">
+{{# if Template.subscriptionsReady }}
+<div class="form-group">
+  <label for="country-select">Country</label>
+  <select class="country form-control" id="country-select" name="country">
+  {{# each countries }}
+  <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
+  {{/each}}
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="mc-term">Term</label>
+  <input class="form-control" id="mc-term" value="{{ term }}" />
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>

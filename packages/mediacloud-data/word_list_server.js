@@ -26,11 +26,11 @@ WordList = {
       return _.contains(newTerms, row.term);
     });
 
-    return {
-      baseline: baseline,
-      recent: recent,
-      new: newWords
-    };
+    var trimmedNew = _.map(
+        _.first(newWords, Settings.wordLists.storedWords),
+        function(word) { return _.pick(word, ['term', 'count']); });
+
+    return { new: trimmedNew };
   },
 
   updateCountryData: function(country, baselineStartDate, startDate, endDate) {
@@ -58,40 +58,47 @@ WordList = {
 
     var baselineDataFut = fetchData(baselineWordListUrl);
     var recentDataFut = fetchData(wordListUrl);
+    var baselineData, recentData;
 
-    Future.wait(baselineDataFut, recentDataFut);
-
-    var baselineData = baselineDataFut.get().data;
-    var recentData = recentDataFut.get().data;
+    try {
+      baselineData = baselineDataFut.wait().data;
+      recentData = recentDataFut.wait().data;
+    } catch (error) {
+      console.log('MediaCloud: Error fetching topics');
+      console.log(error);
+      throw new Error(error);
+    }
 
     var parsedWordLists = WordList.parseWordLists(baselineData, recentData);
     data.words = parsedWordLists;
 
-    WordLists.upsert({ 'country.code': data.country.code }, data);
+    try {
+      WordLists.upsert({ country: data.country }, { $set: data });
+    } catch (error) {
+      console.log('MediaCloud: Error inserting topics');
+      console.log(error);
+      throw new Error(error);
+    }
   },
 
   updateData: function() {
-    console.log('MediaCloud: Fetching word lists');
+    console.log('MediaCloud: Fetching topic lists');
     var baselineStartDate = moment().subtract(Settings.wordLists.longInterval);
     var startDate = moment().subtract(Settings.wordLists.shortInterval);
     var endDate = moment();
-    var futures = [];
     _.each(Settings.wordLists.tagSet, function(country) {
-      futures.push(
-        WordList.updateCountryData.future()(country,
-                                            baselineStartDate,
-                                            startDate, endDate));
+      // MediaCloud is too slow to do anything concurrently, so no fibers here.
+      WordList.updateCountryData(country, baselineStartDate, startDate, endDate);
     });
-    Future.wait(futures);
-    console.log('MediaCloud: Fetched word lists');
+    console.log('MediaCloud: Fetched topic lists');
   }
 };
 
 if (WordLists.find().count() === 0) {
-  WordList.updateData();
+  Future.task(WordList.updateData);
 }
 
-Meteor.setInterval(WordList.updateData, Settings.wordLists.updateEvery);
+Meteor.setInterval(WordList.updateData.future(), Settings.wordLists.updateEvery);
 
 Meteor.publish('mc_wordlists', function(countryCode) {
   countryCode = countryCode || Settings.wordLists.defaultCountry.code;

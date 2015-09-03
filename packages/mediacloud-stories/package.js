@@ -8,13 +8,10 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['widget', 'mongo', 'underscore', 'mediacloud-data']);
+  api.use(['widget', 'mongo', 'underscore', 'mediacloud-data', 'momentjs:moment']);
   api.use(['templating'], 'client');
 
   api.addFiles([ 'mediacloud_stories.js' ]);
-
-  api.addFiles('apiKey.txt', 'server', { isAsset: true });
-  api.addFiles(['server.js'], 'server');
 
   api.addFiles([
     'client/widget.html',

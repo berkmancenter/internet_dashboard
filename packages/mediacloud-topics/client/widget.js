@@ -1,14 +1,14 @@
-Template.MediaCloudWidget.onCreated(function() {
+Template.MediaCloudTopicsWidget.onCreated(function() {
   var template = this;
-  this.autorun(function() {
+  template.autorun(function() {
     template.subscribe('mc_wordlists', Template.currentData().country.code);
   });
 });
 
-Template.MediaCloudWidget.onRendered(function() {
+Template.MediaCloudTopicsWidget.onRendered(function() {
   var template = this;
   var oldData = { country: {} };
-  this.autorun(function() {
+  template.autorun(function() {
     var data = Template.currentData();
     if (_.isEqual(data.country, oldData.country)) {
       return;
@@ -19,7 +19,9 @@ Template.MediaCloudWidget.onRendered(function() {
     }
 
     oldData.country = data.country;
-    var words = WordLists.findOne({ 'country.code': data.country.code }).words.new;
+    var country = WordLists.findOne({ 'country.code': data.country.code });
+    if (!country) { return; }
+    var words = country.words.new;
     var dims = data.widget.package.metadata().widget.dimensions;
     var width = dims.width * Settings.cloud.widthMulti;
     var height = dims.height * Settings.cloud.heightMulti;
@@ -63,7 +65,7 @@ Template.MediaCloudWidget.onRendered(function() {
   });
 });
 
-Template.MediaCloudWidget.helpers({
+Template.MediaCloudTopicsWidget.helpers({
   words: function() {
     var words = WordLists.findOne({ 'country.code': this.country.code });
     /*

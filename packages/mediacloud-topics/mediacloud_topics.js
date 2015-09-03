@@ -29,7 +29,7 @@ _.extend(MCWidget.prototype, {
   }
 });
 
-MediaCloud = {
+MediaCloudTopics = {
   widget: {
     name: 'News Topics',
     description: 'Shows a word cloud of news topics from the past week from each country',
