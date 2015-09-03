@@ -42,11 +42,7 @@ Template.DashboardsShow.events({
     }
   },
   'widget:destroyed': function(ev, dashTemplate, widgetTemplate) {
-    if (dashTemplate.gridster) {
-      dashTemplate.gridster.remove_widget(ev.target, function() {
-        Widgets.updatePositions(dashTemplate.gridster.serialize());
-      });
-    }
+    dashTemplate.removeWidget(ev.target);
   },
   'mousedown': function(ev, template) {
     // Popovers are inserted as children of body, so clicks on them never pass
@@ -152,6 +148,11 @@ Template.DashboardsShow.onCreated(function() {
       });
     });
   };
+  self.removeWidget = function(widgetNode) {
+    if (self.gridster) {
+      self.gridster.remove_widget(widgetNode);
+    }
+  };
 });
 
 Template.DashboardsShow.onRendered(function() {
@@ -176,14 +177,31 @@ Template.DashboardsShow.onRendered(function() {
     }
   }).data('gridster');
 
-  // Keep gridster up to date when other clients resize
+  // Keep gridster up to date when other clients resize or move
   Widgets.find({ dashboardId: dash._id }).observeChanges({
     changed: function(id, fields) {
+      var triggerKeys = ['width', 'height', 'position'];
+      if (_.chain(fields).keys().intersection(triggerKeys).isEmpty().value()) {
+        return;
+      }
+
       var widget = Widgets.findOne(id);
-      if (_(fields).has('width') || _(fields).has('height')) {
-        var $widgetNode = self.$('#' + widget.componentId());
-        self.gridster.resize_widget(
-            $widgetNode, fields.width, fields.height, false);
+      var $widgetNode = self.$('#' + widget.componentId());
+
+      if (fields.width || fields.height) {
+        self.gridster.resize_widget($widgetNode, fields.width, fields.height);
+      }
+
+      if (fields.position) {
+        var oldGridData = $widgetNode.coords().grid;
+        var newGridData = {
+          col: fields.position.col || oldGridData.col,
+          row: fields.position.row || oldGridData.row,
+          size_x: oldGridData.size_x,
+          size_y: oldGridData.size_y
+        };
+        self.gridster.mutate_widget_in_gridmap($widgetNode,
+                                               oldGridData, newGridData);
       }
     }
   });

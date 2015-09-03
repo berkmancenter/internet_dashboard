@@ -7,8 +7,8 @@ _.extend(Dashboard.prototype, {
     widget.dashboardId = this._id;
     Meteor.call('addWidgetToDashboard', widget.toJSON());
   },
-  removeWidget: function(widget) {
-    Meteor.call('removeWidgetFromDashboard', widget._id);
+  removeWidget: function(widget, callback) {
+    Meteor.call('removeWidgetFromDashboard', widget._id, callback);
   },
   widgets: function() {
     return Widgets.find({ dashboardId: this._id });
@@ -42,7 +42,7 @@ _.extend(Dashboard.prototype, {
   copy: function(callback) {
     var dashboard = this;
     Meteor.call('copyDashboard', dashboard._id, function(error, newId) {
-      callback && callback.apply(dashboard, [error, newId]);
+      if (callback) { callback.apply(dashboard, [error, newId]); }
     });
   },
   authorize: function() {

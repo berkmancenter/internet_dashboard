@@ -45,7 +45,17 @@ Template.WidgetShow.events({
     template.closeSettings();
     template.closeInfo();
 
-    dashboard.removeWidget(widget);
+    dashboard.removeWidget(widget, function() {
+      var $widgets = dashboardTemplate.$('.widget');
+      $widgets.on('transitionend', function(ev) {
+        // Once one widget has finished moving, remove the handler and update
+        // the positions in the DB.
+        if (ev.originalEvent.propertyName === 'top') {
+          $widgets.off('transitionend');
+          Widgets.updatePositions(dashboardTemplate.gridster.serialize());
+        }
+      });
+    });
   },
   'gridster:resizestart': function(ev, template) {
     template.closeSettings();
@@ -77,6 +87,10 @@ Template.WidgetShow.events({
       var checkbox = template.$('.select-check input[type=checkbox]');
       checkbox.click();
     }
+  },
+  'transitionend': function(ev, template) {
+    //console.log('end');
+    //console.log(ev);
   }
 });
 
