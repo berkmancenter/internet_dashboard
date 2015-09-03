@@ -23,7 +23,6 @@ Package.onUse(function(api) {
     'routes.js'
   ]);
   api.addFiles([
-    'server/methods.js',
     'server/publications.js',
     'server/seeds.js'], 'server');
   api.addFiles([
