@@ -9,7 +9,7 @@ HTMLScraper = {
       proxyHost: '127.0.0.1',
       proxyPort: 2020,
       proxyType: 5,
-      timeout: 15 * 1000,
+      timeout: 30 * 1000,
     });
 
     var callOptions = {};
@@ -34,6 +34,8 @@ HTMLScraper = {
     try {
       result = future.wait();
     } catch (error) {
+      console.error('HTMLScraper: Error fetching ' + url);
+      console.error(error);
       throw new Error(error);
     }
 

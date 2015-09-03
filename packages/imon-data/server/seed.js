@@ -11,7 +11,7 @@ var shouldCollect = function($node) {
 
 var fetchCountryData = function(country) {
   var url = countryUrl(country) + '/access';
-  HTMLScraper.inDoc(url, function($) {
+  return HTMLScraper.inDoc(url, function($) {
     $('.indicators dt').each(function() {
       if (!shouldCollect($(this))) {
         return;
@@ -37,13 +37,17 @@ var fetchCountryData = function(country) {
       url: url
     };
 
-    IMonCountries.update(country._id, { $set: {
-      imageUrl: countryUrl(country) + '/thumb',
-      access: access,
-      indicators: country.indicators,
-    }});
-
-
+    try {
+      IMonCountries.update(country._id, { $set: {
+        imageUrl: countryUrl(country) + '/thumb',
+        access: access,
+        indicators: country.indicators,
+      }});
+    } catch (error) {
+      console.error('IMonData: Error updating data');
+      console.error(error);
+      throw new Error(error);
+    }
   }, { proxy: Settings.proxy });
 };
 
@@ -51,6 +55,8 @@ IMonCountries.seedCountries = function() {
   var url = Settings.baseUrl + '/countries/usa/access';
   console.log('IMonData: Fetching data');
   HTMLScraper.inDoc(url, function($) {
+    var futures = [];
+    var future;
     $('.countries-nav-list a').each(function() {
       var r = new RegExp('/countries/([a-z]{3})/');
       var country = {
@@ -59,10 +65,10 @@ IMonCountries.seedCountries = function() {
         indicators: []
       };
 
-      IMonCountries.insert(country, function(error, id) {
-        fetchCountryData(IMonCountries.findOne(id));
-      });
+      var id = IMonCountries.insert(country);
+      futures.push(fetchCountryData(IMonCountries.findOne(id)));
     });
+    Future.wait(futures);
     console.log('IMonData: Fetched data');
   });
 };
