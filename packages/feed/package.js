@@ -29,5 +29,5 @@ Package.onUse(function(api) {
 
 Npm.depends({
   feedparser: '1.1.3',
-  request: '2.60.0'
+  request: '2.61.0'
 });

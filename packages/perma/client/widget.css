@@ -1,0 +1,21 @@
+.perma h1 {
+  float: left;
+  width: 25px;
+  -webkit-transform: rotate(-90deg) translateX(-90px);
+  -moz-transform: rotate(-90deg) translateX(-90px);
+  -ms-transform: rotate(-90deg) translateX(-90px);
+  -o-transform: rotate(-90deg) translateX(-90px);
+  transform: rotate(-90deg) translateX(-90px);
+
+  /* Should be unset in IE9+ I think. */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.perma ol {
+  white-space: nowrap;
+}
+.perma li {
+  width: 185px;
+}
+.perma li img {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
+}
