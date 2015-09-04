@@ -2,18 +2,23 @@
 <h1>Site Availability</h1>
 <p class="subtitle text-muted">Crowdsourced reports from Internet users</p>
 {{# if Template.subscriptionsReady }}
-<h2>{{ country.name }}
-<small>&mdash; {{ category.name }}</small>
-</h2>
+<div class="herdict-settings">
+  <h2>{{ country.name }}</h2>
+  <h3>&mdash; {{ category.name }}</h3>
+</div>
+<div class="herdict-labels">
+ <span class="text-danger">Unavailable</span> /
+ <span class="text-success">Available</span>
+</div>
 <ol>
   {{# each sites }}
   <li>
     <div class="herdict-stats pull-right">
       <span class="text-danger herdict-inaccessible"
-        title="Inaccessible Reports">{{ stats.inaccessible }}</span>
+        title="Unavailable Reports">{{ stats.inaccessible }}</span>
       /
       <span class="text-success herdict-accessible"
-        title="Accessible Reports">{{ stats.accessible }}</span>
+        title="Available Reports">{{ stats.accessible }}</span>
     </div>
     <span class="herdict-domain text-primary">{{ domain }}</span>
     <div class="herdict-title" title="{{ title }}">{{ title }}</div>

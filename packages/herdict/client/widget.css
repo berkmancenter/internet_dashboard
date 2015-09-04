@@ -5,13 +5,33 @@
 .herdict h1 {
   margin-bottom: 0;
 }
+.herdict h2 {
+  max-width: 70%;
+  margin-bottom: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.herdict h3 {
+  font-size: 1.1em;
+  margin-bottom: 2px;
+}
+.herdict-settings {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+.herdict h2, .herdict h3 {
+  display: inline-block;
+  vertical-align: bottom;
+}
 .herdict li {
   margin-bottom: 0.7em;
 }
 .herdict ol {
   list-style-type: none;
   padding-left: 0;
-  margin-top: 1em;
+  margin-top: 1.4em;
 }
 .herdict .herdict-title {
   margin-left: 1em;
@@ -24,4 +44,10 @@
 }
 .herdict .subtitle {
   margin-bottom: 0;
+}
+.herdict .herdict-labels {
+  font-size: 76%;
+  position: absolute;
+  top: 93px;
+  right: 7px;
 }
