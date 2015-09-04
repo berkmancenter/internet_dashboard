@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
   api.use(['underscore'], 'server');
   api.addFiles(['country_info.js', 'simple_countries.js']);
-  api.addFiles(['methods.js'], 'server');
+  api.addFiles(['lib/fuzzy.js', 'methods.js', 'shapes.js'], 'server');
   api.export('CountryInfo');
 });
 

@@ -7,3 +7,7 @@
 .akamaiattacks .country {
   stroke: white;
 }
+
+.akamaiattacks .label {
+  font-weight: 300;
+}

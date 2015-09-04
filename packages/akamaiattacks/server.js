@@ -7,6 +7,9 @@ CountryAttacks.attachSchema(new SimpleSchema({
   regionLabel: {
     type: String
   },
+  countryCode: {
+    type: String
+  },
   updatedAt: {
     type: Date
   },
@@ -56,6 +59,7 @@ var dataToDocs = function(xmlData) {
   var worldDoc = {
     regionId: '0',
     regionLabel: 'The World',
+    countryCode: 'ZZZ',
     fetchedAt: new Date(),
     updatedAt: updatedAt,
     total: parseInt(attacks.total_triggers[0], 10),
@@ -67,9 +71,12 @@ var dataToDocs = function(xmlData) {
     if (parseInt(region.attr.current, 10) === 0) {
       return;
     }
+    var country = Future.wrap(CountryInfo.byName)(region.name[0]).wait();
+    if (!country || !country.alpha3) { return; }
     var doc = {
       regionId: region.attr.id,
       regionLabel: region.name[0],
+      countryCode: country.alpha3,
       fetchedAt: new Date(),
       updatedAt: updatedAt,
       total: parseInt(region.attr.current, 10),
@@ -101,7 +108,11 @@ var fetchData = function() {
     CountryAttacks.remove({});
   }
   _.each(docs, function(doc) {
-    CountryAttacks.insert(doc);
+    try {
+      CountryAttacks.insert(doc);
+    } catch (e) {
+      console.error(e);
+    }
   });
 
   console.log('AkamaiAttacks: Fetched data');

@@ -1,3 +1,7 @@
 .akamaitraffic2 .country {
   stroke: white;
 }
+
+.akamaitraffic2 .label {
+  font-weight: 300;
+}

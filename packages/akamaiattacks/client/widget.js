@@ -37,23 +37,44 @@ Template.AkamaiAttacksWidget.onRendered(function() {
         Settings.mapHeight / 2 + Settings.mapBumpDown
       ]);
 
-    var feature = svg.selectAll("path")
-      .data(WorldCountries.features)
-      .enter().append("svg:path")
-      .attr('class', 'country')
-      .style('fill', function(d) {
-        var country = CountryAttacks.findOne({ regionLabel: d.properties.name });
-        var fillValue = 0;
-        if (country) {
-          fillValue = country.percentAboveAverage;
-        }
-        return fillColor(fillValue);
-      })
-      .style('transform', 'scaleY(' + Settings.mapSquash + ')')
-      .attr("d", d3.geo.path().projection(projection));
+    var legend = d3.legend.color()
+      .scale(fillColor)
+      .labelOffset(5)
+      .cells(5)
+      .labels(['0 to 2%', '2 to 4%', '4 to 6%', '6 to 8%', ' > 8%']);
 
-    feature.append("svg:title")
-      .text(function(d) { return d.properties.name; });
+    CountryInfo.shapes(function(shapes) {
+      var feature = svg.selectAll("path")
+        .data(shapes.features)
+        .enter().append("svg:path")
+        .attr('class', 'country')
+        .style('fill', function(d) {
+          var country = CountryAttacks.findOne({ countryCode: d.id });
+          var fillValue = 0;
+          if (country) {
+            fillValue = country.percentAboveAverage;
+          }
+          return fillColor(fillValue);
+        })
+        .style('transform', 'scaleY(' + Settings.mapSquash + ')')
+        .attr("d", d3.geo.path().projection(projection));
+
+      feature.append("svg:title")
+        .text(function(d) {
+          var title = d.properties.name;
+          var country = CountryAttacks.findOne({ countryCode: d.id });
+          if (country) {
+            title += ': ' + d3.format('.1f')(country.percentAboveAverage) + '%';
+          }
+          return title;
+        });
+
+      svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", "translate(0, 165)");
+
+      svg.select(".legend")
+        .call(legend);
+    });
   });
-
 });

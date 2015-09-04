@@ -7,6 +7,9 @@ CountryTraffic.attachSchema(new SimpleSchema({
   regionLabel: {
     type: String
   },
+  countryCode: {
+    type: String
+  },
   updatedAt: {
     type: Date
   },
@@ -46,6 +49,7 @@ var dataToDocs = function(xmlData) {
   var worldDoc = {
     regionId: '0',
     regionLabel: 'The World',
+    countryCode: 'ZZZ',
     fetchedAt: new Date(),
     updatedAt: updatedAt,
     total: parseInt(traffic.attr.current, 10),
@@ -57,9 +61,12 @@ var dataToDocs = function(xmlData) {
     if (parseInt(region.attr.current, 10) === 0) {
       return;
     }
+    var country = Future.wrap(CountryInfo.byName)(region._).wait();
+    if (!country || !country.alpha3) { return; }
     var doc = {
       regionId: region.attr.id,
       regionLabel: region._,
+      countryCode: country.alpha3,
       fetchedAt: new Date(),
       updatedAt: updatedAt,
       total: parseInt(region.attr.current, 10),
