@@ -35,6 +35,7 @@ epoch@0.6.0
 fastclick@1.0.3
 feed@0.0.1
 fortawesome:fontawesome@4.3.0
+fourseven:scss@0.9.6
 geojson-utils@1.0.3
 gwendall:session-json@0.1.7
 harrison:babyparse@1.0.1
