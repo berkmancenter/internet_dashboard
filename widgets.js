@@ -6,7 +6,8 @@ ActiveWidgets = [
   //'connection-speed',
   //'broadband-cost',
   //'tor-clients',
-  'perma',
+  //'perma',
+  //'global-voices',
   //'akamaiattacks',
   //'akamaitraffic',
   //'akamaitraffic2',
@@ -17,7 +18,7 @@ ActiveWidgets = [
   //'kaspersky',
   //'user-content',
   //'embed',
-  //'feed'
+  'feed'
 ];
 
 /*

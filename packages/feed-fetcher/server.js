@@ -5,7 +5,7 @@ var Future = Npm.require('fibers/future');
 
 var fetchFeed = function(feed) {
   var FeedParser = Npm.require('feedparser');
-  var request = Npm.require('request');
+  var Readable = Npm.require('stream').Readable;
 
   FeedParser = Npm.require('feedparser');
   feedparser = new FeedParser();
@@ -22,21 +22,25 @@ var fetchFeed = function(feed) {
       moment().add(Settings.updateEvery).format('HH:mm:ss'));
 
   var rss = [];
-  var req = request(options);
 
-  req.on('error', function(error) {
+  var response;
+  try {
+    response = Future.wrap(HTTP.get)(feed, options).wait();
+  } catch (error) {
     console.error('Feed: Fetching error');
     console.error(error);
-  });
+  }
 
-  req.on('response', function(res) {
-    var stream = this;
-    if (res.statusCode !== 200) {
-      console.error('Feed: Bad status code ' + res.statusCode);
-    }
+  if (response.statusCode !== 200) {
+    console.error('Feed: Bad status code ' + res.statusCode);
+  }
 
-    return stream.pipe(feedparser);
-  });
+  var s = new Readable();
+  s._read = function noop() {};
+  s.push(response.content);
+  s.push(null);
+
+  s.pipe(feedparser);
 
   feedparser.on('error', function(error) {
     console.error('Feed: Parsing error');
