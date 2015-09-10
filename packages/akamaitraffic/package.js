@@ -9,18 +9,18 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
   api.use(['mongo', 'widget', 'momentjs:moment', 'underscore',
-      'country-info', 'aldeed:collection2']);
+      'country-info', 'aldeed:collection2', 'fourseven:scss']);
   api.use(['http'], 'server');
   api.use(['templating', 'epoch', 'd3js:d3'], 'client');
 
   api.addFiles('akamaitraffic.js');
   api.addFiles(['server.js'], 'server');
   api.addFiles([
-    'client/settings.html',
-    'client/settings.js',
+    'client/lib/d3-legend.js',
     'client/widget.html',
     'client/widget.js',
     'client/widget.css',
+    'client/epoch_colors.css.scss',
     ], 'client');
 
   api.export('AkamaiTraffic');

@@ -144,6 +144,6 @@ var fetchData = function() {
 Future.task(fetchData);
 Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
 
-Meteor.publish('visitor_feed', function(regionId) {
-  return VisitorFeed.find({ regionId: regionId });
+Meteor.publish('visitor_feed', function() {
+  return VisitorFeed.find();
 });
