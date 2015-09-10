@@ -1,47 +1,28 @@
 .akamai-traffic-hour, .akamai-traffic-day {
   position: relative;
-  height: 100px;
-  width: 320px;
-  left: -15px;
+  height: 120px;
+  width: 345px;
+  margin-top: 0.5em;
 }
 
 .akamai-traffic-hour h3, .akamai-traffic-day h3 {
-  position: absolute;
   font-size: 10pt;
   font-family: 'Lato';
   font-weight: 300;
-  left: 10px;
-  bottom: -2em;
-}
-.akamai-traffic-hour h3 {
-  bottom: 0;
+  text-align: right;
+  margin-bottom: 0;
 }
 
 .akamai-traffic-hour {
-  background-color: #E8E8E8;
-  height: 100px;
+  margin-top: 1.5em;
 }
 
-.akamai-traffic-funnel {
-  position: relative;
-  left: -15px;
-  height: 64px;
-  width: 320px;
+.akamaitraffic .legend {
+  float: right;
+  width: 95px;
+  margin-top: 5.5em;
 }
 
-.akamai-traffic-funnel polygon {
-  fill: #E8E8E8;
-}
-
-.funnel {
-  fill: #E8E8E8;
-}
-
-.akamai-traffic-day .hits .line {
-  stroke: #A3CA98;
-  stroke-width: 3px;
-}
-.akamai-traffic-hour .hits .line {
-  stroke: #9CC392;
-  stroke-width: 3px;
+.akamaitraffic .legend .label {
+  font-weight: 300;
 }

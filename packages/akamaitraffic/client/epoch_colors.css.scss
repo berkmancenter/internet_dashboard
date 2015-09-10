@@ -1,0 +1,17 @@
+/*$colors: #8dd3c7, #ffffb3, #bebada, #fb8072, #80b1d3, #fdb462;*/
+$colors: #a6cee3, #1f78b4, #b2df8a, #33a02c, #fb9a99, #e31a1c;
+
+.epoch.nicer-colors {
+  @for $i from 1 through 6 {
+    .category#{$i} {
+      .line { stroke: nth($colors, $i); }
+      .area, .dot { fill: nth($colors, $i); }
+    }
+    .arc.category#{$i} path {
+      fill: nth($colors, $i);
+    }
+    .bar.category#{$i} { 
+      fill: nth($colors, $i);
+    }
+  }
+}
