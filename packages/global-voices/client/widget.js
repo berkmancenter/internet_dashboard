@@ -1,0 +1,21 @@
+Template.FeedWidget.onCreated(function() {
+  var template = this;
+
+  template.autorun(function() {
+    var feedUrl = Template.currentData().feedUrl;
+    if (feedUrl) { template.subscribe('feed_items', feedUrl); }
+  });
+
+});
+
+Template.FeedWidget.helpers({
+  feedItems: function() {
+    return FeedItems.find({ 'feed.url': this.feedUrl }, { sort: { date: -1 } });
+  }
+});
+
+Template.FeedItem.helpers({
+  niceDate: function() {
+    return moment(this.pubdate).format('h:mm A - ddd, MMM Do, YYYY');
+  }
+});
