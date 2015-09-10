@@ -1,11 +1,12 @@
 <template name="PermaWidget">
 <h1 class="rotate">Perma</h1>
-<ol class="list-inline">
+<ol class="list-unstyled text-center">
   {{# each archives }}
   <li>
     <a href="{{ url }}" target="_blank" title="{{ title }}">
       <img class="img-thumbnail" src="{{ thumb_url }}" />
     </a>
+    <small>{{ niceDate }}</small>
   </li>
   {{else}}
   <li><p>No archives.</p></li>

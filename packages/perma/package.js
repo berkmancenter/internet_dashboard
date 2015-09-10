@@ -7,7 +7,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['widget', 'mongo', 'momentjs:moment', 'aldeed:collection2',
-           'underscore']);
+           'underscore', 'remcoder:chronos']);
   api.use(['templating'], 'client');
   api.use(['http'], 'server');
 

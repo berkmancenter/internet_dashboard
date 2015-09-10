@@ -4,5 +4,9 @@ Template.PermaWidget.onCreated(function() {
 Template.PermaWidget.helpers({
   archives: function() {
     return PermaArchives.find({}, { sort: { creation_timestamp: -1 }});
+  },
+  niceDate: function() {
+    Chronos.liveUpdate(Settings.updateTimestampsEvery);
+    return moment(this.creation_timestamp).fromNow();
   }
 });

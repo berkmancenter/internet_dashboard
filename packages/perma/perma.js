@@ -1,6 +1,7 @@
 Settings = {
   updateEvery: moment.duration({ minutes: 5 }).asMilliseconds(),
-  fetchLimit: 5,
+  fetchLimit: 20,
+  updateTimestampsEvery: 60 * 1000
 };
 
 PermaArchives = new Mongo.Collection('perma_archives');
@@ -17,6 +18,7 @@ PermaArchives.attachSchema(new SimpleSchema({
   'vested': { type: Boolean },
   'vested_timestamp': { type: Date },
   'view_count': { type: Number },
+  'hostname': { type: String },
   'captures': { type: [Object] },
   'captures.content_type': { type: String },
   'captures.$.playback_url': { type: String },
@@ -37,7 +39,7 @@ Perma = {
   widget: {
     name: 'Recent Perma Archives',
     description: 'Shows Perma.cc archives as they are created',
-    dimensions: { width: 4, height: 2 },
+    dimensions: { width: 1, height: 4 },
     resize: { mode: 'reflow' },
     category: 'activity',
     constructor: PermaWidget
