@@ -10,8 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['widget', 'less', 'underscore', 'momentjs:moment',
-      'feed-fetcher', 'aldeed:collection2']);
+  api.use(['widget', 'less', 'underscore', 'momentjs:moment', 'feed-fetcher']);
   api.use(['templating'], 'client');
 
   api.addFiles(['feed.js']);
