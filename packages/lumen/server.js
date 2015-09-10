@@ -1,5 +1,5 @@
 Settings.authToken = Assets.getText('apiKey.txt');
-Settings.timeout = 10 * 1000;
+Settings.timeout = 60 * 1000;
 
 var Future = Npm.require('fibers/future');
 var get = Future.wrap(HTTP.get);
