@@ -48,8 +48,8 @@
 }
 .checkbox input[type="checkbox"]:checked + label::after,
 .checkbox input[type="radio"]:checked + label::after {
-  font-family: "FontAwesome";
-  content: "\f00c";
+  font-family: "Glyphicons Halflings";
+  content: "\e013";
 }
 .checkbox input[type="checkbox"]:disabled + label,
 .checkbox input[type="radio"]:disabled + label {
@@ -238,8 +238,8 @@
 
 input[type="checkbox"].styled:checked + label:after,
 input[type="radio"].styled:checked + label:after {
-  font-family: 'FontAwesome';
-  content: "\f00c";
+  font-family: 'Glyphicons Halflings';
+  content: "\e013";
 }
 input[type="checkbox"] .styled:checked + label::before,
 input[type="radio"] .styled:checked + label::before {
