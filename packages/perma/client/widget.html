@@ -4,9 +4,11 @@
 <ol class="list-unstyled text-center">
   {{# each archives }}
   <li>
+    <div>
     <a href="{{ url }}" target="_blank" title="{{ title }}">
       <img class="img-thumbnail" src="{{ thumb_url }}" />
     </a>
+    </div>
     <small>{{ niceDate }}</small>
   </li>
   {{else}}
