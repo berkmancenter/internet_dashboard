@@ -14,7 +14,7 @@ Package.onUse(function(api) {
       'feed-fetcher']);
   api.use(['templating'], 'client');
 
-  api.addFiles(['global_voices.js']);
+  api.addFiles(['feed_urls.js', 'global_voices.js']);
 
   api.addFiles([
     'client/settings.html',

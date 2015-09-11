@@ -7,7 +7,7 @@ ActiveWidgets = [
   //'broadband-cost',
   //'tor-clients',
   //'perma',
-  //'global-voices',
+  'global-voices',
   //'akamaiattacks',
   //'akamaitraffic',
   //'akamaitraffic2',

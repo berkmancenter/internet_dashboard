@@ -1,10 +1,10 @@
-<template name="FeedWidget">
+<template name="GlobalVoicesWidget">
   <h1>Global Voices</h1>
   {{# if Template.subscriptionsReady }}
-  <h2>{{ country.name }}</h2>
+  <h2>{{ countryName }}</h2>
   <ul class="feed-items list-unstyled">
     {{# each feedItems }}
-      {{> FeedItem }}
+      {{> GVItem }}
     {{/each}}
   </ul>
   {{else}}
@@ -12,7 +12,7 @@
   {{/if}}
 </template>
 
-<template name="FeedItem">
+<template name="GVItem">
 <li class="feed-item">
   <h3><a href="{{ link }}" target="_blank">{{ title }}</a></h3>
   <div class="item-date text-right"><small>{{ niceDate }}</small></div>

@@ -122,6 +122,7 @@ CountryInfo.countries = [
 { name: "Kiribati", code: "KI" },
 { name: "Korea, Democratic People's Republic Of", code: "KP" },
 { name: "Korea, Republic Of", code: "KR" },
+{ name: "Kosovo, Republic Of", code: "XK" },
 { name: "Kuwait", code: "KW" },
 { name: "Kyrgyzstan", code: "KG" },
 { name: "Lao People's Democratic Republic", code: "LA" },

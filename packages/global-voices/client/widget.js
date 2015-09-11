@@ -1,20 +1,27 @@
-Template.FeedWidget.onCreated(function() {
+Template.GlobalVoicesWidget.onCreated(function() {
   var template = this;
 
   template.autorun(function() {
-    var feedUrl = Template.currentData().feedUrl;
-    if (feedUrl) { template.subscribe('feed_items', feedUrl); }
+    var feed = Template.currentData().feed;
+    if (feed) {
+      var feedUrl = GlobalVoicesWidget.feedUrl(feed);
+      template.subscribe('feed_items', feedUrl);
+    }
   });
 
 });
 
-Template.FeedWidget.helpers({
+Template.GlobalVoicesWidget.helpers({
   feedItems: function() {
-    return FeedItems.find({ 'feed.url': this.feedUrl }, { sort: { date: -1 } });
+    return FeedItems.find({ 'feed.url': GlobalVoicesWidget.feedUrl(this.feed) },
+        { sort: { date: -1 } });
+  },
+  countryName: function() {
+    return _.findWhere(CountryInfo.countries, { code: this.feed.code }).name;
   }
 });
 
-Template.FeedItem.helpers({
+Template.GVItem.helpers({
   niceDate: function() {
     return moment(this.pubdate).format('h:mm A - ddd, MMM Do, YYYY');
   }

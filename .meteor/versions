@@ -26,6 +26,7 @@ fastclick@1.0.3
 feed@0.0.1
 feed-fetcher@0.0.1
 geojson-utils@1.0.3
+global-voices@0.0.1
 gwendall:session-json@0.1.7
 html-tools@1.0.4
 htmljs@1.0.4

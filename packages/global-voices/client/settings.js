@@ -1,11 +1,16 @@
-Template.FeedSettings.events({
-  'click #feed-save': function(ev, template) {
-    var newFeed = template.$('#feed-url').val();
-    var title = template.$('#feed-title').val();
-    this.set({
-      title: title,
-      feedUrl: newFeed
+Template.GlobalVoicesSettings.helpers({
+  countries: function() {
+    return _.filter(CountryInfo.countries, function(country) {
+      return !!_.findWhere(feedUrls, { code: country.code });
     });
+  },
+  isSelected: function(a, b) { return a === b ? 'selected' : ''; },
+});
+
+Template.GlobalVoicesSettings.events({
+  'click #gv-save': function(ev, template) {
+    var countryCode = template.$('#country-select').val();
+    this.set({ feed: _.findWhere(feedUrls, { code: countryCode }) });
     template.closeSettings();
   }
 });
