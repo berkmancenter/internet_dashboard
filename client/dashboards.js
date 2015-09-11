@@ -67,10 +67,13 @@ Template.DashboardsShow.events({
       template.selectionMode.selected().forEach(function(widget) {
         dashboard.addWidget(widget.copy());
       });
+      template.$('.dash-btn').off('click', template.preventButtonClicks);
     } else {
       Session.set('duplicating', true);
       var selectable = _.pluck(dashboard.widgets().fetch(), '_id');
       template.selectionMode.on(selectable);
+      template.$('.dash-btn:not(.btn-dash-duplicate)')
+        .on('click', template.preventButtonClicks);
     }
   },
   'click .btn-dash-set-country': function(ev, template) {
@@ -82,10 +85,13 @@ Template.DashboardsShow.events({
       template.selectionMode.selected().forEach(function(widget) {
         widget.setCountry(countryCode);
       });
+      template.$('.dash-btn').off('click', template.preventButtonClicks);
     } else {
       Session.set('setting-country', true);
       var selectable = _.pluck(dashboard.widgetsProviding('setCountry'), '_id');
       template.selectionMode.on(selectable);
+      template.$('.dash-btn:not(.btn-dash-set-country)')
+        .on('click', template.preventButtonClicks);
     }
   }
 });
@@ -152,6 +158,9 @@ Template.DashboardsShow.onCreated(function() {
     if (self.gridster) {
       self.gridster.remove_widget(widgetNode);
     }
+  };
+  self.preventButtonClicks = function(e) {
+    e.stopImmediatePropagation();
   };
 });
 
