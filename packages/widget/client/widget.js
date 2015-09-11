@@ -5,6 +5,9 @@ Template.WidgetShow.helpers(_.extend(CommonHelpers, {
   providesSettings: function() {
     return this.package.providesTemplate('Settings');
   },
+  infoShouldShow: function() {
+    return !!this.package.metadata().org || !!this.package.providesTemplate('Info');
+  },
   gridAttrs: function() {
     var resizeConstraints = this.resize.constraints;
     var attrs = {

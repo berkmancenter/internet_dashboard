@@ -36,6 +36,7 @@
         </a>
         {{/if}}
 
+        {{# if infoShouldShow }}
         <a class="button-info" href="#" id="{{ componentId 'Info' }}"
           title="About" data-toggle="popover" data-trigger="click"
           data-html="true" data-placement="auto right" data-viewport="#dashboard"
@@ -43,6 +44,7 @@
           <span class="glyphicon glyphicon-info-sign"></span>
         </a>
         {{> WidgetInfo }}
+        {{/if }}
 
         {{# if dashboard.editable }}
           {{# if providesSettings }}
