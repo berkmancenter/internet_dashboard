@@ -2,14 +2,9 @@ Settings.timeout = 20 * 1000;
 
 FeedItems._createCappedCollection(10 * 1000 * 1000, 3000);
 var Future = Npm.require('fibers/future');
+var FeedParser = Npm.require('feedparser');
 
 var fetchFeed = function(feed) {
-  var FeedParser = Npm.require('feedparser');
-  var Readable = Npm.require('stream').Readable;
-
-  FeedParser = Npm.require('feedparser');
-  feedparser = new FeedParser();
-
   var options = {
     url: feed,
     timeout: Settings.timeout,
@@ -18,10 +13,10 @@ var fetchFeed = function(feed) {
     }
   };
 
+  var feedparser = new FeedParser();
+
   console.log('Feed: Fetching ' + feed + ' - next fetch at ' +
       moment().add(Settings.updateEvery).format('HH:mm:ss'));
-
-  var rss = [];
 
   var response;
   try {
@@ -35,13 +30,6 @@ var fetchFeed = function(feed) {
     console.error('Feed: Bad status code ' + res.statusCode);
   }
 
-  var s = new Readable();
-  s._read = function noop() {};
-  s.push(response.content);
-  s.push(null);
-
-  s.pipe(feedparser);
-
   feedparser.on('error', function(error) {
     console.error('Feed: Parsing error');
     console.error(error);
@@ -49,22 +37,18 @@ var fetchFeed = function(feed) {
 
   feedparser.on('readable', function() {
     var item;
-    var stream = this;
 
-    while (item = stream.read()) {
-      item.feed = { url: feed, title: stream.meta.title };
-      rss.push(item);
-    }
-  });
-
-  feedparser.on('end', Meteor.bindEnvironment(function() {
-    _.each(rss, function(item) {
+    while (item = feedparser.read()) {
+      item.feed = { url: feed, title: feedparser.meta.title };
       if (FeedItems.find({ link: item.link }).count() === 0) {
         FeedItems.insert(item);
       }
-    });
-    console.log('Feed: Fetched ' + feed);
-  }));
+    }
+  });
+
+  feedparser.write(response.content);
+  feedparser.end();
+  console.log('Feed: Fetched ' + feed);
 };
 
 var jobs = [];
