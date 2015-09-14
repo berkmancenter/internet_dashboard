@@ -6,7 +6,7 @@ ActiveWidgets = [
   'connection-speed',
   'broadband-cost',
   'tor-clients',
-  'perma',
+  //'perma',
   'global-voices',
   'akamaiattacks',
   'akamaitraffic',
