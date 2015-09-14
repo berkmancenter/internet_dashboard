@@ -132,8 +132,8 @@ Template.DashboardsShow.onCreated(function() {
       $widget.trigger('gridster:resizestart', ev, ui);
     },
     stop: function(ev, ui, $widget) {
-      $widget.trigger('gridster:resizestop', ev, ui);
       Widgets.updatePositions(self.gridster.serialize());
+      $widget.trigger('gridster:resizestop', ev, ui);
     }
   };
   self.onWidgetDrag = {

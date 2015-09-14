@@ -129,6 +129,14 @@ Widgets.attachSchema(new SimpleSchema({
     optional: true,
     allowedValues: ['scale', 'reflow']
   },
+  'resize.selector': {
+    type: String,
+    optional: true
+  },
+  'resize.freeAspect': {
+    type: Boolean,
+    optional: true
+  },
   'resize.constraints': {
     type: Object,
     optional: true,

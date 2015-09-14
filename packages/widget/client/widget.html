@@ -61,7 +61,8 @@
       </div>
     </div>
 
-    <div class="widget-body" style="{{ resizeTransform }}">
+    <div class="widget-body"
+         style="{{# if bodyResizable }} {{ bodyResizeStyle }} {{/if}}">
       {{> Template.dynamic template=widgetTemplate data=data }}
     </div>
   </li>

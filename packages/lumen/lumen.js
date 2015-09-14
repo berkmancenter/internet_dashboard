@@ -30,6 +30,7 @@ Lumen = {
     url: 'https://www.chillingeffects.org/',
     dimensions: { width: 2, height: 1 },
     constructor: LumenWidget,
+    resize: { selector: '.url-counts', freeAspect: true },
     category: 'control'
   },
   org: {

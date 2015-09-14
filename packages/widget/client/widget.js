@@ -8,6 +8,9 @@ Template.WidgetShow.helpers(_.extend(CommonHelpers, {
   infoShouldShow: function() {
     return !!this.package.metadata().org || !!this.package.providesTemplate('Info');
   },
+  bodyResizable: function() {
+    return !this.resize.selector;
+  },
   gridAttrs: function() {
     var resizeConstraints = this.resize.constraints;
     var attrs = {
@@ -33,7 +36,25 @@ Template.WidgetShow.helpers(_.extend(CommonHelpers, {
   }
 }));
 
+Template.WidgetShow.onCreated(function() {
+  this.resize = function() {
+    var template = this;
+    var widget = template.data;
+    if (widget.resize.selector) {
+      var transform = CommonHelpers.resizeTransforms.bind(widget)(template).join(' ');
+      console.log(transform);
+      template.$(widget.resize.selector)
+        .addClass('resizable')
+        .css({ transform: transform });
+    }
+  }.bind(this);
+});
+
 Template.WidgetShow.onRendered(CommonOnRendered);
+Template.WidgetShow.onRendered(function() {
+  var template = this;
+  template.resize();
+});
 
 Template.WidgetShow.onDestroyed(function() {
   $('#' + this.data.componentId()).trigger('widget:destroyed', [this]);
@@ -74,6 +95,7 @@ Template.WidgetShow.events({
       template.$('.widget-body .resizing-cover').remove();
     }
     // This was passed down from the dashboard - don't bubble it back up.
+    template.resize();
     ev.stopPropagation();
   },
   'change .select-check input[type=checkbox]': function(ev, template) {
@@ -90,10 +112,6 @@ Template.WidgetShow.events({
       var checkbox = template.$('.select-check input[type=checkbox]');
       checkbox.click();
     }
-  },
-  'transitionend': function(ev, template) {
-    //console.log('end');
-    //console.log(ev);
   }
 });
 
