@@ -4,6 +4,7 @@ Template.DashboardsAdd.onRendered(function() {
     itemSelector: '.addable-widget',
     layoutMode: 'fitRows',
     isInitLayout: false,
+    sortBy: 'name',
     getSortData: {
       name: 'h2',
       org: function(elem) { return $(elem).find('.provided-by a').text() || 'ZZZZ'; },
