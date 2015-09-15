@@ -15,8 +15,12 @@ Package.onUse(function(api) {
   api.addFiles('wikiedit-stream.js');
   api.addFiles('server.js', 'server');
   api.addFiles([
-    'client/widget.html', 'client/widget.js', 'client/widget.css',
-    'client/settings.html', 'client/settings.js'
+    'client/info.html',
+    'client/settings.html',
+    'client/settings.js',
+    'client/widget.html',
+    'client/widget.js',
+    'client/widget.css'
     ], 'client');
   api.export('WikiStream');
 });

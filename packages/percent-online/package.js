@@ -16,6 +16,7 @@ Package.onUse(function(api) {
 
   api.addFiles(['percent_online.js']);
   api.addFiles([
+    'client/info.html',
     'client/settings.html',
     'client/settings.js',
     'client/widget.html',
