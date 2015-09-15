@@ -13,6 +13,7 @@ Package.onUse(function(api) {
   api.addFiles(['herdict.js']);
   api.addFiles('server.js', 'server');
   api.addFiles([
+    'client/info.html',
     'client/widget.html',
     'client/widget.js',
     'client/widget.css',
