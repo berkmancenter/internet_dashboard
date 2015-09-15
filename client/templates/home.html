@@ -1,18 +1,36 @@
 <template name="Home">
-<div class="container home">
+<div class="container page">
   <div class="jumbotron">
-    <h1>Welcome!</h1>
-    <p>Internet Monitor lets you explore, create, customize, and share
-    dashboards of data visualizations about multiple facets of the Internet.</p>
-    {{# if currentUser }}
-      <div class="text-center">
-        <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards-new' }}">
-          Get Started
-        </a>
-      </div>
-    {{else}}
-      {{> SignInOrAnon }}
-    {{/if}}
+  <h1>Welcome!</h1>
+  <p>Internet Monitor lets you explore, create, customize, and share
+  dashboards of data visualizations about multiple facets of the Internet.</p>
+  {{# if currentUser }}
+    <div class="text-center">
+      <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards.new' }}">
+        Get Started
+      </a>
+    </div>
+  {{else}}
+    {{> SignInOrAnon }}
+  {{/if}}
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <a href=""><img class="img-thumbnail" src="/dash_screenshot1.png" alt="Screenshot" />
+      <h2>Researchers</h2></a>
+      <p>This is a dashboard.</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img class="img-thumbnail" src="/dash_screenshot1.png" alt="Screenshot" />
+      <a href=""><h2>Students</h2></a>
+      <p>This is a dashboard.</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img class="img-thumbnail" src="/dash_screenshot1.png" alt="Screenshot" />
+      <a href=""><h2>The Curious</h2></a>
+      <p>This is a dashboard.</p>
+    </div>
   </div>
 </div>
 
