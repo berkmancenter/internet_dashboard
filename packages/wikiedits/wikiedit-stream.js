@@ -38,6 +38,7 @@ WikiStream = {
     dimensions: { width: 2, height: 2 },
     resize: { mode: 'reflow' },
     category: 'activity',
+    typeIcon: 'list',
     constructor: WikiWidget
   },
   org: {

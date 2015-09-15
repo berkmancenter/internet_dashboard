@@ -18,6 +18,7 @@ Feed = {
     description: 'Shows items from an RSS or Atom feed',
     dimensions: { width: 2, height: 3 },
     resize: { mode: 'reflow' },
+    typeIcon: 'list',
     constructor: FeedWidget
   }
 };

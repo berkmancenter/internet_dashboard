@@ -31,6 +31,7 @@ MediaCloudStories = {
     dimensions: { width: 2, height: 3 },
     resize: { mode: 'reflow' },
     category: 'activity',
+    typeIcon: 'list',
     constructor: MCStoryWidget,
   },
   org: {

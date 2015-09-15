@@ -7,7 +7,8 @@ Template.DashboardsAdd.onRendered(function() {
     getSortData: {
       name: 'h2',
       org: function(elem) { return $(elem).find('.provided-by a').text() || 'ZZZZ'; },
-      category: function(elem) { return $(elem).find('.package-category').text() || 'ZZZZ'; }
+      category: function(elem) { return $(elem).find('.package-category').text() || 'ZZZZ'; },
+      type: function(elem) { return $(elem).find('.widget-type-icon').attr('class') || 'ZZZZ'; },
     }
   });
   template.$('.modal-body > *').css('visibility', 'hidden');

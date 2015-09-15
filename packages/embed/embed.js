@@ -15,6 +15,7 @@ Embed = {
     dimensions: { width: 2, height: 2 },
     resize: { mode: 'reflow' },
     url: 'https://thenetmonitor.org',
+    typeIcon: 'external-link',
     constructor: EmbedWidget
   }
 };

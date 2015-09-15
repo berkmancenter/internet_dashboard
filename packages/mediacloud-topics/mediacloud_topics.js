@@ -36,6 +36,7 @@ MediaCloudTopics = {
     url: 'http://mediacloud.org',
     dimensions: { width: 2, height: 2 },
     category: 'activity',
+    typeIcon: 'tags',
     constructor: MCWidget,
   },
   org: {

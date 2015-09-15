@@ -18,6 +18,7 @@ UserContent = {
     dimensions: { width: 2, height: 1 },
     resize: { mode: 'reflow' },
     url: 'http://thenetmonitor.org/',
+    typeIcon: 'user',
     constructor: UserContentWidget
   }
 };

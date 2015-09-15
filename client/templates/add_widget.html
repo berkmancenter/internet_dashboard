@@ -22,6 +22,7 @@
             <button type="button" data-sort-by="name" class="btn btn-default">Name</button>
             <button type="button" data-sort-by="category" class="btn btn-default">Category</button>
             <button type="button" data-sort-by="org" class="btn btn-default">Data Provider</button>
+            <button type="button" data-sort-by="type" class="btn btn-default">Type</button>
           </div>
         </div>
         <ul class="add-widget-grid">
@@ -46,6 +47,9 @@
                 <div class="package-category" style="{{ categoryStyle }}">
                   <small>{{ category.name }}</small>
                 </div>
+              {{/if}}
+              {{# if metadata.widget.typeIcon }}
+                <i class="widget-type-icon fa fa-{{ metadata.widget.typeIcon }}"></i>
               {{/if}}
             </footer>
           </li>

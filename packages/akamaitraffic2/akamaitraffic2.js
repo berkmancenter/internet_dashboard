@@ -25,6 +25,7 @@ AkamaiTraffic2 = {
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
     dimensions: { width: 3, height: 2 },
     category: 'access',
+    typeIcon: 'globe',
     constructor: TrafficWidget
   },
   org: {

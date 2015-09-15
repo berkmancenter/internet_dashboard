@@ -38,6 +38,7 @@ AccessIndex = {
     url: 'https://thenetmonitor.org/faq/a-hackable-access-index',
     dimensions: { width: 2, height: 2 },
     category: 'access',
+    typeIcon: 'list',
     constructor: AccessWidget
   },
   org: {

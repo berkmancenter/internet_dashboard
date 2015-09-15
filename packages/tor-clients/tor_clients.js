@@ -41,6 +41,7 @@ TorClients = {
     url: 'https://metrics.torproject.org/clients-data.html',
     dimensions: { width: 2, height: 1 },
     category: 'access',
+    typeIcon: 'line-chart',
     constructor: TorClientsWidget
   },
   org: {

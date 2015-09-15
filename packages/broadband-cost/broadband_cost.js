@@ -55,6 +55,7 @@ BroadbandCost = {
     resize: { mode: 'reflow',
               constraints: { height: { min: 1, max: 1 }, width: { min: 2 } } },
     category: 'access',
+    typeIcon: 'table',
     constructor: BroadbandCostWidget
   },
   org: {
