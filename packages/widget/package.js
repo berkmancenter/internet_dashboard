@@ -36,6 +36,7 @@ Package.onUse(function(api) {
     'client/info.js',
     'client/embed.js',
     'client/widget.css.less',
+    'client/embed.css.less',
   ], 'client');
 
   api.export('Widget');
