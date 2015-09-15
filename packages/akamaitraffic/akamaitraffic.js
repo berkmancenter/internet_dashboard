@@ -26,7 +26,7 @@ AkamaiTraffic = {
     name: 'Web Requests',
     description: 'Shows the number of HTTP hits per second the Akamai network receives from each continent',
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
-    dimensions: { width: 3, height: 2 },
+    dimensions: { width: 3, height: 1 },
     category: 'access',
     constructor: TrafficWidget
   },

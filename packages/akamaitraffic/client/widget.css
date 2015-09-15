@@ -1,8 +1,7 @@
 .akamai-traffic-hour, .akamai-traffic-day {
   position: relative;
-  height: 120px;
+  height: 80px;
   width: 345px;
-  margin-top: 0.5em;
 }
 
 .akamai-traffic-hour h3, .akamai-traffic-day h3 {
@@ -20,7 +19,7 @@
 .akamaitraffic .legend {
   float: right;
   width: 95px;
-  margin-top: 5.5em;
+  margin-top: -1em;
 }
 
 .akamaitraffic .legend .label {
