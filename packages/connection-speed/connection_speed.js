@@ -45,6 +45,7 @@ ConnectionSpeed = {
     url: 'https://thenetmonitor.org/sources#akamai',
     dimensions: { width: 2, height: 2 },
     category: 'access',
+    typeIcon: 'tachometer',
     constructor: ConnectionSpeedWidget,
   },
   org: {

@@ -42,6 +42,7 @@ Perma = {
     dimensions: { width: 1, height: 4 },
     resize: { mode: 'reflow' },
     category: 'activity',
+    typeIcon: 'list',
     constructor: PermaWidget
   },
   org: {

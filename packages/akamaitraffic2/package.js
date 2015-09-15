@@ -17,6 +17,7 @@ Package.onUse(function(api) {
   api.addFiles(['server.js'], 'server');
   api.addFiles([
     'client/lib/d3.geo.js',
+    'client/info.html',
     'client/widget.html',
     'client/widget.js',
     'client/widget.css',

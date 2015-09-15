@@ -16,6 +16,7 @@ Package.onUse(function(api) {
 
   api.addFiles(['broadband_cost.js']);
   api.addFiles([
+    'client/info.html',
     'client/settings.html',
     'client/settings.js',
     'client/widget.html',

@@ -16,6 +16,7 @@ Package.onUse(function(api) {
   api.addFiles(['access-index.js']);
 
   api.addFiles([
+    'client/info.html',
     'client/settings.html',
     'client/settings.js',
     'client/widget.html',

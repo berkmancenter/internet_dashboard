@@ -89,12 +89,10 @@ ordered-dict@1.0.3
 ostrio:iron-router-helper-class@1.0.0
 ostrio:iron-router-title@1.0.0
 percent-online@0.0.1
-perma@0.0.1
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5
 reload@1.1.3
-remcoder:chronos@0.1.3
 retry@1.0.3
 routepolicy@1.0.5
 service-configuration@1.0.4

@@ -21,21 +21,21 @@
 </template>
 
 <template name="DefaultWidgetInfo">
-  {{# if widget.package.metadata.org }}
-  <p>
-    The data backing this widget has been provided by:
-  </p>
-  <div class="text-center">
-    <a href="{{ widget.package.metadata.org.url }}" target="_blank">
-    {{ widget.package.metadata.org.name }}</a>
-  </div>
-  <hr />
-  {{/if}}
-
-  <p class="text-center">
-    <a href="{{ widget.package.metadata.widget.url }}" target="_blank">
-      Explore the data
-    </a>
-  </p>
+  {{> DefaultAttribution }}
 </template>
 
+<template name="DefaultAttribution">
+  {{# if widget.package.metadata.org }}
+  <p>
+    The data backing this widget has been provided by
+    <a href="{{ widget.package.metadata.org.url }}" target="_blank">
+    {{ widget.package.metadata.org.name }}</a>.
+  </p>
+  {{/if}}
+
+  <p>
+    See <a href="{{ widget.package.metadata.widget.url }}" target="_blank">
+      this page
+    </a> for more information about the data.
+  </p>
+</template>

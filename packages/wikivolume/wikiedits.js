@@ -46,6 +46,7 @@ WikiEditCounts = {
     url: 'https://meta.wikimedia.org/wiki/IRC/Channels#Raw_feeds',
     dimensions: { width: 2, height: 1 },
     category: 'activity',
+    typeIcon: 'area-chart',
     constructor: WikiWidget
   },
   org: {

@@ -13,6 +13,7 @@ Package.onUse(function(api) {
 
   api.addFiles('kaspersky.js');
   api.addFiles([
+      'client/info.html',
       'client/widget.html',
       'client/widget.js',
       'client/widget.css',

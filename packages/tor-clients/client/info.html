@@ -19,14 +19,5 @@
     {{ windowLength }} days.
   </p>
   <hr />
-  <p>
-    The data backing this widget has been provided by
-    <a href="{{ widget.package.metadata.org.url }}" target="_blank">
-      {{ widget.package.metadata.org.name }}</a>.
-  </p>
-  <p>
-    See
-    <a href="{{ widget.package.metadata.widget.url }}" target="_blank">this page</a>
-    for more information about the data.
-  </p>
+  {{> DefaultAttribution }}
 </template>

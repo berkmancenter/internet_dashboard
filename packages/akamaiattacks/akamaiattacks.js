@@ -28,6 +28,7 @@ AkamaiAttacks = {
     url: 'http://www.akamai.com/html/technology/real-time-web-metrics.html',
     dimensions: { width: 3, height: 2 },
     category: 'control',
+    typeIcon: 'globe',
     constructor: AttacksWidget
   }
 };

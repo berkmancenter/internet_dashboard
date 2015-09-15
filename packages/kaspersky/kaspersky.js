@@ -81,6 +81,7 @@ Kaspersky = {
     url: 'https://cybermap.kaspersky.com/',
     dimensions: { width: 2, height: 3 },
     category: 'control',
+    typeIcon: 'line-chart',
     constructor: KasperskyWidget
   },
   org: {
