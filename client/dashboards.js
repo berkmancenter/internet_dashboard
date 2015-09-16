@@ -24,9 +24,7 @@ Template.DashboardsShow.helpers({
       'Set country for multiple widgets';
   },
   countries: function() {
-    return _.map(CountryCodes.getList(), function(name, code) {
-      return { name: name, code: code };
-    });
+    return CountryInfo.countries;
   }
 });
 

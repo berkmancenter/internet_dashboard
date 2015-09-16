@@ -241,7 +241,6 @@ CountryInfo.countries = [
 { name: "Ukraine", code: "UA" },
 { name: "United Arab Emirates", code: "AE" },
 { name: "United Kingdom", code: "GB" },
-{ name: "United Kingdom", code: "UK" },
 { name: "United States", code: "US" },
 { name: "United States Minor Outlying Islands", code: "UM" },
 { name: "Uruguay", code: "UY" },
