@@ -1,18 +1,48 @@
 <template name="Home">
-<div class="container home">
+<div class="container page">
   <div class="jumbotron">
-    <h1>Welcome!</h1>
-    <p>Internet Monitor lets you explore, create, customize, and share
-    dashboards of data visualizations about multiple facets of the Internet.</p>
-    {{# if currentUser }}
-      <div class="text-center">
-        <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards-new' }}">
-          Get Started
-        </a>
-      </div>
-    {{else}}
-      {{> SignInOrAnon }}
-    {{/if}}
+  <h1>Welcome!</h1>
+  <p>Internet Monitor lets you explore, create, customize, and share
+  dashboards of data visualizations about multiple facets of the Internet.</p>
+  {{# if currentUser }}
+    <div class="text-center">
+      <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards.new' }}">
+        Get Started
+      </a>
+    </div>
+  {{else}}
+    {{> SignInOrAnon }}
+  {{/if}}
+    <div class="or-block">
+      <p class="or">OR</p>
+      <p>Check out a few curated dashboards:</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <a href="/dashboards/33soXBmpQowadXFtR">
+        <img class="img-thumbnail" src="/dash_screenshot1.png" alt="Screenshot" />
+        <h2>Access and Infrastructure</h2>
+      </a>
+      <p>Explore global trends in Internet access and infrastructure over time.</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <a href="/dashboards/snqBc9xQEwFaRnLF5">
+        <img class="img-thumbnail" src="/dash_screenshot2.png" alt="Screenshot" />
+        <h2>Country Comparison</h2>
+      </a>
+      <p>
+      See how four countries around the world compare on key Internet indicators.
+      </p>
+    </div>
+    <div class="col-md-4 text-center">
+      <a href="/dashboards/omB5dqPJEBtPcJ3Lp">
+        <img class="img-thumbnail" src="/dash_screenshot3.png" alt="Screenshot" />
+        <h2>Global Media</h2>
+      </a>
+      <p>Explore hot topics in online media in multiple languages.</p>
+    </div>
   </div>
 </div>
 
