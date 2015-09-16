@@ -22,9 +22,7 @@
         </a>
         </td>
         <td>
-        {{# if publiclyEditable }}
-        <i class="fa fa-check publicly-editable" title="Publicly editable"></i>
-        {{/if}}
+        {{# if publiclyEditable }} Yes {{else}} No {{/if}}
         </td>
         <td>
           <a href="#" class="delete-dash text-danger" data-did="{{ _id }}">
