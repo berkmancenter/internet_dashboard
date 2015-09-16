@@ -9,7 +9,7 @@ Package.onUse(function(api) {
   api.use(['harrison:babyparse', 'http', 'meteorhacks:aggregate@1.3.0'], 'server');
   api.use([
       'widget', 'mongo', 'underscore',
-      'momentjs:moment@2.9.0', 'aldeed:collection2', '3stack:country-codes'
+      'momentjs:moment@2.9.0', 'aldeed:collection2', 'country-info'
   ]);
   api.use(['templating', 'epoch'], 'client');
 

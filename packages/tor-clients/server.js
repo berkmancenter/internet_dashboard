@@ -55,7 +55,7 @@ if (TorData.find().count() === 0 ||
 Meteor.setInterval(updateData.future(), Settings.updateEvery.asMilliseconds());
 
 Meteor.publish('tor_data', function(countryCode) {
-  return TorData.find({ country: countryCode });
+  return TorData.find({ country: countryCode.toLowerCase() });
 });
 
 Meteor.publish('tor_countries', function() {
@@ -67,9 +67,10 @@ Meteor.publish('tor_countries', function() {
   var codes = _.pluck(TorData.aggregate(pipeline), '_id');
 
   _.each(codes, function(code) {
-    var countryName = CountryCodes.countryName(code.toUpperCase());
-    if (!countryName) { return; }
-    self.added('tor_countries', code, { name: countryName, code: code });
+    var country = _.findWhere(CountryInfo.countries,
+        { code: code.toUpperCase() });
+    if (!country) { return; }
+    self.added('tor_countries', code, country);
   });
 
   self.ready();

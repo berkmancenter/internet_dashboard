@@ -7,7 +7,9 @@ Template.TorClientsWidget.onCreated(function() {
 
 Template.TorClientsWidget.helpers({
   countryName: function() {
-    return CountryCodes.countryName(this.countryCode.toUpperCase());
+    var country = _.findWhere(CountryInfo.countries,
+        { code: this.countryCode.toUpperCase() });
+    return country ? country.name : '';
   }
 });
 
@@ -18,7 +20,7 @@ Template.TorClientsWidget.onRendered(function() {
 
     var $graphNode = template.$('.tor-clients');
     var data = TorData.find({
-      country: Template.currentData().countryCode,
+      country: Template.currentData().countryCode.toLowerCase(),
       node: Template.currentData().nodeType
     }, { sort: { date: 1 } });
     var pnts = data.map(function(d) { return { x: d.date, y: d.clients }; });
