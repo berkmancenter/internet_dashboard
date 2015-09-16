@@ -58,7 +58,7 @@ Router.route('/users/me', {
     ];
   },
   data: function() {
-    return Meteor.user();
+    return { user: Meteor.user() };
   },
   title: 'My Profile | Internet Monitor Dashboard'
 });

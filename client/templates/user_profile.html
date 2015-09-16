@@ -2,12 +2,16 @@
 <div class="container page">
   <div class="row">
     <div class="col-md-offset-1 col-md-10">
-      <h2>Profile</h2>
-      <dl>
-        <dt>Username</dt>
-        <dd>{{ username }}</dd>
-      </dl>
+      {{> UsersProfileContent }}
     </div>
   </div>
 </div>
+</template>
+
+<template name="UsersProfileContent">
+<h2>Profile</h2>
+<dl>
+  <dt>Username</dt>
+  <dd>{{ user.username }}</dd>
+</dl>
 </template>
