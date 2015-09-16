@@ -11,7 +11,8 @@ Meteor.methods({
       transformTags: {
         'iframe':
           sanitize.simpleTransform('iframe',
-              { sandbox: 'allow-scripts allow-same-origin', frameborder: 0 })
+              { sandbox: 'allow-scripts allow-same-origin allow-popups',
+                frameborder: 0 })
       }
     });
     widget.data.set({ embedCode: cleanContent });

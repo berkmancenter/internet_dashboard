@@ -7,8 +7,7 @@
       <p class="data-source">
         From <a href="{{ package.metadata.org.url }}" target="_blank">
           {{ package.metadata.org.shortName }}
-        </a> and
-        <a href="http://thenetmonitor.org" target="_blank">Internet Monitor</a>
+        </a>
       </p>
       {{/if}}
 
@@ -26,5 +25,11 @@
     <div class="widget-body" style="{{ resizeTransform }}">
       {{> Template.dynamic template=widgetTemplate data=data }}
     </div>
+  </div>
+
+  <div class="imon-branding">
+    <a href="{{ dashboardUrl }}" target="_blank">
+      <span class="logo-image"></span>
+    </a>
   </div>
 </template>

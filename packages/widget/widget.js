@@ -66,6 +66,7 @@ _.extend(Widget, {
   },
   Settings: {
     titleBar: { height: 20 },
+    logoBar: { height: 33 },
     categories: [
       {
         slug: 'access',
