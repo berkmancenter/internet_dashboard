@@ -26,10 +26,11 @@ GlobalVoices = {
     resize: { mode: 'reflow' },
     category: 'activity',
     typeIcon: 'list',
+    url: 'http://globalvoicesonline.org/feeds/',
     constructor: GlobalVoicesWidget
   },
   org: {
-    name: 'Global Voices',
+    name: 'Global Voices Online',
     shortName: 'Global Voices',
     url: 'http://globalvoicesonline.org/'
   }

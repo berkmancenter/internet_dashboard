@@ -17,6 +17,7 @@ Package.onUse(function(api) {
   api.addFiles(['feed_urls.js', 'global_voices.js']);
 
   api.addFiles([
+    'client/info.html',
     'client/settings.html',
     'client/settings.js',
     'client/widget.html',

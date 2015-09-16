@@ -25,7 +25,7 @@ _.extend(MCStoryWidget.prototype, {
 
 MediaCloudStories = {
   widget: {
-    name: 'Term Usage',
+    name: 'Media Monitor',
     description: 'Shows a list of recent articles from a selected country that include a selected term',
     url: 'http://mediacloud.org',
     dimensions: { width: 2, height: 3 },
