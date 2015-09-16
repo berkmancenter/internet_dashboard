@@ -5,21 +5,36 @@
       {{> UsersProfileContent }}
 
       <h2>My Dashboards</h2>
-      <ul class="list-unstyled">
+      <table class="my-dashboards table table-condensed">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Publicly Editable</th>
+          </tr>
+        </thead>
+        <tbody>
       {{# each dashboards }}
-      <li>
+      <tr>
+        <td>
         <a href="{{ pathFor route='dashboards.show' data=dashParams }}">
           {{ title }}
         </a>
-      </li>
+        </td>
+        <td>
+        {{# if publiclyEditable }}
+        <i class="fa fa-check publicly-editable" title="Publicly editable"></i>
+        {{/if}}
+        </td>
+      </tr>
       {{else}}
-        <li>
+        <tr><td>
           <p>You do not currently own any dashboards, so it's time to
           <a href="{{ pathFor route='dashboards.new' }}">make one!</a>
           </p>
-        </li>
+        </td></tr>
       {{/each}}
-      </ul>
+      </tbody>
+      </table>
     </div>
   </div>
 </div>
