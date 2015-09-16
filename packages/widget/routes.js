@@ -1,5 +1,5 @@
 Router.route('/widgets/:_id/embed', {
-  name: 'widgets.embed',
+  name: 'widgets-embed',
   layoutTemplate: false,
   loadingTemplate: 'Loading',
   waitOn: function() {

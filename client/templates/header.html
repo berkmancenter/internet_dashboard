@@ -16,7 +16,7 @@
           {{/if}}
           {{# if notHome }}
           <a class="btn btn-success navbar-btn new-dashboard"
-             href="{{ pathFor route='dashboards.new' }}">
+             href="{{ pathFor route='dashboards-new' }}">
             New Dashboard
           </a>
           {{/if}}
@@ -29,7 +29,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="{{ pathFor route='users.dashboards' }}">My Dashboards</a>
+                    <a href="{{ pathFor route='users-dashboards' }}">My Dashboards</a>
                   </li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#" class="sign-out" id="sign-out">Sign Out</a></li>

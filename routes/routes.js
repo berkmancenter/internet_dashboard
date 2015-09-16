@@ -18,18 +18,18 @@ Router.route('/', {
 });
 
 Router.route('/dashboards/new', {
-  name: 'dashboards.new',
+  name: 'dashboards-new',
   action: function() {
     // We don't want the new dashboard URL to show up in history
     var router = this;
     Meteor.call('newDashboard', function(error, id) {
-      router.redirect('dashboards.show', { _id: id });
+      router.redirect('dashboards-show', { _id: id });
     });
   }
 });
 
 Router.route('/dashboards/:_id', {
-  name: 'dashboards.show',
+  name: 'dashboards-show',
   loadingTemplate: 'Loading',
   waitOn: function() {
     return [
@@ -50,7 +50,7 @@ Router.route('/dashboards/:_id', {
 });
 
 Router.route('/users/me', {
-  name: 'users.profile',
+  name: 'users-profile',
   loadingTemplate: 'Loading',
   waitOn: function() {
     return [
@@ -64,7 +64,7 @@ Router.route('/users/me', {
 });
 
 Router.route('/users/me/dashboards', {
-  name: 'users.dashboards',
+  name: 'users-dashboards',
   loadingTemplate: 'Loading',
   waitOn: function() {
     return [
@@ -82,9 +82,5 @@ Router.route('/users/me/dashboards', {
 });
 
 Router.plugin('ensureSignedIn', {
-    only: ['users.profile', 'users.dashboards']
+    only: ['users-profile', 'users-dashboards']
 });
-
-if (Meteor.isClient) {
-  Router.plugin('bodyClasses');
-}

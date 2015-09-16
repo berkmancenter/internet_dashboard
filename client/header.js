@@ -5,7 +5,7 @@ Template.Header.helpers({
   },
   onDashboard: function() {
     return Router.current() &&
-      Router.current().route.getName() === 'dashboards.show';
+      Router.current().route.getName() === 'dashboards-show';
   }
 });
 Template.Header.events({
@@ -13,7 +13,7 @@ Template.Header.events({
   'click #copy-dashboard': function(ev, template) {
     this.copy(function(error, newId) {
       if (Meteor.isClient) {
-        Router.go('dashboards.show', { _id: newId });
+        Router.go('dashboards-show', { _id: newId });
       }
     });
   }

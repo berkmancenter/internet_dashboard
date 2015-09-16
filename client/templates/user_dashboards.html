@@ -17,7 +17,7 @@
       {{# each dashboards }}
       <tr>
         <td>
-        <a href="{{ pathFor route='dashboards.show' data=dashParams }}">
+        <a href="{{ pathFor route='dashboards-show' data=dashParams }}">
           {{ title }}
         </a>
         </td>
@@ -35,7 +35,7 @@
       {{else}}
         <tr><td>
           <p>You do not currently own any dashboards, so it's time to
-          <a href="{{ pathFor route='dashboards.new' }}">make one!</a>
+          <a href="{{ pathFor route='dashboards-new' }}">make one!</a>
           </p>
         </td></tr>
       {{/each}}

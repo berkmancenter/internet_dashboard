@@ -18,12 +18,10 @@ utils
 useraccounts:bootstrap
 isotope:isotope
 underscorestring:underscore.string
-lookback:body-class
 useraccounts:iron-routing
 3stack:country-codes
 country-info
 similar-string
-ostrio:iron-router-title
 aramk:tinycolor
 feed
 global-voices
@@ -46,3 +44,5 @@ kaspersky
 user-content
 fortawesome:fontawesome
 hinas:meteor-bootstrap-confirmation
+ostrio:iron-router-title
+london:body-class
