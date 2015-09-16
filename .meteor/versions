@@ -42,6 +42,7 @@ global-voices@0.0.1
 gwendall:session-json@0.1.7
 harrison:babyparse@1.0.1
 herdict@0.0.1
+hinas:meteor-bootstrap-confirmation@0.9.0
 html-scraper@0.0.1
 html-tools@1.0.4
 htmljs@1.0.4

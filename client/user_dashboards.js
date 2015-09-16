@@ -4,3 +4,12 @@ Template.UsersDashboards.helpers({
     return this.getTitle();
   }
 });
+Template.UsersDashboards.onRendered(function() {
+  var template = this;
+  template.$('.delete-dash').confirmation({
+    onConfirm: function(ev, $target) {
+      var dashId = $target.data('did');
+      Meteor.call('deleteDashboard', dashId);
+    }
+  });
+});

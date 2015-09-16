@@ -12,6 +12,7 @@ Meteor.methods({
     }
 
     var newDash = new Dashboard(dashboard);
+    console.log('Dashboard: Creating dashboard');
     return Dashboards.insert(newDash);
   },
   copyDashboard: function(oldId) {
@@ -36,5 +37,15 @@ Meteor.methods({
       console.log('Dashboard: Updating dashboard ' + id);
       Dashboards.update(dashboard._id, { $set: attrs });
     }
+  },
+  deleteDashboard: function(id) {
+    var dashboard = Dashboards.findOne(id);
+    dashboard.authorize();
+    console.log('Dashboard: Deleting dashboard ' + id);
+    var widgets = dashboard.widgets();
+    widgets.forEach(function(widget) {
+      Widgets.remove(widget._id);
+    });
+    Dashboards.remove(dashboard._id);
   }
 });

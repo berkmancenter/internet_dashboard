@@ -10,6 +10,7 @@
           <tr>
             <th>Title</th>
             <th>Publicly Editable</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +25,11 @@
         {{# if publiclyEditable }}
         <i class="fa fa-check publicly-editable" title="Publicly editable"></i>
         {{/if}}
+        </td>
+        <td>
+          <a href="#" class="delete-dash text-danger" data-did="{{ _id }}">
+            Delete
+          </a>
         </td>
       </tr>
       {{else}}
