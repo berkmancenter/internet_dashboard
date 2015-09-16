@@ -6,11 +6,13 @@
       <h2 class="text-center">Welcome to your new dashboard!</h2>
       <p>A few things to know:</p>
       <ul>
-        <li><p>Click on the <span class="btn-add-widget dash-btn"><span class="glyphicon glyphicon-plus"></span></span> to add your first widget.</p></li>
+        <li><p>Click on the <span class="btn-add-widget dash-btn"></span> to add your first widget.</p></li>
         <li><p>Dashboards can hold as many widgets as you like, each with their own settings.</p></li>
         <li><p>To compare data across countries and regions, you can add multiple copies of widgets.</p></li>
         <li><p>Once you've added some widgets, you can rearrange them however you'd like.</p></li>
+        {{# unless currentUser }}
         <li><p>If you'd like to share this dashboard with others or visit it again later, make sure to keep a copy of the URL.</p></li>
+        {{/unless}}
       </ul>
     {{else}}
     <p class="text-center">There are currently no widgets in this dashboard.</p>
@@ -30,11 +32,9 @@
   {{# unless noWidgets }}
   <a href="#" class="btn-dash-set-country dash-btn {{ settingCountryState }}"
      title="{{ settingCountryTitle }}">
-    <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
   </a>
   <a href="#" class="btn-dash-duplicate dash-btn {{ duplicatingState }}"
      title="{{ duplicatingTitle }}">
-    <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
   </a>
   {{/unless}}
   {{> DashboardsSettings }}

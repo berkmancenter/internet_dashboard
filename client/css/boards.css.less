@@ -36,83 +36,80 @@ h1, h2, h3 {
 }
 
 span.btn-add-widget {
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
   display: inline-block;
-  font-size: 13px;
-  line-height: 20px;
-  padding-left: 2px;
-  background-color: transparent;
+  background-position: 0px -155px;
+  vertical-align: bottom;
 }
 
 a.btn-add-widget {
   position: fixed;
   bottom: 55px;
   right: 15px;
-  font-size: 28px;
-  padding-left: 3px;
-  line-height: 48px;
   width: 50px;
   height: 50px;
   z-index: 1000;
+  background-position: -50px -105px;
+  &:hover {
+    background-position: 0px -105px;
+  }
 }
 
 .dash-btn {
-  color: #428BCA;
-  border: 2px solid #428BCA;
-  border-radius: 50%;
-  text-align: center;
-  background-color: rgba(8, 31, 44, 0.15);
-
   &:hover, &:focus, &:visited {
     text-decoration: none;
     outline: none;
-    color: #428BCA;
   }
-
-  &:hover {
-    color: #65A8E5;
-    border-color: #65A8E5;
-  }
-
-  &.active {
-    background-color: #FDFDA9;
-    color: #E6B604;
-    border-color: #E6B604;
-  }
+  background-image: url('/buttons.png');
 }
 
 .btn-dash-settings {
   position: fixed;
   bottom: 112px;
   right: 15px;
-  font-size: 18px;
-  line-height: 35px;
   width: 35px;
   height: 35px;
   z-index: 1000;
+  background-position: 85px -70px;
+  &:hover {
+    background-position: -15px -70px;
+  }
+  &.active {
+    background-position: 35px -70px;
+  }
 }
 
 .btn-dash-duplicate {
   position: fixed;
   bottom: 154px;
   right: 15px;
-  font-size: 14px;
-  line-height: 32px;
   width: 35px;
   height: 35px;
   z-index: 1000;
+  background-position: 85px -35px;
+  &:hover {
+    background-position: -15px -35px;
+  }
+  &.active {
+    background-position: 35px -35px;
+  }
 }
 
 .btn-dash-set-country {
   position: fixed;
   bottom: 196px;
   right: 15px;
-  font-size: 14px;
-  line-height: 32px;
   width: 35px;
   height: 35px;
   z-index: 1000;
+  background-position: 85px 0px;
+  &:hover {
+    background-position: -15px 0px;
+  }
+  &.active {
+    background-position: 35px 0px;
+  }
 }
 
 .alert:not(.at-error) {
