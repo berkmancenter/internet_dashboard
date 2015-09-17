@@ -17,6 +17,6 @@ ActiveWidgets = [
   'connection-speed',
   'user-content',
   'embed',
-  'feed'
-  //'perma',
+  'feed',
+  'perma'
 ];

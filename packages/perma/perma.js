@@ -14,7 +14,7 @@ PermaArchives.attachSchema(new SimpleSchema({
   'organization': { type: String, optional: true },
   'title': { type: String },
   'url': { type: String },
-  'thumb_url': { type: String },
+  'thumb_id': { type: String },
   'vested': { type: Boolean },
   'vested_timestamp': { type: Date },
   'view_count': { type: Number },

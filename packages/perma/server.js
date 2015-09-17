@@ -1,24 +1,22 @@
 _.extend(Settings, {
   apiUrl: 'https://api.perma.cc/v1/public/archives/',
-  image: {
-    dims: { width: 200, height: 150 },
-    format: 'png'
-  },
-  thumbDir: process.env.PWD + '/public/tmp/',
   requestProtocol: 'http',
-  timeout: 20 * 1000,
   publishLimit: 15,
+  keepFor: moment.duration({ days: 1 }),
+  deleteEvery: moment.duration({ days: 1 }),
+  thumbnails: {
+    dims: { width: 200, height: 150 },
+    format: 'png',
+  }
 });
 
 var Future = Npm.require('fibers/future');
 var url = Npm.require('url');
+var gm = Npm.require('gm');
 
 if (Settings.fetchLimit) {
   Settings.apiUrl += '?limit=' + Settings.fetchLimit;
 }
-
-var request = Npm.require('request');
-var gm = Npm.require('gm');
 
 var archiveExists = function(archive) {
   return PermaArchives.find({ "guid": archive.guid }).count() > 0;
@@ -30,23 +28,25 @@ var dumpArchive = function(archive) {
       { role: 'screenshot', status: 'success' });
   if (!screenshot) { return; }
   var screenshotUrl = Settings.requestProtocol + ':' + screenshot.playback_url;
-  var req = request(screenshotUrl, { timeout: Settings.timeout });
-  var filename = archive.guid + '.' + Settings.image.format;
-  var image = gm(req, filename)
-    .resize(Settings.image.dims.width)
-    .crop(Settings.image.dims.width, Settings.image.dims.height, 0, 0);
-  archive.thumb_url = Meteor.absoluteUrl('tmp/' + filename);
-  archive.creation_timestamp =
-    moment(archive.creation_timestamp).utcOffset(moment().utcOffset()).toDate();
-  archive.hostname = url.parse(archive.url).hostname;
 
-  try {
-    Future.wrap(image.write.bind(image))(Settings.thumbDir + filename).wait();
-    PermaArchives.insert(archive);
-  } catch (error) {
-    console.error('Perma: Error saving archive');
-    console.error(error);
-  }
+  Thumbnails.insert(screenshotUrl, function(err, fileObj) {
+    if (err) {
+      console.error('Perma: Error fetching screenshot');
+      console.error(err);
+    }
+
+    archive.thumb_id = fileObj._id;
+    archive.creation_timestamp =
+      moment(archive.creation_timestamp).utcOffset(moment().utcOffset()).toDate();
+    archive.hostname = url.parse(archive.url).hostname;
+
+    try {
+      PermaArchives.insert(archive);
+    } catch (error) {
+      console.error('Perma: Error saving archive');
+      console.error(error);
+    }
+  });
 };
 
 var fetchData = function() {
@@ -62,10 +62,37 @@ var fetchData = function() {
   console.log('Perma: Fetched data');
 }.future();
 
+var deleteOldArchives = function() {
+  console.log('Perma: Deleting old archives');
+  Thumbnails.remove({ uploadedAt: { $lt: moment().subtract(Settings.keepFor) }});
+  PermaArchives.remove({ creation_timestamp:
+    { $lt: moment().subtract(Settings.keepFor) }});
+};
+
+var thumbStore = new FS.Store.FileSystem("perma_thumbnails", {
+  path: 'perma/thumbnails',
+  transformWrite: function(fileObj, readStream, writeStream) {
+    // Thumbnail the screenshots
+    gm(readStream, fileObj.name())
+      .resize(Settings.thumbnails.dims.width)
+      .crop(Settings.thumbnails.dims.width, Settings.thumbnails.dims.height, 0, 0)
+      .stream().pipe(writeStream);
+  }
+});
+Thumbnails = new FS.Collection("perma_thumbnails", { stores: [thumbStore] });
+Thumbnails.allow({ download: function(userId, fileObj) { return true; } });
+
 fetchData();
 Meteor.setInterval(fetchData, Settings.updateEvery);
+Meteor.setInterval(deleteOldArchives,
+    Settings.deleteEvery.asMilliseconds());
 
 Meteor.publish('perma_archives', function() {
   return PermaArchives.find({},
       { limit: Settings.publishLimit, sort: { creation_timestamp: -1 }});
 });
+Meteor.publish('perma_thumbnails', function() {
+  return Thumbnails.find({},
+      { limit: Settings.publishLimit, sort: { uploadedAt: -1 }});
+});
+

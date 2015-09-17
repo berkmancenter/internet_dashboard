@@ -7,7 +7,8 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['widget', 'mongo', 'momentjs:moment', 'aldeed:collection2',
-           'underscore', 'remcoder:chronos']);
+           'underscore', 'remcoder:chronos', 'cfs:standard-packages',
+           'cfs:filesystem']);
   api.use(['templating'], 'client');
   api.use(['http'], 'server');
 
@@ -24,5 +25,4 @@ Package.onUse(function(api) {
 
 Npm.depends({
   gm: '1.18.1',
-  request: '2.61.0'
 });

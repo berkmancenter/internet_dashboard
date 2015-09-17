@@ -3,14 +3,16 @@
 <p>Recent archives</p>
 <ol class="list-unstyled text-center">
   {{# each archives }}
+  {{# if thumb.url }}
   <li>
     <div>
     <a href="{{ url }}" target="_blank" title="{{ title }}">
-      <img class="img-thumbnail" src="{{ thumb_url }}" />
+      <img class="img-thumbnail" src="{{ thumb.url }}" />
     </a>
     </div>
     <small>{{ niceDate }}</small>
   </li>
+  {{/if}}
   {{else}}
   <li><p>No archives.</p></li>
   {{/each}}
