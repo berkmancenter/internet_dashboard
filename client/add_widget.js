@@ -44,12 +44,14 @@ Template.DashboardsAdd.events({
     }).get();
     WidgetPackages
       .find({ packageName: { $in: addedWidgets }})
-      .forEach(function(package) {
+      .forEach(function(package, i) {
         var widgetAttrs = _.pick(package, 'packageName', 'exportedVar');
         widgetAttrs.typeId = package._id;
 
-        var widget = Widget.construct(widgetAttrs);
-        dashboard.addWidget(widget);
+        Meteor.setTimeout(function() {
+          var widget = Widget.construct(widgetAttrs);
+          dashboard.addWidget(widget);
+        }, i * Dashboard.Settings.addWidgetDelay);
       });
     template.$('.add-widget-modal').modal('hide');
   }

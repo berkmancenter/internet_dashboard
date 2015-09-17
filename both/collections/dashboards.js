@@ -2,6 +2,10 @@ Dashboard = function(doc) {
   return _.extend(this, doc);
 };
 
+Dashboard.Settings = {
+  addWidgetDelay: 300
+};
+
 _.extend(Dashboard.prototype, {
   addWidget: function(widget) {
     widget.dashboardId = this._id;
