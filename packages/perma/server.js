@@ -82,10 +82,15 @@ var thumbStore = new FS.Store.FileSystem("perma_thumbnails", {
 Thumbnails = new FS.Collection("perma_thumbnails", { stores: [thumbStore] });
 Thumbnails.allow({ download: function(userId, fileObj) { return true; } });
 
-fetchData();
-Meteor.setInterval(fetchData, Settings.updateEvery);
-Meteor.setInterval(deleteOldArchives,
-    Settings.deleteEvery.asMilliseconds());
+Meteor.startup(function() {
+  // Remove all the data because files will be deleted on restart
+  Thumbnails.remove({});
+  PermaArchives.remove({});
+  fetchData();
+  Meteor.setInterval(fetchData, Settings.updateEvery);
+  Meteor.setInterval(deleteOldArchives,
+      Settings.deleteEvery.asMilliseconds());
+});
 
 Meteor.publish('perma_archives', function() {
   return PermaArchives.find({},
