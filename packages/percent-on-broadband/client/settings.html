@@ -1,0 +1,16 @@
+<template name="PercentOnBroadbandSettings">
+{{# if Template.subscriptionsReady }}
+<div class="form-group">
+  <label for="country-select">Country</label>
+  <select class="country form-control" id="country-select" name="country">
+  {{# each countries }}
+  <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
+  {{/each}}
+</select>
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>

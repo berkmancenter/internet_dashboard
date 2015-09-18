@@ -4,6 +4,7 @@ Settings = {
   indicatorLinkSelector: 'a[href="/sources"]',
   toCollect: [
     'Percentage of individuals using the Internet',
+    'Broadband adoption rate',
     'Average connection speed (kbps)',
     'Average download speed (kbps)',
     'Broadband subscription charge as a percentage of GDP per capita PPP (0-1 Mbps)',

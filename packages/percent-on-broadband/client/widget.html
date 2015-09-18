@@ -1,0 +1,16 @@
+<template name="PercentOnBroadbandWidget">
+  <h1>Broadband Adoption</h1>
+  <h2>{{ country.name }}</h2>
+{{# if Template.subscriptionsReady }}
+  <span class="indicator-value">{{ indicatorValue }}</span>
+  <div class="online-users">
+  {{# each users }}
+  <i class="fa fa-user {{ online }}"></i>
+  {{else}}
+  <p class="no-data">No data available.</p>
+  {{/each}}
+  </div>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>

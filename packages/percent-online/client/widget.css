@@ -1,21 +1,21 @@
-.fa {
+.percent-online .fa {
   font-size: 10px;
 }
 
-.fa.online {
+.percent-online .fa.online {
   color: rgb(186, 89, 100);
 }
 
-.fa.offline {
+.percent-online .fa.offline {
   color: rgb(217, 217, 217);
 }
 
-.online-users {
+.percent-online .online-users {
   width: 72%;
   line-height: 0px;
 }
 
-.indicator-value {
+.percent-online .indicator-value {
   position: absolute;
   right: 8px;
   font-size: 42px;

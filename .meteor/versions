@@ -105,6 +105,7 @@ observe-sequence@1.0.6
 ordered-dict@1.0.3
 ostrio:iron-router-helper-class@1.0.0
 ostrio:iron-router-title@1.0.0
+percent-on-broadband@0.0.1
 percent-online@0.0.1
 perma@0.0.1
 raix:eventemitter@0.0.2

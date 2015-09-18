@@ -1,0 +1,30 @@
+.percent-on-broadband .fa {
+  font-size: 10px;
+}
+
+.percent-on-broadband .fa.online {
+  color: #6192BD;
+}
+
+.percent-on-broadband .fa.offline {
+  color: rgb(217, 217, 217);
+}
+
+.percent-on-broadband .online-users {
+  width: 72%;
+  line-height: 0px;
+}
+
+.percent-on-broadband .no-data {
+  margin-top: 2em;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.percent-on-broadband .indicator-value {
+  position: absolute;
+  right: 8px;
+  font-size: 42px;
+  bottom: 20px;
+  color: #888;
+}

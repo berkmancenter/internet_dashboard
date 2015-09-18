@@ -13,6 +13,7 @@ ActiveWidgets = [
   'lumen',
   'wikivolume',
   'percent-online',
+  'percent-on-broadband',
   'akamaitraffic2',
   'connection-speed',
   'user-content',
