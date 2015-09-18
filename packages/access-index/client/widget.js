@@ -1,21 +1,25 @@
 Template.AccessIndexWidget.onCreated(function() {
-  this.subscribe('imon_countries');
+  var template = this;
+  template.subscribe('imon_countries');
+  template.autorun(function() {
+    template.subscribe('imon_data', Template.currentData().country.code);
+  });
 });
 
 Template.AccessIndexWidget.helpers({
-  ready: function() {
-    return Template.instance().subscriptionsReady() && !this.isEmpty();
+  country: function() {
+    return IMonCountryData.findOne({ code: Template.currentData().country.code });
   },
   ranks: function() {
     var width = Math.floor(Settings.numRanks / 2);
-    var rank = Template.currentData().access.rank;
+    var rank = this.access.rank;
     var min = Math.max(1, rank - width);
     var max = Math.min(IMonCountries.find().count(), rank + width) + 1;
     return _.map(_.range(min, max), function(r) {
       return {
         rank: r,
         offset: r - rank,
-        country: IMonCountries.findOne({ 'access.rank': r })
+        rankedCountry: IMonCountries.findOne({ rank: r })
       };
     });
   },

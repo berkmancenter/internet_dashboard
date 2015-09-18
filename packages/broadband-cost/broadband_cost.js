@@ -9,19 +9,13 @@ Settings = {
   speedRegex: /(\d+-)?\d+ Mbps/,
   maxSpeed: '25 Mbps',
   lowerCellClassBounds: { 66: 'success', 33: 'warning', 0: 'danger' },
+  defaultCountry: { name: 'United States', code: 'usa' }
 };
 
 BroadbandCostWidget = function(doc) {
   Widget.call(this, doc);
 
-  if (this.data.isEmpty() && Meteor.isClient) {
-    var self = this;
-    Meteor.subscribe('imon_countries', function() {
-      self.data.set({
-        country: IMonCountries.findOne({ code: 'usa' }),
-      });
-    });
-  }
+  _.defaults(this.data, { country: Settings.defaultCountry });
 };
 
 BroadbandCostWidget.prototype = Object.create(Widget.prototype);
@@ -37,12 +31,6 @@ _.extend(BroadbandCostWidget.prototype, {
         widget.data.set({ country: country });
       }
     });
-  },
-  getCountry: function() {
-    return IMonCountries.findOne({ code: this.data.country.code });
-  },
-  getIndicatorByName: function(name) {
-    return _.findWhere(this.getCountry().indicators, { name: name });
   }
 });
 

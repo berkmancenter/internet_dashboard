@@ -1,18 +1,12 @@
 Settings = {
-  numRanks: 7
+  numRanks: 7,
+  defaultCountry: { name: 'United States', code: 'usa' }
 };
 
 AccessWidget = function(doc) {
   Widget.call(this, doc);
 
-  if (this.data.isEmpty() && Meteor.isClient) {
-    var self = this;
-    Meteor.subscribe('imon_countries', function() {
-      self.data.set({
-        country: IMonCountries.findOne({ code: 'usa' })
-      });
-    });
-  }
+  _.defaults(this.data, { country: Settings.defaultCountry });
 };
 
 AccessWidget.prototype = Object.create(Widget.prototype);

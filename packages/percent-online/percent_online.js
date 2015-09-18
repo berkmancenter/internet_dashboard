@@ -1,18 +1,12 @@
 Settings = {
-  indicatorName: 'Percentage of individuals using the Internet'
+  indicatorName: 'Percentage of individuals using the Internet',
+  defaultCountry: { name: 'United States', code: 'usa' }
 };
 
 PercentOnlineWidget = function(doc) {
   Widget.call(this, doc);
 
-  if (this.data.isEmpty() && Meteor.isClient) {
-    var self = this;
-    Meteor.subscribe('imon_countries', function() {
-      self.data.set({
-        country: IMonCountries.findOne({ code: 'usa' })
-      });
-    });
-  }
+  _.defaults(this.data, { country: Settings.defaultCountry });
 };
 
 PercentOnlineWidget.prototype = Object.create(Widget.prototype);
@@ -29,13 +23,9 @@ _.extend(PercentOnlineWidget.prototype, {
       }
     });
   },
-  getCountry: function() {
-    if (_.isEmpty(this.data.country)) { return; }
-    return IMonCountries.findOne({ code: this.data.country.code });
-  },
   getIndicator: function() {
-    if (_.isEmpty(this.getCountry())) { return; }
-    return _.findWhere(this.getCountry().indicators, { name: Settings.indicatorName });
+    var countryData = IMonCountryData.findOne({ code: this.data.country.code });
+    return _.findWhere(countryData.indicators, { name: Settings.indicatorName });
   }
 });
 

@@ -35,3 +35,10 @@ Widgets.seed = function(packages) {
   });
   console.log('Widget: Updated widget packages');
 };
+
+// Remove all widgets that use this package if the package gets removed
+WidgetPackages.find().observe({
+  removed: function(removedPackage) {
+    Widgets.remove({ packageName: removedPackage.packageName });
+  }
+});

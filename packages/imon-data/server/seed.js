@@ -38,7 +38,7 @@ var fetchCountryData = function(country) {
     };
 
     try {
-      IMonCountries.update(country._id, { $set: {
+      IMonCountryData.update(country._id, { $set: {
         imageUrl: countryUrl(country) + '/thumb',
         access: access,
         indicators: country.indicators,
@@ -51,7 +51,7 @@ var fetchCountryData = function(country) {
   }, { proxy: Settings.proxy });
 };
 
-IMonCountries.seedCountries = function() {
+IMonCountryData.fetch = function() {
   var url = Settings.baseUrl + '/countries/usa/access';
   console.log('IMonData: Fetching data');
   HTMLScraper.inDoc(url, function($) {
@@ -65,18 +65,36 @@ IMonCountries.seedCountries = function() {
         indicators: []
       };
 
-      var id = IMonCountries.insert(country);
-      futures.push(fetchCountryData(IMonCountries.findOne(id)));
+      var id = IMonCountryData.insert(country);
+      futures.push(fetchCountryData(IMonCountryData.findOne(id)));
     });
     Future.wait(futures);
     console.log('IMonData: Fetched data');
   });
 };
 
-if (IMonCountries.find().count() === 0) {
-  Future.task(IMonCountries.seedCountries);
+if (IMonCountryData.find().count() === 0) {
+  Future.task(IMonCountryData.fetch);
 }
 
 Meteor.publish('imon_countries', function() {
-  return IMonCountries.find();
+  var publication = this;
+  var pipeline = [
+    { $group: {
+        _id: '$code',
+        code: { $first: '$code' },
+        name: { $first: '$name' },
+        rank: { $first: '$access.rank' }
+      }
+    },
+    { $sort: { _id: 1 }}
+  ];
+  var countries = IMonCountryData.aggregate(pipeline);
+  _.each(countries, function(country) {
+    publication.added('imon_countries', country.code, country);
+  });
+  publication.ready();
+});
+Meteor.publish('imon_data', function(code) {
+  return IMonCountryData.find({ code: code });
 });

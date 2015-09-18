@@ -1,5 +1,5 @@
 <template name="AccessIndexWidget">
-{{# if ready }}
+{{# if Template.subscriptionsReady }}
   {{# with country }}
     <h1>IM Access Index</h1>
     <h2>{{ name }} <small>
@@ -12,7 +12,7 @@
         <h3>Rank</h3>
         <ul class="rank-list">
         {{# each ranks }}
-        <li class="access-rank {{ rankClass }}">{{ rank }}. {{ country.name }}</li>
+        <li class="access-rank {{ rankClass }}">{{ rank }}. {{ rankedCountry.name }}</li>
         {{/each}}
         </ul>
       </div>

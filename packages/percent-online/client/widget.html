@@ -1,7 +1,7 @@
 <template name="PercentOnlineWidget">
-{{# if ready }}
   <h1>Percent Online</h1>
   <h2>{{ country.name }}</h2>
+{{# if Template.subscriptionsReady }}
   <span class="indicator-value">{{ indicatorValue }}</span>
   <div class="online-users">
   {{# each users }}

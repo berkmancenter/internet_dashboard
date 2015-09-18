@@ -1,11 +1,11 @@
 Template.PercentOnlineWidget.onCreated(function() {
-  this.subscribe('imon_countries');
+  var template = this;
+  template.autorun(function() {
+    template.subscribe('imon_data', Template.currentData().country.code);
+  });
 });
 
 Template.PercentOnlineWidget.helpers({
-  ready: function() {
-    return Template.instance().subscriptionsReady() && !this.isEmpty();
-  },
   indicatorName: function() { return Settings.indicatorName; },
   indicatorPercent: function() { return this.widget.getIndicator().percent * 100; },
   indicatorValue: function() { return this.widget.getIndicator().value; },

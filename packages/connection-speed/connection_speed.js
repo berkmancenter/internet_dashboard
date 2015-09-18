@@ -1,19 +1,13 @@
 Settings = {
   indicatorName: 'Average connection speed (kbps)',
-  gaugeWidth: 292
+  gaugeWidth: 292,
+  defaultCountry: { name: 'United States', code: 'usa' }
 };
 
 ConnectionSpeedWidget = function(doc) {
   Widget.call(this, doc);
 
-  if (this.data.isEmpty() && Meteor.isClient) {
-    var self = this;
-    Meteor.subscribe('imon_countries', function() {
-      self.data.set({
-        country: IMonCountries.findOne({ code: 'usa' })
-      });
-    });
-  }
+  _.defaults(this.data, { country: Settings.defaultCountry });
 };
 
 ConnectionSpeedWidget.prototype = Object.create(Widget.prototype);
@@ -30,11 +24,9 @@ _.extend(ConnectionSpeedWidget.prototype, {
       }
     });
   },
-  getCountry: function() {
-    return IMonCountries.findOne({ code: this.data.country.code });
-  },
   getIndicator: function() {
-    return _.findWhere(this.getCountry().indicators, { name: Settings.indicatorName });
+    var countryData = IMonCountryData.findOne({ code: this.data.country.code });
+    return _.findWhere(countryData.indicators, { name: Settings.indicatorName });
   }
 });
 

@@ -1,11 +1,11 @@
 Template.BroadbandCostWidget.onCreated(function() {
-  this.subscribe('imon_countries');
+  var template = this;
+  template.autorun(function() {
+    template.subscribe('imon_data', Template.currentData().country.code);
+  });
 });
 
 Template.BroadbandCostWidget.helpers({
-  ready: function() {
-    return Template.instance().subscriptionsReady() && !this.isEmpty();
-  },
   roundedPercent: function() { return Math.round(this.percent * 100); },
   speed: function() {
     var match = this.name.match(Settings.speedRegex)[0];
@@ -15,9 +15,14 @@ Template.BroadbandCostWidget.helpers({
     return match;
   },
   indicators: function() {
+    var countryData = IMonCountryData.findOne(
+        { code: Template.currentData().country.code });
+    // Make sure we always return all the indicators, just with empty values
+    // where we don't have data.
     return _.map(Settings.indicatorNames, function(name) {
-      return _.extend({ name: name }, this.widget.getIndicatorByName(name));
-    }, this);
+      var indicator = _.findWhere(countryData.indicators, { name: name });
+      return _.extend({ name: name }, indicator);
+    });
   },
   cellColor: function() {
     if (_.isUndefined(this.percent)) {
