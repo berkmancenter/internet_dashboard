@@ -37,7 +37,7 @@ PermaWidget.prototype.constructor = PermaWidget;
 
 Perma = {
   widget: {
-    name: 'Recent Perma Archives',
+    name: 'Perma Archives',
     description: 'Shows Perma.cc archives as they are created',
     dimensions: { width: 1, height: 4 },
     resize: { mode: 'reflow' },
