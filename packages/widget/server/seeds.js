@@ -26,5 +26,12 @@ Widgets.seed = function(packages) {
     }
   });
 
+  // Remove widgets that are no longer listed
+  WidgetPackages.find().forEach(function(package) {
+    if (!_.include(packages, package.packageName)) {
+      console.log('Widget: Removing package ' + package.packageName);
+      WidgetPackages.remove(package._id);
+    }
+  });
   console.log('Widget: Updated widget packages');
 };
