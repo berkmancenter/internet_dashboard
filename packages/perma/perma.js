@@ -38,7 +38,8 @@ PermaWidget.prototype.constructor = PermaWidget;
 Perma = {
   widget: {
     name: 'Perma Archives',
-    description: 'Shows Perma.cc archives as they are created',
+    description: 'Shows web archives from Perma.cc as they are created',
+    url: 'https://perma.cc/docs/developer/public',
     dimensions: { width: 1, height: 4 },
     resize: { mode: 'reflow' },
     category: 'activity',

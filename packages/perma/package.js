@@ -14,6 +14,7 @@ Package.onUse(function(api) {
 
   api.addFiles('perma.js');
   api.addFiles([
+      'client/info.html',
       'client/widget.html',
       'client/widget.js',
       'client/widget.css',
