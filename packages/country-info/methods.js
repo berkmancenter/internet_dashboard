@@ -39,7 +39,14 @@ Meteor.methods({
     return Shapes;
   },
   languageByCode: function(code) {
-    return _.findWhere(data.languages, { alpha3: code.toLowerCase() });
+    code = code.toLowerCase();
+    var language = _.findWhere(data.languages, { alpha3: code });
+    if (!language) {
+      language = _.findWhere(data.languages, { alpha2: code });
+    }
+    if (!language) { return; }
+    language.direction = _.include(rtlLanguages, code) ? 'rtl' : 'ltr';
+    return language;
   },
   languages: function(countryCode) {
     var languageCodes = data.countries[countryCode.toUpperCase()].languages;

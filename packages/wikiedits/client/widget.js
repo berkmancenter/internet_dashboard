@@ -19,6 +19,11 @@ Template.WikiStreamWidget.helpers({
     var name = this.wiki.name;
     if (!/wiki/i.test(name)) { name += ' Wikipedia'; }
     return name;
+  },
+  textDirectionClass: function() {
+    var languageCode = this.wiki.channel.replace('#', '').replace('.wikipedia', '');
+    var direction = CountryInfo.languageDirection(languageCode);
+    return direction === 'rtl' ? 'text-right' : 'text-left';
   }
 });
 
