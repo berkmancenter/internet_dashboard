@@ -23,6 +23,13 @@ Template.DashboardsShow.helpers({
     return Session.get('setting-country') ? 'Click to finish' :
       'Set country for multiple widgets';
   },
+  width: function() {
+    var maxCol = _.max(this.widgets().map(function(widget) {
+      return widget.position.col + widget.width - 1;
+    }));
+    var totalWidth = maxCol * this.columnWidth + (maxCol + 2) * this.gutter;
+    return totalWidth + 'px';
+  },
   countries: function() {
     return CountryInfo.countries;
   }
