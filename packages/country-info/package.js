@@ -10,8 +10,16 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
   api.use(['underscore'], 'server');
-  api.addFiles(['country_info.js', 'simple_countries.js']);
-  api.addFiles(['lib/fuzzy.js', 'methods.js', 'shapes.js'], 'server');
+  api.addFiles([
+      'country_info.js',
+      'simple_countries.js',
+      'rtl_languages.js'
+  ]);
+  api.addFiles([
+      'lib/fuzzy.js',
+      'methods.js',
+      'rtl_languages.js',
+      'shapes.js'], 'server');
   api.export('CountryInfo');
 });
 

@@ -1,0 +1,18 @@
+rtlLanguages = [
+  { alpha3: 'ara', alpha2: 'ar' },
+  { alpha3: 'fas', alpha2: 'fa' },
+  { alpha3: 'kas', alpha2: 'ks' },
+  { alpha3: 'kur', alpha2: 'ku' },
+  { alpha3: 'pus', alpha2: 'ps' },
+  { alpha3: 'pan', alpha2: 'pa' },
+  { alpha3: 'snd', alpha2: 'sd' },
+  { alpha3: 'tuk', alpha2: 'tk' },
+  { alpha3: 'uig', alpha2: 'ug' },
+  { alpha3: 'heb', alpha2: 'he' },
+  { alpha3: 'yid', alpha2: 'yi' },
+  { alpha3: 'div', alpha2: 'dv' },
+  { alpha3: 'urd', alpha2: 'ur' },
+  { alpha3: 'bal' },
+  { alpha3: 'syr' },
+  { alpha3: 'tmh' },
+];
