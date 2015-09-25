@@ -118,8 +118,10 @@ var fetchData = function() {
   console.log('AkamaiAttacks: Fetched data');
 };
 
-Future.task(fetchData);
-Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
+if (Meteor.settings.fetchData) {
+  Future.task(fetchData);
+  Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
+}
 
 Meteor.publish('country_attacks', function() {
   return CountryAttacks.find();

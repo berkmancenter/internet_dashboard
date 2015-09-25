@@ -15,8 +15,7 @@ var fetchFeed = function(feed) {
 
   var feedparser = new FeedParser();
 
-  console.log('Feed: Fetching ' + feed + ' - next fetch at ' +
-      moment().add(Settings.updateEvery).format('HH:mm:ss'));
+  console.log('Feed: Fetching ' + feed);
 
   var response;
   try {
@@ -51,40 +50,24 @@ var fetchFeed = function(feed) {
   console.log('Feed: Fetched ' + feed);
 };
 
-var jobs = [];
-var Job = function(feed, runEvery) {
-  this.feed = feed;
-  this.runEvery = runEvery || Settings.updateEvery;
-  console.log('Feed: Add fetching job - ' + this.feed + ' every ' +
-      moment.duration(this.runEvery).asMinutes() + ' minutes');
-
-  var call = function() {
-    fetchFeed(feed);
-  }.future();
-
-  call();
-  this.timerId = Meteor.setInterval(call, this.runEvery);
-  jobs.push(this);
-};
-
-Job.prototype.cancel = function() {
-  console.log('Feed: Cancel job - ' + this.feed + ' every ' +
-      moment.duration(this.runEvery).asMinutes() + ' minutes');
-  Meteor.clearTimeout(this.timerId);
-  jobs = _.without(jobs, this);
-};
-
-var jobExists = function(feed, runEvery) {
+var jobName = function(feed, runEvery) {
   runEvery = runEvery || Settings.updateEvery;
-  return !!_.findWhere(jobs, { feed: feed, runEvery: runEvery });
+  return 'Feed: Fetching ' + feed + ' every ' +
+    moment.duration(runEvery).asMinutes() + ' minutes';
 };
 
 Meteor.publish('feed_items', function(url) {
   var cursor = FeedItems.find({ 'feed.url': url },
       { limit: Settings.numItems, sort: { pubdate: -1 } });
+  var thisJobName = jobName(url, Settings.updateEvery);
 
-  if (!jobExists(url)) {
-    var job = new Job(url);
+  if (!DataJobs.exists(thisJobName)) {
+    var job = new DataJob({
+      func: function() { fetchFeed.future()(url); },
+      name: thisJobName,
+      runEvery: Settings.updateEvery,
+      runNow: true
+    });
     this.connection.onClose(job.cancel.bind(job));
   }
 

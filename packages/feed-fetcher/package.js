@@ -11,7 +11,11 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['underscore', 'momentjs:moment', 'aldeed:collection2']);
-  api.use(['http', 'underscorestring:underscore.string'], 'server');
+  api.use([
+      'http',
+      'underscorestring:underscore.string',
+      'percolate:synced-cron'
+  ], 'server');
 
   api.addFiles(['feed_fetcher.js']);
   api.addFiles(['server.js'], 'server');

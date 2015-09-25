@@ -13,6 +13,9 @@ Package.onUse(function(api) {
   api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router',
       'aramk:tinycolor'
   ]);
+  api.imply([
+      'data-job'
+  ], 'server');
   api.use(['templating'], 'client');
 
   api.addFiles([

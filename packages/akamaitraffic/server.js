@@ -141,8 +141,10 @@ var fetchData = function() {
   console.log('AkamaiTraffic: Fetched data');
 };
 
-Future.task(fetchData);
-Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
+if (Meteor.settings.fetchData) {
+  Future.task(fetchData);
+  Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
+}
 
 Meteor.publish('visitor_feed', function() {
   return VisitorFeed.find();

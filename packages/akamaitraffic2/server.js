@@ -102,8 +102,10 @@ var fetchData = function() {
   console.log('AkamaiTraffic2: Fetched data');
 };
 
-Future.task(fetchData);
-Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
+if (Meteor.settings.fetchData) {
+  Future.task(fetchData);
+  Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
+}
 
 Meteor.publish('country_traffic', function() {
   return CountryTraffic.find();
