@@ -69,8 +69,7 @@ var deleteOldArchives = function() {
     { $lt: moment().subtract(Settings.keepFor) }});
 };
 
-var thumbStore = new FS.Store.FileSystem("perma_thumbnails", {
-  path: 'perma/thumbnails',
+var thumbStore = new FS.Store.GridFS("perma_thumbnails", {
   transformWrite: function(fileObj, readStream, writeStream) {
     // Thumbnail the screenshots
     gm(readStream, fileObj.name())

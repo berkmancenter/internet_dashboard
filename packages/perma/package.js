@@ -8,7 +8,7 @@ Package.onUse(function(api) {
 
   api.use(['widget', 'mongo', 'momentjs:moment', 'aldeed:collection2',
            'underscore', 'remcoder:chronos', 'cfs:standard-packages',
-           'cfs:filesystem']);
+           'cfs:gridfs']);
   api.use(['templating'], 'client');
   api.use(['http'], 'server');
 

@@ -1,4 +1,4 @@
-var thumbStore = new FS.Store.FileSystem("perma_thumbnails");
+var thumbStore = new FS.Store.GridFS("perma_thumbnails");
 Thumbnails = new FS.Collection("perma_thumbnails", { stores: [thumbStore] });
 
 Template.PermaWidget.onCreated(function() {
