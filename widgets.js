@@ -19,5 +19,5 @@ ActiveWidgets = [
   'user-content',
   'embed',
   'feed',
-  'perma'
+  //'perma'
 ];
