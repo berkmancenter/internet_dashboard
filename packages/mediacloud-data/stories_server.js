@@ -46,48 +46,36 @@ Story = {
 
     console.log('MediaCloud: Fetched data for "' + term + '" in ' +
         countryCode);
-  },
-  jobs: [],
+  }
 };
 
-Story.Job = function(term, countryCode, runEvery) {
-  this.term = term;
-  this.countryCode = countryCode;
-  this.runEvery = runEvery || Settings.stories.updateEvery;
-  console.log('MediaCloud: Add fetching job - "' + this.term +
-      '" in ' + this.countryCode + ' every ' +
-      moment.duration(this.runEvery).asDays() + ' days');
-
-  var call = function() {
-    Story.fetch(term, countryCode);
-  }.future();
-
-  call();
-  this.timerId = Meteor.setInterval(call, this.runEvery);
-  Story.jobs.push(this);
+var data = {
+  term: Settings.stories.defaultTerm,
+  country: Settings.stories.defaultCountry
 };
-
-Story.Job.prototype.cancel = function() {
-  console.log('MediaCloud: Cancel job - "' + this.term +
-      '" in ' + this.countryCode + ' every ' +
-      moment.duration(this.runEvery).asDays() + ' days');
-  Meteor.clearTimeout(this.timerId);
-  jobs = _.without(jobs, this);
-};
-
-Story.Job.exists = function(term, countryCode, runEvery) {
-  runEvery = runEvery || Settings.stories.updateEvery;
-  return !!_.findWhere(Story.jobs,
-      { term: term, countryCode: countryCode, runEvery: runEvery });
-};
-
-new Story.Job(Settings.stories.defaultTerm, Settings.stories.defaultCountry);
+if (!WidgetJob.exists(Settings.stories.jobQueue, data)) {
+  var job = new WidgetJob(Settings.stories.jobQueue, data);
+  job.repeat({ wait: Settings.stories.updateEvery.asMilliseconds() }).save();
+}
 
 Meteor.publish('mc_stories', function(term, countryCode) {
-  if (!Story.Job.exists(term, countryCode)) {
-    var job = new Story.Job(term, countryCode);
-    this.connection.onClose(job.cancel.bind(job));
+  var data = { term: term, country: countryCode };
+  if (!WidgetJob.exists(Settings.stories.jobQueue, data)) {
+    var job = new WidgetJob(Settings.stories.jobQueue, data);
+    job.repeat({ wait: Settings.stories.updateEvery.asMilliseconds() }).save();
+    this.connection.onClose(function() {
+      job.cancel();
+      job.remove();
+    });
   }
 
   return Stories.find({ 'term': term, 'country.code': countryCode });
 });
+
+if (Meteor.settings.doJobs) {
+  Job.processJobs(
+      Widget.Settings.queueName, Settings.stories.jobQueue, function(data) {
+        Story.fetch.future()(data.term, data.country);
+      }
+  );
+}

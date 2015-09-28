@@ -146,8 +146,12 @@ Future.task(function() {
   }
 });
 
-Meteor.setInterval(fetchAllCountryData.future(),
-                   Settings.updateEvery.asMilliseconds());
+Kaspersky.widget.jobs = {
+  kaspersky_fetch: fetchAllCountryData.future()
+};
+var job = new WidgetJob('kaspersky_fetch');
+job.repeat({ wait: Settings.updateEvery.asMilliseconds() });
+job.save();
 
 Meteor.publish('kasp_metrics', function() {
   return CountryMetrics.find();

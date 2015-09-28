@@ -102,7 +102,7 @@ var fetchData = function() {
   console.log('AkamaiTraffic2: Fetched data');
 };
 
-if (Meteor.settings.fetchData) {
+if (Meteor.settings.doJobs) {
   Future.task(fetchData);
   Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
 }

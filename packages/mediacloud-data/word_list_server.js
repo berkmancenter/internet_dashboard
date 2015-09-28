@@ -94,11 +94,12 @@ WordList = {
   }
 };
 
-if (WordLists.find().count() === 0) {
-  Future.task(WordList.updateData);
+if (Meteor.settings.doJobs) {
+  if (WordLists.find().count() === 0) {
+    Future.task(WordList.updateData);
+  }
+  Meteor.setInterval(WordList.updateData.future(), Settings.wordLists.updateEvery);
 }
-
-Meteor.setInterval(WordList.updateData.future(), Settings.wordLists.updateEvery);
 
 Meteor.publish('mc_wordlists', function(countryCode) {
   countryCode = countryCode || Settings.wordLists.defaultCountry.code;

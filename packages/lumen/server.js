@@ -109,8 +109,10 @@ if (LumenCounts.find().count() === 0 ||
 } else {
   console.log('Lumen: Not updating notice counts');
 }
-Meteor.setInterval(updateLumenCounts.future(),
-                   Settings.updateEvery.asMilliseconds());
+
+var job = new WidgetJob('lumen_fetch');
+job.repeat({ wait: Settings.updateEvery.asMilliseconds() }).save();
+Lumen.widget.jobs = { lumen_fetch: updateLumenCounts.future() };
 
 Meteor.publish('lumen_counts', function() {
   return LumenCounts.find();

@@ -20,11 +20,14 @@ var addSampledEdit = function(wiki) {
   }
 };
 
-Meteor.startup(function() {
-  _.each(Wikipedias, function(wiki) {
-    Meteor.setInterval(function() { addSampledEdit(wiki); }, Settings.updateInterval);
+if (Meteor.settings.doJobs) {
+  Meteor.startup(function() {
+    _.each(Wikipedias, function(wiki) {
+      Meteor.setInterval(
+          function() { addSampledEdit(wiki); }, Settings.updateInterval);
+    });
   });
-});
+}
 
 Meteor.publish('wikistream_edits', function(channel) {
   var query = { channel: channel };

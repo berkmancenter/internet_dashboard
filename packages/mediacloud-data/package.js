@@ -9,7 +9,9 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['http'], 'server');
-  api.use(['mongo', 'underscore', 'momentjs:moment', 'aldeed:collection2']);
+  api.use(['mongo', 'underscore', 'momentjs:moment', 'aldeed:collection2',
+      'widget', 'vsivsi:job-collection'
+  ]);
 
   api.addFiles([
     'data/emm_countries.js',

@@ -45,14 +45,16 @@ var maxDateInDB = function() {
   return date;
 };
 
-if (TorData.find().count() === 0 ||
-    moment(maxDateInDB()).add(Settings.dataOldAfter).isBefore(moment())) {
-  Future.task(updateData);
-} else {
-  console.log('TorClients: Not updating data - most recent from ' +
-      moment(maxDateInDB()).format('YYYY-MM-DD'));
+if (Meteor.settings.doJobs) {
+  if (TorData.find().count() === 0 ||
+      moment(maxDateInDB()).add(Settings.dataOldAfter).isBefore(moment())) {
+    Future.task(updateData);
+  } else {
+    console.log('TorClients: Not updating data - most recent from ' +
+        moment(maxDateInDB()).format('YYYY-MM-DD'));
+  }
+  Meteor.setInterval(updateData.future(), Settings.updateEvery.asMilliseconds());
 }
-Meteor.setInterval(updateData.future(), Settings.updateEvery.asMilliseconds());
 
 Meteor.publish('tor_data', function(countryCode) {
   return TorData.find({ country: countryCode.toLowerCase() });

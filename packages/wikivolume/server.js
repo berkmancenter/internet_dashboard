@@ -1,3 +1,4 @@
+Settings.jobQueue = 'wiki_edit_count';
 BinnedWikiEdits._createCappedCollection(Settings.maxBinSpace, Settings.maxBinNum);
 BinnedWikiEdits._ensureIndex({ binStart: 1 },
     { expireAfterSeconds: Settings.binWidth / 1000 * Settings.numBins });
@@ -73,15 +74,26 @@ var binningJobExists = function(channel, binWidth, runEvery) {
 };
 
 Meteor.publish('wikiedits_binned', function(channel, binWidth) {
+  var data = { channel: channel, binWidth: binWidth };
   var cursor = BinnedWikiEdits.find({ channel: channel, binWidth: binWidth },
       { limit: Settings.numBins, sort: { binStart: -1 } });
 
-  if (!binningJobExists(channel, binWidth)) {
-    var job = new BinningJob(channel, binWidth);
-    this.connection.onClose(job.cancel.bind(job));
+  if (!WidgetJob.exists(Settings.jobQueue, data)) {
+    var job = new WidgetJob(Settings.jobQueue, data);
+    job.repeat({ wait: Settings.updateEvery }).save();
+    this.connection.onClose(function() {
+      job.cancel();
+      job.remove();
+    });
   }
 
   return cursor;
 });
 
-var defaultJob = new BinningJob(Settings.defaultChannel.channel, Settings.binWidth);
+WikiEditCounts.widget.jobs = {
+  wiki_edit_count: function(data) { insertBin(data.channel, data.binWidth); }
+}
+if (Meteor.settings.doJobs) {
+  var job = new WidgetJob(Settings.defaultChannel.channel, Settings.binWidth);
+  job.repeat({ wait: Settings.updateEvery }).save();
+}

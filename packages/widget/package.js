@@ -8,14 +8,11 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.0.3.2');
+  api.versionsFrom('1.1.0.3');
 
   api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router',
-      'aramk:tinycolor'
+      'aramk:tinycolor', 'vsivsi:job-collection'
   ]);
-  api.imply([
-      'data-job'
-  ], 'server');
   api.use(['templating'], 'client');
 
   api.addFiles([
@@ -26,8 +23,10 @@ Package.onUse(function(api) {
     'routes.js'
   ]);
   api.addFiles([
+    'server/seeds.js',
     'server/publications.js',
-    'server/seeds.js'], 'server');
+    'server/widget_job.js',
+  ], 'server');
   api.addFiles([
     'client/common.js',
     'client/widget.html',
@@ -46,6 +45,7 @@ Package.onUse(function(api) {
   api.export('Widgets');
   api.export('WidgetPackage');
   api.export('WidgetPackages');
+  api.export('WidgetJob');
 });
 
 Npm.depends({

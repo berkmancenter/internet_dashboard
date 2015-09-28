@@ -47,7 +47,11 @@ if (CountryLists.find().count() === 0) {
 }
 
 Settings.updateEvery = moment.duration({ days: 1 }).asMilliseconds();
-Meteor.setInterval(updateData.future(), Settings.updateEvery);
+Herdict.widget.jobs = {
+  herdict_fetcher: function(data) { Future.task(updateData); }
+};
+var job = new WidgetJob('herdict_fetcher');
+job.repeat({ wait: Settings.updateEvery }).save();
 
 Meteor.publish('herdict_country_lists', function(countryCode) {
   return CountryLists.find({ 'country.code': countryCode });

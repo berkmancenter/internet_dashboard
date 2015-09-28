@@ -1,3 +1,4 @@
+Settings.jobType = 'feed_fetcher';
 Settings.timeout = 20 * 1000;
 
 FeedItems._createCappedCollection(10 * 1000 * 1000, 3000);
@@ -56,20 +57,30 @@ var jobName = function(feed, runEvery) {
     moment.duration(runEvery).asMinutes() + ' minutes';
 };
 
+// Add jobs to the queue
 Meteor.publish('feed_items', function(url) {
+  var data = { url: url };
+
   var cursor = FeedItems.find({ 'feed.url': url },
       { limit: Settings.numItems, sort: { pubdate: -1 } });
-  var thisJobName = jobName(url, Settings.updateEvery);
 
-  if (!DataJobs.exists(thisJobName)) {
-    var job = new DataJob({
-      func: function() { fetchFeed.future()(url); },
-      name: thisJobName,
-      runEvery: Settings.updateEvery,
-      runNow: true
+  if (!WidgetJob.exists(Settings.jobType, data)) {
+    var job = new WidgetJob(Settings.jobType, data);
+    job.repeat({ wait: Settings.updateEvery });
+    job.save();
+    this.connection.onClose(function() {
+      job.cancel();
+      job.remove();
     });
-    this.connection.onClose(job.cancel.bind(job));
   }
 
   return cursor;
 });
+
+// Run the jobs
+if (Meteor.settings.doJobs) {
+  Job.processJobs(
+      WidgetJob.Settings.queueName, Settings.jobType, function(data) {
+    fetchFeed.future()(data.url);
+  });
+}
