@@ -44,35 +44,6 @@ var insertBin = function(channel, binWidth) {
   return bin;
 };
 
-var binningJobs = [];
-var BinningJob = function(channel, binWidth, runEvery) {
-  this.channel = channel;
-  this.binWidth = binWidth;
-  this.runEvery = runEvery || Settings.updateEvery;
-  console.log('Wikiedits: Add binning job - ' + this.channel +
-      ', ' + this.binWidth + ', ' + this.runEvery);
-
-  var insertCall = function() {
-    insertBin(channel, binWidth);
-  };
-
-  insertCall();
-  this.timerId = Meteor.setInterval(insertCall, this.runEvery);
-  binningJobs.push(this);
-};
-BinningJob.prototype.cancel = function() {
-  console.log('Wikiedits: Cancel binning job - ' + this.channel +
-      ', ' + this.binWidth + ', ' + this.runEvery);
-  Meteor.clearTimeout(this.timerId);
-  binningJobs = _.without(binningJobs, this);
-};
-var binningJobExists = function(channel, binWidth, runEvery) {
-  runEvery = runEvery || Settings.updateEvery;
-  return !!_.findWhere(binningJobs, {
-    channel: channel, binWidth: binWidth, runEvery: runEvery
-  });
-};
-
 Meteor.publish('wikiedits_binned', function(channel, binWidth) {
   var data = { channel: channel, binWidth: binWidth };
   var cursor = BinnedWikiEdits.find({ channel: channel, binWidth: binWidth },
@@ -81,9 +52,11 @@ Meteor.publish('wikiedits_binned', function(channel, binWidth) {
   if (!WidgetJob.exists(Settings.jobQueue, data)) {
     var job = new WidgetJob(Settings.jobQueue, data);
     job.repeat({ wait: Settings.updateEvery }).save();
+    console.log('WikiVolume: Added binning job - ' + channel + ' ' + binWidth);
     this.connection.onClose(function() {
       job.cancel();
       job.remove();
+      console.log('WikiVolume: Removed binning job - ' + channel + ' ' + binWidth);
     });
   }
 
@@ -93,13 +66,15 @@ Meteor.publish('wikiedits_binned', function(channel, binWidth) {
 WikiEditCounts.widget.jobs = {
   wiki_edit_count: function(data) { insertBin(data.channel, data.binWidth); }
 }
-if (Meteor.settings.doJobs) {
-  if (!WidgetJob.exists(Settings.jobQueue, data)) {
+Meteor.startup(function() {
+  if (Meteor.settings.doJobs) {
     var data = {
       channel: Settings.defaultChannel.channel,
       binWidth: Settings.binWidth
     };
-    var job = new WidgetJob(Settings.jobQueue, data);
-    job.repeat({ wait: Settings.updateEvery }).save();
+    if (!WidgetJob.exists(Settings.jobQueue, data)) {
+      var job = new WidgetJob(Settings.jobQueue, data);
+      job.repeat({ wait: Settings.updateEvery }).save();
+    }
   }
-}
+});

@@ -7,7 +7,8 @@ WidgetJob.prototype.constructor = WidgetJob;
 
 _.extend(WidgetJob, {
   Settings: {
-    queueName: 'widgetJobQueue'
+    queueName: 'widgetJobQueue',
+    pollEvery: 1 * 1000,
   },
   exists: function(type, data) {
     data = data || {};
@@ -16,22 +17,27 @@ _.extend(WidgetJob, {
 });
 
 var WidgetJobs = JobCollection(WidgetJob.Settings.queueName);
+WidgetJobs._createCappedCollection(6 * 1024 * 1024, 500);
 
 // Start all the job workers working
 if (Meteor.settings.doJobs) {
   Meteor.startup(function() {
     console.log('Widget: Starting job server');
     WidgetJobs.startJobServer();
+    WidgetJobs.promote(WidgetJob.Settings.pollEvery);
 
     WidgetPackages.find({}).forEach(function(widgetPackage) {
       var metadata = widgetPackage.metadata();
       if (!metadata.widget.jobs) { return; }
       _.each(metadata.widget.jobs, function(worker, type) {
-        Job.processJobs(WidgetJob.Settings.queueName, type,
-        function (job, callback) {
-          worker(job.data);
-          callback && callback();
-        });
+        WidgetJobs.processJobs(type,
+            { pollInterval: WidgetJob.Settings.pollEvery },
+            function (job, callback) {
+              worker(job.data);
+              job.done();
+              callback && callback();
+            }
+        );
       });
     });
   });

@@ -55,9 +55,6 @@ var fetchFeed = function(feed, callback) {
 Meteor.publish('feed_items', function(url) {
   var data = { url: url };
 
-  var cursor = FeedItems.find({ 'feed.url': url },
-      { limit: Settings.numItems, sort: { pubdate: -1 } });
-
   if (!WidgetJob.exists(Settings.jobType, data)) {
     // Add job to the queue
     var job = new WidgetJob(Settings.jobType, data);
@@ -68,6 +65,9 @@ Meteor.publish('feed_items', function(url) {
     });
   }
 
+  var cursor = FeedItems.find({ 'feed.url': url },
+      { limit: Settings.numItems, sort: { pubdate: -1 } });
+
   return cursor;
 });
 
@@ -76,7 +76,7 @@ if (Meteor.settings.doJobs) {
   Meteor.startup(function() {
     Job.processJobs(
         WidgetJob.Settings.queueName, Settings.jobType, function(job, callback) {
-      fetchFeed.future()(job.data.url, callback);
+      fetchFeed.future()(job.data.url, function() { job.done(); callback(); });
     });
   });
 }
