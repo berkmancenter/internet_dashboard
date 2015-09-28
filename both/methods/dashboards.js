@@ -19,7 +19,10 @@ Meteor.methods({
     var oldDashboard = Dashboards.findOne(oldId);
     var newId = Meteor.call('newDashboard');
     var newDashboard = Dashboards.findOne(newId);
-    var copyFields = _.omit(Dashboards.simpleSchema().clean(_.clone(oldDashboard)), ['_id']);
+    var copyFields = _.omit(
+        Dashboards.simpleSchema().clean(_.clone(oldDashboard)),
+        ['_id', 'ownerId', 'editorIds', 'publiclyEditable']
+    );
     Meteor.call('updateDashboard', newId, copyFields);
     oldDashboard.widgets().forEach(function(widget) {
       newDashboard.addWidget(widget.copy());
