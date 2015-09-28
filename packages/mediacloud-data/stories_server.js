@@ -49,20 +49,11 @@ Story = {
   }
 };
 
-var data = {
-  term: Settings.stories.defaultTerm,
-  country: Settings.stories.defaultCountry
-};
-if (!WidgetJob.exists(Settings.stories.jobQueue, data)) {
-  var job = new WidgetJob(Settings.stories.jobQueue, data);
-  job.repeat({ wait: Settings.stories.updateEvery.asMilliseconds() }).save();
-}
-
 Meteor.publish('mc_stories', function(term, countryCode) {
   var data = { term: term, country: countryCode };
   if (!WidgetJob.exists(Settings.stories.jobQueue, data)) {
     var job = new WidgetJob(Settings.stories.jobQueue, data);
-    job.repeat({ wait: Settings.stories.updateEvery.asMilliseconds() }).save();
+    job.repeat({ wait: Settings.stories.updateEvery }).save();
     this.connection.onClose(function() {
       job.cancel();
       job.remove();
@@ -72,10 +63,23 @@ Meteor.publish('mc_stories', function(term, countryCode) {
   return Stories.find({ 'term': term, 'country.code': countryCode });
 });
 
-if (Meteor.settings.doJobs) {
-  Job.processJobs(
-      Widget.Settings.queueName, Settings.stories.jobQueue, function(data) {
-        Story.fetch.future()(data.term, data.country);
-      }
-  );
-}
+Meteor.startup(function() {
+  if (Meteor.settings.doJobs) {
+    var data = {
+      term: Settings.stories.defaultTerm,
+      country: Settings.stories.defaultCountry
+    };
+
+    if (!WidgetJob.exists(Settings.stories.jobQueue, data)) {
+      var job = new WidgetJob(Settings.stories.jobQueue, data);
+      job.repeat({ wait: Settings.stories.updateEvery }).save();
+    }
+
+    Job.processJobs(WidgetJob.Settings.queueName, Settings.stories.jobQueue,
+        function(job, callback) {
+          Story.fetch.future()(job.data.term, job.data.country);
+          callback && callback();
+        }
+    );
+  }
+});

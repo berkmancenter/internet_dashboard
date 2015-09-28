@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router',
-      'aramk:tinycolor', 'vsivsi:job-collection'
+      'aramk:tinycolor', 'vsivsi:job-collection@1.2.3'
   ]);
   api.use(['templating'], 'client');
 

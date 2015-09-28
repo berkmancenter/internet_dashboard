@@ -73,8 +73,12 @@ IMonCountryData.fetch = function() {
   });
 };
 
-if (IMonCountryData.find().count() === 0) {
-  Future.task(IMonCountryData.fetch);
+if (Meteor.settings.doJobs) {
+  if (IMonCountryData.find().count() === 0) {
+    Future.task(IMonCountryData.fetch);
+  }
+
+  Meteor.setInterval(IMonCountryData.fetch.future(), Settings.updateEvery);
 }
 
 Meteor.publish('imon_countries', function() {

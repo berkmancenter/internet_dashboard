@@ -42,16 +42,15 @@ var updateData = function() {
   console.log('Herdict: Fetched new data');
 };
 
-if (CountryLists.find().count() === 0) {
-  Future.task(updateData);
-}
-
 Settings.updateEvery = moment.duration({ days: 1 }).asMilliseconds();
-Herdict.widget.jobs = {
-  herdict_fetcher: function(data) { Future.task(updateData); }
-};
-var job = new WidgetJob('herdict_fetcher');
-job.repeat({ wait: Settings.updateEvery }).save();
+
+if (Meteor.settings.doJobs) {
+  if (CountryLists.find().count() === 0) {
+    Future.task(updateData);
+  }
+
+  Meteor.setInterval(updateData.future(), Settings.updateEvery);
+}
 
 Meteor.publish('herdict_country_lists', function(countryCode) {
   return CountryLists.find({ 'country.code': countryCode });

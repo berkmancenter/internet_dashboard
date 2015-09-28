@@ -8,7 +8,7 @@ Settings = {
     numRows: 30,
     range: [moment().subtract({ days: 1 }), moment()],
     tagSet: EMMCountries,
-    updateEvery: moment.duration({ days: 1 }),
+    updateEvery: moment.duration({ days: 1 }).asMilliseconds(),
     jobQueue: 'mediacloud_stories'
   },
   wordLists: {
@@ -19,7 +19,6 @@ Settings = {
     shortInterval: { days: 7 },
     fetchedWords: 300,
     storedWords: 150,
-    jobQueue: 'mediacloud_word_lists',
     stopWordLangs: [
       'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'lt', 'nl', 'no',
       'pt', 'ro', 'ru', 'sv', 'tr'

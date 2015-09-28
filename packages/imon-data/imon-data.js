@@ -2,6 +2,7 @@ Settings = {
   baseUrl: 'https://thenetmonitor.org',
   proxy: false,
   indicatorLinkSelector: 'a[href="/sources"]',
+  updateEvery: 1000 * 60 * 60 * 24 * 7,
   toCollect: [
     'Percentage of individuals using the Internet',
     'Broadband adoption rate',

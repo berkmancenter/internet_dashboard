@@ -94,6 +94,12 @@ WikiEditCounts.widget.jobs = {
   wiki_edit_count: function(data) { insertBin(data.channel, data.binWidth); }
 }
 if (Meteor.settings.doJobs) {
-  var job = new WidgetJob(Settings.defaultChannel.channel, Settings.binWidth);
-  job.repeat({ wait: Settings.updateEvery }).save();
+  if (!WidgetJob.exists(Settings.jobQueue, data)) {
+    var data = {
+      channel: Settings.defaultChannel.channel,
+      binWidth: Settings.binWidth
+    };
+    var job = new WidgetJob(Settings.jobQueue, data);
+    job.repeat({ wait: Settings.updateEvery }).save();
+  }
 }

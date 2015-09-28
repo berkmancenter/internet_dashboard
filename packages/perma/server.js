@@ -85,10 +85,12 @@ Meteor.startup(function() {
   // Remove all the data because files will be deleted on restart
   Thumbnails.remove({});
   PermaArchives.remove({});
-  fetchData();
-  Meteor.setInterval(fetchData, Settings.updateEvery);
-  Meteor.setInterval(deleteOldArchives,
-      Settings.deleteEvery.asMilliseconds());
+  if (Meteor.settings.doJobs) {
+    fetchData();
+    Meteor.setInterval(fetchData, Settings.updateEvery);
+    Meteor.setInterval(deleteOldArchives,
+        Settings.deleteEvery.asMilliseconds());
+  }
 });
 
 Meteor.publish('perma_archives', function() {

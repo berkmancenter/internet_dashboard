@@ -5,7 +5,7 @@ FeedItems._createCappedCollection(10 * 1000 * 1000, 3000);
 var Future = Npm.require('fibers/future');
 var FeedParser = Npm.require('feedparser');
 
-var fetchFeed = function(feed) {
+var fetchFeed = function(feed, callback) {
   var options = {
     url: feed,
     timeout: Settings.timeout,
@@ -48,16 +48,10 @@ var fetchFeed = function(feed) {
 
   feedparser.write(response.content);
   feedparser.end();
+  callback && callback();
   console.log('Feed: Fetched ' + feed);
 };
 
-var jobName = function(feed, runEvery) {
-  runEvery = runEvery || Settings.updateEvery;
-  return 'Feed: Fetching ' + feed + ' every ' +
-    moment.duration(runEvery).asMinutes() + ' minutes';
-};
-
-// Add jobs to the queue
 Meteor.publish('feed_items', function(url) {
   var data = { url: url };
 
@@ -65,9 +59,9 @@ Meteor.publish('feed_items', function(url) {
       { limit: Settings.numItems, sort: { pubdate: -1 } });
 
   if (!WidgetJob.exists(Settings.jobType, data)) {
+    // Add job to the queue
     var job = new WidgetJob(Settings.jobType, data);
-    job.repeat({ wait: Settings.updateEvery });
-    job.save();
+    job.repeat({ wait: Settings.updateEvery }).save();
     this.connection.onClose(function() {
       job.cancel();
       job.remove();
@@ -79,8 +73,10 @@ Meteor.publish('feed_items', function(url) {
 
 // Run the jobs
 if (Meteor.settings.doJobs) {
-  Job.processJobs(
-      WidgetJob.Settings.queueName, Settings.jobType, function(data) {
-    fetchFeed.future()(data.url);
+  Meteor.startup(function() {
+    Job.processJobs(
+        WidgetJob.Settings.queueName, Settings.jobType, function(job, callback) {
+      fetchFeed.future()(job.data.url, callback);
+    });
   });
 }

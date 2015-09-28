@@ -9,7 +9,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
-  api.use(['html-scraper', 'meteorhacks:aggregate'], 'server');
+  api.use(['html-scraper', 'meteorhacks:aggregate@1.3.0'], 'server');
   api.use(['underscore', 'mongo', 'aldeed:collection2']);
 
   api.addFiles(['imon-data.js']);

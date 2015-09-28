@@ -26,7 +26,7 @@ var metricsCurrent = function() {
 };
 
 var countriesExist = function() {
-  return CountryMetrics.find().count() > 0;
+  return CountryMetrics.find().count() > 10;
 };
 
 var addCountryData = function(country, data) {
@@ -132,26 +132,24 @@ var fetchCountries = function() {
   });
 };
 
-Future.task(function() {
-  if (!countriesExist()) {
-    fetchCountries();
-  } else {
-    console.log('Kaspersky: Not fetching countries');
-  }
+if (Meteor.settings.doJobs) {
+  Future.task(function() {
+    if (!countriesExist()) {
+      fetchCountries();
+    } else {
+      console.log('Kaspersky: Not fetching countries');
+    }
 
-  if (countriesExist() && !metricsCurrent()) {
-    fetchAllCountryData();
-  } else {
-    console.log('Kaspersky: Not fetching country metrics');
-  }
-});
+    if (countriesExist() && !metricsCurrent()) {
+      fetchAllCountryData();
+    } else {
+      console.log('Kaspersky: Not fetching country metrics');
+    }
+  });
 
-Kaspersky.widget.jobs = {
-  kaspersky_fetch: fetchAllCountryData.future()
-};
-var job = new WidgetJob('kaspersky_fetch');
-job.repeat({ wait: Settings.updateEvery.asMilliseconds() });
-job.save();
+  Meteor.setInterval(fetchAllCountryData.future(),
+                     Settings.updateEvery.asMilliseconds());
+}
 
 Meteor.publish('kasp_metrics', function() {
   return CountryMetrics.find();

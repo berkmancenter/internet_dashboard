@@ -100,19 +100,19 @@ var updateLumenCounts = function() {
   console.log('Lumen: Fetched notice counts');
 };
 
-// If we don't have any counts or our most recent is older than our update
-// interval...
-if (LumenCounts.find().count() === 0 ||
-    LumenCounts.findOne({}, { sort: { start: -1 } }).start +
-    Settings.updateEvery.asMilliseconds() < Date.now()) {
-  Future.task(updateLumenCounts);
-} else {
-  console.log('Lumen: Not updating notice counts');
+if (Meteor.settings.doJobs) {
+  // If we don't have any counts or our most recent is older than our update
+  // interval...
+  if (LumenCounts.find().count() === 0 ||
+      LumenCounts.findOne({}, { sort: { start: -1 } }).start +
+      Settings.updateEvery.asMilliseconds() < Date.now()) {
+    Future.task(updateLumenCounts);
+  } else {
+    console.log('Lumen: Not updating notice counts');
+  }
+  Meteor.setInterval(updateLumenCounts.future(),
+                     Settings.updateEvery.asMilliseconds());
 }
-
-var job = new WidgetJob('lumen_fetch');
-job.repeat({ wait: Settings.updateEvery.asMilliseconds() }).save();
-Lumen.widget.jobs = { lumen_fetch: updateLumenCounts.future() };
 
 Meteor.publish('lumen_counts', function() {
   return LumenCounts.find();
