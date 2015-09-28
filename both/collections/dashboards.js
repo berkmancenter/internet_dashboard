@@ -65,7 +65,6 @@ _.extend(Dashboard.prototype, {
 Dashboards = new Mongo.Collection('dashboards', {
   transform: function(doc) { return new Dashboard(doc); }
 });
-Dashboards._ensureIndex({ ownerId: 1 });
 
 Dashboards.attachSchema(new SimpleSchema({
   title: {

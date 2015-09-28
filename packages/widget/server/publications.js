@@ -13,3 +13,6 @@ Meteor.publish('dashboardWidgets', function(dashboardId) {
 Meteor.publish('activeWidgets', function() {
   return WidgetPackages.find();
 });
+
+Widgets._ensureIndex({ dashboardId: 1 });
+Widgets._ensureIndex({ packageName: 1 });

@@ -2,6 +2,7 @@ Settings.jobType = 'feed_fetcher';
 Settings.timeout = 20 * 1000;
 
 FeedItems._createCappedCollection(10 * 1000 * 1000, 3000);
+FeedItems._ensureIndex({ 'feed.url': 1 });
 var Future = Npm.require('fibers/future');
 var FeedParser = Npm.require('feedparser');
 

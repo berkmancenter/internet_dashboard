@@ -91,8 +91,6 @@ _.extend(Widget, {
 Widgets = new Mongo.Collection('widgets', {
   transform: function(doc) { return Widget.construct(doc); }
 });
-Widgets._ensureIndex({ dashboardId: 1 });
-Widgets._ensureIndex({ packageName: 1 });
 
 Widgets.attachSchema(new SimpleSchema({
   packageName: {

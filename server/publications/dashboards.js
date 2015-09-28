@@ -10,3 +10,4 @@ Meteor.publish('dashboard', function(id) {
   }
   return Dashboards.find(id);
 });
+Dashboards._ensureIndex({ ownerId: 1 });
