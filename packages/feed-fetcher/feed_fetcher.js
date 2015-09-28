@@ -4,6 +4,7 @@ Settings = {
 };
 
 FeedItems = new Mongo.Collection('feed_items');
+FeedItems._ensureIndex({ 'feed.url': 1 });
 FeedItems.attachSchema(new SimpleSchema({
   title: {
     type: String

@@ -2,6 +2,7 @@ Settings.jobQueue = 'wiki_edit_count';
 BinnedWikiEdits._createCappedCollection(Settings.maxBinSpace, Settings.maxBinNum);
 BinnedWikiEdits._ensureIndex({ binStart: 1 },
     { expireAfterSeconds: Settings.binWidth / 1000 * Settings.numBins });
+BinnedWikiEdits._ensureIndex({ channel: 1, binWidth: 1 });
 
 var fetchBin = function(channel, since) {
   var and = [ { created: { $gt: since } }, { namespace: 'article' } ];

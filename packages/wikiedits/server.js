@@ -1,4 +1,6 @@
 ThrottledWikiEdits._createCappedCollection(6 * 1000 * 1000, 1000);
+ThrottledWikiEdits._ensureIndex({ namespace: 1 });
+ThrottledWikiEdits._ensureIndex({ channel: 1 });
 
 var addSampledEdit = function(wiki) {
   var query = { namespace: 'article' };
