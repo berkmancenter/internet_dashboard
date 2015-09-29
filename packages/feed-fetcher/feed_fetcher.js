@@ -1,5 +1,5 @@
 Settings = {
-  updateEvery: moment.duration({ minutes: 5 }).asMilliseconds(),
+  updateEvery: moment.duration({ minutes: 15 }).asMilliseconds(),
   numItems: 40
 };
 

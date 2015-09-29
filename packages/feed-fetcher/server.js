@@ -24,16 +24,17 @@ var fetchFeed = function(feed, callback) {
     response = Future.wrap(HTTP.get)(feed, options).wait();
   } catch (error) {
     console.error('Feed: Fetching error');
-    console.error(error);
+    throw new Error(error);
   }
 
   if (response.statusCode !== 200) {
     console.error('Feed: Bad status code ' + res.statusCode);
+    throw new Error('Feed: Bad status code ' + res.statusCode);
   }
 
   feedparser.on('error', function(error) {
     console.error('Feed: Parsing error');
-    console.error(error);
+    throw new Error(error);
   });
 
   feedparser.on('readable', function() {
@@ -77,7 +78,15 @@ if (Meteor.settings.doJobs) {
   Meteor.startup(function() {
     Job.processJobs(
         WidgetJob.Settings.queueName, Settings.jobType, function(job, callback) {
-      fetchFeed.future()(job.data.url, function() { job.done(); callback(); });
+          try {
+            fetchFeed.future()(job.data.url, function() {
+              job.done();
+            }).wait();
+          } catch (e) {
+            console.error('Feed: ' + e);
+            job.fail("" + e);
+          }
+          callback();
     });
   });
 }

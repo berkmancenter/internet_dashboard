@@ -5,7 +5,7 @@ HTMLScraper = {
     //console.log('Fetching: ' + url);
     options = options || {};
     _.defaults(options, {
-      proxy: true,
+      proxy: false,
       proxyHost: '127.0.0.1',
       proxyPort: 2020,
       proxyType: 5,

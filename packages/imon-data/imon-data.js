@@ -1,6 +1,6 @@
 Settings = {
   baseUrl: 'https://thenetmonitor.org',
-  proxy: true,
+  proxy: false,
   indicatorLinkSelector: 'a[href="/sources"]',
   updateEvery: 1000 * 60 * 60 * 24 * 7,
   toCollect: [
