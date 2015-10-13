@@ -17,6 +17,11 @@ GlobalVoicesWidget.feedUrl = function(feed) {
   if (!feed) { return; }
   return Settings.baseUrl + feed.url + '/feed';
 };
+_.extend(GlobalVoicesWidget.prototype, {
+  setCountry: function(code) {
+    this.data.set({ feed: _.findWhere(feedUrls, { code: code }) });
+  }
+});
 
 GlobalVoices = {
   widget: {
