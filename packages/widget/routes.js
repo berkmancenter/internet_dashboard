@@ -13,3 +13,11 @@ Router.route('/widgets/:_id/embed', {
     return Widgets.findOne(this.params._id);
   }
 });
+
+Router.route('/widgets/jobs', {
+  name: 'widgets-jobs'
+});
+
+Router.plugin('ensureSignedIn', {
+    only: ['widgets-jobs']
+});

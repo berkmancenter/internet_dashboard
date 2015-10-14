@@ -11,7 +11,8 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router',
-      'aramk:tinycolor', 'vsivsi:job-collection@1.2.3'
+      'aramk:tinycolor', 'vsivsi:job-collection@1.2.3',
+      'dispatch:tabular-job-collection', 'useraccounts:iron-routing'
   ]);
   api.use(['templating'], 'client');
 
@@ -20,6 +21,7 @@ Package.onUse(function(api) {
     'methods.js',
     'widget_package.js',
     'widget_data.js',
+    'jobs.js',
     'routes.js'
   ]);
   api.addFiles([
@@ -33,10 +35,14 @@ Package.onUse(function(api) {
     'client/settings.html',
     'client/info.html',
     'client/embed.html',
+    'client/jobs.html',
+
     'client/widget.js',
     'client/settings.js',
     'client/info.js',
     'client/embed.js',
+    'client/jobs.js',
+
     'client/widget.css.less',
     'client/embed.css.less',
   ], 'client');
