@@ -9,6 +9,8 @@ _.extend(WidgetJob, {
   Settings: {
     queueName: 'widgetJobQueue',
     pollEvery: 1 * 1000,
+    cleanEvery: 5 * 60 * 1000,
+    numKeepCompleted: 10,
   },
   exists: function(type, data) {
     data = data || {};

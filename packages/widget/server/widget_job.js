@@ -1,4 +1,31 @@
-WidgetJobs._createCappedCollection(6 * 1024 * 1024, 500);
+if (Meteor.settings.doJobs) {
+  var cleanerType = 'job-cleaner';
+  var job = new WidgetJob(cleanerType);
+  job.repeat({ wait: WidgetJob.Settings.cleanEvery }).save({cancelRepeats: true});
+
+  var clean = function(job, callback) {
+    var removableJobs = WidgetJobs.find(
+      { status: { $in: ['completed', 'cancelled'] } },
+      {
+        fields: { _id: 1 },
+        sort: { updated: -1 },
+        skip: WidgetJob.Settings.numKeepCompleted
+      }
+    ).fetch();
+    var jobIds = _.pluck(removableJobs, '_id');
+    if (jobIds.length > 0) {
+      console.log('Widget: Removing ' + jobIds.length + ' old jobs');
+      WidgetJobs.remove({ _id: { $in: jobIds } });
+    }
+
+    job.done();
+    callback();
+  };
+
+  Meteor.startup(function() {
+    Job.processJobs(WidgetJob.Settings.queueName, cleanerType, clean);
+  });
+}
 
 TabularJobCollections.authenticateMethods = function (userId) {
   return Roles.userIsInRole(userId, Roles.ADMIN);
@@ -20,7 +47,7 @@ if (Meteor.settings.doJobs) {
             function (job, callback) {
               worker(job.data);
               job.done();
-              callback && callback();
+              callback();
             }
         );
       });
