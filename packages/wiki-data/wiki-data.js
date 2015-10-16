@@ -7,6 +7,8 @@ var Future = Npm.require('fibers/future');
 
 WikiEdits = new Mongo.Collection('wikiedits');
 WikiEdits._createCappedCollection(Settings.maxCollectionSpace, Settings.maxCollectionNum);
+WikiEdits._ensureIndex({ namespace: 1, channel: 1 });
+WikiEdits._ensureIndex({ created: -1 });
 
 var wikichanges = Npm.require('wikichanges');
 
