@@ -27,6 +27,8 @@ if (Meteor.settings.doJobs) {
 
     // Start all the job workers working
     console.log('Widget: Starting job server');
+    WidgetJobs._ensureIndex({ updated: -1 });
+    WidgetJobs._ensureIndex({ status: -1 });
     WidgetJobs.startJobServer();
     WidgetJobs.promote(WidgetJob.Settings.pollEvery);
     var jobOptions = {
