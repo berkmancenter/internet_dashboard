@@ -33,7 +33,8 @@ if (Meteor.settings.doJobs) {
     WidgetJobs.promote(WidgetJob.Settings.pollEvery);
     var jobOptions = {
       pollInterval: WidgetJob.Settings.pollEvery,
-      concurrency: 2
+      concurrency: 2,
+      workTimeout: 10 * 60 * 1000,
     };
 
     WidgetPackages.find().forEach(function(widgetPackage) {

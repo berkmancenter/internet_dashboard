@@ -76,7 +76,10 @@ Meteor.publish('feed_items', function(url) {
 // Run the jobs
 if (Meteor.settings.doJobs) {
   Meteor.startup(function() {
-    var jobOptions = { concurrency: 2 };
+    var jobOptions = {
+      concurrency: 2,
+      workTimeout: 10 * 60 * 1000,
+    };
     var worker = function(job, callback) {
       try {
         fetchFeed.future()(job.data.url).wait();

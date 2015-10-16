@@ -75,7 +75,10 @@ Meteor.startup(function() {
       job.repeat({ wait: Settings.stories.updateEvery }).save();
     }
 
-    var jobOptions = { concurrency: 2 };
+    var jobOptions = {
+      concurrency: 2,
+      workTimeout: 10 * 60 * 1000,
+    };
     var worker = function(job, callback) {
       try {
         Story.fetch.future()(job.data.term, job.data.country).wait();
