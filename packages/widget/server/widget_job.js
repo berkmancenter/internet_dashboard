@@ -24,33 +24,37 @@ if (Meteor.settings.doJobs) {
 
   Meteor.startup(function() {
     Job.processJobs(WidgetJob.Settings.queueName, cleanerType, clean);
+
+    // Start all the job workers working
+    console.log('Widget: Starting job server');
+    WidgetJobs.startJobServer();
+    WidgetJobs.promote(WidgetJob.Settings.pollEvery);
+    var jobOptions = {
+      pollInterval: WidgetJob.Settings.pollEvery,
+      concurrency: 2
+    };
+
+    WidgetPackages.find().forEach(function(widgetPackage) {
+      var widgetJobs = widgetPackage.metadata().widget.jobs;
+      if (!widgetJobs) { return; }
+
+      _.each(widgetJobs, function(worker, type) {
+        var workerCall = function (job, callback) {
+          try {
+            worker(job.data);
+            job.done();
+          } catch (e) {
+            console.error('Widget: Job error - ' + e);
+            job.fail('' + e);
+          }
+          callback();
+        };
+        WidgetJobs.processJobs(type, jobOptions, workerCall);
+      });
+    });
   });
 }
 
 TabularJobCollections.authenticateMethods = function (userId) {
   return Roles.userIsInRole(userId, Roles.ADMIN);
 };
-
-// Start all the job workers working
-if (Meteor.settings.doJobs) {
-  Meteor.startup(function() {
-    console.log('Widget: Starting job server');
-    WidgetJobs.startJobServer();
-    WidgetJobs.promote(WidgetJob.Settings.pollEvery);
-
-    WidgetPackages.find({}).forEach(function(widgetPackage) {
-      var metadata = widgetPackage.metadata();
-      if (!metadata.widget.jobs) { return; }
-      _.each(metadata.widget.jobs, function(worker, type) {
-        WidgetJobs.processJobs(type,
-            { pollInterval: WidgetJob.Settings.pollEvery },
-            function (job, callback) {
-              worker(job.data);
-              job.done();
-              callback();
-            }
-        );
-      });
-    });
-  });
-}

@@ -77,8 +77,14 @@ Meteor.startup(function() {
 
     Job.processJobs(WidgetJob.Settings.queueName, Settings.stories.jobQueue,
         function(job, callback) {
-          Story.fetch.future()(job.data.term, job.data.country);
-          callback && callback();
+          try {
+            Story.fetch.future()(job.data.term, job.data.country).wait();
+            job.done();
+          } catch (e) {
+            console.error('MediaCloud: Fetch error - ' + e);
+            job.fail("" + e);
+          }
+          callback();
         }
     );
   }

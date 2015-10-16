@@ -79,9 +79,8 @@ if (Meteor.settings.doJobs) {
     Job.processJobs(
         WidgetJob.Settings.queueName, Settings.jobType, function(job, callback) {
           try {
-            fetchFeed.future()(job.data.url, function() {
-              job.done();
-            }).wait();
+            fetchFeed.future()(job.data.url).wait();
+            job.done();
           } catch (e) {
             console.error('Feed: ' + e);
             job.fail("" + e);
