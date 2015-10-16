@@ -29,7 +29,6 @@ d3js:d3@3.4.13
 dburles:mongo-collection-instances@0.3.4
 ddp@1.1.0
 deps@1.0.7
-dispatch:tabular-job-collection@0.0.2
 ejson@1.0.6
 email@1.0.6
 embed@0.0.1
@@ -60,6 +59,7 @@ iron:middleware-stack@1.0.9
 iron:router@1.0.9
 iron:url@1.0.9
 isotope:isotope@2.1.0_1
+jdcc:tabular-job-collection@0.0.2
 jquery@1.11.3_2
 json@1.0.3
 kaspersky@0.0.1

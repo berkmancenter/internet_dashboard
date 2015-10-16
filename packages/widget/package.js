@@ -12,7 +12,7 @@ Package.onUse(function(api) {
 
   api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router',
       'aramk:tinycolor', 'vsivsi:job-collection@1.2.3',
-      'dispatch:tabular-job-collection', 'useraccounts:iron-routing'
+      'jdcc:tabular-job-collection', 'useraccounts:iron-routing'
   ]);
   api.use(['templating'], 'client');
 
