@@ -1,0 +1,22 @@
+<template name="TabularJobCollections.failures">
+  <ul class="list-unstyled">
+    {{#each failures}}
+      <li><b>{{value}}</b> ({{runId}})</li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="TabularJobCollections.buttons">
+  {{#if failed}}
+    <button class="btn btn-xs btn-info btn-block js-retry">Retry</button>
+  {{/if}}
+  {{#if showCancelButton}}
+    <button class="btn btn-xs btn-danger btn-block js-cancel">Cancel</button>
+  {{/if}}
+  {{#if isZombie}}
+    <button class="btn btn-xs btn-info btn-block js-kill">Kill</button>
+  {{/if}}
+  {{#if showDeleteButton}}
+    <button class="btn btn-xs btn-danger btn-block js-delete">Delete</button>
+  {{/if}}
+</template>
