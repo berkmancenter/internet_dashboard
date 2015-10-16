@@ -66,7 +66,7 @@ Meteor.publish('wikiedits_binned', function(channel, binWidth) {
 
 WikiEditCounts.widget.jobs = {
   wiki_edit_count: function(data) { insertBin(data.channel, data.binWidth); }
-}
+};
 Meteor.startup(function() {
   if (Meteor.settings.doJobs) {
     var data = {
