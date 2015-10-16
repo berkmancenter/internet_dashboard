@@ -46,6 +46,7 @@ var insertBin = function(channel, binWidth) {
 };
 
 Meteor.publish('wikiedits_binned', function(channel, binWidth) {
+  var pub = this;
   var data = { channel: channel, binWidth: binWidth };
   var cursor = BinnedWikiEdits.find({ channel: channel, binWidth: binWidth },
       { limit: Settings.numBins, sort: { binStart: -1 } });
@@ -53,11 +54,10 @@ Meteor.publish('wikiedits_binned', function(channel, binWidth) {
   if (!WidgetJob.exists(Settings.jobQueue, data)) {
     var job = new WidgetJob(Settings.jobQueue, data);
     job.repeat({ wait: Settings.updateEvery }).save();
-    console.log('WikiVolume: Added binning job - ' + channel + ' ' + binWidth);
-    this.connection.onClose(function() {
-      job.cancel();
-      job.remove();
-      console.log('WikiVolume: Removed binning job - ' + channel + ' ' + binWidth);
+    console.log('WikiVolume: Added job - ' + channel + ' ' + binWidth);
+    pub.onStop(function() {
+      WidgetJob.cancelLike(Settings.jobQueue, data);
+      console.log('WikiVolume: Removed job - ' + channel + ' ' + binWidth);
     });
   }
 

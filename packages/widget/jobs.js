@@ -11,10 +11,6 @@ _.extend(WidgetJob, {
     pollEvery: 1 * 1000,
     cleanEvery: 2 * 60 * 1000,
     numKeepCompleted: 10,
-  },
-  exists: function(type, data) {
-    data = data || {};
-    return WidgetJobs.find({ type: type, data: data }).count() > 0;
   }
 });
 

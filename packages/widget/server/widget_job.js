@@ -61,3 +61,25 @@ if (Meteor.settings.doJobs) {
 TabularJobCollections.authenticateMethods = function (userId) {
   return Roles.userIsInRole(userId, Roles.ADMIN);
 };
+
+_.extend(WidgetJob, {
+  exists: function(type, data) {
+    data = data || {};
+    var query = {
+      type: type,
+      data: data,
+      status: { $in: ['running', 'ready', 'waiting'] }
+    };
+    return WidgetJobs.find(query).count() > 0;
+  },
+  cancelLike: function(type, data) {
+    data = data || {};
+    var query = {
+      type: type,
+      data: data,
+      status: { $in: Job.jobStatusCancellable }
+    };
+    var jobs = WidgetJobs.find(query);
+    WidgetJobs.cancelJobs(_.pluck(jobs.fetch(), '_id'));
+  }
+});
