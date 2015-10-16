@@ -75,17 +75,22 @@ Meteor.startup(function() {
       job.repeat({ wait: Settings.stories.updateEvery }).save();
     }
 
-    Job.processJobs(WidgetJob.Settings.queueName, Settings.stories.jobQueue,
-        function(job, callback) {
-          try {
-            Story.fetch.future()(job.data.term, job.data.country).wait();
-            job.done();
-          } catch (e) {
-            console.error('MediaCloud: Fetch error - ' + e);
-            job.fail("" + e);
-          }
-          callback();
-        }
-    );
+    var jobOptions = { concurrency: 2 };
+    var worker = function(job, callback) {
+      try {
+        Story.fetch.future()(job.data.term, job.data.country).wait();
+        job.done();
+      } catch (e) {
+        console.error('MediaCloud: Fetch error - ' + e);
+        job.fail("" + e);
+      }
+      callback();
+    };
+
+    Job.processJobs(
+        WidgetJob.Settings.queueName,
+        Settings.stories.jobQueue,
+        jobOptions,
+        worker);
   }
 });

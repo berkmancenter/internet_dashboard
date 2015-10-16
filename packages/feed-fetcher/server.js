@@ -76,16 +76,19 @@ Meteor.publish('feed_items', function(url) {
 // Run the jobs
 if (Meteor.settings.doJobs) {
   Meteor.startup(function() {
+    var jobOptions = { concurrency: 2 };
+    var worker = function(job, callback) {
+      try {
+        fetchFeed.future()(job.data.url).wait();
+        job.done();
+      } catch (e) {
+        console.error('Feed: ' + e);
+        job.fail("" + e);
+      }
+      callback();
+    };
+
     Job.processJobs(
-        WidgetJob.Settings.queueName, Settings.jobType, function(job, callback) {
-          try {
-            fetchFeed.future()(job.data.url).wait();
-            job.done();
-          } catch (e) {
-            console.error('Feed: ' + e);
-            job.fail("" + e);
-          }
-          callback();
-    });
+        WidgetJob.Settings.queueName, Settings.jobType, jobOptions, worker);
   });
 }
