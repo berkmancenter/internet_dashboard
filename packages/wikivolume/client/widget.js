@@ -2,14 +2,8 @@ Template.WikiEditCountsWidget.onCreated(function() {
   var template = this;
 
   template.autorun(function() {
-    if (template.sub) {
-      template.sub.stop();
-    }
-    template.sub = template.subscribe(
-      'wikiedits_binned',
-      Template.currentData().channel.channel,
-      Template.currentData().binWidth
-    );
+    var data = Template.currentData();
+    template.subscribe('wikiedits_binned', data.channel.channel, data.binWidth);
   });
 });
 

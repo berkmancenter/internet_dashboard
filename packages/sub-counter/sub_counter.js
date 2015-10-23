@@ -90,14 +90,14 @@ _.extend(SubCounter.prototype, {
     var hash = SubCounter.hash(handler);
     if (_.isUndefined(this._callbacks[type])) { return; }
 
+    if (_.isEmpty(this._queryObservers[hash])) {
+      this._addObserver(hash);
+    }
+
     if (!_.isUndefined(this._callbacks[type][hash])) {
       this._callbacks[type][hash].push(callback);
     } else {
       this._callbacks[type][hash] = [callback];
-    }
-
-    if (_.isEmpty(this._queryObservers[hash])) {
-      this._addObserver(hash);
     }
   },
   _onStop: function(hash) {

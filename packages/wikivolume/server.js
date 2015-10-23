@@ -1,4 +1,4 @@
-Settings.jobQueue = 'wiki_edit_count';
+Settings.jobType = 'wiki_edit_count';
 BinnedWikiEdits._createCappedCollection(Settings.maxBinSpace, Settings.maxBinNum);
 BinnedWikiEdits._ensureIndex({ binStart: 1 },
     { expireAfterSeconds: Settings.binWidth / 1000 * Settings.numBins });
@@ -46,20 +46,16 @@ var insertBin = function(channel, binWidth) {
 };
 
 Meteor.publish('wikiedits_binned', function(channel, binWidth) {
-  var pub = this;
   var data = { channel: channel, binWidth: binWidth };
   var cursor = BinnedWikiEdits.find({ channel: channel, binWidth: binWidth },
       { limit: Settings.numBins, sort: { binStart: -1 } });
 
-  if (!WidgetJob.exists(Settings.jobQueue, data)) {
-    var job = new WidgetJob(Settings.jobQueue, data);
+  if (!WidgetJob.exists(Settings.jobType, data)) {
+    var job = new WidgetJob(Settings.jobType, data);
     job.repeat({ wait: Settings.updateEvery }).save();
-    console.log('WikiVolume: Added job - ' + channel + ' ' + binWidth);
-    pub.onStop(function() {
-      WidgetJob.cancelLike(Settings.jobQueue, data);
-      console.log('WikiVolume: Removed job - ' + channel + ' ' + binWidth);
-    });
+    job.stopWhenNoSubsTo(this);
   }
+  WidgetJob.addSub(this);
 
   return cursor;
 });
@@ -67,15 +63,3 @@ Meteor.publish('wikiedits_binned', function(channel, binWidth) {
 WikiEditCounts.widget.jobs = {
   wiki_edit_count: function(data) { insertBin(data.channel, data.binWidth); }
 };
-Meteor.startup(function() {
-  if (Meteor.settings.doJobs) {
-    var data = {
-      channel: Settings.defaultChannel.channel,
-      binWidth: Settings.binWidth
-    };
-    if (!WidgetJob.exists(Settings.jobQueue, data)) {
-      var job = new WidgetJob(Settings.jobQueue, data);
-      job.repeat({ wait: Settings.updateEvery }).save();
-    }
-  }
-});
