@@ -44,6 +44,9 @@ SubCounts.attachSchema(new SimpleSchema({
   hash: { type: String },
   count: { type: Number, optional: true }
 }));
+SubCounts._ensureIndex({ hostname: 1 });
+SubCounts._ensureIndex({ hash: 1 });
+SubCounts._ensureIndex({ hostname: 1, hash: 1 });
 
 var os = Npm.require('os');
 var hostname = os.hostname();
