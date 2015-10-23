@@ -90,13 +90,13 @@ _.extend(SubCounter.prototype, {
     var hash = SubCounter.hash(handler);
     if (_.isUndefined(this._callbacks[type])) { return; }
 
-    if (this._callbacks[type][hash]) {
+    if (!_.isUndefined(this._callbacks[type][hash])) {
       this._callbacks[type][hash].push(callback);
     } else {
       this._callbacks[type][hash] = [callback];
     }
 
-    if (!this._queryObservers[hash]) {
+    if (_.isEmpty(this._queryObservers[hash])) {
       this._addObserver(hash);
     }
   },
@@ -109,7 +109,7 @@ _.extend(SubCounter.prototype, {
     var changed = function(id, changes) { self._changed(hash, changes); };
     var observer = query.observeChanges({ added: changed, changed: changed });
 
-    if (this._queryObservers[hash]) {
+    if (!_.isUndefined(this._queryObservers[hash])) {
       this._queryObservers[hash].push(observer);
     } else {
       this._queryObservers[hash] = [observer];
