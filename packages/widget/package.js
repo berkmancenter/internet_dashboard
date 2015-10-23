@@ -10,6 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
+  api.use(['sub-counter'], 'server');
   api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router',
       'aramk:tinycolor', 'vsivsi:job-collection@1.2.3',
       'jdcc:tabular-job-collection', 'useraccounts:iron-routing'

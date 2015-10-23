@@ -62,7 +62,24 @@ TabularJobCollections.authenticateMethods = function (userId) {
   return Roles.userIsInRole(userId, Roles.ADMIN);
 };
 
+var subCounter = new SubCounter();
+
+_.extend(WidgetJob.prototype, {
+  stopWhenNoSubsTo: function(publication) {
+    var job = this;
+    // Only add this callback once
+    if (_.isEmpty(subCounter.callbacksOn('empty', publication))) {
+      subCounter.onEmpty(publication, function() {
+        WidgetJob.cancelLike(job.type, job.data);
+      });
+    }
+  }
+});
+
 _.extend(WidgetJob, {
+  addSub: function(publication) {
+    subCounter.count(publication);
+  },
   exists: function(type, data) {
     data = data || {};
     var query = {
