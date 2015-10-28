@@ -10,7 +10,7 @@ Template.FeedWidget.onCreated(function() {
 
 Template.FeedWidget.helpers({
   widgetTitle: function() {
-    return this.title || 'Feed Items';
+    return this.title || 'Web Feed Items';
   },
   feedItems: function() {
     return FeedItems.find({ 'feed.url': this.feedUrl }, { sort: { date: -1 } });
