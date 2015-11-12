@@ -1,18 +1,10 @@
 {
   "dependencies": {
-    "xml2js": {
-      "version": "0.4.6",
+    "pubnub": {
+      "version": "3.7.15",
       "dependencies": {
-        "sax": {
-          "version": "0.6.1"
-        },
-        "xmlbuilder": {
-          "version": "2.6.2",
-          "dependencies": {
-            "lodash": {
-              "version": "3.5.0"
-            }
-          }
+        "agentkeepalive": {
+          "version": "0.2.4"
         }
       }
     }

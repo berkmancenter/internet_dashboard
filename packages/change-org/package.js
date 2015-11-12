@@ -8,8 +8,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['mongo', 'momentjs:moment', 'underscore', 'aldeed:collection2',
-      'country-info', 'widget']);
+  api.use(['mongo', 'underscore', 'aldeed:collection2', 'country-info', 'widget']);
   api.use(['http'], 'server');
   api.use(['templating', 'epoch', 'd3js:d3'], 'client');
 
@@ -17,7 +16,6 @@ Package.onUse(function(api) {
   api.addFiles(['server.js'], 'server');
   api.addFiles([
     'client/lib/d3.geo.js',
-    'client/lib/d3-legend.js',
     'client/info.html',
     'client/widget.html',
     'client/widget.js',
@@ -28,5 +26,5 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-  'xml2js': '0.4.6'
+  'pubnub': '3.7.15'
 });
