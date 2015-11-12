@@ -1,0 +1,8 @@
+<template name="AkamaiAttacksWidget">
+<h1>Network Attacks</h1>
+<p>Inbound network attacks, percent above average</p>
+{{# unless Template.subscriptionsReady }}
+  {{ widgetLoading }}
+{{/unless}}
+<div class="akamai-attacks world-map"></div>
+</template>
