@@ -19,7 +19,6 @@ Package.onUse(function(api) {
     'client/info.html',
     'client/widget.html',
     'client/widget.js',
-    'client/widget.css'
     ], 'client');
 
   api.export('ChangeOrg');
