@@ -4,6 +4,7 @@ Template.ChangeOrgWidget.onCreated(function() {
 
 Template.ChangeOrgWidget.onRendered(function() {
   var template = this;
+  
 
   var svg = d3.select(template.find('.world-map')).append("svg:svg")
     .attr("width", Settings.map.width)
@@ -27,27 +28,26 @@ Template.ChangeOrgWidget.onRendered(function() {
 
     feature.append("svg:title")
       .text(function(d) { return d.properties.name; });
+
+    svg.append('svg:g').attr('id', 'spots');
   });
 
-  var spots = svg.append('svg:g').attr('id', 'spots');
 
-  this.autorun(function() {
-    if (!template.subscriptionsReady()) { return; }
-    ChangePetitions.find().observe({
-      added: function(petition) {
-        var spot = projection([petition.latLong.long, petition.latLong.lat]);
-        var data = spots.data([spot]);
-        data.enter().append('svg:circle')
-          .attr('cx', spot[0])
-          .attr('cy', spot[1])
-          .attr('r', Settings.spots.size)
-          .attr('fill', Settings.spots.color);
-
-        data.exit().transition()
-          .attr('opacity', 0)
-          .attr('r', 0)
-          .duration(Settings.spots.fadeTime * 1000);
-      }
-    });
+  ChangePetitions.find().observe({
+    added: function(petition) {
+      petition.spot = projection([petition.latLong.long, petition.latLong.lat]);
+      svg.select('#spots').append('svg:circle')
+        .datum(petition)
+        .attr('cx', function(p) { return p.spot[0]; })
+        .attr('cy', function(p) { return p.spot[1] * Settings.map.squash; })
+        .attr('r', Settings.map.spots.size)
+        .attr('opacity', 1)
+        .attr('fill', Settings.map.spots.color)
+      .transition()
+        .duration(Settings.map.spots.fadeTime * 1000)
+        .attr('r', 0)
+        //.attr('opacity', 0)
+        .remove();
+    }
   });
 });

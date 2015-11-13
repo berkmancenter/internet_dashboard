@@ -1,7 +1,7 @@
-Settings = {
+_.extend(Settings, {
   maxCollectionSpace: 6 * 1024 * 1024, // 6 MB
   maxCollectionNum: 10000 // Number of docs in collection
-};
+});
 
 ChangePetitions.attachSchema(new SimpleSchema({
   petitionId: {
@@ -28,17 +28,20 @@ ChangePetitions._createCappedCollection(
 
 
 function insertMessage(message) {
-  var fetchedAt = new Date(Math.floor(message[1] / 10000));
-  var petitions = message[0][0];
-  _.each(petitions, function(petition) {
-    ChangePetitions.insert({
-      latLong: {
-        lat: petition.latitude,
-        long: petition.longitude
-      },
-      petitionId: petition.petition_id,
-      fetchedAt: fetchedAt
-    });
+  var fetchedAt = new Date();
+  _.each(message, function(petition) {
+    try {
+      ChangePetitions.insert({
+        latLong: {
+          lat: petition.latitude,
+          long: petition.longitude
+        },
+        petitionId: petition.petition_id,
+        fetchedAt: fetchedAt
+      });
+    } catch (e) {
+      console.error(e);
+    }
   });
 }
 
@@ -50,7 +53,7 @@ if (Meteor.settings.doJobs) {
 
   pubnub.subscribe({
     channel: Settings.channel,
-    callback: insertMessage
+    callback: Meteor.bindEnvironment(insertMessage)
   });
 }
 

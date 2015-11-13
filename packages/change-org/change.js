@@ -7,8 +7,8 @@ Settings = {
   map: {
     spots: {
       color: '#FF0000',
-      size: 8,
-      fadeTime: 30
+      size: 4,
+      fadeTime: 15
     },
     fill: '#AAA',
     width: 450,
