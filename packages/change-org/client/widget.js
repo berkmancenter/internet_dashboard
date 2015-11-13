@@ -4,7 +4,6 @@ Template.ChangeOrgWidget.onCreated(function() {
 
 Template.ChangeOrgWidget.onRendered(function() {
   var template = this;
-  
 
   var svg = d3.select(template.find('.world-map')).append("svg:svg")
     .attr("width", Settings.map.width)
@@ -32,22 +31,39 @@ Template.ChangeOrgWidget.onRendered(function() {
     svg.append('svg:g').attr('id', 'spots');
   });
 
+  var jitter = d3.scale.linear().range([
+    -1 * Settings.map.spots.jitter, Settings.map.spots.jitter]);
+  var pendingCount = 0;
+  var spots = Settings.map.spots;
 
   ChangePetitions.find().observe({
     added: function(petition) {
-      petition.spot = projection([petition.latLong.long, petition.latLong.lat]);
-      svg.select('#spots').append('svg:circle')
-        .datum(petition)
-        .attr('cx', function(p) { return p.spot[0]; })
-        .attr('cy', function(p) { return p.spot[1] * Settings.map.squash; })
-        .attr('r', Settings.map.spots.size)
-        .attr('opacity', 1)
-        .attr('fill', Settings.map.spots.color)
-      .transition()
-        .duration(Settings.map.spots.fadeTime * 1000)
-        .attr('r', 0)
-        //.attr('opacity', 0)
-        .remove();
+      if (pendingCount > Settings.map.spots.pendingMax) {
+        return;
+      }
+
+      var delay = pendingCount * Settings.map.spots.delay * 1000;
+      var jittered = Math.max(0, delay + jitter(Math.random()));
+      pendingCount += 1;
+
+      Meteor.setTimeout(function() {
+        petition.spot = projection([petition.latLong.long, petition.latLong.lat]);
+        svg.select('#spots').append('svg:circle')
+          .datum(petition)
+          .attr('cx', function(p) { return p.spot[0]; })
+          .attr('cy', function(p) { return p.spot[1] * Settings.map.squash; })
+          .attr('r', spots.startSize)
+          .attr('opacity', spots.startOpacity)
+          .attr('fill', spots.startColor)
+        .transition()
+          .attr('r', spots.stableSize)
+          .attr('opacity', spots.stableOpacity)
+          .attr('fill', spots.stableColor)
+        .transition()
+          .delay(Settings.map.spots.ttl * 1000)
+          .remove();
+        pendingCount -= 1;
+      }, jittered);
     }
   });
 });

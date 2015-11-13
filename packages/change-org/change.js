@@ -3,14 +3,22 @@ ChangePetitions = new Mongo.Collection('change_petitions');
 Settings = {
   subscribeKey: 'sub-c-b19ef43c-f7ff-11e4-b945-0619f8945a4f',
   channel: 'production_signatures',
-  limit: 10,
+  limit: 50,
   map: {
     spots: {
-      color: '#FF0000',
-      size: 4,
-      fadeTime: 15
+      startColor: '#337ab7',
+      stableColor: '#337ab7',
+      startSize: 3,
+      stableSize: 1,
+      startOpacity: 1,
+      stableOpacity: 0.5,
+      ttl: 120,
+      fadeDuration: 2000,
+      delay: 15.0 / 100,
+      jitter: 500,
+      pendingMax: 100
     },
-    fill: '#AAA',
+    fill: '#EEE',
     width: 450,
     height: 270,
     scale: 110,

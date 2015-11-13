@@ -28,9 +28,9 @@ ChangePetitions._createCappedCollection(
 
 
 function insertMessage(message) {
-  var fetchedAt = new Date();
   _.each(message, function(petition) {
     try {
+      var fetchedAt = new Date();
       ChangePetitions.insert({
         latLong: {
           lat: petition.latitude,
