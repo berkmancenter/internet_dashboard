@@ -25,7 +25,7 @@ var getBins = function() {
 };
 
 var binRequest = function(bin) {
-  return { url: 'https://chillingeffects.org/notices/search',
+  return { url: 'https://www.lumendatabase.org/notices/search',
     options: {
       headers: {
         AUTHENTICATION_TOKEN: Settings.authToken,

@@ -26,16 +26,16 @@ LumenWidget.prototype.constructor = LumenWidget;
 Lumen = {
   widget: {
     name: 'Takedown Requests',
-    description: 'Shows the number of requests for removal of online materials Chilling Effects has received over time',
-    url: 'https://www.chillingeffects.org/',
+    description: 'Shows the number of requests for removal of online materials Lumen has received over time',
+    url: 'https://www.lumendatabase.org/',
     dimensions: { width: 2, height: 1 },
     constructor: LumenWidget,
     typeIcon: 'bar-chart',
     category: 'control'
   },
   org: {
-    name: 'Chilling Effects',
-    shortName: 'Chilling Effects',
-    url: 'https://www.chillingeffects.org/',
+    name: 'Lumen',
+    shortName: 'Lumen',
+    url: 'https://www.lumendatabase.org/',
   }
 };
