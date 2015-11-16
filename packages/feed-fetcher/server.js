@@ -57,13 +57,13 @@ var fetchFeed = function(feed, callback) {
 Meteor.publish('feed_items', function(url) {
   var data = { url: url };
 
-  // Always add the sub before telling the job to stop when no more subs.
-  WidgetJob.addSub(this);
   if (!WidgetJob.exists(Settings.jobType, data)) {
     var job = new WidgetJob(Settings.jobType, data);
     job.repeat({ wait: Settings.updateEvery }).save();
     job.stopWhenNoSubsTo(this);
   }
+
+  WidgetJob.trackSub(this);
 
   var cursor = FeedItems.find({ 'feed.url': url },
       { limit: Settings.numItems, sort: { pubdate: -1 } });

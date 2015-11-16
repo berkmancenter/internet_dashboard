@@ -55,7 +55,8 @@ Meteor.publish('wikiedits_binned', function(channel, binWidth) {
     job.repeat({ wait: Settings.updateEvery }).save();
     job.stopWhenNoSubsTo(this);
   }
-  WidgetJob.addSub(this);
+
+  WidgetJob.trackSub(this);
 
   return cursor;
 });

@@ -77,7 +77,7 @@ _.extend(WidgetJob.prototype, {
 });
 
 _.extend(WidgetJob, {
-  addSub: function(publication) {
+  trackSub: function(publication) {
     subCounter.count(publication);
   },
   exists: function(type, data) {

@@ -35,6 +35,9 @@
  * in the database, they're going to persist across server restarts while
  * connections will not. That means whenever a server restarts, we need to
  * remove all of its sessions from the database.
+ *
+ * Important to remember that callbacks and observers are managed on each
+ * individual server.
 ***/
 
 SubCounts = new Meteor.Collection('sub_counts');
@@ -90,7 +93,7 @@ _.extend(SubCounter.prototype, {
     var hash = SubCounter.hash(handler);
     if (_.isUndefined(this._callbacks[type])) { return; }
 
-    if (_.isEmpty(this._queryObservers[hash])) {
+    if (_.isUndefined(this._queryObservers[hash])) {
       this._addObserver(hash);
     }
 
@@ -109,23 +112,26 @@ _.extend(SubCounter.prototype, {
     var changed = function(id, changes) { self._changed(hash, changes); };
     var observer = query.observeChanges({ added: changed, changed: changed });
 
-    if (!_.isUndefined(this._queryObservers[hash])) {
-      this._queryObservers[hash].push(observer);
-    } else {
-      this._queryObservers[hash] = [observer];
+    if (_.isUndefined(this._queryObservers[hash])) {
+      this._queryObservers[hash] = observer;
     }
   },
   _cleanUp: function(hash) {
     this._callbacks.change[hash] = [];
     this._callbacks.empty[hash] = [];
-    _.each(this._queryObservers[hash], function(observer) { observer.stop(); });
-    this._queryObservers[hash] = [];
+
+    var queryObserver = this._queryObservers[hash];
+    if (!_.isUndefined(queryObserver)) {
+      queryObserver.stop();
+      delete this._queryObservers[hash];
+    }
   },
   _increment: function(hash) {
-    SubCounts.upsert({ hostname: hostname, hash: hash }, { $inc: { count: 1 }});
+    SubCounts.upsert({ hostname: hostname, hash: hash },
+        { $setOnInsert: { count: 0 }, $inc: { count: 1 }});
   },
   _decrement: function(hash) {
-    SubCounts.upsert({ hostname: hostname, hash: hash }, { $inc: { count: -1 }});
+    SubCounts.update({ hostname: hostname, hash: hash }, { $inc: { count: -1 }});
 
     // I don't know if < 0 happens, but just in case
     var newCount = this._getCount(hash);
