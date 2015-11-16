@@ -14,7 +14,7 @@ FeedWidget.prototype.constructor = FeedWidget;
 
 Feed = {
   widget: {
-    name: 'Feed',
+    name: 'Web Feed',
     description: 'Shows items from an RSS or Atom feed',
     dimensions: { width: 2, height: 3 },
     resize: { mode: 'reflow' },
