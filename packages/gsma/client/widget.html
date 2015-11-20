@@ -1,0 +1,8 @@
+<template name="LumenWidget">
+<h1>Takedown Requests</h1>
+<h2>Notices per {{ binWidth }}</h2>
+{{# unless Template.subscriptionsReady }}
+  {{ widgetLoading }}
+{{/unless}}
+<div class="url-counts"></div>
+</template>
