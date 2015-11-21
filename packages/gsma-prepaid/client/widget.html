@@ -1,0 +1,8 @@
+<template name="GSMAPrepaidWidget">
+  <h1>Prepaid Connections</h1>
+<h2>{{ country.name }}</h2>
+{{# unless Template.subscriptionsReady }}
+  {{ widgetLoading }}
+{{/unless}}
+<div class="epoch prepaid-connections"></div>
+</template>

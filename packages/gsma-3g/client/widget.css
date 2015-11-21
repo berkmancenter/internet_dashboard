@@ -1,0 +1,12 @@
+.gsma-3g .no-data {
+  padding-top: 1.5em;
+}
+
+.gsma-3g .epoch.threeg-connections {
+  height: 60px;
+}
+
+.gsma-3g .epoch.threeg-connections .line {
+  stroke-width: 1.5px;
+  stroke: #2ca02c;
+}

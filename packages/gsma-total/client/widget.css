@@ -1,0 +1,11 @@
+.gsma-total .no-data {
+  padding-top: 1.5em;
+}
+
+.gsma-total .epoch.mobile-connections {
+  height: 60px;
+}
+
+.gsma-total .epoch.mobile-connections .line {
+  stroke-width: 1.5px;
+}

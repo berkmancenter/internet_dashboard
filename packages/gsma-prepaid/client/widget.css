@@ -1,0 +1,12 @@
+.gsma-prepaid .no-data {
+  padding-top: 1.5em;
+}
+
+.gsma-prepaid .epoch.prepaid-connections {
+  height: 60px;
+}
+
+.gsma-prepaid .epoch.prepaid-connections .line {
+  stroke-width: 1.5px;
+  stroke: #ff7f0e;
+}

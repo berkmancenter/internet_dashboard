@@ -24,10 +24,15 @@ ddp@1.1.0
 deps@1.0.7
 ejson@1.0.6
 email@1.0.6
+epoch@0.8.4
 fastclick@1.0.3
 fortawesome:fontawesome@4.3.0
 geojson-utils@1.0.3
-gsma@0.0.1
+gsma-3g@0.0.1
+gsma-4g@0.0.1
+gsma-data@0.0.1
+gsma-prepaid@0.0.1
+gsma-total@0.0.1
 gwendall:session-json@0.1.7
 hinas:meteor-bootstrap-confirmation@0.9.0
 html-tools@1.0.4

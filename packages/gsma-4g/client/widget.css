@@ -1,0 +1,12 @@
+.gsma-4g .no-data {
+  padding-top: 1.5em;
+}
+
+.gsma-4g .epoch.fourg-connections {
+  height: 60px;
+}
+
+.gsma-4g .epoch.fourg-connections .line {
+  stroke-width: 1.5px;
+  stroke: #d62728;
+}

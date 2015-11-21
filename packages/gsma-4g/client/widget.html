@@ -1,0 +1,8 @@
+<template name="GSMA4GWidget">
+  <h1>4G Connections</h1>
+<h2>{{ country.name }}</h2>
+{{# unless Template.subscriptionsReady }}
+  {{ widgetLoading }}
+{{/unless}}
+<div class="epoch fourg-connections"></div>
+</template>
