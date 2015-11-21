@@ -69,7 +69,6 @@ function updateGSMAData() {
     while(skip < totalSets) {
       try {
         url = attrUrl + '&_limit=' + Settings.limit + '&_skip=' + skip;
-        console.log(url);
         result = get(url, {
           headers: { 'X-APP-KEY': Settings.authToken },
           timeout: Settings.timeout

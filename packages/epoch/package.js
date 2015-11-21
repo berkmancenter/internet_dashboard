@@ -1,6 +1,6 @@
 Package.describe({
   summary: 'Epoch charts packaged for Meteor',
-  version: "0.6.0",
+  version: "0.8.4",
 });
 
 Package.on_use(function (api) {
