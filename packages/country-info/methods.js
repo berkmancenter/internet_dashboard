@@ -6,6 +6,7 @@ _.each(data.continents, function(continent, machineName) {
 Meteor.methods({
   countryByCode: function(code) {
     var country = data.countries[code.toUpperCase()];
+    if (_.isUndefined(country)) { return; }
     var continent = _.find(data.continents, function(continent) {
       return _.contains(continent.countries, country.alpha2);
     });

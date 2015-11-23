@@ -19,6 +19,7 @@ _.extend(GSMAPrepaidWidget.prototype, {
   setCountry: function(countryCode) {
     var widget = this;
     CountryInfo.byCode(countryCode, function(country) {
+      if (_.isUndefined(country)) { return; }
       var code = country.alpha3.toUpperCase();
       widget.data.set({ country: {
         iso2: countryCode.toUpperCase(),

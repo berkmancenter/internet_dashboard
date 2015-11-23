@@ -116,7 +116,7 @@ Meteor.publish('gsma_data', function(geoCode, metric, attr) {
 
   values.forEach(function(datum, i) {
     if (i === 0) {
-      baseline = datum.value;
+      baseline = datum.value === 0 ? 0.00001 : datum.value;
     }
     var percentChange = datum.value / baseline - 1.0;
     var id = geoCode + metric + attr + datum.start.toString();

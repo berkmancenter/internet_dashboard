@@ -8,6 +8,10 @@ Template.GSMATotalSettings.events({
     var widgetData = this;
     var iso2 = template.find('.country').value;
     CountryInfo.byCode(iso2, function(country) {
+      if (_.isUndefined(country)) {
+        template.closeSettings();
+        return;
+      }
       var iso3 = country.alpha3.toUpperCase();
       widgetData.set({
         country: {

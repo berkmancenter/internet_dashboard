@@ -1,5 +1,12 @@
+gsma-prepaid h2 {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .gsma-prepaid .no-data {
-  padding-top: 1.5em;
+  padding: 1em;
 }
 
 .gsma-prepaid .epoch.prepaid-connections {

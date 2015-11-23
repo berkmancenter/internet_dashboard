@@ -1,5 +1,12 @@
+.gsma-3g h2 {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .gsma-3g .no-data {
-  padding-top: 1.5em;
+  padding: 1em;
 }
 
 .gsma-3g .epoch.threeg-connections {

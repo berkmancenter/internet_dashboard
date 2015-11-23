@@ -1,5 +1,12 @@
+.gsma-total h2 {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .gsma-total .no-data {
-  padding-top: 1.5em;
+  padding: 1em;
 }
 
 .gsma-total .epoch.mobile-connections {
