@@ -33,7 +33,7 @@ _.extend(GSMATotalWidget.prototype, {
 GSMATotal = {
   widget: {
     name: 'Mobile Connections',
-    description: 'Shows the total number of mobile connections in a country',
+    description: 'Shows the number of mobile connections per 100 people in a country',
     url: 'https://gsmaintelligence.com/',
     dimensions: { width: 2, height: 1 },
     constructor: GSMATotalWidget,

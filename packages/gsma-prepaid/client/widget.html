@@ -4,5 +4,19 @@
 {{# unless Template.subscriptionsReady }}
   {{ widgetLoading }}
 {{/unless}}
-<div class="epoch prepaid-connections"></div>
+<div class="current-data">
+  <div class="current-prepaid">
+    {{# if currentValue }}
+      <div class="current-value">{{ currentValue }}</div>
+    {{ else }}
+      {{# if Template.subscriptionsReady }}
+      <div class="no-data">No data available.</div>
+      {{/if}}
+    {{/if}}
+  </div>
+  <div class="trend-line">
+    <div class="epoch prepaid-connections"></div>
+    <div class="trend-label">{{ trendLabel }}</div>
+  </div>
+</div>
 </template>

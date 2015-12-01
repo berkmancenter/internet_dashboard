@@ -5,12 +5,39 @@
   text-overflow: ellipsis;
 }
 
+.gsma-total .current-data {
+  text-align: center;
+}
+.gsma-total .current-mobile {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+}
+.gsma-total .current-value {
+  font-size: 3.6em;
+  line-height: 0.9em;
+}
+.gsma-total .value-label {
+  font-size: 0.9em;
+}
+.gsma-total .trend-line {
+  display: inline-block;
+  width: 30%;
+}
+.gsma-total .trend-label {
+  font-size: 0.9em;
+}
+
+.gsma-total .no-pop-data {
+  padding: 1em;
+}
 .gsma-total .no-data {
   padding: 1em;
 }
 
 .gsma-total .epoch.mobile-connections {
-  height: 60px;
+  height: 45px;
+  width: 100%;
 }
 
 .gsma-total .epoch.mobile-connections .line {

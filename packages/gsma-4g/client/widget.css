@@ -5,12 +5,38 @@
   text-overflow: ellipsis;
 }
 
+.gsma-4g .current-data {
+  text-align: center;
+}
+.gsma-4g .current-4g {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  margin-right: 1.5em;
+}
+.gsma-4g .current-value {
+  font-size: 4em;
+  line-height: 1em;
+}
+.gsma-4g .value-label {
+  font-size: 0.9em;
+}
+.gsma-4g .trend-line {
+  display: inline-block;
+  width: 30%;
+}
+.gsma-4g .trend-label {
+  font-size: 0.9em;
+}
+
 .gsma-4g .no-data {
   padding: 1em;
+  font-size: 14px;
 }
 
 .gsma-4g .epoch.fourg-connections {
-  height: 60px;
+  height: 45px;
+  width: 100%;
 }
 
 .gsma-4g .epoch.fourg-connections .line {

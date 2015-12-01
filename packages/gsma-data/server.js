@@ -12,7 +12,8 @@ Settings = {
   updateEvery: moment.duration({ months: 6 }),
   authToken: Assets.getText('apiKey.txt'),
   timeout: 60 * 1000,
-  limit: 20
+  limit: 20,
+  perPeople: 100.0
 };
 
 var Future = Npm.require('fibers/future');
@@ -41,6 +42,7 @@ function mungeGeo(geo) {
 function insertDatum(value, metric, attr, geo) {
   if (value.dateType !== 'Q' ||
       value.confidence === 'forecast') { return; }
+
 
   var datum = {
     start: new Date(value.date),
@@ -112,21 +114,34 @@ Meteor.publish('gsma_data', function(geoCode, metric, attr) {
       { 'geo.code': geoCode, metric: metric, attribute: attr },
       { sort: { start: 1 }});
 
-  var baseline;
+  var baseline, count = values.count();
 
   values.forEach(function(datum, i) {
     if (i === 0) {
       baseline = datum.value === 0 ? 0.00001 : datum.value;
     }
+
     var percentChange = datum.value / baseline - 1.0;
     var id = geoCode + metric + attr + datum.start.toString();
-    publication.added('gsma_data', id, {
+    var doc = {
       start: datum.start,
       value: percentChange,
       geoCode: geoCode,
       metric: metric,
       attr: attr
-    });
+    };
+    if (i === count - 1) {
+      // Normalize connections by population
+      if (metric === '/metrics?id=3' && attr === '/attributes?id=0') {
+        var pop = Meteor.call('populationByCode', geoCode);
+        if (pop) {
+          doc.current = Math.round(datum.value / (pop / Settings.perPeople) * 10) / 10.0;
+        }
+      } else {
+        doc.current = datum.value;
+      }
+    }
+    publication.added('gsma_data', id, doc);
   });
   publication.ready();
 });

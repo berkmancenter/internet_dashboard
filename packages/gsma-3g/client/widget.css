@@ -4,13 +4,38 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.gsma-3g .current-data {
+  text-align: center;
+}
+.gsma-3g .current-3g {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  margin-right: 1.5em;
+}
+.gsma-3g .current-value {
+  font-size: 4em;
+  line-height: 1em;
+}
+.gsma-3g .value-label {
+  font-size: 0.9em;
+}
+.gsma-3g .trend-line {
+  display: inline-block;
+  width: 30%;
+}
+.gsma-3g .trend-label {
+  font-size: 0.9em;
+}
 
 .gsma-3g .no-data {
   padding: 1em;
+  font-size: 14px;
 }
 
 .gsma-3g .epoch.threeg-connections {
-  height: 60px;
+  height: 45px;
+  width: 100%;
 }
 
 .gsma-3g .epoch.threeg-connections .line {

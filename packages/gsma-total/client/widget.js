@@ -10,6 +10,32 @@ Template.GSMATotalWidget.onCreated(function() {
   });
 });
 
+Template.GSMATotalWidget.helpers({
+  currentValue: function() {
+    var datum = GSMAData.findOne({
+      geoCode: Template.currentData().country.iso3,
+      metric: Settings.metric,
+      attr: Settings.attr,
+      current: { $exists: true }
+    });
+    if (datum) {
+      return datum.current;
+    }
+  },
+  trendLabel: function() {
+    var datum = GSMAData.findOne({
+      geoCode: Template.currentData().country.iso3,
+      metric: Settings.metric,
+      attr: Settings.attr,
+    }, { sort: { start: 1 }});
+    if (datum) {
+      return 'Last ' + moment(datum.start).fromNow(true).replace(/^a /, ' ');
+    } else {
+      return '';
+    }
+  }
+});
+
 Template.GSMATotalWidget.onRendered(function() {
   var template = this;
   var hideGraph = function($graph) {
@@ -48,13 +74,8 @@ Template.GSMATotalWidget.onRendered(function() {
       template.graph = $graph.epoch({
         type: 'line',
         data: pnts,
-        axes: ['left', 'bottom'],
-        ticks: { left: 2, bottom: 3 },
-        tickFormats: {
-          left: function(d) { return d + '%'; },
-          bottom: function(d) { return moment(d).fromNow(); }
-        },
-        margins: { left: 50, right: 15, top: 5, bottom: 20 },
+        axes: [],
+        margins: { left: 0, right: 0, top: 3, bottom: 3 },
       });
     }
   });

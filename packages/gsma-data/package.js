@@ -7,7 +7,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['mongo', 'underscore', 'momentjs:moment', 'aldeed:collection2']);
-  api.use(['http'], 'server');
+  api.use(['http', 'country-info'], 'server');
 
   api.addFiles('apiKey.txt', 'server', { isAsset: true });
   api.addFiles('gsma.js');
