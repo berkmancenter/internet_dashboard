@@ -13,12 +13,12 @@ Package.onUse(function(api) {
   api.addFiles([
       'country_info.js',
       'simple_countries.js',
-      'rtl_languages.js'
+      'rtl_languages.js',
   ]);
   api.addFiles([
       'lib/fuzzy.js',
       'methods.js',
-      'rtl_languages.js',
+      'population.js',
       'shapes.js'], 'server');
   api.export('CountryInfo');
 });

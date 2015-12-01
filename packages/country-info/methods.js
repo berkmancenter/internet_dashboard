@@ -55,5 +55,9 @@ Meteor.methods({
       return _.contains(languageCodes, language.alpha3);
     });
     return languages;
+  },
+  populationByCode: function(code) {
+    var country = Meteor.call('countryByCode', code);
+    return populations[country.alpha3.toUpperCase()];
   }
 });

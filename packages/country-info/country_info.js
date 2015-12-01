@@ -31,5 +31,10 @@ CountryInfo = {
     Meteor.call('countryShapes', function(error, result) {
       callback && callback(result);
     });
+  },
+  population: function(code, callback) {
+    Meteor.call('populationByCode', code, function(error, result) {
+      callback && callback(result);
+    });
   }
 };
