@@ -13,7 +13,8 @@ Settings = {
   authToken: Assets.getText('apiKey.txt'),
   timeout: 60 * 1000,
   limit: 20,
-  perPeople: 100.0
+  perPeople: 100.0,
+  oldestData: moment.duration({ years: 3 })
 };
 
 var Future = Npm.require('fibers/future');
@@ -40,12 +41,16 @@ function mungeGeo(geo) {
 }
 
 function insertDatum(value, metric, attr, geo) {
-  if (value.dateType !== 'Q' ||
-      value.confidence === 'forecast') { return; }
+  var start = new Date(value.date);
 
+  // Throw away anything that isn't quarterly, or is a forecast, or is older
+  // than three years.
+  if (value.dateType !== 'Q' ||
+      value.confidence === 'forecast' ||
+      start < moment().subtract(Settings.oldestData).toDate()) { return; }
 
   var datum = {
-    start: new Date(value.date),
+    start: start,
     value: value.value,
     metric: metric,
     attribute: attr,

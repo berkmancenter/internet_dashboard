@@ -41,8 +41,8 @@ GSMA4G = {
     category: 'access'
   },
   org: {
-    name: 'GSMA',
-    shortName: 'GSMA',
+    name: 'GSMA Intelligence',
+    shortName: 'GSMA Intelligence',
     url: 'https://gsmaintelligence.com/'
   }
 };
