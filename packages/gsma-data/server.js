@@ -117,6 +117,7 @@ Meteor.publish('gsma_data', function(geoCode, metric, attr) {
   var publication = this;
   var values = GSMAData.find(
       { 'geo.code': geoCode, metric: metric, attribute: attr },
+      { start: { $gt: moment().subtract(Settings.oldestData).toDate() }},
       { sort: { start: 1 }});
 
   var baseline, count = values.count();
