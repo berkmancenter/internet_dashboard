@@ -1,59 +1,26 @@
 Settings = {
   baseUrl: 'https://thenetmonitor.org',
-  proxy: false,
-  indicatorLinkSelector: 'a[href="/sources"]',
   updateEvery: 1000 * 60 * 60 * 24 * 7,
-  toCollect: [
-    'Percentage of individuals using the Internet',
-    'Broadband adoption rate',
-    'Average connection speed (kbps)',
-    'Average download speed (kbps)',
-    'Broadband subscription charge as a percentage of GDP per capita PPP (0-1 Mbps)',
-    'Broadband subscription charge as a percentage of GDP per capita PPP (>1-4 Mbps)',
-    'Broadband subscription charge as a percentage of GDP per capita PPP (>4-10 Mbps)',
-    'Broadband subscription charge as a percentage of GDP per capita PPP (>10-25 Mbps)',
-    'Broadband subscription charge as a percentage of GDP per capita PPP (>25 Mbps)',
-  ],
+  timeout: 60 * 1000
 };
 
-IMonCountryData = new Mongo.Collection('imon_data');
-IMonCountryData.attachSchema(new SimpleSchema({
-  name: {
-    type: String
-  },
-  code: {
-    type: String
-  },
-  imageUrl: {
-    type: String,
-    optional: true
-  },
-  access: {
-    type: Object,
-    optional: true
-  },
-  'access.score': {
-    type: Number,
-    decimal: true
-  },
-  'access.rank': {
-    type: Number
-  },
-  'access.url': {
-    type: String
-  },
-  indicators: {
-    type: [Object]
-  },
-  'indicators.$.name': {
-    type: String
-  },
-  'indicators.$.value': {
-    type: String,
-    decimal: true
-  },
-  'indicators.$.percent': {
-    type: Number,
-    decimal: true
-  }
+IMonData = new Mongo.Collection('imon_data');
+IMonCountries = new Mongo.Collection('imon_countries');
+
+IMonCountries.attachSchema(new SimpleSchema({
+  name:      { type: String },
+  code:      { type: String, max: 3 },
+  iso2Code:  { type: String, max: 2 },
+  rank:      { type: Number },
+  score:     { type: Number, decimal: true },
+  accessUrl: { type: String, regEx: SimpleSchema.RegEx.Url },
+  imageUrl:  { type: String, regEx: SimpleSchema.RegEx.Url, optional: true },
+}));
+
+IMonData.attachSchema(new SimpleSchema({
+  countryCode: { type: String, max: 3 },
+  imId:        { type: Number },
+  name:        { type: String },
+  value:       { type: Number, decimal: true },
+  percent:     { type: Number, decimal: true }
 }));

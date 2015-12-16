@@ -6,7 +6,7 @@ Template.BroadbandCostWidget.onCreated(function() {
 });
 
 Template.BroadbandCostWidget.helpers({
-  roundedPercent: function() { return Math.round(this.percent * 100); },
+  roundedPercent: function() { return (this.percent * 100).toFixed(1); },
   speed: function() {
     var match = this.name.match(Settings.speedRegex)[0];
     if (match === Settings.maxSpeed) {
@@ -14,13 +14,18 @@ Template.BroadbandCostWidget.helpers({
     }
     return match;
   },
+  percentValue: function() {
+    return this.value.toFixed(1) + '%';
+  },
   indicators: function() {
-    var countryData = IMonCountryData.findOne(
-        { code: Template.currentData().country.code });
+    var data = IMonData.find({
+      countryCode: Template.currentData().country.code
+    }).fetch();
+
     // Make sure we always return all the indicators, just with empty values
     // where we don't have data.
     return _.map(Settings.indicatorNames, function(name) {
-      var indicator = _.findWhere(countryData.indicators, { name: name });
+      var indicator = _.findWhere(data, { name: name });
       return _.extend({ name: name }, indicator);
     });
   },

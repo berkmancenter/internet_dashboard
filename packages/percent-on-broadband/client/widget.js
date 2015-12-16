@@ -6,11 +6,11 @@ Template.PercentOnBroadbandWidget.onCreated(function() {
 });
 
 Template.PercentOnBroadbandWidget.helpers({
-  indicatorName: function() { return Settings.indicatorName; },
-  indicatorPercent: function() { return this.widget.getIndicator().percent * 100; },
-  indicatorValue: function() { return this.widget.getIndicator().value; },
+  indicatorValue: function() {
+    return this.widget.getIndicator().value.toFixed(0) + '%';
+  },
   users: function() {
-    var numOnline = parseInt(this.widget.getIndicator().value, 10);
+    var numOnline = this.widget.getIndicator().value.toFixed(0);
     return _(100).times(function(i) {
       return { online: i < numOnline ? 'online' : 'offline' };
     });

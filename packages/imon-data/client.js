@@ -1,1 +1,1 @@
-IMonCountries = new Mongo.Collection('imon_countries');
+IMonIndicators = new Mongo.Collection('imon_indicators');

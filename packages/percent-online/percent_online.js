@@ -17,15 +17,17 @@ _.extend(PercentOnlineWidget.prototype, {
     var widget = this;
     CountryInfo.byCode(countryCode, function(country) {
       var code = country.alpha3.toLowerCase();
-      var country = IMonCountries.findOne({ code: code });
+      country = IMonCountries.findOne({ code: code });
       if (country) {
         widget.data.set({ country: country });
       }
     });
   },
   getIndicator: function() {
-    var countryData = IMonCountryData.findOne({ code: this.data.country.code });
-    return _.findWhere(countryData.indicators, { name: Settings.indicatorName });
+    return IMonData.findOne({
+      countryCode: this.data.country.code,
+      name: Settings.indicatorName
+    });
   }
 });
 

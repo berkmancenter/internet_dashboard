@@ -5,14 +5,6 @@ Template.ConnectionSpeedWidget.onCreated(function() {
   });
 });
 
-Template.ConnectionSpeedWidget.helpers({
-  indicatorName: function() { return Settings.indicatorName; },
-  indicatorPercent: function() { return this.widget.getIndicator().value * 100; },
-  indicatorValue: function() {
-    return Math.round(this.widget.getIndicator().value * 100);
-  },
-});
-
 Template.ConnectionSpeedWidget.onRendered(function() {
   var template = this;
 
@@ -47,14 +39,15 @@ Template.ConnectionSpeedWidget.onRendered(function() {
   this.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
 
-    var countryData = IMonCountryData.findOne(
-        { code: Template.currentData().country.code });
-    var indicator = _.findWhere(countryData.indicators,
-        { name: Settings.indicatorName });
+    var indicator = IMonData.findOne({
+        countryCode: Template.currentData().country.code,
+        name: Settings.indicatorName
+    });
     var speedPercent = 0.001;
     if (indicator && indicator.percent > 0) {
       speedPercent = indicator.percent * 100;
-      svg.select('.speed').text(indicator.value);
+      var text = indicator.value.toLocaleString() + ' kbps';
+      svg.select('.speed').text(text);
     } else {
       svg.select('.speed').text('No data');
     }
@@ -81,6 +74,5 @@ Template.ConnectionSpeedWidget.onRendered(function() {
 		});
 
     updateSel.exit().remove();
-
   });
 });
