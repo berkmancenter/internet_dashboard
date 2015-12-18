@@ -1,0 +1,25 @@
+<template name="IMonScatterSettings">
+{{# if Template.subscriptionsReady }}
+<div class="form-group">
+  <label for="x-select">X-axis</label>
+  <select class="x-axis form-control" id="x-select" name="x-axis">
+  {{# each indicators }}
+  <option value="{{ name }}" {{ isSelected name ../x.indicator }}>{{ name }}</option>
+  {{/each}}
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="y-select">Y-axis</label>
+  <select class="y-axis form-control" id="y-select" name="y-axis">
+  {{# each indicators }}
+  <option value="{{ name }}" {{ isSelected name ../y.indicator }}>{{ name }}</option>
+  {{/each}}
+  </select>
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>
