@@ -11,11 +11,10 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['imon-data', 'underscore', 'widget']);
-  api.use(['templating'], 'client');
+  api.use(['templating', 'd3js:d3'], 'client');
 
   api.addFiles(['imon_scatter.js']);
   api.addFiles([
-    'client/lib/d3.js',
     'client/lib/d3.chart.js',
     'client/lib/d3.compose-all.js',
     'client/lib/chart.js',

@@ -1,7 +1,19 @@
 Settings = {
+  chart: {
+    width: 500,
+    height: 300,
+    dotSize: 5
+  },
   defaultData: {
-    x: { indicator: 'Percentage of individuals using the Internet' },
-    y: { indicator: 'Percentage of individuals using the Internet' }
+    title: 'Scatter Plot',
+    x: {
+      indicator: 'Percentage of individuals using the Internet',
+      log: false,
+    },
+    y: {
+      indicator: 'Percentage of individuals using the Internet',
+      log: false,
+    }
   }
 };
 
@@ -18,7 +30,7 @@ IMonScatter = {
     name: 'Scatter Plot',
     description: 'Shows a scatter plot',
     url: 'https://thenetmonitor.org/sources',
-    dimensions: { width: 2, height: 2 },
+    dimensions: { width: 3, height: 2 },
     resize: { mode: 'reflow' },
     constructor: IMonScatterWidget,
     typeIcon: 'line-chart',
