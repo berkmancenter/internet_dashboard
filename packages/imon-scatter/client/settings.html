@@ -1,4 +1,10 @@
 <template name="IMonScatterSettings">
+<div class="form-group">
+  <label for="chart-title">Chart title</label>
+  <input placeholder="Scatter plot" class="form-control"
+         id="chart-title" name="chart-title" value="{{ title }}" />
+</div>
+
 {{# if Template.subscriptionsReady }}
 <div class="form-group">
   <label for="x-select">X-axis</label>
@@ -7,6 +13,10 @@
   <option value="{{ name }}" {{ isSelected name ../x.indicator }}>{{ name }}</option>
   {{/each}}
   </select>
+  <label class="checkbox-inline">
+    <input type="checkbox" id="x-log"
+    value="x-log" {{ isChecked x.log }}> Log transform
+  </label>
 </div>
 
 <div class="form-group">
@@ -16,6 +26,10 @@
   <option value="{{ name }}" {{ isSelected name ../y.indicator }}>{{ name }}</option>
   {{/each}}
   </select>
+  <label class="checkbox-inline">
+    <input type="checkbox" id="y-log"
+    value="y-log" {{ isChecked y.log }}> Log transform
+  </label>
 </div>
 
 <button class="btn btn-primary save-settings">Save</button>

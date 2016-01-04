@@ -50,7 +50,7 @@ Mixed.extend('Dots', {
     });
   }),
   rValue: helpers.property({
-    default_value: 4
+    default_value: Settings.chart.dotSize
   }),
   r: helpers.di(function(chart, d, i) {
     return chart.rValue();

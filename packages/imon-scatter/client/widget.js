@@ -14,9 +14,11 @@ Template.IMonScatterWidget.onRendered(function() {
   var template = this;
   var node = template.find('.scatter-chart');
   var chart = d3.select(node).chart('Compose', function(options) {
+    var xs = _.pluck(options.data, 'x'), ys = _.pluck(options.data, 'y');
+
     var scales = {
-      x: { data: options.data, key: 'x' },
-      y: { data: options.data, key: 'y' }
+      x: { domain: [_.min(xs), _.max(xs)] },
+      y: { domain: [_.min(ys), _.max(ys)] },
     };
 
     var charts = [{
@@ -37,20 +39,26 @@ Template.IMonScatterWidget.onRendered(function() {
     var yAxisTitle = d3c.axisTitle(options.yAxisTitle);
 
     return [
-      //title,
       [yAxisTitle, yAxis, d3c.layered(charts)],
       xAxis,
       xAxisTitle
     ];
   });
-  chart.width(400);
-  chart.height(250);
+  chart.width(Settings.chart.width);
+  chart.height(Settings.chart.height);
   chart.margins({ top: 30, bottom: 0, right: 20 });
 
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
     var xIndicator = Template.currentData().x.indicator;
     var yIndicator = Template.currentData().y.indicator;
+    var xTitle = xIndicator, yTitle = yIndicator;
+    if (Template.currentData().x.log) {
+      xTitle = 'Log ' + xTitle;
+    }
+    if (Template.currentData().y.log) {
+      yTitle = 'Log ' + yTitle;
+    }
 
     var data = [];
     IMonCountries.find().forEach(function(country) {
@@ -58,9 +66,22 @@ Template.IMonScatterWidget.onRendered(function() {
       var y = IMonData.findOne({ countryCode: country.code, name: yIndicator });
       if (_.isUndefined(x) || _.isUndefined(y)) { return; }
 
-      data.push({ x: x.value, y: y.value, code: country.code, label: country.name });
+      var xValue = x.value, yValue = y.value;
+      if (Template.currentData().x.log) {
+        xValue = Math.log(xValue);
+      }
+      if (Template.currentData().y.log) {
+        yValue = Math.log(yValue);
+      }
+
+      data.push({
+        x: xValue,
+        y: yValue,
+        code: country.code,
+        label: country.name
+      });
     });
 
-    chart.draw({ data: data, xAxisTitle: xIndicator, yAxisTitle: yIndicator });
+    chart.draw({ data: data, xAxisTitle: xTitle, yAxisTitle: yTitle });
   });
 });
