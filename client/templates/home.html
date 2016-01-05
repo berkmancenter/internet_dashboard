@@ -1,33 +1,34 @@
 <template name="Home">
 <div class="container page">
-  <div class="jumbotron">
-  <h1>Welcome!</h1>
-  <p>Internet Monitor lets you explore, create, customize, and share
-  dashboards of data visualizations about multiple facets of the Internet.</p>
-  {{# if currentUser }}
-    <div class="text-center">
-      <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards-new' }}">
-        Get Started
-      </a>
+  <div class="row">
+    <div class="col-lg-8" id="homepage-description">
+      <p class="lead">The Internet Monitor dashboard helps you explore, create, and share data visualizations about the Internet.</p>
     </div>
-  {{else}}
-    {{> SignInOrAnon }}
-  {{/if}}
-    <div class="or-block">
-      <p class="or">OR</p>
-      <p>Check out a few curated dashboards:</p>
+    <div class="col-lg-4 text-right" id="homepage-action">
+      <!-- need to fix alignment when wrapping on smaller screens -->
+        <a class="btn btn-primary btn-lg" href="//thenetmonitor.org/faq#dashboardfaq">
+          How to Use
+        </a>
+
+      {{# if currentUser }}
+        <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards-new' }}">
+          Create a Dashboard
+        </a>
+      {{else}}
+        {{> SignInOrAnon }}
+      {{/if}}
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-4 text-center">
+    <div class="col-md-3 text-center">
       <a href="/dashboards/33soXBmpQowadXFtR">
         <img class="img-thumbnail" src="/dash_screenshot1.png" alt="Screenshot" />
         <h2>Access and Infrastructure</h2>
       </a>
       <p>Explore global trends in Internet access and infrastructure over time.</p>
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-3 text-center">
       <a href="/dashboards/snqBc9xQEwFaRnLF5">
         <img class="img-thumbnail" src="/dash_screenshot2.png" alt="Screenshot" />
         <h2>Country Comparison</h2>
@@ -36,12 +37,19 @@
       See how four countries around the world compare on key Internet indicators.
       </p>
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-3 text-center">
       <a href="/dashboards/omB5dqPJEBtPcJ3Lp">
         <img class="img-thumbnail" src="/dash_screenshot3.png" alt="Screenshot" />
         <h2>Global Media</h2>
       </a>
       <p>Explore hot topics in online media in multiple languages.</p>
+    </div>
+    <div class="col-md-3 text-center">
+      <a href="/dashboards/omB5dqPJEBtPcJ3Lp">
+        <img class="img-thumbnail" src="/dash_screenshot3.png" alt="Screenshot" />
+        <h2>New Dashboard!</h2>
+      </a>
+      <p>New dashboard.</p>
     </div>
   </div>
 </div>
