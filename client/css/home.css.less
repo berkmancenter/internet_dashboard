@@ -39,15 +39,22 @@
     }
   }
 
+  .curated-board {
+    max-width: 310px;
+    position: relative;
+    margin: 0 auto 1em;
+  }
+
   .curated-title {
     background: rgba(0,0,0,0.3);
     color: white;
     position: absolute;
     top: 0;
     left: 0;
-    margin: 0 15px;
+    margin: 0;
     padding: 20px 10px;
     height: 100%;
+    width: 100%;
     -webkit-transition: opacity 500ms;
     -moz-transition: opacity 500ms;
     -o-transition: opacity 500ms;
@@ -61,11 +68,13 @@
   .curated-caption {
     background: rgba(40,96,144,0.5);
     color: white;
+    text-align: left;
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
-    margin: 0 15px;
+    width: 100%;
+    margin: 0;
     padding: 10px;
     opacity: 0;
     -webkit-transition: opacity 500ms;
@@ -76,7 +85,6 @@
 
   .curated-caption span {
     display: inline-block;
-    text-align: left;
   }
 
   .curated-board a:hover span.curated-caption {
