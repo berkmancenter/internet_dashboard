@@ -3,3 +3,4 @@
 *.swo
 apiKey.txt
 public/tmp/*
+settings.json
