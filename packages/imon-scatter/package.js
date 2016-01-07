@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['imon-data', 'underscore', 'widget']);
-  api.use(['templating', 'd3js:d3'], 'client');
+  api.use(['templating', 'd3js:d3@3.5.8'], 'client');
 
   api.addFiles(['imon_scatter.js']);
   api.addFiles([
@@ -22,6 +22,7 @@ Package.onUse(function(api) {
     'client/info.html',
     'client/settings.html',
     'client/settings.js',
+    'client/settings.css',
     'client/widget.html',
     'client/widget.js',
     'client/widget.css',

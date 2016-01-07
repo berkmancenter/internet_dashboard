@@ -26,15 +26,15 @@ Mixed.extend('Dots', {
   onEnter: function(selection) {
     selection
       .attr('r', this.r)
-      .attr('cx', this.x)
-      .attr('cy', this.y)
+      .attr('cx', this.xJit)
+      .attr('cy', this.yJit)
       .attr('style', this.itemStyle);
   },
   onMergeTransition: function(selection) {
     this.setupTransition(selection);
     selection
-      .attr('cx', this.x)
-      .attr('cy', this.y);
+      .attr('cx', this.xJit)
+      .attr('cy', this.yJit);
   },
   onExitTransition: function(selection) {
     this.setupTransition(selection);
@@ -51,6 +51,18 @@ Mixed.extend('Dots', {
   }),
   rValue: helpers.property({
     default_value: Settings.chart.dotSize
+  }),
+  xJitter: helpers.property({
+    default_value: 0
+  }),
+  yJitter: helpers.property({
+    default_value: 0
+  }),
+  xJit: helpers.di(function(chart, d, i) {
+    return chart.x(d, i) + _.random(-1 * chart.xJitter(), chart.xJitter());
+  }),
+  yJit: helpers.di(function(chart, d, i) {
+    return chart.y(d, i) + _.random(-1 * chart.yJitter(), chart.yJitter());
   }),
   r: helpers.di(function(chart, d, i) {
     return chart.rValue();

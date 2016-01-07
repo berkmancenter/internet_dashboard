@@ -21,7 +21,7 @@ Package.describe({
 Package.onUse(function(api) {
   // Include this line as-is,
   // it matches the version of meteor we're using
-  api.versionsFrom('1.1.0.2'); 
+  api.versionsFrom('1.1.0.2');
 
   // State this packages dependencies. Packages can be included on the client, the server, or both.
 
@@ -62,7 +62,7 @@ The object your package exports may have the following properties:
 * __widget.url__: a URL users can visit to learn more about the data backing the widget
 * __widget.dimensions.width__: the width of your widget in number of columns
 * __widget.dimensions.height__: the height of your widget in number of rows
-* __widget.resize.mode__: *optional* - `scale` (default) or `reflow`
+* __widget.resize.mode__: *optional* - `scale` (default), `reflow`, or `cover`
 * __widget.resize.constraints.width.min__: *optional* - the minimum width of your widget in number of columns
 * __widget.resize.constraints.width.max__: *optional* - the maximum width of your widget in number of columns
 * __widget.resize.constraints.height.min__: *optional* - the minimum height of your widget in number of rows
@@ -98,7 +98,7 @@ The Widget Object
 
 The widget object you create should use the `Widget` object's prototype as its prototype.
 
-You'll also want to call the Widget object's constructor ahead of your own constructor. 
+You'll also want to call the Widget object's constructor ahead of your own constructor.
 
 The Widget object has one attribute that you can overwrite and manipulate:
 * __data__: the widget's data, which will be persisted to the database and used as the HTML template context
