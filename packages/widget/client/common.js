@@ -12,7 +12,7 @@ CommonHelpers = {
     return 'widget ' + this.packageName + ' resize-' + this.resize.mode;
   },
   resizeTransform: function() {
-    if (this.resize.mode === 'reflow') { return ''; }
+    if (this.resize.mode !== 'scale') { return ''; }
     var newPixelDims = this.pixelDims();
     var originalGridDims = this.package.metadata().widget.dimensions;
     var originalPixelDims = this.pixelDims(originalGridDims);

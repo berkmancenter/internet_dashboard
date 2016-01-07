@@ -63,14 +63,14 @@ Template.WidgetShow.events({
   'gridster:resizestart': function(ev, template) {
     template.closeSettings();
     template.closeInfo();
-    if (this.resize.mode === 'scale') {
+    if (this.resize.mode === 'scale' || this.resize.mode === 'cover') {
       template.$('.widget-body').append('<div class="resizing-cover" />');
     }
     // This was passed down from the dashboard - don't bubble it back up.
     ev.stopPropagation();
   },
   'gridster:resizestop': function(ev, template) {
-    if (this.resize.mode === 'scale') {
+    if (this.resize.mode === 'scale' || this.resize.mode === 'cover') {
       template.$('.widget-body .resizing-cover').remove();
     }
     // This was passed down from the dashboard - don't bubble it back up.

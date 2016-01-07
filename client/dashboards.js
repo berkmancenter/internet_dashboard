@@ -140,6 +140,9 @@ Template.DashboardsShow.onCreated(function() {
     start: function(ev, ui, $widget) {
       $widget.trigger('gridster:resizestart', ev, ui);
     },
+    resize: function(ev, ui, $widget) {
+      $widget.trigger('gridster:resize', ev, ui);
+    },
     stop: function(ev, ui, $widget) {
       $widget.trigger('gridster:resizestop', ev, ui);
       Widgets.updatePositions(self.gridster.serialize());
@@ -186,7 +189,8 @@ Template.DashboardsShow.onRendered(function() {
     resize: {
       enabled: true,
       start: self.onWidgetResize.start,
-      stop: self.onWidgetResize.stop
+      stop: self.onWidgetResize.stop,
+      resize: self.onWidgetResize.resize
     },
     draggable: {
       handle: '.title-bar, .title-bar *:not(a)',

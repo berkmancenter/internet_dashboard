@@ -13,6 +13,9 @@ Template.IMonScatterWidget.onCreated(function() {
 Template.IMonScatterWidget.onRendered(function() {
   var template = this;
   var node = template.find('.scatter-chart');
+  var widgetNode = template.firstNode.parentNode.parentNode;
+  var $widgetBody = $(widgetNode).find('.widget-body');
+
   var chart = d3.select(node).chart('Compose', function(options) {
     var xs = _.pluck(options.data, 'x'), ys = _.pluck(options.data, 'y');
 
@@ -27,6 +30,8 @@ Template.IMonScatterWidget.onRendered(function() {
       data: options.data,
       xScale: scales.x,
       yScale: scales.y,
+      xJitter: options.xJitter,
+      yJitter: options.yJitter,
       labels: {
         offset: 3
       }
@@ -44,10 +49,21 @@ Template.IMonScatterWidget.onRendered(function() {
       xAxisTitle
     ];
   });
-  chart.width(Settings.chart.width);
-  chart.height(Settings.chart.height);
-  chart.margins({ top: 30, bottom: 0, right: 20 });
 
+  var setChartDims = function() {
+    var width = $widgetBody.outerWidth() - Settings.chart.padding.right;
+    var height = $widgetBody.outerHeight() - Settings.chart.padding.bottom;
+    console.log(width + ' ' + height);
+    chart.width(width);
+    chart.height(height);
+  };
+
+  $(widgetNode).on('gridster:resizestop', function() {
+    setChartDims();
+    chart.redraw();
+  });
+
+  var redrawn = false;
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
     var xIndicator = Template.currentData().x.indicator;
@@ -67,10 +83,10 @@ Template.IMonScatterWidget.onRendered(function() {
       if (_.isUndefined(x) || _.isUndefined(y)) { return; }
 
       var xValue = x.value, yValue = y.value;
-      if (Template.currentData().x.log) {
+      if (Template.currentData().x.log && xValue > 0) {
         xValue = Math.log(xValue);
       }
-      if (Template.currentData().y.log) {
+      if (Template.currentData().y.log && yValue > 0) {
         yValue = Math.log(yValue);
       }
 
@@ -82,6 +98,23 @@ Template.IMonScatterWidget.onRendered(function() {
       });
     });
 
-    chart.draw({ data: data, xAxisTitle: xTitle, yAxisTitle: yTitle });
+    chart.margins(Settings.chart.margins);
+    chart.responsive(false);
+
+    chart.draw({
+      data: data,
+      xAxisTitle: xTitle,
+      yAxisTitle: yTitle,
+      xJitter: Template.currentData().x.jitter,
+      yJitter: Template.currentData().y.jitter
+    });
+
+    // This is a hacky way to get the chart to fit the widget on first draw
+    // because it wouldn't throw the draw event correctly.
+    if (!redrawn) {
+      setChartDims();
+      chart.redraw();
+      redrawn = true;
+    }
   });
 });

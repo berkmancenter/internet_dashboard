@@ -1,7 +1,7 @@
 Settings = {
   chart: {
-    width: 500,
-    height: 300,
+    padding: { right: 40, bottom: 80 },
+    margins: { top: 30, bottom: 0, right: 35 },
     dotSize: 5
   },
   defaultData: {
@@ -9,10 +9,12 @@ Settings = {
     x: {
       indicator: 'Percentage of individuals using the Internet',
       log: false,
+      jitter: 0.0
     },
     y: {
       indicator: 'Percentage of individuals using the Internet',
       log: false,
+      jitter: 0.0
     }
   }
 };
@@ -31,7 +33,7 @@ IMonScatter = {
     description: 'Shows a scatter plot',
     url: 'https://thenetmonitor.org/sources',
     dimensions: { width: 3, height: 2 },
-    resize: { mode: 'reflow' },
+    resize: { mode: 'cover' },
     constructor: IMonScatterWidget,
     typeIcon: 'line-chart',
     category: 'access'

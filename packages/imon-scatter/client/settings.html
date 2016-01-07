@@ -13,10 +13,19 @@
   <option value="{{ name }}" {{ isSelected name ../x.indicator }}>{{ name }}</option>
   {{/each}}
   </select>
-  <label class="checkbox-inline">
-    <input type="checkbox" id="x-log"
-    value="x-log" {{ isChecked x.log }}> Log transform
-  </label>
+  <div class="row">
+    <div class="col-sm-6">
+      <label class="checkbox-inline">
+        <input type="checkbox" id="x-log"
+        value="x-log" {{ isChecked x.log }}> Log transform
+      </label>
+    </div>
+    <div class="col-sm-6 form-inline">
+      <label for="x-jitter">Jitter</label>
+      <input type="number" class="form-control" min="0.0" step="1.0"
+             name="x-jitter" id="x-jitter" value="{{ x.jitter }}" />
+    </div>
+  </div>
 </div>
 
 <div class="form-group">
@@ -26,10 +35,22 @@
   <option value="{{ name }}" {{ isSelected name ../y.indicator }}>{{ name }}</option>
   {{/each}}
   </select>
-  <label class="checkbox-inline">
-    <input type="checkbox" id="y-log"
-    value="y-log" {{ isChecked y.log }}> Log transform
-  </label>
+  <div class="row">
+    <div class="col-sm-6">
+      <label class="checkbox-inline">
+        <input type="checkbox" id="y-log"
+        value="y-log" {{ isChecked y.log }}> Log transform
+      </label>
+    </div>
+    <div class="col-sm-6 form-inline">
+      <label for="y-jitter">Jitter</label>
+      <input type="number" class="form-control" min="0.0" step="1.0"
+             name="y-jitter" id="y-jitter" value="{{ y.jitter }}" />
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
 </div>
 
 <button class="btn btn-primary save-settings">Save</button>
