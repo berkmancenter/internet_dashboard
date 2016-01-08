@@ -48,7 +48,7 @@ RDR = {
       constraints: { width: { min: 2 }, height: { min: 2 }},
       mode: 'reflow'
     },
-    category: 'control',
+    category: 'activity',
     typeIcon: 'pie-chart',
     constructor: RDRWidget
   },
