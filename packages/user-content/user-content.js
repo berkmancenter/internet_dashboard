@@ -14,7 +14,7 @@ UserContentWidget.prototype.constructor = UserContentWidget;
 UserContent = {
   widget: {
     name: 'Your Content',
-    description: 'This widget allows you to add text and/or an image to your dashboard.',
+    description: 'Allows you to add text and/or an image to your dashboard',
     dimensions: { width: 2, height: 1 },
     resize: { mode: 'reflow' },
     url: 'http://thenetmonitor.org/',
