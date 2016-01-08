@@ -40,8 +40,8 @@ RDRWidget.prototype.constructor = RDRWidget;
 
 RDR = {
   widget: {
-    name: 'Ranking Digital Rights',
-    description: 'Shows rights ranking',
+    name: 'Corporate Accountability Index',
+    description: 'Ranks Internet and telecommunications companies on their practices around freedom of expression and privacy',
     url: 'https://rankingdigitalrights.org/index2015/download/',
     dimensions: { width: 2, height: 3 },
     resize: {
@@ -54,7 +54,7 @@ RDR = {
   },
   org: {
     name: 'Ranking Digital Rights',
-    shortName: 'RDR',
-    url: 'http://rankingdigitalrights.org/'
+    shortName: 'Ranking Digital Rights',
+    url: 'https://rankingdigitalrights.org/index2015/'
   }
 };
