@@ -1,0 +1,145 @@
+metric,category,company,value,rank
+Commitment,Mobile broadband,América Móvil,10.8333333333,6
+Freedom of expression,Mobile broadband,América Móvil,26.666,4
+Privacy,Mobile broadband,América Móvil,24.7775,3
+Total,Mobile broadband,América Móvil,22.4639285714,4
+Commitment,Fixed broadband,AT&T,56.9,2
+Freedom of expression,Fixed broadband,AT&T,42.43,1
+Privacy,Fixed broadband,AT&T,51.1525,1
+Total,Fixed broadband,AT&T,49.2689285714,1
+Commitment,Mobile broadband,AT&T,56.9,3
+Freedom of expression,Mobile broadband,AT&T,42.43,2
+Privacy,Mobile broadband,AT&T,53.2358333333,1
+Total,Mobile broadband,AT&T,50.1617857143,2
+Commitment,Mobile broadband,Axiata,0,8
+Freedom of expression,Mobile broadband,Axiata,23.334,5
+Privacy,Mobile broadband,Axiata,16.9308333333,6
+Total,Mobile broadband,Axiata,15.5896428571,7
+Commitment,Fixed broadband,Bharti Airtel,12.5,3
+Freedom of expression,Fixed broadband,Bharti Airtel,15,4
+Privacy,Fixed broadband,Bharti Airtel,20.6316666667,3
+Total,Fixed broadband,Bharti Airtel,16.8778571429,3
+Commitment,Mobile broadband,Bharti Airtel,12.5,5
+Freedom of expression,Mobile broadband,Bharti Airtel,16.667,8
+Privacy,Mobile broadband,Bharti Airtel,20.6316666667,5
+Total,Mobile broadband,Bharti Airtel,17.4732142857,6
+Commitment,Search,Bing,82.0366666667,1
+Freedom of expression,Search,Bing,36.4575,3
+Privacy,Search,Bing,55.2569230769,2
+Total,Search,Bing,55.6377777778,2
+Commitment,Mail service,Daum Mail,38.6116666667,4
+Freedom of expression,Mail service,Daum Mail,76.19,1
+Privacy,Mail service,Daum Mail,41.0771428571,4
+Total,Mail service,Daum Mail,49.6325925926,4
+Commitment,Search,Daum Search,38.6116666667,3
+Freedom of expression,Search,Daum Search,52.60375,2
+Privacy,Search,Daum Search,42.0576923077,3
+Total,Search,Daum Search,44.4166666667,3
+Commitment,Fixed broadband,Etisalat,3.3333333333,4
+Freedom of expression,Fixed broadband,Etisalat,23.335,3
+Privacy,Fixed broadband,Etisalat,16.4166666667,4
+Total,Fixed broadband,Etisalat,16.0839285714,4
+Commitment,Mobile broadband,Etisalat,3.3333333333,7
+Freedom of expression,Mobile broadband,Etisalat,18.334,7
+Privacy,Mobile broadband,Etisalat,11.7641666667,8
+Total,Mobile broadband,Etisalat,12.3039285714,8
+Commitment,Social network & blog,Facebook,66.39,2
+Freedom of expression,Social network & blog,Facebook,43.542,3
+Privacy,Social network & blog,Facebook,57.4228571429,2
+Total,Social network & blog,Facebook,54.5893333333,3
+Commitment,Video/photo,Flickr,78.4266666667,2
+Freedom of expression,Video/photo,Flickr,54.93,2
+Privacy,Video/photo,Flickr,54.06,2
+Total,Video/photo,Flickr,59.2233333333,2
+Commitment,Mail service,Gmail,78.1483333333,3
+Freedom of expression,Mail service,Gmail,64.2857142857,2
+Privacy,Mail service,Gmail,58.6785714286,1
+Total,Mail service,Gmail,64.4588888889,1
+Commitment,Search,Google,76.4816666667,2
+Freedom of expression,Search,Google,71.875,1
+Privacy,Search,Google,60.2438461538,1
+Total,Search,Google,67.2985185185,1
+Commitment,Social network & blog,Instagram,66.39,3
+Freedom of expression,Social network & blog,Instagram,39.375,4
+Privacy,Social network & blog,Instagram,31.375,4
+Total,Social network & blog,Instagram,41.0446666667,4
+Commitment,Video/photo,Instagram,66.39,3
+Freedom of expression,Video/photo,Instagram,39.375,4
+Privacy,Video/photo,Instagram,31.375,4
+Total,Video/photo,Instagram,41.0446666667,3
+Commitment,IM & calls,KakaoTalk,41.1116666667,3
+Freedom of expression,IM & calls,KakaoTalk,52.916,1
+Privacy,IM & calls,KakaoTalk,43.9107142857,2
+Total,IM & calls,KakaoTalk,46.3526666667,2
+Commitment,Mail service,Mail.Ru,3.3333333333,5
+Freedom of expression,Mail service,Mail.Ru,38.0957142857,5
+Privacy,Mail service,Mail.Ru,9.7378571429,5
+Total,Mail service,Mail.Ru,15.6666666667,5
+Commitment,IM & calls,Mail.Ru agent,3.3333333333,6
+Freedom of expression,IM & calls,Mail.Ru agent,26.667,3
+Privacy,IM & calls,Mail.Ru agent,6.7621428571,6
+Total,IM & calls,Mail.Ru agent,12.7113333333,6
+Commitment,Mobile broadband,MTN,22.2216666667,4
+Freedom of expression,Mobile broadband,MTN,20,6
+Privacy,Mobile broadband,MTN,13.6941666667,7
+Total,Mobile broadband,MTN,17.7735714286,5
+Commitment,Fixed broadband,Orange,73.3333333333,1
+Freedom of expression,Fixed broadband,Orange,30.001,2
+Privacy,Fixed broadband,Orange,23.875,2
+Total,Fixed broadband,Orange,36.6610714286,2
+Commitment,Mobile broadband,Orange,73.3333333333,2
+Freedom of expression,Mobile broadband,Orange,28.334,3
+Privacy,Mobile broadband,Orange,24.5416666667,4
+Total,Mobile broadband,Orange,36.3514285714,3
+Commitment,Mail service,Outlook.com,82.0366666667,1
+Freedom of expression,Mail service,Outlook.com,59.5228571429,3
+Privacy,Mail service,Outlook.com,54.6435714286,3
+Total,Mail service,Outlook.com,61.9959259259,2
+Commitment,IM & calls,QQ,7.9166666667,4
+Freedom of expression,IM & calls,QQ,18.334,6
+Privacy,IM & calls,QQ,19.6192857143,4
+Total,IM & calls,QQ,16.8503333333,4
+Commitment,Social network & blog,Qzone,7.9166666667,5
+Freedom of expression,Social network & blog,Qzone,18.334,5
+Privacy,Social network & blog,Qzone,16.0478571429,6
+Total,Social network & blog,Qzone,15.1836666667,5
+Commitment,IM & calls,Skype,82.0366666667,1
+Freedom of expression,IM & calls,Skype,43.541,2
+Privacy,IM & calls,Skype,52.2621428571,1
+Total,IM & calls,Skype,55.31,1
+Commitment,Social network & blog,Tumblr,81.76,1
+Freedom of expression,Social network & blog,Tumblr,52.64,2
+Privacy,Social network & blog,Tumblr,46.7364285714,3
+Total,Social network & blog,Tumblr,55.709,2
+Commitment,Social network & blog,Twitter,36.6666666667,4
+Freedom of expression,Social network & blog,Twitter,66.25,1
+Privacy,Social network & blog,Twitter,64.6192857143,1
+Total,Social network & blog,Twitter,59.5723333333,1
+Commitment,Video/photo,Vine,33.3333333333,4
+Freedom of expression,Video/photo,Vine,49.098,3
+Privacy,Video/photo,Vine,37.8814285714,3
+Total,Video/photo,Vine,40.7106666667,4
+Commitment,Social network & blog,Vkontakte,0,6
+Freedom of expression,Social network & blog,Vkontakte,16.666,6
+Privacy,Social network & blog,Vkontakte,17.2142857143,5
+Total,Social network & blog,Vkontakte,13.5886666667,6
+Commitment,Mobile broadband,Vodafone,74.6291666667,1
+Freedom of expression,Mobile broadband,Vodafone,46.667,1
+Privacy,Mobile broadband,Vodafone,48.7083333333,2
+Total,Mobile broadband,Vodafone,53.53375,1
+Commitment,IM & calls,WeChat,7.9166666667,5
+Freedom of expression,IM & calls,WeChat,20,5
+Privacy,IM & calls,WeChat,16.0478571429,5
+Total,IM & calls,WeChat,15.739,5
+Commitment,IM & calls,WhatsApp,41.6666666667,2
+Freedom of expression,IM & calls,WhatsApp,22.917,4
+Privacy,IM & calls,WhatsApp,20.1192857143,3
+Total,IM & calls,WhatsApp,25.3613333333,3
+Commitment,Mail service,Yahoo! Mail,78.4266666667,2
+Freedom of expression,Mail service,Yahoo! Mail,52.3814285714,4
+Privacy,Mail service,Yahoo! Mail,54.7742857143,2
+Total,Mail service,Yahoo! Mail,59.41,3
+Commitment,Video/photo,YouTube,78.9816666667,1
+Freedom of expression,Video/photo,YouTube,60.903,1
+Privacy,Video/photo,YouTube,55.5835714286,1
+Total,Video/photo,YouTube,62.0363333333,1
