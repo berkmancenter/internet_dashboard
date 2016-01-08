@@ -1,0 +1,17 @@
+.ranking-digital-rights h1 {
+  font-size: 2.2em;
+}
+.ranking-digital-rights th.not-sorted {
+  color: #999;
+}
+.ranking-digital-rights th.sorted {
+  color: inherit;
+}
+.ranking-digital-rights td {
+  vertical-align: middle !important;
+  padding: 3px 2px 0 !important;
+}
+.ranking-digital-rights svg text {
+  font-size: 0.8em;
+  fill: #666;
+}

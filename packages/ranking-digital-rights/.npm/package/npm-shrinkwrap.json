@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "csv-parse": {
+      "version": "1.0.1"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<template name="RDRWidget">
+<h1>Ranking Digital Rights</h1>
+<h2>{{ category }}</h2>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>Company</th>
+      {{# each metrics }}
+        <th title="{{ name }}" {{ isSorted }}>{{ abbrev }}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</template>

@@ -15,6 +15,7 @@ ActiveWidgets = [
   'wikivolume',
   'percent-online',
   'percent-on-broadband',
+  'ranking-digital-rights',
   'akamaitraffic2',
   'connection-speed',
   'gsma-total',
