@@ -94,6 +94,7 @@ Template.IMonScatterWidget.onRendered(function() {
         x: xValue,
         y: yValue,
         code: country.code,
+        key: country.code,
         label: country.name
       });
     });
