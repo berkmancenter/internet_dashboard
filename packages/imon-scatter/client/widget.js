@@ -53,7 +53,6 @@ Template.IMonScatterWidget.onRendered(function() {
   var setChartDims = function() {
     var width = $widgetBody.outerWidth() - Settings.chart.padding.right;
     var height = $widgetBody.outerHeight() - Settings.chart.padding.bottom;
-    console.log(width + ' ' + height);
     chart.width(width);
     chart.height(height);
   };
