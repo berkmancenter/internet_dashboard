@@ -12,7 +12,7 @@ Settings = {
       jitter: 0.0
     },
     y: {
-      indicator: 'Percentage of individuals using the Internet',
+      indicator: 'Average download speed (kbps)',
       log: false,
       jitter: 0.0
     }
@@ -30,13 +30,12 @@ IMonScatterWidget.prototype.constructor = IMonScatterWidget;
 IMonScatter = {
   widget: {
     name: 'Scatter Plot',
-    description: 'Shows a scatter plot',
+    description: 'Shows a scatterplot of two chosen metrics from the Internet Monitor dataset across all countries',
     url: 'https://thenetmonitor.org/sources',
     dimensions: { width: 3, height: 2 },
     resize: { mode: 'cover' },
     constructor: IMonScatterWidget,
-    typeIcon: 'line-chart',
-    category: 'access'
+    typeIcon: 'line-chart'
   },
   org: {
     name: 'Internet Monitor',

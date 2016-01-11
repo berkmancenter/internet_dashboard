@@ -1,5 +1,4 @@
 ActiveWidgets = [
-  'imon-scatter',
   'wikiedits',
   'access-index',
   'kaspersky',
@@ -19,6 +18,7 @@ ActiveWidgets = [
   'akamaitraffic2',
   'connection-speed',
   'gsma-total',
+  'imon-scatter',
   'gsma-prepaid',
   'gsma-3g',
   'gsma-4g',
