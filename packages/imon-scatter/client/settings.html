@@ -1,0 +1,60 @@
+<template name="IMonScatterSettings">
+<div class="form-group">
+  <label for="chart-title">Chart title</label>
+  <input placeholder="Scatter plot" class="form-control"
+         id="chart-title" name="chart-title" value="{{ title }}" />
+</div>
+
+{{# if Template.subscriptionsReady }}
+<div class="form-group">
+  <label for="x-select">X-axis</label>
+  <select class="x-axis form-control" id="x-select" name="x-axis">
+  {{# each indicators }}
+  <option value="{{ name }}" {{ isSelected name ../x.indicator }}>{{ name }}</option>
+  {{/each}}
+  </select>
+  <div class="row">
+    <div class="col-sm-6">
+      <label class="checkbox-inline">
+        <input type="checkbox" id="x-log"
+        value="x-log" {{ isChecked x.log }}> Log transform
+      </label>
+    </div>
+    <div class="col-sm-6 form-inline">
+      <label for="x-jitter">Jitter</label>
+      <input type="number" class="form-control" min="0.0" step="1.0"
+             name="x-jitter" id="x-jitter" value="{{ x.jitter }}" />
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="y-select">Y-axis</label>
+  <select class="y-axis form-control" id="y-select" name="y-axis">
+  {{# each indicators }}
+  <option value="{{ name }}" {{ isSelected name ../y.indicator }}>{{ name }}</option>
+  {{/each}}
+  </select>
+  <div class="row">
+    <div class="col-sm-6">
+      <label class="checkbox-inline">
+        <input type="checkbox" id="y-log"
+        value="y-log" {{ isChecked y.log }}> Log transform
+      </label>
+    </div>
+    <div class="col-sm-6 form-inline">
+      <label for="y-jitter">Jitter</label>
+      <input type="number" class="form-control" min="0.0" step="1.0"
+             name="y-jitter" id="y-jitter" value="{{ y.jitter }}" />
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>

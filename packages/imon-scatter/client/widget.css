@@ -1,0 +1,15 @@
+.imon-scatter .chart-compose {
+  border: 0;
+}
+
+.imon-scatter .chart-labels .chart-label {
+  pointer-events: none;
+  display: none;
+}
+.imon-scatter .chart-labels .chart-label.visible-label {
+  display: initial;
+}
+
+.imon-scatter .chart-dots circle {
+  stroke-width: 0;
+}

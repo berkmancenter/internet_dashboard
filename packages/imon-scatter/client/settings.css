@@ -1,0 +1,6 @@
+.imon-scatter-settings #x-jitter, .imon-scatter-settings #y-jitter {
+  width: 60px;
+}
+.imon-scatter-settings .form-group .row {
+  margin: 0.3em 1em 0;
+}

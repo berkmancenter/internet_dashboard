@@ -128,7 +128,7 @@ Widgets.attachSchema(new SimpleSchema({
     type: String,
     defaultValue: 'scale',
     optional: true,
-    allowedValues: ['scale', 'reflow']
+    allowedValues: ['scale', 'reflow', 'cover']
   },
   'resize.constraints': {
     type: Object,
