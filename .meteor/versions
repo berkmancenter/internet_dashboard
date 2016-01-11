@@ -26,7 +26,7 @@ claviska:jquery-minicolors@2.1.12
 coffeescript@1.0.6
 connection-speed@0.0.1
 country-info@0.0.1
-d3js:d3@3.4.13
+d3js:d3@3.5.8
 dburles:mongo-collection-instances@0.3.4
 ddp@1.1.0
 deps@1.0.7
