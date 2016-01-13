@@ -8,12 +8,15 @@
 {{# if Template.subscriptionsReady }}
 <div class="form-group">
   <label for="x-select">X-axis</label>
+  <a href="#x-options" class="axis-options collapsed" data-toggle="collapse">
+    Options <span class="caret"></span>
+  </a>
   <select class="x-axis form-control" id="x-select" name="x-axis">
   {{# each indicators }}
   <option value="{{ name }}" {{ isSelected name ../x.indicator }}>{{ name }}</option>
   {{/each}}
   </select>
-  <div class="row">
+  <div class="row collapse" id="x-options">
     <div class="col-sm-6">
       <label class="checkbox-inline">
         <input type="checkbox" id="x-log"
@@ -30,12 +33,15 @@
 
 <div class="form-group">
   <label for="y-select">Y-axis</label>
+  <a class="axis-options collapsed" href="#y-options" data-toggle="collapse">
+    Options <span class="caret"></span>
+  </a>
   <select class="y-axis form-control" id="y-select" name="y-axis">
   {{# each indicators }}
   <option value="{{ name }}" {{ isSelected name ../y.indicator }}>{{ name }}</option>
   {{/each}}
   </select>
-  <div class="row">
+  <div class="row collapse" id="y-options">
     <div class="col-sm-6">
       <label class="checkbox-inline">
         <input type="checkbox" id="y-log"
