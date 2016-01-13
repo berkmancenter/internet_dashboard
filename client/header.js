@@ -16,5 +16,10 @@ Template.Header.events({
         Router.go('dashboards-show', { _id: newId });
       }
     });
+  },
+  'click #template-background': function(ev, template) {
+    Meteor.call('copyDashboard', 'YdpnELWZEwR6iJsLu', function(error, newId) {
+      if (callback) { callback.apply(dashboard, [error, newId]); }
+    });
   }
 });
