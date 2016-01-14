@@ -3,7 +3,16 @@ Template.PercentOnlineSettings.onCreated(function() {
 });
 
 Template.PercentOnlineSettings.helpers({
-  countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
+  regions: function() {
+    return IMonCountries.find(
+        { isRegion: true, dataSources: Settings.indicatorId },
+        { sort: { name: 1 } });
+  },
+  countries: function() {
+    return IMonCountries.find(
+        { isRegion: false, dataSources: Settings.indicatorId },
+        { sort: { name: 1 } });
+  },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
 });
 

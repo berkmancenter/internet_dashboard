@@ -1,5 +1,6 @@
 Settings = {
   indicatorName: 'Average connection speed (kbps)',
+  indicatorId: 3,
   gaugeWidth: 292,
   defaultCountry: { name: 'United States', code: 'usa' }
 };
@@ -18,7 +19,7 @@ _.extend(ConnectionSpeedWidget.prototype, {
     var widget = this;
     CountryInfo.byCode(countryCode, function(country) {
       var code = country.alpha3.toLowerCase();
-      var country = IMonCountries.findOne({ code: code });
+      country = IMonCountries.findOne({ code: code });
       if (country) {
         widget.data.set({ country: country });
       }

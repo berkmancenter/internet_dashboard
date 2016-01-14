@@ -3,14 +3,34 @@
 <div class="form-group">
   <label for="country-select">Country</label>
   <select class="country form-control" id="country-select" name="country">
-  {{# each countries }}
-  <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
-  {{/each}}
-</select>
+    {{# if showRegions }}
+      <optgroup label="Countries">
+        {{# each countries }}
+        {{> AdoptionOption }}
+        {{/each}}
+      </optgroup>
+    {{ else }}
+      {{# each countries }}
+      {{> AdoptionOption }}
+      {{/each}}
+    {{/if}}
+
+    {{# if showRegions }}
+      <optgroup label="Regions">
+        {{# each regions }}
+        {{> AdoptionOption }}
+        {{/each}}
+      </optgroup>
+    {{/if}}
+  </select>
 </div>
 
 <button class="btn btn-primary save-settings">Save</button>
 {{ else }}
   {{ widgetLoading }}
 {{/if}}
+</template>
+
+<template name="AdoptionOption">
+  <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
 </template>

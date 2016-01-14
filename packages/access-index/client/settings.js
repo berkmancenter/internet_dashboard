@@ -3,7 +3,8 @@ Template.AccessIndexSettings.onCreated(function() {
 });
 
 Template.AccessIndexSettings.helpers({
-  countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
+  countries: function() { return IMonCountries.find({ isRegion: false },
+                 { sort: { name: 1 } }); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
 });
 

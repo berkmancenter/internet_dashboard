@@ -3,8 +3,9 @@ Template.PercentOnBroadbandSettings.onCreated(function() {
 });
 
 Template.PercentOnBroadbandSettings.helpers({
-  countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
-  isSelected: function(a, b) { return a === b ? 'selected' : ''; },
+  countries: function() { return findAreas(false); },
+  regions: function() { return findAreas(true); },
+  showRegions: function() { return findAreas(true).count() > 0; }
 });
 
 Template.PercentOnBroadbandSettings.events({
@@ -17,3 +18,14 @@ Template.PercentOnBroadbandSettings.events({
     this.set(newData);
   }
 });
+
+Template.AdoptionOption.helpers({
+  isSelected: function(a, b) { return a === b ? 'selected' : ''; },
+});
+
+function findAreas(isRegion) {
+  isRegion = isRegion || false;
+  return IMonCountries.find(
+      { isRegion: isRegion, dataSources: Settings.indicatorId },
+      { sort: { name: 1 } });
+}

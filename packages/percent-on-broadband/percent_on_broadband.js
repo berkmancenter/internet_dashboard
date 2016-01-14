@@ -1,5 +1,6 @@
 Settings = {
   indicatorName: 'Broadband adoption rate',
+  indicatorId: 1,
   defaultCountry: { name: 'United States', code: 'usa' }
 };
 

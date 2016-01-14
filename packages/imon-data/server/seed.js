@@ -4,58 +4,25 @@ function fetchData() {
   console.log('IMon Data: Fetching data');
   var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
   var store = new Store();
-  var sourceUrl = 'https://thenetmonitor.org/v1/datum_sources';
-  var countryUrl = 'https://thenetmonitor.org/v1/countries';
 
-  var sourceFuture = HTTP.get.future()(sourceUrl, { timeout: Settings.timeout });
-  var countryFuture = HTTP.get.future()(countryUrl, { timeout: Settings.timeout });
+  var baseUrl = 'https://imon.dev.berkmancenter.org/v1/';
 
-  var sourceResults = sourceFuture.wait();
-  var countryResults = countryFuture.wait();
+  var futures = [];
+
+  ['datum_sources', 'countries', 'regions'].forEach(function(type) {
+    var fut = HTTP.get.future()(baseUrl + type, { timeout: Settings.timeout });
+    futures.push(fut);
+    var results = fut.wait();
+    store.sync(results.data);
+  });
+
+  Future.wait(futures);
 
   console.log('IMon Data: Inserting data');
-  store.sync(sourceResults.data);
-  store.sync(countryResults.data);
 
-  _.each(store.findAll('countries'), function(c) {
-    var code = c.iso3_code.toLowerCase();
+  _.each(store.findAll('regions'), insertRegion);
+  _.each(store.findAll('countries'), insertCountry);
 
-    var country = {
-      name: c.name,
-      code: code,
-      iso2Code: c.iso_code.toLowerCase(),
-      rank: c.rank,
-      score: c.score,
-      accessUrl: accessUrl(code),
-      imageUrl: imageUrl(code)
-    };
-
-    try {
-      IMonCountries.upsert({ code: code }, { $set: country });
-    } catch (e) {
-      console.error('IMon Data: Error inserting data');
-      console.error(e);
-      throw e;
-    }
-
-    _.each(c.indicators, function(i) {
-      var indicator = {
-        countryCode: code,
-        imId: i.id,
-        name: i.datum_source.public_name,
-        value: i.original_value,
-        percent: i.value
-      };
-
-      try {
-        IMonData.upsert({ countryCode: code, imId: i.id }, { $set: indicator });
-      } catch (e) {
-        console.error('IMon Data: Error inserting data');
-        console.error(e);
-        throw e;
-      }
-    });
-  });
   console.log('IMon Data: Fetched data');
 }
 
@@ -68,6 +35,63 @@ function imageUrl(iso3Code) {
 function accessUrl(iso3Code) {
   return countryUrl(iso3Code) + '/access';
 }
+function insertCountry(c) {
+  insertArea(c, false);
+}
+function insertRegion(r) {
+  insertArea(r, true);
+}
+function insertArea(a, isRegion) {
+  isRegion = isRegion || false;
+  var code = a.iso3_code.toLowerCase().slice(0, 3);
+
+  var country = {
+    name: a.name,
+    code: code,
+    rank: a.rank,
+    score: a.score,
+    isRegion: isRegion,
+    dataSources: []
+  };
+
+  if (!isRegion) {
+    _.extend(country, {
+      iso2Code: a.iso_code.toLowerCase(),
+      accessUrl: accessUrl(code),
+      imageUrl: imageUrl(code)
+    });
+  }
+
+  try {
+    IMonCountries.upsert({ code: code }, { $set: country });
+  } catch (e) {
+    console.error('IMon Data: Error inserting data');
+    console.error(e);
+    throw e;
+  }
+
+  _.each(a.indicators, function(i) {
+    var indicator = {
+      countryCode: code,
+      imId: i.id,
+      sourceId: i.datum_source.id,
+      startDate: new Date(i.start_date),
+      name: i.datum_source.public_name,
+      value: i.original_value,
+      percent: i.value
+    };
+
+    try {
+      IMonData.upsert({ countryCode: code, imId: i.id }, { $set: indicator });
+      IMonCountries.update({ code: code },
+          { $addToSet: { dataSources: i.datum_source.id }});
+    } catch (e) {
+      console.error('IMon Data: Error inserting data');
+      console.error(e);
+      throw e;
+    }
+  });
+}
 
 if (Meteor.settings.doJobs) {
   if (IMonCountries.find().count() === 0) {
@@ -76,27 +100,3 @@ if (Meteor.settings.doJobs) {
 
   Meteor.setInterval(fetchData.future(), Settings.updateEvery);
 }
-
-Meteor.publish('imon_indicators', function() {
-  var publication = this;
-  var pipeline = { $group: { _id: '$name', name: { $first: '$name' }}};
-  var indicators = IMonData.aggregate(pipeline);
-  indicators.forEach(function(i) {
-    publication.added('imon_indicators', i._id, i);
-  });
-  publication.ready();
-});
-
-Meteor.publish('imon_countries', function() {
-  return IMonCountries.find();
-});
-
-Meteor.publish('imon_data', function(countryCode, indicators) {
-  var selector = {};
-  if (!_.isUndefined(countryCode) && countryCode !== 'all') {
-    selector.countryCode = countryCode;
-  }
-  if (_.isArray(indicators)) { selector.name = { $in: indicators }; }
-  if (_.isString(indicators)) { selector.name = indicators; }
-  return IMonData.find(selector);
-});

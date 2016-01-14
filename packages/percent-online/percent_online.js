@@ -1,5 +1,6 @@
 Settings = {
   indicatorName: 'Percentage of individuals using the Internet',
+  indicatorId: 5,
   defaultCountry: { name: 'United States', code: 'usa' }
 };
 

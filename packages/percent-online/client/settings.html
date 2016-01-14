@@ -3,10 +3,17 @@
 <div class="form-group">
   <label for="country-select">Country</label>
   <select class="country form-control" id="country-select" name="country">
-  {{# each countries }}
-  <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
-  {{/each}}
-</select>
+    <optgroup label="Countries">
+    {{# each countries }}
+    <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
+    {{/each}}
+    </optgroup>
+    <optgroup label="Regions">
+    {{# each regions }}
+    <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
+    {{/each}}
+    </optgroup>
+  </select>
 </div>
 
 <button class="btn btn-primary save-settings">Save</button>
