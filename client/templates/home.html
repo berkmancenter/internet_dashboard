@@ -1,49 +1,128 @@
 <template name="Home">
 <div class="container page">
-  <div class="jumbotron">
-  <h1>Welcome!</h1>
-  <p>Internet Monitor lets you explore, create, customize, and share
-  dashboards of data visualizations about multiple facets of the Internet.</p>
-  {{# if currentUser }}
-    <div class="text-center">
-      <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards-new' }}">
-        Get Started
-      </a>
+  <div class="row">
+    <div class="col-lg-8 homepage-description">
+      <p class="lead">The Internet Monitor dashboard helps you explore, create, and share data visualizations about the Internet.</p>
     </div>
-  {{else}}
-    {{> SignInOrAnon }}
-  {{/if}}
-    <div class="or-block">
-      <p class="or">OR</p>
-      <p>Check out a few curated dashboards:</p>
+    <div class="col-lg-4 text-right homepage-action">
+        <a class="btn btn-primary btn-lg" href="//thenetmonitor.org/faq">
+          How to Use
+        </a>
+
+      {{# if currentUser }}
+        <a class="btn btn-success btn-lg" href="{{ pathFor route='dashboards-new' }}">
+          Create a Dashboard
+        </a>
+      {{else}}
+        {{> SignInOrAnon }}
+      {{/if}}
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-4 text-center">
-      <a href="/dashboards/33soXBmpQowadXFtR">
-        <img class="img-thumbnail" src="/dash_screenshot1.png" alt="Screenshot" />
-        <h2>Access and Infrastructure</h2>
-      </a>
-      <p>Explore global trends in Internet access and infrastructure over time.</p>
+    <div class="col-md-9 text-center curated-set">
+      <h2>Explore curated boards</h2>
+      <div class="col-sm-6 col-md-4">
+        <div class="curated-board">
+          <a href="/dashboards/PGb7iKt2FacvJ3M8R">
+            <img class="img-thumbnail" src="/dash_screenshot4.png" alt="Screenshot" />
+            <h2 class="curated-title">Affordability</h2>
+            <span class="curated-caption">
+              <span>Countries with more affordable broadband tend to have higher Internet adoption.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="curated-board">
+          <a href="/dashboards/kSxoNkTkP3nuH89nK">
+            <img class="img-thumbnail" src="/dash_screenshot5.png" alt="Screenshot" />
+            <h2 class="curated-title">Internet Use & Income</h2>
+            <span class="curated-caption">
+              <span>Connectivity trends track economic development, suggesting that we haven’t yet found effective ways to leapfrog.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="curated-board">
+          <a href="/dashboards/diZeYbDgpobKiEzAg">
+            <img class="img-thumbnail" src="/dash_screenshot6.png" alt="Screenshot" />
+            <h2 class="curated-title">Internet Use & Literacy</h2>
+            <span class="curated-caption">
+              <span>Egypt, Tunisia, Morocco, Nigeria, and Kenya all have Internet penetration rates that exceed their ‘expected’ rate when looking at literacy rates.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="curated-board">
+          <a href="/dashboards/zJnxH76ApTAGZb3Z6">
+            <img class="img-thumbnail" src="/dash_screenshot7.png" alt="Screenshot" />
+            <h2 class="curated-title">Alternative Trajectories</h2>
+            <span class="curated-caption">
+              <span>High-performing countries do well on both wireline and mobile broadband adoption. Others are on a different, mobile-led trajectory.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="curated-board">
+          <a href="dashboards/Kny2AjC52KwBrepz3">
+            <img class="img-thumbnail" src="/dash_screenshot8.png" alt="Screenshot" />
+            <h2 class="curated-title">Mobile-Driven Change</h2>
+            <span class="curated-caption">
+              <span>The revolutions in Bahrain, Egypt, Syria, and Tunisia were facilitated by prepaid 2G/3G mobile connections and didn’t require high-speed wireline connectivity with broad penetration.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="curated-board">
+          <a href="/dashboards/omB5dqPJEBtPcJ3Lp">
+            <img class="img-thumbnail" src="/dash_screenshot3.png" alt="Screenshot" />
+            <h2 class="curated-title">Global Media</h2>
+            <span class="curated-caption">
+              <span>Explore this week's hot topics in online media around the globe, in multiple languages.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <p class="lead"><a href="//thenetmonitor.org/curated-dashboards">See all curated boards &raquo;</a></p>
     </div>
-    <div class="col-md-4 text-center">
-      <a href="/dashboards/snqBc9xQEwFaRnLF5">
-        <img class="img-thumbnail" src="/dash_screenshot2.png" alt="Screenshot" />
-        <h2>Country Comparison</h2>
-      </a>
-      <p>
-      See how four countries around the world compare on key Internet indicators.
-      </p>
+
+    <div class="col-md-3 text-center template-set">
+      <h2>Use a template</h2>
+      <div class="col-sm-6 col-md-12">
+        <div class="curated-board">
+          <a id="template-background" title="Copy this template">
+          {{! clicking this link would ideally clone this dashboard on prod: RoEW2jMzxow6GygQg }}
+          {{! for testing: clone YdpnELWZEwR6iJsLu }}
+            <img class="img-thumbnail" src="/template_screenshot1.png" alt="Screenshot" />
+            <h2 class="curated-title template-title">Country Background Template</h2>
+            <span class="curated-caption">
+              <span>Use this template to create a quick dashboard about a single country's Internet environment.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-12">
+        <div class="curated-board">
+          <a id="template-comparison" title="Copy this template">
+          {{! clicking this link would ideally clone this dashboard on prod: YZYHSsP2Y3r82Weeh }}
+            <img class="img-thumbnail" src="/template_screenshot2.png" alt="Screenshot" />
+            <h2 class="curated-title template-title">Country Comparison Template</h2>
+            <span class="curated-caption">
+              <span>Use this template to create a quick dashboard comparing two or more countries' Internet environments.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <p class="lead"><a href="//thenetmonitor.org/faq/using-a-dashboard-template">Template FAQ &raquo;</a></p>
     </div>
-    <div class="col-md-4 text-center">
-      <a href="/dashboards/omB5dqPJEBtPcJ3Lp">
-        <img class="img-thumbnail" src="/dash_screenshot3.png" alt="Screenshot" />
-        <h2>Global Media</h2>
-      </a>
-      <p>Explore hot topics in online media in multiple languages.</p>
-    </div>
+
   </div>
+
 </div>
 
 </template>

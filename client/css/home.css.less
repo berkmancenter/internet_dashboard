@@ -28,6 +28,81 @@
       }
     }
   }
+
+  @media (max-width: 1200px) {
+    .homepage-action, .homepage-description {
+      text-align: center;
+    }
+
+    .homepage-action {
+      padding-bottom: 1em;
+    }
+  }
+
+  .template-set, .curated-set {
+    padding: 0px;
+  }
+
+  .curated-board {
+    max-width: 310px;
+    position: relative;
+    margin: 0 auto 1em;
+  }
+
+  .curated-title {
+    background: rgba(40,96,144,0.7);
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0.5em;
+    height: 100%;
+    width: 100%;
+    -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+    transition: opacity 500ms;
+  }
+
+  .curated-title.template-title {
+    background: rgba(68,157,68,0.8);
+  }
+
+  .curated-board a:hover h2.curated-title {
+    opacity: 0;
+  }
+
+  .curated-caption {
+    background: rgba(0,0,0,0.7);
+    color: white;
+    text-align: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    opacity: 0;
+    -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+    transition: opacity 500ms;
+  }
+
+  .curated-caption span {
+    display: inline-block;
+  }
+
+  .curated-board a:hover span.curated-caption {
+    opacity: 1;
+  }
+
+  .curated-board a {
+    cursor: pointer;
+  }
+
 }
 .sign-in-or-anon {
   .modal-body {
