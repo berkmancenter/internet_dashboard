@@ -14,12 +14,12 @@ Template.AccessIndexWidget.helpers({
     var width = Math.floor(Settings.numRanks / 2);
     var rank = this.rank;
     var min = Math.max(1, rank - width);
-    var max = Math.min(IMonCountries.find().count(), rank + width) + 1;
+    var max = Math.min(IMonCountries.find({ isRegion: false }).count(), rank + width) + 1;
     return _.map(_.range(min, max), function(r) {
       return {
         rank: r,
         offset: r - rank,
-        rankedCountry: IMonCountries.findOne({ rank: r })
+        rankedCountry: IMonCountries.findOne({ rank: r, isRegion: false })
       };
     });
   },

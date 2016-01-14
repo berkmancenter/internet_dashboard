@@ -3,8 +3,9 @@ Template.BroadbandCostSettings.onCreated(function() {
 });
 
 Template.BroadbandCostSettings.helpers({
-  countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
-  isSelected: function(a, b) { return a === b ? 'selected' : ''; },
+  countries: function() { return findAreas(false); },
+  regions: function() { return findAreas(true); },
+  showRegions: function() { return findAreas(true).count() > 0; }
 });
 
 Template.BroadbandCostSettings.events({
@@ -17,3 +18,14 @@ Template.BroadbandCostSettings.events({
     template.closeSettings();
   }
 });
+
+Template.BroadbandOption.helpers({
+  isSelected: function(a, b) { return a === b ? 'selected' : ''; },
+});
+
+function findAreas(isRegion) {
+  isRegion = isRegion || false;
+  return IMonCountries.find(
+      { isRegion: isRegion, dataSources: { $in: Settings.indicatorIds }},
+      { sort: { name: 1 } });
+}

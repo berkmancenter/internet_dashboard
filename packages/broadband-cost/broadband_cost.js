@@ -6,6 +6,7 @@ Settings = {
     'Broadband subscription charge as a percentage of GDP per capita PPP (>10-25 Mbps)',
     'Broadband subscription charge as a percentage of GDP per capita PPP (>25 Mbps)',
   ],
+  indicatorIds: [9, 10, 11, 12, 13],
   speedRegex: /(\d+-)?\d+ Mbps/,
   maxSpeed: '25 Mbps',
   lowerCellClassBounds: { 66: 'success', 33: 'warning', 0: 'danger' },
