@@ -2,6 +2,7 @@
   .container.page {
     margin-top: 2em;
     padding: 2em;
+    padding-bottom: 0;
   }
 
   .jumbotron {
@@ -29,6 +30,25 @@
     }
   }
 
+  .homepage-action {
+    padding-top: 1.4em;
+    text-align: center;
+
+    a.btn {
+      margin-right: 10px;
+    }
+  }
+
+  .homepage-description {
+    .panel {
+      border: 0;
+    }
+    .lead {
+      margin: 0;
+      text-align: center;
+    }
+  }
+
   @media (max-width: 1200px) {
     .homepage-action, .homepage-description {
       text-align: center;
@@ -41,6 +61,19 @@
 
   .template-set, .curated-set {
     padding: 0px;
+
+    > h2 {
+      padding-bottom: 5px;
+      border-bottom: 1px solid #ccc;
+      margin-top: 0;
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+
+    .lead {
+      text-align: right;
+      padding-right: 1.5em;
+    }
   }
 
   .curated-board {
@@ -59,10 +92,10 @@
     padding: 0.5em;
     height: 100%;
     width: 100%;
-    -webkit-transition: opacity 500ms;
-    -moz-transition: opacity 500ms;
-    -o-transition: opacity 500ms;
-    transition: opacity 500ms;
+    -webkit-transition: opacity 200ms;
+    -moz-transition: opacity 200ms;
+    -o-transition: opacity 200ms;
+    transition: opacity 200ms;
   }
 
   .curated-title.template-title {
@@ -74,7 +107,7 @@
   }
 
   .curated-caption {
-    background: rgba(0,0,0,0.7);
+    background: rgba(80, 80, 80, 0.9);
     color: white;
     text-align: left;
     position: absolute;
@@ -83,12 +116,12 @@
     height: 100%;
     width: 100%;
     margin: 0;
-    padding: 10px;
+    padding: 15px 20px;
     opacity: 0;
-    -webkit-transition: opacity 500ms;
-    -moz-transition: opacity 500ms;
-    -o-transition: opacity 500ms;
-    transition: opacity 500ms;
+    -webkit-transition: opacity 200ms;
+    -moz-transition: opacity 200ms;
+    -o-transition: opacity 200ms;
+    transition: opacity 200ms;
   }
 
   .curated-caption span {
