@@ -6,7 +6,7 @@
     <tr>
       <th>Company</th>
       {{# each metrics }}
-        <th title="{{ name }}" {{ isSorted }}>{{ abbrev }}</th>
+        <th class="small {{ classes }} {{ isSorted }}" title="{{ name }}">{{ name }}</th>
       {{/each}}
     </tr>
   </thead>

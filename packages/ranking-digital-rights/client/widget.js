@@ -9,8 +9,10 @@ Template.RDRWidget.helpers({
     return Settings.metrics;
   },
   isSorted: function() {
-    return this.name === Template.parentData().sortMetric ?
-      { class: 'sorted' } : { class: 'not-sorted' };
+    return this.name === Template.parentData().sortMetric ? 'sorted' : 'not-sorted';
+  },
+  isTilted: function() {
+    return this.tilted ? 'tilted' : '';
   }
 });
 
@@ -51,7 +53,7 @@ Template.RDRWidget.onRendered(function() {
       Settings.metrics.forEach(function(metric) {
         var metricData = _.findWhere(record.metrics, { name: metric.name });
         data = [metricData.value, 100.0 - metricData.value];
-        cell = $('<td>').appendTo(metricsNode).get(0);
+        cell = $('<td>').addClass('text-center').appendTo(metricsNode).get(0);
         radius = metric.name === Settings.totalMetric ?
           Settings.pie.totalRadius : Settings.pie.radius;
         drawGraph(cell, data, radius, pieColors(metric.name));

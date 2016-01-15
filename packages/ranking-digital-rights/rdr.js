@@ -1,12 +1,12 @@
 Settings = {
-  categories: [ 'Mobile broadband', 'Fixed broadband', 'Social network & blog',
+  categories: [ 'Mobile', 'Fixed broadband', 'Social network & blog',
     'IM & calls', 'Search', 'Mail service', 'Video/photo' ],
-  defaultCategory: 'Mobile broadband',
+  defaultCategory: 'Mobile',
   metrics: [
-    { name: 'Commitment', abbrev: 'Cmt' },
-    { name: 'Freedom of expression', abbrev: 'FoE' },
-    { name: 'Privacy', abbrev: 'Pri' },
-    { name: 'Total', abbrev: 'Total' }
+    { name: 'Commitment', classes: 'tilted' },
+    { name: 'Freedom of expression', classes: 'tilted' },
+    { name: 'Privacy', classes: 'tilted' },
+    { name: 'Total', classes: 'text-center' }
   ],
   totalMetric: 'Total',
   sortMetric: 'Total',
