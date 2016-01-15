@@ -4,6 +4,18 @@
 .ranking-digital-rights h2 {
   font-size: 1.3em;
 }
+.ranking-digital-rights table {
+  margin-top: 1em;
+}
+
+.ranking-digital-rights th.tilted {
+  width: 46px;
+  max-width: 46px;
+  transform: rotateZ(-18deg);
+  white-space: nowrap;
+  padding-left: 8px;
+  transform-origin: 8px 100%;
+}
 .ranking-digital-rights th.not-sorted {
   color: #999;
 }
