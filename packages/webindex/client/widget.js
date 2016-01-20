@@ -74,7 +74,7 @@ Template.WebIndexWidget.onRendered(function() {
           var title = d.properties.name;
           var country = WebIndexData.findOne({ countryCode: d.id, metricId: metric.id });
           if (country) {
-            title += ': Rank ' + country.score + '';
+            return title += ': Rank ' + country.score + '';
           }
           return title + ' (No data)';
         });
