@@ -56,8 +56,8 @@ var fetchData = function() {
   try {
     // They are returning their json as js so response.data doesn't work.
     // we have to explicitly parse response.content.
-    docs = dataToDocs(jsonResponse.data.data);
-    //docs = dataToDocs(JSON.parse(jsonResponse.content));
+    //docs = dataToDocs(jsonResponse.data.data);
+    docs = dataToDocs(JSON.parse(jsonResponse.content).data);
   } catch (e){
     console.log('Error converting data to docs',e);
   }

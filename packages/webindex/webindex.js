@@ -1,10 +1,11 @@
 WebIndexData = new Mongo.Collection('webindex_data');
 
 //feedUrl: 'http://thewebindex.org/wp-content/uploads/2012/05/Web_Index_JSON_data_20141.js',
+//  feedUrl: 'http://localhost:8080/thewebindex/Web_Index_JSON_data_20141.json',  
 
 Settings = {
   downloadInterval: moment.duration({ minutes: 15 }).asMilliseconds(),
-  feedUrl: 'http://localhost:8080/thewebindex/Web_Index_JSON_data_20141.json',  
+  feedUrl: 'http://thewebindex.org/wp-content/uploads/2012/05/Web_Index_JSON_data_20141.js',
   limit: 10,
   map: {
     width: 450,
