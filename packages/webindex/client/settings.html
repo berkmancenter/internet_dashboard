@@ -1,0 +1,16 @@
+<template name="WebIndexSettings">
+{{# if Template.subscriptionsReady }}
+<div class="form-group">
+  <label for="metric-select">Metric</label>
+  <select class="metric form-control" id="metric-select" name="metric">
+  {{# each metrics }}
+  <option value="{{ metricId }}" {{ isSelected metricId ../metric.metricId }}>{{ metricName }}</option>
+  {{/each}}
+  </select>
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>
