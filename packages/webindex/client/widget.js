@@ -26,14 +26,8 @@ Template.WebIndexWidget.onRendered(function() {
     template.$('.webindex-data').html('');
 
     var fillColor = d3.scale.quantize()
-      .domain([0, 100])
-      /*
-      .range(['rgb(237,248,233)','rgb(186,228,179)','rgb(116,196,118)','rgb(49,163,84)','rgb(0,109,44)']);
-      /*/
-        .range(
-          ['rgb(215,25,28)','rgb(253,174,97)','rgb(255,255,191)','rgb(166,217,106)','rgb(26,150,65)'].reverse()
-        );
-      //*/
+        .domain([0, 100])
+        .range(['rgb(215,25,28)','rgb(253,174,97)','rgb(255,255,191)','rgb(171,217,233)','rgb(44,123,182)'].reverse());
 
     var svg = d3.select(template.find('.webindex')).append("svg:svg")
       .attr("width", Settings.map.width)
