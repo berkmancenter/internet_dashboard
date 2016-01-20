@@ -17,10 +17,10 @@ Template.WebIndexWidget.onRendered(function() {
       return;
     }
     
-    metric   = Template.currentData().metric; //'FH_B';
-    
-    console.log('REINOS: autorrun is running! ' + metric);
+    metric   = Template.currentData().metric ? Template.currentData().metric : metric = {name: 'Web Index', id: 'INDEX'};
 
+    console.log('metric: ', metric);
+    
     d3.select(template.find('.metric_name')).text(metric.name);
     
     template.$('.webindex-data').html('');
@@ -57,18 +57,14 @@ Template.WebIndexWidget.onRendered(function() {
         .enter().append("svg:path")
         .attr('class', 'country')
 	.style('fill', function(d) {
-	  // REINOS: all we have to do is have it filter on metric type here as well.
           var country = WebIndexData.findOne({ countryCode: d.id, metricId: metric.id });
-
           // We have country data. Make it pretty.
           if (country) {
-            if (country.countryCode === 'USA'){
-              console.log('country:' , country);
-            }
             return fillColor(country.score);
+          } else {
+            // No data for this country. Make it gray or something.
+            return 'rgb(186,186,186)';
           }
-          // No data for this country. Make it gray or something.
-          return 'rgb(186,186,186)';
         })
       .style('transform', 'scaleY(' + Settings.map.squash + ')')
       .attr("d", d3.geo.path().projection(projection));
@@ -80,7 +76,7 @@ Template.WebIndexWidget.onRendered(function() {
           if (country) {
             title += ': Rank ' + country.score + '';
           }
-          return title;
+          return title + ' (No data)';
         });
 
       svg.select(".legend")

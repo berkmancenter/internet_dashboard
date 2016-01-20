@@ -4,7 +4,7 @@
   <label for="metric-select">Metric</label>
   <select class="metric form-control" id="metric-select" name="metric">
   {{# each metrics }}
-  <option value="{{ metricId }}" {{ isSelected metricId ../metric.metricId }}>{{ metricName }}</option>
+  <option value="{{ id }}" {{ isSelected id ../metric.id }}>{{ name }}</option>
   {{/each}}
   </select>
 </div>

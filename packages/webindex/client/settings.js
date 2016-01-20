@@ -3,12 +3,20 @@ Template.WebIndexSettings.onCreated(function() {
 });
 
 Template.WebIndexSettings.helpers({
-  // note: temporary hack. We should move metrics into their own Mongo Document.
-  metrics: function() {
-    return WebIndexData.find({countryCode:'USA',year:'2013'}, {
-      fields: { metricName: 1, metricId: 1 },
-      sort: { metricName: 1 }
-    });
+  metrics: function(){
+    return [
+      {name: 'Web Index',            id: 'INDEX'},
+      {name: 'Empowerment',      id: 'EMPOWERMENT'},
+      {name: 'Political impact', id: 'POLITICAL_IMPACT'},
+      {name: 'Economic impact', id: 'ECONOMIC_IMPACT'},
+      {name: 'Social and environmental impact', id: 'SOCIAL_AND_ENVIRONMENTAL_IMPACT'},
+      {name: 'Relevant content and use', id: 'RELEVANT_CONTENT_AND_USE'},
+      {name: 'Freedom and openness', id: 'FREEDOM_AND_OPENNESS'},
+      {name: 'Universal access', id: 'UNIVERSAL_ACCESS'},
+      {name: 'Education and awareness', id: 'EDUCATION_AND_AWARENESS'},
+      {name: 'Access and affordability', id: 'ACCESS_AND_AFFORDABILITY'},
+      {name: 'Communications infrastructure', id: 'COMMUNICATIONS_INFRASTRUCTURE'}
+    ];
   },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
 });
