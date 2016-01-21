@@ -82,5 +82,5 @@ if (Meteor.settings.doJobs) {
 }
 
 Meteor.publish('webindex_data', function() {
-  return WebIndexData.find();
+  return WebIndexData.find({metricId:{ $in: _.pluck(WebIndex.metrics,'id')}});
 });
