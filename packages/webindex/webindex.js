@@ -1,8 +1,5 @@
 WebIndexData = new Mongo.Collection('webindex_data');
 
-//feedUrl: 'http://thewebindex.org/wp-content/uploads/2012/05/Web_Index_JSON_data_20141.js',
-//  feedUrl: 'http://localhost:8080/thewebindex/Web_Index_JSON_data_20141.json',  
-
 Settings = {
   downloadInterval: moment.duration({ minutes: 15 }).asMilliseconds(),
   feedUrl: 'http://thewebindex.org/wp-content/uploads/2012/05/Web_Index_JSON_data_20141.js',
@@ -35,5 +32,20 @@ WebIndex = {
     name: 'The World Wide Web Foundation',
     shortName: 'WWW Foundation',
     url: 'http://thewebindex.org/data/?indicator=INDEX&country=ALL'
-  }
+  },
+  metrics: [
+      {name: 'Web Index',            id: 'INDEX'},
+      {name: 'Empowerment',      id: 'EMPOWERMENT'},
+      {name: 'Political impact', id: 'POLITICAL_IMPACT'},
+      {name: 'Economic impact', id: 'ECONOMIC_IMPACT'},
+      {name: 'Social and environmental impact', id: 'SOCIAL_AND_ENVIRONMENTAL_IMPACT'},
+      {name: 'Relevant content and use', id: 'RELEVANT_CONTENT_AND_USE'},
+      {name: 'Freedom and openness', id: 'FREEDOM_AND_OPENNESS'},
+      {name: 'Universal access', id: 'UNIVERSAL_ACCESS'},
+      {name: 'Education and awareness', id: 'EDUCATION_AND_AWARENESS'},
+      {name: 'Access and affordability', id: 'ACCESS_AND_AFFORDABILITY'},
+      {name: 'Communications infrastructure', id: 'COMMUNICATIONS_INFRASTRUCTURE'}
+    ]
 };
+
+WebIndex.defaultMetric=WebIndex.metrics[0];

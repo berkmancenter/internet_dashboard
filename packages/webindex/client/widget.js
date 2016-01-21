@@ -17,7 +17,7 @@ Template.WebIndexWidget.onRendered(function() {
       return;
     }
     
-    metric   = Template.currentData().metric ? Template.currentData().metric : metric = {name: 'Web Index', id: 'INDEX'};
+    metric   = Template.currentData().metric ? Template.currentData().metric : metric = WebIndex.defaultMetric;
 
     console.log('metric: ', metric);
     
