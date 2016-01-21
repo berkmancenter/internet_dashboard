@@ -22,16 +22,16 @@ WebIndex = {
   widget: {
     name: 'Web Index',
     description: 'Shows measures of the Web’s contribution to social, economic and political progress in countries across the world.',
-    url: 'http://thewebindex.org/data/?indicator=INDEX&country=ALL',
+    url: 'http://thewebindex.org/data/',
     dimensions: { width: 3, height: 2 },
     category: 'access',
     typeIcon: 'globe',
     constructor: WebIndexWidget
   },
   org: {
-    name: 'The World Wide Web Foundation',
-    shortName: 'WWW Foundation',
-    url: 'http://thewebindex.org/data/?indicator=INDEX&country=ALL'
+    name: 'World Wide Web Foundation',
+    shortName: 'Web Index',
+    url: 'http://thewebindex.org/'
   },
   metrics: [
       {name: 'Web Index',            id: 'INDEX'},
