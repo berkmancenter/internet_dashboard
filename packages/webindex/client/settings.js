@@ -15,7 +15,6 @@ Template.WebIndexSettings.events({
       id: template.find('.metric').value,
       name: template.find('.metric').selectedOptions[0].innerText
     };
-    console.log('Saving webindex widget setting: ' , metric);
     var newData = { metric: metric };
     this.set(newData);
     template.closeSettings();

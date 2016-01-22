@@ -46,13 +46,9 @@ var dataToDocs = function(jsonData) {
 
 var fetchData = function() {
   console.log('WebIndex: Fetching data');
-  console.log('REINOS: 1');
   var jsonResponse, docs;
   jsonResponse = Future.wrap(HTTP.get)(Settings.feedUrl).wait();
-  console.log('REINOS: 2');
   //console.log(jsonResponse);
-  console.log('REINOS: 3');
-  console.log('REINOS: 4');
   try {
     // They are returning their json as js so response.data doesn't work.
     // we have to explicitly parse response.content.
@@ -61,18 +57,15 @@ var fetchData = function() {
   } catch (e){
     console.log('Error converting data to docs',e);
   }
-  console.log('REINOS: 5');
   if (docs.length > 0) {
     console.log('We got new data. Removing old...');
     WebIndexData.remove({});
   } else {
     console.log('No new data.');
   }
-  console.log('REINOS: 6');
   _.each(docs, function(doc) {
     WebIndexData.insert(doc);
   });
-  console.log('REINOS: 7');
   console.log('WebIndex: Fetched data');
 };
 
