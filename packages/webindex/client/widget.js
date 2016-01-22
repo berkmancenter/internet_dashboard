@@ -17,10 +17,8 @@ Template.WebIndexWidget.onRendered(function() {
       return;
     }
     
-    metric   = Template.currentData().metric ? Template.currentData().metric : metric = WebIndex.defaultMetric;
+    metric = Template.currentData().metric ? Template.currentData().metric : metric = WebIndex.defaultMetric;
 
-    console.log('metric: ', metric);
-    
     d3.select(template.find('.metric_name')).text(metric.name);
     
     template.$('.webindex-data').html('');

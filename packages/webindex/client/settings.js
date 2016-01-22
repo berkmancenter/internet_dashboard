@@ -13,7 +13,7 @@ Template.WebIndexSettings.events({
   'click .save-settings': function(ev, template) {
     var metric = {
       id: template.find('.metric').value,
-      name: template.find('.metric').selectedOptions[0].innerText
+      name: template.find('.metric').selectedOptions[0].innerText.trim()
     };
     var newData = { metric: metric };
     this.set(newData);
