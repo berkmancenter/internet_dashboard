@@ -1,0 +1,8 @@
+<template name="WebIndexWidget">
+  <h1 class="metric_name"></h1>
+  <p>Global Ranking</p>
+  {{# unless Template.subscriptionsReady }}
+    {{ widgetLoading }}
+  {{/unless}}
+  <div class="webindex-data webindex"></div>
+</template>
