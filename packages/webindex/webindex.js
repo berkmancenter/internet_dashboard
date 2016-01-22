@@ -34,18 +34,18 @@ WebIndex = {
     url: 'http://thewebindex.org/'
   },
   metrics: [
-      {name: 'Web Index',            id: 'INDEX'},
-      {name: 'Empowerment',      id: 'EMPOWERMENT'},
-      {name: 'Political impact', id: 'POLITICAL_IMPACT'},
-      {name: 'Economic impact', id: 'ECONOMIC_IMPACT'},
-      {name: 'Social and environmental impact', id: 'SOCIAL_AND_ENVIRONMENTAL_IMPACT'},
-      {name: 'Relevant content and use', id: 'RELEVANT_CONTENT_AND_USE'},
-      {name: 'Freedom and openness', id: 'FREEDOM_AND_OPENNESS'},
-      {name: 'Universal access', id: 'UNIVERSAL_ACCESS'},
-      {name: 'Education and awareness', id: 'EDUCATION_AND_AWARENESS'},
-      {name: 'Access and affordability', id: 'ACCESS_AND_AFFORDABILITY'},
-      {name: 'Communications infrastructure', id: 'COMMUNICATIONS_INFRASTRUCTURE'}
-    ]
+    {name: 'Web Index',            id: 'INDEX', level: 0},
+    {name: 'Empowerment',      id: 'EMPOWERMENT', level: 1},
+    {name: 'Political impact', id: 'POLITICAL_IMPACT', level: 2},
+    {name: 'Economic impact', id: 'ECONOMIC_IMPACT', level: 2},
+    {name: 'Social and environmental impact', id: 'SOCIAL_AND_ENVIRONMENTAL_IMPACT', level: 2},
+    {name: 'Relevant content and use', id: 'RELEVANT_CONTENT_AND_USE', level: 1},
+    {name: 'Freedom and openness', id: 'FREEDOM_AND_OPENNESS', level: 1},
+    {name: 'Universal access', id: 'UNIVERSAL_ACCESS', level: 1},
+    {name: 'Education and awareness', id: 'EDUCATION_AND_AWARENESS', level: 2},
+    {name: 'Access and affordability', id: 'ACCESS_AND_AFFORDABILITY', level: 2},
+    {name: 'Communications infrastructure', id: 'COMMUNICATIONS_INFRASTRUCTURE', level: 2}
+  ]
 };
 
 WebIndex.defaultMetric=WebIndex.metrics[0];
