@@ -4,7 +4,8 @@ Template.WebIndexSettings.onCreated(function() {
 
 Template.WebIndexSettings.helpers({
   metrics: function (){ return WebIndex.metrics; },
-  isSelected: function(a, b) { return a === b ? 'selected' : ''; }
+  isSelected: function(a, b) { return a === b ? 'selected' : ''; },
+  indentedName: function(name,level) { return Array((level)*4).join('&nbsp;') + name; }
 });
 
 
