@@ -48,20 +48,20 @@ var fetchData = function() {
   console.log('WebIndex: Fetching data');
   var jsonResponse, docs;
   jsonResponse = Future.wrap(HTTP.get)(Settings.feedUrl).wait();
-  //console.log(jsonResponse);
   try {
     // They are returning their json as js so response.data doesn't work.
     // we have to explicitly parse response.content.
     //docs = dataToDocs(jsonResponse.data.data);
     docs = dataToDocs(JSON.parse(jsonResponse.content).data);
   } catch (e){
-    console.log('Error converting data to docs',e);
+    console.error('WebIndex: Error converting data to docs');
+    console.error(e);
   }
   if (docs.length > 0) {
-    console.log('We got new data. Removing old...');
+    console.log('WebIndex: We got new data. Removing old...');
     WebIndexData.remove({});
   } else {
-    console.log('No new data.');
+    console.log('WebIndex: No new data.');
   }
   _.each(docs, function(doc) {
     WebIndexData.insert(doc);
