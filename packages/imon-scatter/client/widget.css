@@ -4,13 +4,13 @@
 
 .imon-scatter .chart-labels .chart-label {
   pointer-events: none;
-  display: none;
+  visibility: hidden;
 }
 .imon-scatter .chart-label-bg {
   opacity: 0.5;
 }
 .imon-scatter .chart-labels .chart-label.visible-label {
-  display: initial;
+  visibility: visible;
 }
 
 .imon-scatter .chart-dots circle {
