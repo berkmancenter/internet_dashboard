@@ -13,7 +13,8 @@ Mixed.extend('Dots', {
     this.attachLabels();
   },
   itemStyle: helpers.di(function(chart, d, i) {
-    return 'fill: ' + chart.colorScale(d.code);
+    return 'fill: ' + Settings.chart.dots.color + '; ' +
+           'opacity: ' + Settings.chart.dots.opacity + ';';
   }),
   onDataBind: function(selection, data) {
     return selection.selectAll('circle')
@@ -44,13 +45,18 @@ Mixed.extend('Dots', {
   },
 
   showLabel: helpers.di(function(chart, d, i) {
-    var labels = chart.base.selectAll('g.chart-series').selectAll('g');
+    var circles = chart.base.selectAll('g.chart-dots circle');
+    circles.each(function(e, j) {
+      d3.select(this).classed('selected', d === e);
+    });
+
+    var labels = chart.base.selectAll('g.chart-labels g.chart-label');
     labels.each(function(e, j) {
       d3.select(this).classed('visible-label', d === e);
     });
   }),
   rValue: helpers.property({
-    default_value: Settings.chart.dotSize
+    default_value: Settings.chart.dots.size
   }),
   xJitter: helpers.property({
     default_value: 0
