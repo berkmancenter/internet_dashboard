@@ -67,6 +67,8 @@ var fetchData = function() {
     WebIndexData.insert(doc);
   });
   console.log('WebIndex: Fetched data');
+  WebIndexData._ensureIndex({metricId:1});
+  console.log('WebIndex: Indexed data');
 };
 
 if (Meteor.settings.doJobs) {
@@ -75,5 +77,8 @@ if (Meteor.settings.doJobs) {
 }
 
 Meteor.publish('webindex_data', function() {
-  return WebIndexData.find({metricId:{ $in: _.pluck(WebIndex.metrics,'id')}});
+  var selector = {metricId:{ $in: _.pluck(WebIndex.metrics,'id')}};
+  var options  = {fields: {score: 1, countryCode: 1, metricId: 1} };
+  var docs = WebIndexData.find(selector,options);
+  return docs;
 });
