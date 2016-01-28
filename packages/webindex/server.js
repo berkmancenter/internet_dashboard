@@ -76,8 +76,8 @@ if (Meteor.settings.doJobs) {
   Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
 }
 
-Meteor.publish('webindex_data', function() {
-  var selector = {metricId:{ $in: _.pluck(WebIndex.metrics,'id')}};
+Meteor.publish('webindex_data', function(metricId) {
+  var selector = {metricId: metricId };
   var options  = {fields: {score: 1, countryCode: 1, metricId: 1} };
   var docs = WebIndexData.find(selector,options);
   return docs;

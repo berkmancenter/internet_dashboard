@@ -1,24 +1,27 @@
-Template.WebIndexWidget.helpers({
-  updatedAt: function() { return WebIndexData.findOne().updatedAt; }
-});
+
+
+var currentMetric = function(){
+  return Template.currentData().metric ? Template.currentData().metric : metric = WebIndex.defaultMetric;
+};
 
 Template.WebIndexWidget.onCreated(function() {
-  this.subscribe('webindex_data');
+  // initial subscription.
+  var metric = currentMetric();
+  this.subscribe('webindex_data',metric.id);    
 });
 
 Template.WebIndexWidget.onRendered(function() {
   var template = this;
-  
+
   this.autorun(function() {
-
-    var metric;
-
+    // update subscription.
+    var metric = currentMetric();
+    template.subscribe('webindex_data',metric.id);    
+    
     if (!template.subscriptionsReady()) {
       return;
     }
     
-    metric = Template.currentData().metric ? Template.currentData().metric : metric = WebIndex.defaultMetric;
-
     d3.select(template.find('.metric_name')).text(metric.name);
     
     template.$('.webindex-data').html('');
