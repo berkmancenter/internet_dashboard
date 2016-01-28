@@ -1,7 +1,7 @@
 
 
 var currentMetric = function(){
-  return Template.currentData().metric ? Template.currentData().metric : metric = WebIndex.defaultMetric;
+  return Template.currentData().metric ? Template.currentData().metric : metric = Template.WebIndexSettings.defaultMetric;
 };
 
 Template.WebIndexWidget.onCreated(function() {
