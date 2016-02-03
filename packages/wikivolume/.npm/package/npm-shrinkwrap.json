@@ -6,9 +6,6 @@
         "irc": {
           "version": "https://github.com/martynsmith/node-irc/tarball/master",
           "dependencies": {
-            "ansi-color": {
-              "version": "0.2.1"
-            },
             "irc-colors": {
               "version": "1.1.0",
               "dependencies": {
@@ -22,13 +19,8 @@
                 }
               }
             },
-            "iconv": {
-              "version": "2.1.6",
-              "dependencies": {
-                "nan": {
-                  "version": "1.6.2"
-                }
-              }
+            "ansi-color": {
+              "version": "0.2.1"
             }
           }
         },
