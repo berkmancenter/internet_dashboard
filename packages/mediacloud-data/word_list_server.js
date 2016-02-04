@@ -1,6 +1,10 @@
 var Future = Npm.require('fibers/future');
 
 WordList = {
+  needsFetching: function() {
+    return WordLists.find().count() < Settings.wordLists.tagSet.length;
+  },
+
   url: function(args) {
     var dateFormat = 'YYYY-MM-DD';
     args.startDate = args.startDate.format(dateFormat);
@@ -95,7 +99,7 @@ WordList = {
 };
 
 if (Meteor.settings.doJobs) {
-  if (WordLists.find().count() === 0) {
+  if (WordList.needsFetching()) {
     Future.task(WordList.updateData);
   }
   Meteor.setInterval(WordList.updateData.future(), Settings.wordLists.updateEvery);
