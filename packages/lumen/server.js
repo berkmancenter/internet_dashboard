@@ -1,5 +1,5 @@
 Settings.authToken = Assets.getText('apiKey.txt');
-Settings.timeout = 60 * 1000;
+Settings.timeout = 120 * 1000;
 
 var Future = Npm.require('fibers/future');
 var get = Future.wrap(HTTP.get);
@@ -103,7 +103,7 @@ var updateLumenCounts = function() {
 if (Meteor.settings.doJobs) {
   // If we don't have any counts or our most recent is older than our update
   // interval...
-  if (LumenCounts.find().count() === 0 ||
+  if (LumenCounts.find().count() < Settings.numBins ||
       LumenCounts.findOne({}, { sort: { start: -1 } }).start +
       Settings.updateEvery.asMilliseconds() < Date.now()) {
     Future.task(updateLumenCounts);
