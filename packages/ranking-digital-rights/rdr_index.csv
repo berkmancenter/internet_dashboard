@@ -67,18 +67,18 @@ Commitment,Video/photo,Instagram,66.39,3
 Freedom of expression,Video/photo,Instagram,39.375,4
 Privacy,Video/photo,Instagram,31.375,4
 Total,Video/photo,Instagram,41.0446666667,3
-Commitment,IM & calls,KakaoTalk,41.1116666667,3
-Freedom of expression,IM & calls,KakaoTalk,52.916,1
-Privacy,IM & calls,KakaoTalk,43.9107142857,2
-Total,IM & calls,KakaoTalk,46.3526666667,2
+Commitment,Messaging & VoIP,KakaoTalk,41.1116666667,3
+Freedom of expression,Messaging & VoIP,KakaoTalk,52.916,1
+Privacy,Messaging & VoIP,KakaoTalk,43.9107142857,2
+Total,Messaging & VoIP,KakaoTalk,46.3526666667,2
 Commitment,Mail service,Mail.Ru,3.3333333333,5
 Freedom of expression,Mail service,Mail.Ru,38.0957142857,5
 Privacy,Mail service,Mail.Ru,9.7378571429,5
 Total,Mail service,Mail.Ru,15.6666666667,5
-Commitment,IM & calls,Mail.Ru agent,3.3333333333,6
-Freedom of expression,IM & calls,Mail.Ru agent,26.667,3
-Privacy,IM & calls,Mail.Ru agent,6.7621428571,6
-Total,IM & calls,Mail.Ru agent,12.7113333333,6
+Commitment,Messaging & VoIP,Mail.Ru agent,3.3333333333,6
+Freedom of expression,Messaging & VoIP,Mail.Ru agent,26.667,3
+Privacy,Messaging & VoIP,Mail.Ru agent,6.7621428571,6
+Total,Messaging & VoIP,Mail.Ru agent,12.7113333333,6
 Commitment,Mobile,MTN,22.2216666667,4
 Freedom of expression,Mobile,MTN,20,6
 Privacy,Mobile,MTN,13.6941666667,7
@@ -95,18 +95,18 @@ Commitment,Mail service,Outlook.com,82.0366666667,1
 Freedom of expression,Mail service,Outlook.com,59.5228571429,3
 Privacy,Mail service,Outlook.com,54.6435714286,3
 Total,Mail service,Outlook.com,61.9959259259,2
-Commitment,IM & calls,QQ,7.9166666667,4
-Freedom of expression,IM & calls,QQ,18.334,6
-Privacy,IM & calls,QQ,19.6192857143,4
-Total,IM & calls,QQ,16.8503333333,4
+Commitment,Messaging & VoIP,QQ,7.9166666667,4
+Freedom of expression,Messaging & VoIP,QQ,18.334,6
+Privacy,Messaging & VoIP,QQ,19.6192857143,4
+Total,Messaging & VoIP,QQ,16.8503333333,4
 Commitment,Social network & blog,Qzone,7.9166666667,5
 Freedom of expression,Social network & blog,Qzone,18.334,5
 Privacy,Social network & blog,Qzone,16.0478571429,6
 Total,Social network & blog,Qzone,15.1836666667,5
-Commitment,IM & calls,Skype,82.0366666667,1
-Freedom of expression,IM & calls,Skype,43.541,2
-Privacy,IM & calls,Skype,52.2621428571,1
-Total,IM & calls,Skype,55.31,1
+Commitment,Messaging & VoIP,Skype,82.0366666667,1
+Freedom of expression,Messaging & VoIP,Skype,43.541,2
+Privacy,Messaging & VoIP,Skype,52.2621428571,1
+Total,Messaging & VoIP,Skype,55.31,1
 Commitment,Social network & blog,Tumblr,81.76,1
 Freedom of expression,Social network & blog,Tumblr,52.64,2
 Privacy,Social network & blog,Tumblr,46.7364285714,3
@@ -127,14 +127,14 @@ Commitment,Mobile,Vodafone,74.6291666667,1
 Freedom of expression,Mobile,Vodafone,46.667,1
 Privacy,Mobile,Vodafone,48.7083333333,2
 Total,Mobile,Vodafone,53.53375,1
-Commitment,IM & calls,WeChat,7.9166666667,5
-Freedom of expression,IM & calls,WeChat,20,5
-Privacy,IM & calls,WeChat,16.0478571429,5
-Total,IM & calls,WeChat,15.739,5
-Commitment,IM & calls,WhatsApp,41.6666666667,2
-Freedom of expression,IM & calls,WhatsApp,22.917,4
-Privacy,IM & calls,WhatsApp,20.1192857143,3
-Total,IM & calls,WhatsApp,25.3613333333,3
+Commitment,Messaging & VoIP,WeChat,7.9166666667,5
+Freedom of expression,Messaging & VoIP,WeChat,20,5
+Privacy,Messaging & VoIP,WeChat,16.0478571429,5
+Total,Messaging & VoIP,WeChat,15.739,5
+Commitment,Messaging & VoIP,WhatsApp,41.6666666667,2
+Freedom of expression,Messaging & VoIP,WhatsApp,22.917,4
+Privacy,Messaging & VoIP,WhatsApp,20.1192857143,3
+Total,Messaging & VoIP,WhatsApp,25.3613333333,3
 Commitment,Mail service,Yahoo! Mail,78.4266666667,2
 Freedom of expression,Mail service,Yahoo! Mail,52.3814285714,4
 Privacy,Mail service,Yahoo! Mail,54.7742857143,2

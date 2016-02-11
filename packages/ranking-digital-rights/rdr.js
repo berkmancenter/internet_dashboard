@@ -1,6 +1,6 @@
 Settings = {
   categories: [ 'Mobile', 'Fixed broadband', 'Social network & blog',
-    'IM & calls', 'Search', 'Mail service', 'Video/photo' ],
+    'Messaging & VoIP', 'Search', 'Mail service', 'Video/photo' ],
   defaultCategory: 'Mobile',
   metrics: [
     { name: 'Commitment', classes: 'tilted' },

@@ -30,7 +30,8 @@ function parseData() {
   });
 }
 
-if (Meteor.settings.doJobs && RDRData.find().count() === 0) {
+if (Meteor.settings.doJobs) {
+  RDRData.remove({});
   parseData();
 }
 
