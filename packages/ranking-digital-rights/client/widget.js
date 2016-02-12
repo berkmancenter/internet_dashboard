@@ -1,9 +1,9 @@
 Template.RDRWidget.helpers({
-  companies: function() {
+  services: function() {
     return RDRData.find({ category: this.category });
   },
-  companySlug: function() {
-    return s.slugify(this.company);
+  serviceSlug: function() {
+    return s.slugify(this.service);
   },
   metrics: function() {
     return Settings.metrics;
@@ -26,15 +26,15 @@ Template.RDRWidget.onCreated(function() {
 Template.RDRWidget.onRendered(function() {
   var template = this;
   var pieColors = d3.scale.category10();
-  var $companyList = template.$('table tbody');
+  var $serviceList = template.$('table tbody');
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
 
     var category = Template.currentData().category;
     var sort = Template.currentData().sortMetric;
-    var $metrics, companySlug, data, selector, cell;
+    var $metrics, serviceSlug, data, selector, cell;
 
-    $companyList.empty();
+    $serviceList.empty();
 
     var records = RDRData.find({ category: category }).fetch();
     console.log('1.REINOS.records: ');
@@ -48,16 +48,17 @@ Template.RDRWidget.onRendered(function() {
     console.log(records);
     records.forEach(function(record) {
       serviceSlug = s.slugify(record.service);
-      $companyList.append(
-        '<tr class="company company-' + serviceSlug + '">' +
+      $serviceList.append(
+        '<tr class="service service-' + serviceSlug + '">' +
           '<td><div class="service">' + record.service + '</div><div class="company">' + record.company + ' [' + record.country +']</div></td>' + '</tr>');
 
-      selector = '.company-' + serviceSlug;
+      selector = '.service-' + serviceSlug;
       metricsNode = template.find(selector);
 
       Settings.metrics.forEach(function(metric) {
-        var metricData = _.findWhere(record.service_metrics, { name: metric.name });
-        data = [metricData.value, 100.0 - metricData.value];
+        var serviceMetricData = _.findWhere(record.service_metrics, { name: metric.name });
+        var companyMetricData = _.findWhere(record.company_metrics, { name: metric.name });
+        data = [serviceMetricData.value, 100.0 - serviceMetricData.value, companyMetricData.value];
         cell = $('<td>').addClass('text-center').appendTo(metricsNode).get(0);
         radius = metric.name === Settings.totalMetric ?
           Settings.pie.totalRadius : Settings.pie.radius;
@@ -69,7 +70,7 @@ Template.RDRWidget.onRendered(function() {
 
 function drawGraph(parent, data, radius, color) {
   var width = radius,
-      height = radius,
+      height = radius+22,
       pieRadius = Math.min(width, height) / 2;
 
   var arc = d3.svg.arc()
@@ -99,4 +100,11 @@ function drawGraph(parent, data, radius, color) {
     .attr('text-anchor', 'middle')
     .attr('y', 4)
     .text(Math.round(data[0]));
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('alignment-baseline','hanging')
+    .attr('y', radius/2+2)
+    .text(Math.round(data[2]));
+  
 }
