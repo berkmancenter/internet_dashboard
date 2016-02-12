@@ -37,21 +37,26 @@ Template.RDRWidget.onRendered(function() {
     $companyList.empty();
 
     var records = RDRData.find({ category: category }).fetch();
+    console.log('1.REINOS.records: ');
+    console.log(records);
     records = _.sortBy(records, function(record) {
-      return _.findWhere(record.metrics, { name: sort }).rank;
+      console.log('1.1.REINOS: record');
+      console.log(record);
+      return _.findWhere(record.service_metrics, { name: sort }).rank;
     });
-
+    console.log('2.REINOS.sorted records: ');
+    console.log(records);
     records.forEach(function(record) {
-      companySlug = s.slugify(record.company);
+      serviceSlug = s.slugify(record.service);
       $companyList.append(
-        '<tr class="company company-' + companySlug + '">' +
-          '<td>' + record.company + '</td>' + '</tr>');
+        '<tr class="company company-' + serviceSlug + '">' +
+          '<td><div class="service">' + record.service + '</div><div class="company">' + record.company + ' [' + record.country +']</div></td>' + '</tr>');
 
-      selector = '.company-' + companySlug;
+      selector = '.company-' + serviceSlug;
       metricsNode = template.find(selector);
 
       Settings.metrics.forEach(function(metric) {
-        var metricData = _.findWhere(record.metrics, { name: metric.name });
+        var metricData = _.findWhere(record.service_metrics, { name: metric.name });
         data = [metricData.value, 100.0 - metricData.value];
         cell = $('<td>').addClass('text-center').appendTo(metricsNode).get(0);
         radius = metric.name === Settings.totalMetric ?

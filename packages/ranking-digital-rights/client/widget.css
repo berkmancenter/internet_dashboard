@@ -30,3 +30,12 @@
   font-size: 0.8em;
   fill: #666;
 }
+.ranking-digital-rights th div.service-header {
+    color: #666;
+    font-size: 1.3em;
+}
+.ranking-digital-rights th div.company-header {
+    color: #999;
+    font-size: 1.0em;
+    font-weight: normal,
+}

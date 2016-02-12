@@ -21,7 +21,7 @@ Package.onUse(function(api) {
       ], 'client');
   api.addFiles(['server.js'], 'server');
   api.addFiles('rdr_index.csv', 'server', { isAsset: true });
-
+  api.addFiles('rdr_companies.tsv', 'server', { isAsset: true });
   api.export('RDR');
 });
 

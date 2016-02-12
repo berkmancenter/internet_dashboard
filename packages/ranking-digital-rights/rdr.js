@@ -21,11 +21,16 @@ Settings = {
 RDRData = new Mongo.Collection('ranking_digital_rights');
 RDRData.attachSchema(new SimpleSchema({
   category: { type: String },
+  service: { type: String },
   company: { type: String },
-  metrics: { type: [Object] },
-  'metrics.$.name': { type: String },
-  'metrics.$.value': { type: Number, decimal: true },
-  'metrics.$.rank': { type: Number }
+  country: { type: String },
+  service_metrics: { type: [Object] },
+  'service_metrics.$.name': { type: String },
+  'service_metrics.$.value': { type: Number, decimal: true },
+  'service_metrics.$.rank': { type: Number },
+  company_metrics: { type: [Object] },
+  'company_metrics.$.name': { type: String },
+  'company_metrics.$.value': { type: Number, decimal: true }
 }));
 
 RDRWidget = function(doc) {
