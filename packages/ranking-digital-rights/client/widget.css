@@ -30,6 +30,11 @@
   font-size: 0.8em;
   fill: #666;
 }
+
+.ranking-digital-rights svg text.company-score {
+  font-size: 0.6em;
+}
+
 .ranking-digital-rights th div.service-header {
     color: #000;
     font-size: 1.3em;
