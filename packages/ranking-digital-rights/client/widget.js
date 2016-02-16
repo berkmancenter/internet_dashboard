@@ -64,7 +64,7 @@ Template.RDRWidget.onRendered(function() {
 
 function drawGraph(parent, data, radius, color) {
   var width = radius,
-      height = radius+22,
+      height = radius+23,
       pieRadius = Math.min(width, height) / 2;
 
   var arc = d3.svg.arc()
@@ -95,10 +95,10 @@ function drawGraph(parent, data, radius, color) {
     .attr('y', 4)
     .text(Math.round(data[0]));
 
-  g.append('text')
+  svg.append('text')
     .attr('text-anchor', 'middle')
     .attr('alignment-baseline','hanging')
-    .attr('y', radius/2+2)
+    .attr('y', radius/2+3)
     .text(Math.round(data[2]));
   
 }

@@ -48,7 +48,7 @@ RDR = {
     name: 'Corporate Accountability Index',
     description: 'Ranks Internet and telecommunications companies on their practices around freedom of expression and privacy',
     url: 'https://rankingdigitalrights.org/index2015/download/',
-    dimensions: { width: 2, height: 3 },
+    dimensions: { width: 3, height: 4 },
     resize: {
       constraints: { width: { min: 2 }, height: { min: 2 }},
       mode: 'reflow'

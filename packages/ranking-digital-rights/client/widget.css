@@ -31,11 +31,25 @@
   fill: #666;
 }
 .ranking-digital-rights th div.service-header {
-    color: #666;
+    color: #000;
     font-size: 1.3em;
 }
 .ranking-digital-rights th div.company-header {
-    color: #999;
+    color: #000;
     font-size: 1.0em;
     font-weight: normal,
+}
+
+.ranking-digital-rights td div.service {
+    color: #000;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin-top: .7em;
+}
+
+.ranking-digital-rights td div.company {
+    color: #000;
+    font-size: 1.0em;
+    font-weight: normal;
+    margin-top: .8em;
 }
