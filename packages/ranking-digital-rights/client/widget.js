@@ -37,15 +37,9 @@ Template.RDRWidget.onRendered(function() {
     $serviceList.empty();
 
     var records = RDRData.find({ category: category }).fetch();
-    console.log('1.REINOS.records: ');
-    console.log(records);
     records = _.sortBy(records, function(record) {
-      console.log('1.1.REINOS: record');
-      console.log(record);
       return _.findWhere(record.service_metrics, { name: sort }).rank;
     });
-    console.log('2.REINOS.sorted records: ');
-    console.log(records);
     records.forEach(function(record) {
       serviceSlug = s.slugify(record.service);
       $serviceList.append(

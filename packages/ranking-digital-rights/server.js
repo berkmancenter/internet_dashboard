@@ -12,18 +12,15 @@ function parseData() {
     tsvText,
     {columns: true, auto_parse: true, delimiter: '\t'},
     function(err,output){
-      console.log('1.RDR: Parsing TSV company data file...');
+      console.log('RDR: Parsing TSV company data file...');
       if(err){
         console.error('RDR: TSV parse error');
         console.error(err);
         return;
       }
       output.forEach(function(row){
-        console.log('1.1.RDR:company from TSV');
-        console.log(row);
         companyMap[row.company]=row;
       });
-      console.log('2.RDR: done with TSV company data file.');
     });
   
 
@@ -31,7 +28,7 @@ function parseData() {
     csvText,
     { columns: true, auto_parse: true },
     function(err, output) {
-      console.log('3.RDR: Parsing CSV service data file...');
+      console.log('RDR: Parsing CSV service data file...');
       if (err) {
         console.error('RDR: CSV parse error');
         console.error(err);
@@ -41,10 +38,6 @@ function parseData() {
       var company_metrics = [];
       output.forEach(function(row) {
         var company = companyMap[row.company];
-        console.log('3.1.RDR:row');
-        console.log(row);
-        console.log('3.2.RDR:company');
-        console.log(company);
         service_metrics.push({ name: row.metric, value: row.value, rank: row.rank });
         company_metrics.push({ name: row.metric, value: company[row.metric] });
         if (service_metrics.length < 4) {
@@ -53,7 +46,6 @@ function parseData() {
           return;
         }
         try {
-          console.log('3.3.RDR:inserting row!');
           RDRData.insert({
             category: row.category,
             service: row.service,
@@ -68,7 +60,6 @@ function parseData() {
           console.error(error);
         }
       });
-      console.log('4.RDR: Done with CSV service data file.');
     });
 
 }
