@@ -5,7 +5,7 @@
   font-size: 1.3em;
 }
 .ranking-digital-rights table {
-  margin-top: 1em;
+  margin-top: .5em;
 }
 
 .ranking-digital-rights th.tilted {
@@ -26,13 +26,19 @@
   vertical-align: middle !important;
   padding: 3px 2px 0 !important;
 }
+
+.ranking-digital-rights svg {
+    margin-top:1em;
+}
+
 .ranking-digital-rights svg text {
-  font-size: 0.8em;
-  fill: #666;
+    font-color: #000!;
+    font-size: .8em;
 }
 
 .ranking-digital-rights svg text.company-score {
-  font-size: 0.6em;
+    font-size: 0.8em;
+    color: #666;
 }
 
 .ranking-digital-rights th div.service-header {
@@ -40,7 +46,7 @@
     font-size: 1.3em;
 }
 .ranking-digital-rights th div.company-header {
-    color: #000;
+    color: #666;
     font-size: 1.0em;
     font-weight: normal,
 }
@@ -49,12 +55,12 @@
     color: #000;
     font-size: 1.2em;
     font-weight: normal;
-    margin-top: .7em;
+    margin-top: .1em;
 }
 
 .ranking-digital-rights td div.company {
-    color: #000;
+    color: #666;
     font-size: 1.0em;
     font-weight: normal;
-    margin-top: .8em;
+    margin-top: 1em;
 }

@@ -44,7 +44,7 @@ Template.RDRWidget.onRendered(function() {
       serviceSlug = s.slugify(record.service);
       $serviceList.append(
         '<tr class="service service-' + serviceSlug + '">' +
-          '<td><div class="service">' + record.service + '</div><div class="company">' + record.company + ' [' + record.country +']</div></td>' + '</tr>');
+          '<td><div class="service">' + record.service +  (_.contains(['Mobile','Fixed broadband'],record.category) ? ' (' + record.country +')' : '') + '</div><div class="company">' + record.company + '</div></td>' + '</tr>');
 
       selector = '.service-' + serviceSlug;
       metricsNode = template.find(selector);
@@ -63,9 +63,9 @@ Template.RDRWidget.onRendered(function() {
 });
 
 function drawGraph(parent, data, radius, color) {
-  var width = radius,
-      height = radius+30,
-      pieRadius = Math.min(width, radius) / 2;
+  var width     = radius,
+      height    = radius +30;
+  var pieRadius = radius / 2;
 
   var arc = d3.svg.arc()
     .outerRadius(pieRadius)
@@ -77,7 +77,7 @@ function drawGraph(parent, data, radius, color) {
     .attr("width", width)
     .attr("height", height)
     .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    .attr("transform", "translate(" + radius / 2 + "," + radius / 2 + ")");
 
   var g = svg.selectAll(".arc")
     .data(pie(data))

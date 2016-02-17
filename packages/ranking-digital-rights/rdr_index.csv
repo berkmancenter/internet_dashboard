@@ -1,8 +1,8 @@
 metric,category,service,company,value,rank,
-Commitment,Mobile,América Móvil,América Móvil,10.8333333333,6,
-Freedom of expression,Mobile,América Móvil,América Móvil,26.666,4
-Privacy,Mobile,América Móvil,América Móvil,24.7775,3
-Total,Mobile,América Móvil,América Móvil,22.4639285714,4
+Commitment,Mobile,Telcel,América Móvil,10.8333333333,6,
+Freedom of expression,Mobile,Telcel,América Móvil,26.666,4
+Privacy,Mobile,Telcel,América Móvil,24.7775,3
+Total,Mobile,Telcel,América Móvil,22.4639285714,4
 Commitment,Fixed broadband,AT&T,AT&T,56.9,2
 Freedom of expression,Fixed broadband,AT&T,AT&T,42.43,1
 Privacy,Fixed broadband,AT&T,AT&T,51.1525,1
@@ -11,18 +11,18 @@ Commitment,Mobile,AT&T,AT&T,56.9,3
 Freedom of expression,Mobile,AT&T,AT&T,42.43,2
 Privacy,Mobile,AT&T,AT&T,53.2358333333,1
 Total,Mobile,AT&T,AT&T,50.1617857143,2
-Commitment,Mobile,Axiata,Axiata,0,8
-Freedom of expression,Mobile,Axiata,Axiata,23.334,5
-Privacy,Mobile,Axiata,Axiata,16.9308333333,6
-Total,Mobile,Axiata,Axiata,15.5896428571,7
+Commitment,Mobile,Celcom,Axiata,0,8
+Freedom of expression,Mobile,Celcom,Axiata,23.334,5
+Privacy,Mobile,Celcom,Axiata,16.9308333333,6
+Total,Mobile,Celcom,Axiata,15.5896428571,7
 Commitment,Fixed broadband,Bharti Airtel,Bharti Airtel,12.5,3
-Freedom of expression,Fixed broadband,Bharti Airtel,Bharti Airtel,15,4
-Privacy,Fixed broadband,Bharti Airtel,Bharti Airtel,20.6316666667,3
-Total,Fixed broadband,Bharti Airtel,Bharti Airtel,16.8778571429,3
-Commitment,Mobile,Bharti Airtel,Bharti Airtel,12.5,5
-Freedom of expression,Mobile,Bharti Airtel,Bharti Airtel,16.667,8
-Privacy,Mobile,Bharti Airtel,Bharti Airtel,20.6316666667,5
-Total,Mobile,Bharti Airtel,Bharti Airtel,17.4732142857,6
+Freedom of expression,Fixed broadband,Airtel,Bharti Airtel,15,4
+Privacy,Fixed broadband,Airtel,Bharti Airtel,20.6316666667,3
+Total,Fixed broadband,Airtel,Bharti Airtel,16.8778571429,3
+Commitment,Mobile,Airtel,Bharti Airtel,12.5,5
+Freedom of expression,Mobile,Airtel,Bharti Airtel,16.667,8
+Privacy,Mobile,Airtel,Bharti Airtel,20.6316666667,5
+Total,Mobile,Airtel,Bharti Airtel,17.4732142857,6
 Commitment,Search,Bing,Microsoft,82.0366666667,1
 Freedom of expression,Search,Bing,Microsoft,36.4575,3
 Privacy,Search,Bing,Microsoft,55.2569230769,2
@@ -75,10 +75,10 @@ Commitment,Mail service,Mail.Ru,Mail.Ru,3.3333333333,5
 Freedom of expression,Mail service,Mail.Ru,Mail.Ru,38.0957142857,5
 Privacy,Mail service,Mail.Ru,Mail.Ru,9.7378571429,5
 Total,Mail service,Mail.Ru,Mail.Ru,15.6666666667,5
-Commitment,Messaging & VoIP,Mail.Ru agent,Mail.Ru,3.3333333333,6
-Freedom of expression,Messaging & VoIP,Mail.Ru agent,Mail.Ru,26.667,3
-Privacy,Messaging & VoIP,Mail.Ru agent,Mail.Ru,6.7621428571,6
-Total,Messaging & VoIP,Mail.Ru agent,Mail.Ru,12.7113333333,6
+Commitment,Messaging & VoIP,Mail.Ru,Mail.Ru,3.3333333333,6
+Freedom of expression,Messaging & VoIP,Mail.Ru,Mail.Ru,26.667,3
+Privacy,Messaging & VoIP,Mail.Ru,Mail.Ru,6.7621428571,6
+Total,Messaging & VoIP,Mail.Ru,Mail.Ru,12.7113333333,6
 Commitment,Mobile,MTN,MTN,22.2216666667,4
 Freedom of expression,Mobile,MTN,MTN,20,6
 Privacy,Mobile,MTN,MTN,13.6941666667,7
@@ -91,10 +91,10 @@ Commitment,Mobile,Orange,Orange,73.3333333333,2
 Freedom of expression,Mobile,Orange,Orange,28.334,3
 Privacy,Mobile,Orange,Orange,24.5416666667,4
 Total,Mobile,Orange,Orange,36.3514285714,3
-Commitment,Mail service,Outlook.com,Microsoft,82.0366666667,1
-Freedom of expression,Mail service,Outlook.com,Microsoft,59.5228571429,3
-Privacy,Mail service,Outlook.com,Microsoft,54.6435714286,3
-Total,Mail service,Outlook.com,Microsoft,61.9959259259,2
+Commitment,Mail service,Outlook,Microsoft,82.0366666667,1
+Freedom of expression,Mail service,Outlook,Microsoft,59.5228571429,3
+Privacy,Mail service,Outlook,Microsoft,54.6435714286,3
+Total,Mail service,Outlook,Microsoft,61.9959259259,2
 Commitment,Messaging & VoIP,QQ,Tencent,7.9166666667,4
 Freedom of expression,Messaging & VoIP,QQ,Tencent,18.334,6
 Privacy,Messaging & VoIP,QQ,Tencent,19.6192857143,4

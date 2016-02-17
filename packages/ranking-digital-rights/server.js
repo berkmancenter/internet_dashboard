@@ -19,6 +19,8 @@ function parseData() {
         return;
       }
       output.forEach(function(row){
+        console.log('REINOS. reading company:');
+        console.log(row);
         companyMap[row.company]=row;
       });
     });
@@ -37,7 +39,20 @@ function parseData() {
       var service_metrics = [];
       var company_metrics = [];
       output.forEach(function(row) {
+
+        console.log('REINOS. reading service:');
+        console.log(row);
+        console.log('REINOS: company key is : ' + row.company );
         var company = companyMap[row.company];
+        console.log('REINOS: ths company I found by that key is ');
+        console.log(company);
+
+        if ( ! company ) {
+          console.log("die this is shit");
+          exit();
+        }
+
+        
         service_metrics.push({ name: row.metric, value: row.value, rank: row.rank });
         company_metrics.push({ name: row.metric, value: company[row.metric] });
         if (service_metrics.length < 4) {
@@ -49,7 +64,7 @@ function parseData() {
           RDRData.insert({
             category: row.category,
             service: row.service,
-            company: company.name,
+            company: company.company,
             country: company.country,
             company_metrics: company_metrics,
             service_metrics: service_metrics
