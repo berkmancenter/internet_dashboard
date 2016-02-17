@@ -63,6 +63,7 @@ Template.RDRWidget.onRendered(function() {
 });
 
 function drawGraph(parent, data, radius, color) {
+  
   var width     = radius,
       height    = radius +30;
   var pieRadius = radius / 2;
@@ -80,7 +81,7 @@ function drawGraph(parent, data, radius, color) {
     .attr("transform", "translate(" + radius / 2 + "," + radius / 2 + ")");
 
   var g = svg.selectAll(".arc")
-    .data(pie(data))
+      .data(pie([data[0],data[1]]))
     .enter().append("g")
     .attr("class", "arc");
 
