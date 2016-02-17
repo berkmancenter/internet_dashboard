@@ -14,7 +14,7 @@ Router.route('/widgets/:_id/embed', {
   }
 });
 
-Router.route('/widgets/jobs', {
+Router.route('/admin/jobs', {
   name: 'widgets-jobs'
 });
 

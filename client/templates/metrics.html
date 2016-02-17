@@ -1,0 +1,21 @@
+<template name="AdminMetrics">
+<div class="container page">
+  <h2>Metrics</h2>
+  <table class="table table-condensed">
+    <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Number of dashboards</td><td>{{ numDashboards }}</td></tr>
+      <tr><td>Number of registered users</td><td>{{ numUsers }}</td></tr>
+    </tbody>
+  </table>
+
+  <table class="table table-condensed table-striped">
+    <thead><tr><th>Widget</th><th>Number of instances</th></tr></thead>
+    <tbody>
+    {{# each widgetCounts }}
+      <tr><td>{{ name }}</td><td>{{ numInstances }}</td></tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>
+</template>
