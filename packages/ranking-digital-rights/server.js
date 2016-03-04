@@ -19,8 +19,8 @@ function parseData() {
         return;
       }
       output.forEach(function(row){
-        console.log('REINOS. reading company:');
-        console.log(row);
+        //console.log('REINOS. reading company:');
+        //console.log(row);
         companyMap[row.company]=row;
       });
     });
@@ -40,12 +40,12 @@ function parseData() {
       var company_metrics = [];
       output.forEach(function(row) {
 
-        console.log('REINOS. reading service:');
-        console.log(row);
-        console.log('REINOS: company key is : ' + row.company );
+        //console.log('REINOS. reading service:');
+        //console.log(row);
+        //console.log('REINOS: company key is : ' + row.company );
         var company = companyMap[row.company];
-        console.log('REINOS: ths company I found by that key is ');
-        console.log(company);
+        //console.log('REINOS: ths company I found by that key is ');
+        //console.log(company);
 
         if ( ! company ) {
           console.log("die this is shit");

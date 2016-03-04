@@ -1,4 +1,6 @@
 Settings = {
+  granularities: [ 'Companies', 'Services'],
+  defaultGranularity: 'Services',
   categories: [ 'Mobile', 'Fixed broadband', 'Social network & blog',
     'Messaging & VoIP', 'Search', 'Mail service', 'Video/photo' ],
   defaultCategory: 'Mobile',

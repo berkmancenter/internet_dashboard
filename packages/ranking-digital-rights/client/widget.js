@@ -31,12 +31,33 @@ Template.RDRWidget.onRendered(function() {
     if (!template.subscriptionsReady()) { return; }
 
     var category = Template.currentData().category;
+    var granularity = Template.currentData().granularity;
     var sort = Template.currentData().sortMetric;
     var $metrics, serviceSlug, data, selector, cell;
 
     $serviceList.empty();
 
     var records = RDRData.find({ category: category }).fetch();
+    if (granularity === 'Companies'){
+      // turn service records into company records.
+      records = _.map(records, function(r){
+        return { service: r.company,
+                 service_metrics: r.company_metrics,
+                 company: ""};
+      });
+      // get rid of duplicate company records.
+      // why doesn't this work?
+      //records = _.uniq(records,'service');
+      var seenCompanies = [];
+      var uniqRecords = [];
+      _.each(records,function(r){
+        if ( !_.contains(seenCompanies,r.service)) {
+          uniqRecords.push(r);
+        }
+        seenCompanies.push(r.service);
+      });
+      records = uniqRecords;
+    }
     records = _.sortBy(records, function(record) {
       return _.findWhere(record.service_metrics, { name: sort }).rank;
     });
@@ -51,8 +72,7 @@ Template.RDRWidget.onRendered(function() {
 
       Settings.metrics.forEach(function(metric) {
         var serviceMetricData = _.findWhere(record.service_metrics, { name: metric.name });
-        var companyMetricData = _.findWhere(record.company_metrics, { name: metric.name });
-        data = [serviceMetricData.value, 100.0 - serviceMetricData.value, companyMetricData.value];
+        data = [serviceMetricData.value, 100.0 - serviceMetricData.value];
         cell = $('<td>').addClass('text-center').appendTo(metricsNode).get(0);
         radius = metric.name === Settings.totalMetric ?
           Settings.pie.totalRadius : Settings.pie.radius;
