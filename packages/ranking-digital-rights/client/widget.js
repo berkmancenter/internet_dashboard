@@ -1,25 +1,33 @@
 Template.RDRWidget.helpers({
-  services: function() {
-    return RDRData.find({ category: this.category });
-  },
-  serviceSlug: function() {
-    return s.slugify(this.service);
-  },
   metrics: function() {
     return Settings.metrics;
   },
   isSorted: function() {
     return this.name === Template.parentData().sortMetric ? 'sorted' : 'not-sorted';
   },
-  isTilted: function() {
-    return this.tilted ? 'tilted' : '';
+  typeName: function(){
+    return Template.currentData().granularity === Settings.COMPANIES_BY_CATEGORY ? "Company" : "Service";
+  },
+  contextName: function(){
+    var g = Template.currentData().granularity;
+    if ( g === Settings.SERVICES_BY_CATEGORY ) {
+      return "Company";
+    } else if (g === Settings.SERVICES_BY_COMPANY ) {
+      return "Category";
+    } else {
+      return "";
+    }
+  },
+  sliceDescription: function(){
+    return Template.currentData().granularity === Settings.SERVICES_BY_COMPANY ? Template.currentData().company : Template.currentData().category;
   }
 });
 
 Template.RDRWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('ranking_digital_rights', Template.currentData().category);
+    template.subscribe('ranking_digital_rights_services',{});
+    template.subscribe('ranking_digital_rights_companies',{});
   });
 });
 
@@ -30,49 +38,66 @@ Template.RDRWidget.onRendered(function() {
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
 
-    var category = Template.currentData().category;
     var granularity = Template.currentData().granularity;
+    var category = Template.currentData().category;
+    var companyName  = Template.currentData().company;
+    
     var sort = Template.currentData().sortMetric;
     var $metrics, serviceSlug, data, selector, cell;
 
     $serviceList.empty();
 
-    var records = RDRData.find({ category: category }).fetch();
-    if (granularity === 'Companies'){
-      // turn service records into company records.
-      records = _.map(records, function(r){
-        return { service: r.company,
-                 service_metrics: r.company_metrics,
-                 company: ""};
-      });
-      // get rid of duplicate company records.
-      // why doesn't this work?
-      //records = _.uniq(records,'service');
-      var seenCompanies = [];
-      var uniqRecords = [];
-      _.each(records,function(r){
-        if ( !_.contains(seenCompanies,r.service)) {
-          uniqRecords.push(r);
-        }
-        seenCompanies.push(r.service);
-      });
-      records = uniqRecords;
+    var records; 
+
+    console.log("Granularity: " + granularity);
+    console.log("CompanyName: " + companyName);
+    console.log("Category: " + category);
+    
+    if (granularity === Settings.COMPANIES_BY_CATEGORY){
+      records = RDRCompanyData.find( {categories: { "$in" : [category] } }).fetch();
+    } else if ( granularity === Settings.SERVICES_BY_COMPANY ){
+        console.log("Services: getting services for company: " + companyName);
+        records = RDRServiceData.find({ company: companyName} ).fetch();
+    } else {
+      console.log("Services: getting services for category: " + category);
+      records = RDRServiceData.find({ category: category }).fetch();
     }
+    console.log("Records: ", records);
+    
     records = _.sortBy(records, function(record) {
-      return _.findWhere(record.service_metrics, { name: sort }).rank;
+      return _.findWhere(record.metrics, { name: sort }).value*-1;
     });
     records.forEach(function(record) {
-      serviceSlug = s.slugify(record.service);
+      var name = record.name;
+      // disambiguate between services in multiple categories that may now be presented 
+      var id   = record.category ? record.name + record.category : record.name;
+      var context = "";
+      if ( Settings.SERVICES_BY_CATEGORY === granularity ) {
+        context = record.company;
+      } else if ( Settings.SERVICES_BY_COMPANY === granularity ){
+        context = record.category;
+      }
+      console.log("what the hell is s?");
+      console.log(s);
+      serviceSlug = s.slugify(id);
+      console.log('slug: ' + serviceSlug);
+
+      
+
       $serviceList.append(
         '<tr class="service service-' + serviceSlug + '">' +
-          '<td><div class="service">' + record.service +  (_.contains(['Mobile','Fixed broadband'],record.category) ? ' (' + record.country +')' : '') + '</div><div class="company">' + record.company + '</div></td>' + '</tr>');
+          '<td><div class="service">' + name +  (_.contains(['Mobile','Fixed broadband'],record.category) ? ' (' + record.country +')' : '') + '</div><div class="company">' + context + '</div></td>' + '</tr>');
 
       selector = '.service-' + serviceSlug;
+
+      console.log('selector: ' + selector);
+
       metricsNode = template.find(selector);
 
       Settings.metrics.forEach(function(metric) {
-        var serviceMetricData = _.findWhere(record.service_metrics, { name: metric.name });
-        data = [serviceMetricData.value, 100.0 - serviceMetricData.value];
+        console.log("metric!");
+        var metricData = _.findWhere(record.metrics, { name: metric.name });
+        data = [metricData.value, 100.0 - metricData.value];
         cell = $('<td>').addClass('text-center').appendTo(metricsNode).get(0);
         radius = metric.name === Settings.totalMetric ?
           Settings.pie.totalRadius : Settings.pie.radius;

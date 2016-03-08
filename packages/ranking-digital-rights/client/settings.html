@@ -2,7 +2,7 @@
 
 
   <div class="form-group">
-    <label for="granularity-select">Granularity</label>
+    <label for="granularity-select">Show</label>
     <select class="granularity form-control" id="granularity-select" name="granularity">
       {{# each granularities }}
       <option value="{{ this }}" {{ isSelected this ../granularity }}>{{ this }}</option>
@@ -20,6 +20,15 @@
     </select>
   </div>
 
+  <div class="form-group">
+    <label for="company-select">Company</label>
+    <select class="company form-control" id="company-select" name="company">
+      {{# each companies }}
+      <option value="{{ name }}" {{ isSelected name ../company }}>{{ name }}</option>
+      {{/each}}
+    </select>
+  </div>
+  
   <div class="form-group">
     <label for="sort-metric">Sort by</label>
     <select class="form-control" id="sort-metric" name="sort-metric">
