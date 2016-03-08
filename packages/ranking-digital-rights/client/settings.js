@@ -7,7 +7,6 @@ Template.RDRSettings.onCreated(function() {
 });
 
 Template.RDRSettings.onRendered(function() {
-  console.log("RDR: onRendered");
   var template = this;
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
@@ -25,10 +24,6 @@ Template.RDRSettings.helpers({
 
 
 var setRightDropDowns = function setRightDropDowns(template){
-  //console.log("setRightDropDowns");
-  //console.log("granularity: " + template.find('#granularity-select').value);
-  //console.log("category: " + template.find('#category-select').value);
-  //console.log("company: " + template.find('#company-select').value);
   if (template.find('#granularity-select').value === Settings.SERVICES_BY_COMPANY){
     $(template.find('#category-form-group')).fadeOut();
     $(template.find('#company-form-group')).fadeIn();
@@ -40,7 +35,7 @@ var setRightDropDowns = function setRightDropDowns(template){
 
 Template.RDRSettings.events({
   'mousemove #settings-section' : function(ev,template){
-    console.log('TODO: this is goofy.');
+    console.log('TODO: this is goofy. We want it hidden immediately');
     setRightDropDowns(template);
   },
   'change #granularity-select' : function(ev,template) {
@@ -54,8 +49,6 @@ Template.RDRSettings.events({
       sortMetric: template.find('#sort-metric').value,
       company: template.find('#company-select').value
     };
-    console.log("Reinhard: what is this?");
-    console.log(this);
     this.set(newData);
     template.closeSettings();
   }
