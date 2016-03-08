@@ -49,24 +49,18 @@ Template.RDRWidget.onRendered(function() {
 
     var records; 
 
-    console.log("Granularity: " + granularity);
-    console.log("CompanyName: " + companyName);
-    console.log("Category: " + category);
-    
     if (granularity === Settings.COMPANIES_BY_CATEGORY){
       records = RDRCompanyData.find( {categories: { "$in" : [category] } }).fetch();
     } else if ( granularity === Settings.SERVICES_BY_COMPANY ){
-        console.log("Services: getting services for company: " + companyName);
         records = RDRServiceData.find({ company: companyName} ).fetch();
     } else {
-      console.log("Services: getting services for category: " + category);
       records = RDRServiceData.find({ category: category }).fetch();
     }
-    console.log("Records: ", records);
     
     records = _.sortBy(records, function(record) {
       return _.findWhere(record.metrics, { name: sort }).value*-1;
     });
+
     records.forEach(function(record) {
       var name = record.name;
       // disambiguate between services in multiple categories that may now be presented 
@@ -77,12 +71,7 @@ Template.RDRWidget.onRendered(function() {
       } else if ( Settings.SERVICES_BY_COMPANY === granularity ){
         context = record.category;
       }
-      console.log("what the hell is s?");
-      console.log(s);
       serviceSlug = s.slugify(id);
-      console.log('slug: ' + serviceSlug);
-
-      
 
       $serviceList.append(
         '<tr class="service service-' + serviceSlug + '">' +
@@ -90,12 +79,9 @@ Template.RDRWidget.onRendered(function() {
 
       selector = '.service-' + serviceSlug;
 
-      console.log('selector: ' + selector);
-
       metricsNode = template.find(selector);
 
       Settings.metrics.forEach(function(metric) {
-        console.log("metric!");
         var metricData = _.findWhere(record.metrics, { name: metric.name });
         data = [metricData.value, 100.0 - metricData.value];
         cell = $('<td>').addClass('text-center').appendTo(metricsNode).get(0);
