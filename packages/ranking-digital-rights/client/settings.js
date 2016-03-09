@@ -53,7 +53,7 @@ Template.RDRSettings.events({
       category: template.find('#category-select').value,
       sortMetric: template.find('#sort-metric').value,
       companyType: template.find('#companyType-select').value,
-      company: template.find('#company-select').value
+      companyName: template.find('#company-select').value
     };
     this.set(newData);
     template.closeSettings();

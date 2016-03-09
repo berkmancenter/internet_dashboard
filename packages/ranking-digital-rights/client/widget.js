@@ -1,3 +1,31 @@
+
+
+var grains = {};
+
+grains[Settings.SERVICES_BY_CATEGORY] = {
+  name  : "Service",
+  sliceDescription : function(){ return Template.currentData().category; },
+  contextName : "Company",
+  recordContext: function(record){ return record.company; },
+  fetchRecords: function (){ return RDRServiceData.find({ category: Template.currentData().category }).fetch();}
+};
+
+grains[Settings.SERVICES_BY_COMPANY] = {
+  name  : "Service",
+  sliceDescription : function(){ return Template.currentData().companyName; },
+  contextName : "Category",
+  recordContext: function(record){ return record.category; },
+  fetchRecords : function() { return RDRServiceData.find({ company: Template.currentData().companyName} ).fetch();}
+};
+
+grains[Settings.COMPANIES_BY_TYPE] = {
+  name  : "Company",
+  sliceDescription : function(){ return Template.currentData().companyType; },
+  contextName : "",
+  recordContext: function(record){ return ""; } ,
+  fetchRecords : function() { return RDRCompanyData.find( {type: Template.currentData().companyType}).fetch() ;}
+};
+
 Template.RDRWidget.helpers({
   metrics: function() {
     return Settings.metrics;
@@ -6,30 +34,13 @@ Template.RDRWidget.helpers({
     return this.name === Template.parentData().sortMetric ? 'sorted' : 'not-sorted';
   },
   granularityName: function(){
-    return Template.currentData().granularity === Settings.COMPANIES_BY_TYPE ? "Company" : "Service";
+    return grains[Template.currentData().granularity].name;
   },
   contextName: function(){
-    var g = Template.currentData().granularity;
-    if ( g === Settings.SERVICES_BY_CATEGORY ) {
-      return "Company";
-    } else if (g === Settings.SERVICES_BY_COMPANY ) {
-      return "Category";
-    } else {
-      return "";
-    }
+    return grains[Template.currentData().granularity].contextName;
   },
   sliceDescription: function(){
-    var g = Template.currentData().granularity;
-    if ( g  === Settings.SERVICES_BY_COMPANY ) {
-      return Template.currentData().company;
-    } else if (g === Settings.SERVICES_BY_CATEGORY) {
-      return Template.currentData().category;
-    } else if (g === Settings.COMPANIES_BY_TYPE){
-      return Template.currentData().companyType;
-    } else {
-      console.log("Unknown granularity: " + g);
-      return "";
-    }
+    return grains[Template.currentData().granularity].sliceDescription();
   }
 });
 
@@ -50,29 +61,19 @@ Template.RDRWidget.onRendered(function() {
 
     var granularity = Template.currentData().granularity;
     var category    = Template.currentData().category;
-    var companyName = Template.currentData().company;
-    var companyType = Template.currentData().companyType;
+    var sort        = Template.currentData().sortMetric;
 
-    console.log("companyType: ", companyType);
+    var grain = grains[granularity] || console.log("unknown granularity: " + granularity);
     
-    var sort = Template.currentData().sortMetric;
-    var $metrics, serviceSlug, data, selector, cell, records, contextKey;
+    var $metrics, serviceSlug, data, selector, cell, records;
 
     $serviceList.empty();
 
-    if (granularity === Settings.COMPANIES_BY_TYPE){
-      records = RDRCompanyData.find( {type: companyType}).fetch();
-      contextKey = 'type';
-    } else if ( granularity === Settings.SERVICES_BY_COMPANY ){
-        records = RDRServiceData.find({ company: companyName} ).fetch();
-      contextKey = 'category';
-    } else if (granularity === Settings.SERVICES_BY_CATEGORY) {
-      records = RDRServiceData.find({ category: category }).fetch();
-      contextKey = 'company';
-    } else {
-      console.log("Error: Unknown granularity " + granularity);
-    }
+    records = grain.fetchRecords();
 
+    console.log(Template.currentData().companyName);
+    console.log(records);
+    
     records = _.sortBy(records, function(record) {
       return _.findWhere(record.metrics, { name: sort }).value*-1;
     });
@@ -81,11 +82,10 @@ Template.RDRWidget.onRendered(function() {
       var name = record.name;
       // disambiguate between services in multiple categories that may now be presented 
       var id   = record.category ? record.name + record.category : record.name;
-      var context = contextKey === "type" ? "" : record[contextKey];
       serviceSlug = s.slugify(id);
       $serviceList.append(
         '<tr class="service service-' + serviceSlug + '">' +
-          '<td><div class="service">' + name +  (_.contains(['Mobile','Fixed broadband'],record.category) ? ' (' + record.country +')' : '') + '</div><div class="company">' + context + '</div></td>' + '</tr>');
+          '<td><div class="service">' + name +  (_.contains(['Mobile','Fixed broadband'],record.category) ? ' (' + record.country +')' : '') + '</div><div class="company">' + grain.recordContext(record) + '</div></td>' + '</tr>');
       selector = '.service-' + serviceSlug;
       metricsNode = template.find(selector);
       Settings.metrics.forEach(function(metric) {
