@@ -1,12 +1,14 @@
-var granularities = [ 'Companies (by category)', 'Services (by category)', 'Services (by company)'];
+var granularities = ['Companies (by type)',  'Services (by category)', 'Services (by company)' ];
 var categories = [ 'Mobile', 'Fixed broadband', 'Social network & blog', 'Messaging & VoIP', 'Search', 'Mail service', 'Video/photo' ];
+var companyTypes = ['internet company','telco'];
 
 Settings = {
   granularities: granularities,
   defaultGranularity: granularities[1],
   categories: categories,
   defaultCategory: categories[0],
-  COMPANIES_BY_CATEGORY: granularities[0],
+  companyTypes: companyTypes,
+  COMPANIES_BY_TYPE: granularities[0],
   SERVICES_BY_CATEGORY: granularities[1],
   SERVICES_BY_COMPANY: granularities[2],
   metrics: [
@@ -39,8 +41,7 @@ RDRServiceData.attachSchema(new SimpleSchema({
 
 RDRCompanyData = new Mongo.Collection('ranking_digital_rights_companies');
 RDRCompanyData.attachSchema(new SimpleSchema({
-  categories: { type: Array },
-  'categories.$': { type: String },
+  type:     { type: String },
   name:     { type: String },
   country:  { type: String },
   metrics:  { type: [Object] },
@@ -52,6 +53,7 @@ RDRWidget = function(doc) {
   Widget.call(this, doc);
   _.defaults(this.data, {
     category: Settings.defaultCategory,
+    granularity: Settings.defaultGranularity,
     sortMetric: Settings.sortMetric
   });
 };

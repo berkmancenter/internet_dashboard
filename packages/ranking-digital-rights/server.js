@@ -32,14 +32,6 @@ function parseServiceData(companyMap){
         } catch (error) {
           console.error("ranking digital rights: Error inserting service data into Mongo!",error);
         }
-        try {
-          if ( ! _.contains(company.categories,row.category) ) {
-            company.categories.push(row.category);
-            RDRCompanyData.update({name:company.name},{ $set: {  categories :company.categories } } );
-          }
-        } catch(error) {
-          console.error("RankingDigitalRights: Error updating Mongo company data with service categories!", error);
-        }
       });
     });
 }
@@ -61,14 +53,15 @@ function parseCompanyData() {
       }
       output.forEach(function(row){
         companyCount++;
-        var picked = _.pick(row,metricKeys);
-        var pairs  = _.pairs(picked);
-        var objectifiedPairs = _.map(pairs,function(p){return {name: p[0], value: p[1]};});
+        var metrics = [];
+        _.each(metricKeys,function(key){
+          metrics.push({ name: key , value: row[key] });
+        });
         var company = {
           name: row.company,
-            country: row.country,
-          metrics: objectifiedPairs,
-          categories: []
+          country: row.country,
+          metrics: metrics,
+          type: row.company_type
         };
         companyMap[company.name]=company;
         try {
@@ -80,7 +73,7 @@ function parseCompanyData() {
       // now that we're sure that we're done with companydata, load service data.
       parseServiceData(companyMap);
     });
-};
+}
 
 function parseData(){
   parseCompanyData();
