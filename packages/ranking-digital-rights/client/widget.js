@@ -15,7 +15,14 @@ grains[Settings.SERVICES_BY_COMPANY] = {
   sliceDescription : function(){ return Template.currentData().companyName; },
   contextName : "Category",
   recordContext: function(record){ return record.category; },
-  fetchRecords : function() { return RDRServiceData.find({ company: Template.currentData().companyName} ).fetch();}
+  fetchRecords : function() {
+    var companyName = Template.currentData().companyName;
+    var services = RDRServiceData.find({ company: companyName} ).fetch();
+    var company  = RDRCompanyData.find({ name: companyName} ).fetch()[0];
+    company.category = "All services (entire company)";
+    services.unshift(company);
+    return services;
+  }
 };
 
 grains[Settings.COMPANIES_BY_TYPE] = {
