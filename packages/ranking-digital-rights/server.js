@@ -38,6 +38,10 @@ function parseServiceData(companyMap){
 
 function parseCompanyData() {
   console.log("RankingDigitalRights: Loading company data");
+  var type2pretty = {
+    'internet company' : 'Internet',
+    'telco' : 'Telecommunications'
+  };
   var tsvParse = Npm.require('csv-parse');
   var tsvText  = Assets.getText('rdr_companies.tsv');
   var companyMap={};
@@ -61,7 +65,7 @@ function parseCompanyData() {
           name: row.company,
           country: row.country,
           metrics: metrics,
-          type: row.company_type
+          type: type2pretty[row.company_type]
         };
         companyMap[company.name]=company;
         try {
