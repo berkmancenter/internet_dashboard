@@ -77,9 +77,6 @@ Template.RDRWidget.onRendered(function() {
     $serviceList.empty();
 
     records = grain.fetchRecords();
-
-    console.log(Template.currentData().companyName);
-    console.log(records);
     
     records = _.sortBy(records, function(record) {
       return _.findWhere(record.metrics, { name: sort }).value*-1;
