@@ -41,7 +41,14 @@ Template.RDRWidget.helpers({
     return this.name === Template.parentData().sortMetric ? 'sorted' : 'not-sorted';
   },
   granularityName: function(){
-    return grains[Template.currentData().granularity].name;
+    var grain =grains[Template.currentData().granularity];
+    if (grain === grains[Settings.SERVICES_BY_CATEGORY]  &&
+      Template.currentData().category.match(/^Mobile|Fixed broadband$/)){
+      // We call "Services" "Operating Companies" when they're in certain categories.
+      return "Operating Company";
+    } else {
+      return grain.name;
+    }
   },
   contextName: function(){
     return grains[Template.currentData().granularity].contextName;
