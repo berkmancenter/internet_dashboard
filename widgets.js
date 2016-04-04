@@ -20,6 +20,7 @@ ActiveWidgets = [
   'connection-speed',
   'gsma-total',
   'imon-scatter',
+  'imon-choropleth',
   'gsma-prepaid',
   'gsma-3g',
   'gsma-4g',

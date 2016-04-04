@@ -1,0 +1,7 @@
+.imon-choropleth .country {
+  stroke: white;
+}
+
+.imon-choropleth .label {
+  font-weight: 300;
+}
