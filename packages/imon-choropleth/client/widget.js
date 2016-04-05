@@ -38,20 +38,30 @@ Template.ImonChoroplethWidget.onRendered(function() {
     var countryDataByCode = {};
     var query = { };
     var scores=[];
+    var scoreSet={};
     query.name = indicator.name; // this shouldn't be necessary with proper subscription.
     IMonData.find(query).forEach(function(countryData){
       countryDataByCode[countryData.countryCode.toUpperCase()]=countryData;
       scores.push(countryData.percent);
+      scoreSet[countryData.percent]=1;
     });
 
     var fillColor;
 
+    // For now, split things into quintiles unless they don't have enough variety in which case split into quartiles or terciles.
     // these things should be indicator specific.
     var quantile     = true;
-    var range        = ['rgb(215,25,28)','rgb(253,174,97)','rgb(255,255,191)','rgb(171,217,233)','rgb(44,123,182)'];
+    var range        = ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'];
     var legendLabels = ['Bottom', '2nd Quintile', '3rd Quintile', '4th Quintile', 'Top'];
-    //var domain   = [0, 1];
 
+    if (Object.keys(scoreSet).length === 4 ) {
+      range        = ['#f1eef6','#bdc9e1','#74a9cf','#0570b0'];
+      legendLabels = ['Bottom', '2nd Quartile', '3rd Quartile', 'Top'];
+    } else if ( Object.keys(scoreSet).length === 3 ) {
+      range        = ['#ece7f2','#a6bddb','#2b8cbe'];
+      legendLabels = ['Bottom', 'Middle', 'Top'];
+    }
+    
     if ( quantile) {
         fillColor = d3.scale.quantile()
         .domain(scores)
