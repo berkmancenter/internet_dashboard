@@ -42,36 +42,79 @@ Template.ImonChoroplethWidget.onRendered(function() {
     query.name = indicator.name; // this shouldn't be necessary with proper subscription.
     IMonData.find(query).forEach(function(countryData){
       countryDataByCode[countryData.countryCode.toUpperCase()]=countryData;
-      scores.push(countryData.percent);
-      scoreSet[countryData.percent]=1;
+      if ( countryData.value !== undefined) {
+        scores.push(countryData.value);
+        if (_.has(scoreSet,countryData.value)){
+          scoreSet[countryData.value]+=1;
+        } else {
+          scoreSet[countryData.value]=1;
+        }
+      }
     });
 
-    var fillColor;
+    var formatLegendLabelNumber = function formatLegendLabelNumber (number){
+      if ( number > 1000000 ) {
+        return (number / 1000000).toFixed(1) + "M";
+      } else if ( number > 1000 ) {
+        return (number / 1000).toFixed(1) + "K";
+      } else {
+        if ( number % 1 === 0 ) {
+          return number;
+        } else {
+          var f = number.toFixed(1);
+          //return f;
+          if ( indicator.name.match(/percent|\%/i)){
+            return f + "%";
+          } else {
+            return f;
+          }
+        }
+      }
+    };
 
-    // For now, split things into quintiles unless they don't have enough variety in which case split into quartiles or terciles.
-    // these things should be indicator specific.
-    var quantile     = true;
-    var range        = ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'];
-    var legendLabels = ['Bottom', '2nd Quintile', '3rd Quintile', '4th Quintile', 'Top'];
-
-    if (Object.keys(scoreSet).length === 4 ) {
-      range        = ['#f1eef6','#bdc9e1','#74a9cf','#0570b0'];
-      legendLabels = ['Bottom', '2nd Quartile', '3rd Quartile', 'Top'];
-    } else if ( Object.keys(scoreSet).length === 3 ) {
+    var range        = ['#ece7f2','#bdd7e7','#6baed6','#3182bd','#08519c'];
+    var legendLabels = [];
+    
+    var uniqueScores = Object.keys(scoreSet);
+    uniqueScores = uniqueScores.sort(function(a, b){ return a-b; });
+    
+    if (uniqueScores.length === 4 ) {
+      range        = ['#ece7f2','#bdc9e1','#74a9cf','#0570b0'];
+    } else if ( uniqueScores.length === 3 ) {
       range        = ['#ece7f2','#a6bddb','#2b8cbe'];
-      legendLabels = ['Bottom', 'Middle', 'Top'];
+    }
+
+    var colorScale;
+    colorScale = d3.scale.quantile()
+      .domain(scores)
+      .range(range);
+
+    var useQuantileScale = true;
+
+    // are quantile scales appropriate for this data?
+    if ( uniqueScores.length < 5 ) {
+      useQuantileScale = false;
+    }
+    _.each(colorScale.quantiles(), function(quantile,i){
+      if ( i > 0 && colorScale.quantiles()[i-1] === quantile){
+        console.log("Duplicate quantiles. Quantiles not working for this data. Use something else.");
+        useQuantileScale = false;
+        return;
+      }
+    });
+
+    if (useQuantileScale){
+      legendLabels[0]= "< " + formatLegendLabelNumber(colorScale.quantiles()[0]);
+      _.each(colorScale.quantiles(), function(quantile,i){
+        legendLabels[i+1] = ">="+formatLegendLabelNumber(quantile);
+      });
+    } else {
+      colorScale = d3.scale.ordinal().domain(uniqueScores).range(range);
+      _.each(uniqueScores, function(score,i){
+        legendLabels[i] = score;
+      });
     }
     
-    if ( quantile) {
-        fillColor = d3.scale.quantile()
-        .domain(scores)
-        .range(range);
-    } else {
-        //fillColor = d3.scale.quantize()
-        //.domain(domain)
-        //.range(range);
-    }
-
     var svg = d3.select(template.find('.imon-choropleth')).append("svg:svg")
       .attr("width", Settings.map.width)
       .attr("height", Settings.map.height);
@@ -85,7 +128,7 @@ Template.ImonChoroplethWidget.onRendered(function() {
       ;
 
     var legend = d3.legend.color()
-      .scale(fillColor)
+      .scale(colorScale)
       .labelOffset(5)
       .cells(5)
         .labels(legendLabels);
@@ -103,7 +146,7 @@ Template.ImonChoroplethWidget.onRendered(function() {
             var country = countryDataByCode[d.id];
             // We have country data. Make it pretty.
             if (country) {
-              return fillColor(country.percent);
+              return colorScale(country.value);
             } else {
               // No data for this country. Make it gray or something.
               return 'rgb(186,186,186)';
