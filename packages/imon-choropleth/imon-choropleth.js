@@ -9,11 +9,11 @@ Settings = {
   }
 };
 
-ImonChoroplethWidget = function(doc) { Widget.call(this, doc); };
-ImonChoroplethWidget.prototype = Object.create(Widget.prototype);
-ImonChoroplethWidget.prototype.constructor = ImonChoroplethWidget;
+IMonChoroplethWidget = function(doc) { Widget.call(this, doc); };
+IMonChoroplethWidget.prototype = Object.create(Widget.prototype);
+IMonChoroplethWidget.prototype.constructor = IMonChoroplethWidget;
 
-ImonChoropleth = {
+IMonChoropleth = {
   widget: {
     name: 'Global Choropleth Map',
     description: 'Shows a global chloropleth map of individual indicators within the Internet Monitor Access Index.',
@@ -21,7 +21,7 @@ ImonChoropleth = {
     dimensions: { width: 3, height: 2 },
     category: 'access',
     typeIcon: 'globe',
-    constructor: ImonChoroplethWidget,
+    constructor: IMonChoroplethWidget,
     displays: 'countryData'
   },
   org: {

@@ -21,5 +21,5 @@ Package.onUse(function(api) {
     'client/settings.html',
     'client/settings.js'
     ], 'client');
-  api.export('ImonChoropleth');
+  api.export('IMonChoropleth');
 });

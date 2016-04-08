@@ -1,9 +1,9 @@
 
 var currentIndicator = function(){
-  return Template.currentData().indicator ? Template.currentData().indicator : indicator = Template.ImonChoroplethSettings.defaultIndicator;
+  return Template.currentData().indicator ? Template.currentData().indicator : indicator = Template.IMonChoroplethSettings.defaultIndicator;
 };
 
-Template.ImonChoroplethWidget.updateSubscription = function(template){
+Template.IMonChoroplethWidget.updateSubscription = function(template){
   var indicator = currentIndicator();
   template.subscribe(
     'imon_data',
@@ -12,11 +12,11 @@ Template.ImonChoroplethWidget.updateSubscription = function(template){
   );    
 };
 
-Template.ImonChoroplethWidget.onCreated(function() {
-  Template.ImonChoroplethWidget.updateSubscription(this);
+Template.IMonChoroplethWidget.onCreated(function() {
+  Template.IMonChoroplethWidget.updateSubscription(this);
 });
 
-Template.ImonChoroplethWidget.onRendered(function() {
+Template.IMonChoroplethWidget.onRendered(function() {
   
   var template = this;
 
@@ -25,7 +25,7 @@ Template.ImonChoroplethWidget.onRendered(function() {
     var indicator = currentIndicator();
 
     // there must be a better way to do this...
-    Template.ImonChoroplethWidget.updateSubscription(template);
+    Template.IMonChoroplethWidget.updateSubscription(template);
     
     if (!template.subscriptionsReady()) {
       return;
