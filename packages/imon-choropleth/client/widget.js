@@ -52,28 +52,24 @@ Template.ImonChoroplethWidget.onRendered(function() {
       }
     });
 
-    var formatLegendLabelNumber = function formatLegendLabelNumber (number){
+    var formatLegendLabelNumber = function formatLegendLabelNumber (number,precision){
+      precision = precision ? precision : 1;
       if ( number > 1000000 ) {
-        return (number / 1000000).toFixed(1) + "M";
+        return (number / 1000000).toFixed(precision) + "M";
       } else if ( number > 1000 ) {
-        return (number / 1000).toFixed(1) + "K";
+        return (number / 1000).toFixed(precision) + "K";
       } else {
-        if ( number % 1 === 0 ) {
+        if ( indicator.name.match(/percent|\%/i)){
+          return number.toFixed(1) + "%";
+        } else if ( number % 1 === 0 ) {
           return number;
         } else {
-          var f = number.toFixed(1);
-          //return f;
-          if ( indicator.name.match(/percent|\%/i)){
-            return f + "%";
-          } else {
-            return f;
-          }
+          return number.toFixed(precision);
         }
       }
     };
 
     var range        = ['#ece7f2','#bdd7e7','#6baed6','#3182bd','#08519c'];
-    var legendLabels = [];
     
     var uniqueScores = Object.keys(scoreSet);
     uniqueScores = uniqueScores.sort(function(a, b){ return a-b; });
@@ -84,6 +80,8 @@ Template.ImonChoroplethWidget.onRendered(function() {
       range        = ['#ece7f2','#a6bddb','#2b8cbe'];
     }
 
+    // by default, we use a quantile scale.
+    
     var colorScale;
     colorScale = d3.scale.quantile()
       .domain(scores)
@@ -91,30 +89,38 @@ Template.ImonChoroplethWidget.onRendered(function() {
 
     var useQuantileScale = true;
 
-    // are quantile scales appropriate for this data?
+    // but let's check, are quantile scales appropriate for this data?
     if ( uniqueScores.length < 5 ) {
       useQuantileScale = false;
     }
     _.each(colorScale.quantiles(), function(quantile,i){
       if ( i > 0 && colorScale.quantiles()[i-1] === quantile){
-        console.log("Duplicate quantiles. Quantiles not working for this data. Use something else.");
+        console.log("Duplicate quantiles. Quantiles not working for this data. Use something else.", colorScale.quantiles);
         useQuantileScale = false;
         return;
       }
     });
 
-    if (useQuantileScale){
-      legendLabels[0]= "< " + formatLegendLabelNumber(colorScale.quantiles()[0]);
-      _.each(colorScale.quantiles(), function(quantile,i){
-        legendLabels[i+1] = ">="+formatLegendLabelNumber(quantile);
-      });
-    } else {
-      colorScale = d3.scale.ordinal().domain(uniqueScores).range(range);
-      _.each(uniqueScores, function(score,i){
-        legendLabels[i] = score;
-      });
-    }
+    var lengendLabels;
     
+    var setLegendLabels = function setLegendLabels(precision){
+      legendLabels = [];
+      if (useQuantileScale){
+        legendLabels[0]= "< " + formatLegendLabelNumber(colorScale.quantiles()[0],precision);
+        _.each(colorScale.quantiles(), function(quantile,i){
+          legendLabels[i+1] = ">="+formatLegendLabelNumber(quantile,precision);
+        });
+      } else {
+        colorScale = d3.scale.ordinal().domain(uniqueScores).range(range);
+        // sometimes these numbers are strings. why?
+        _.each(uniqueScores, function(score,i){
+          legendLabels[i] = formatLegendLabelNumber(Number(score),precision);
+        });
+      }
+    };
+
+    setLegendLabels(_.max(uniqueScores)>1 ? 1 : 2);
+      
     var svg = d3.select(template.find('.imon-choropleth')).append("svg:svg")
       .attr("width", Settings.map.width)
       .attr("height", Settings.map.height);
