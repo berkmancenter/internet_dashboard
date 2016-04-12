@@ -1,5 +1,7 @@
 var Future = Npm.require('fibers/future');
 
+console.log("REINOS: hacking imon seed.js to death. We must get better indicator metadata.");
+
 function fetchData() {
   console.log('IMon Data: Fetching data');
   var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
@@ -22,7 +24,8 @@ function fetchData() {
 
   _.each(store.findAll('regions'), insertRegion);
   _.each(store.findAll('countries'), insertCountry);
-
+  _.each(store.findAll('datum_sources'), insertDatumSource);
+  
   console.log('IMon Data: Fetched data');
 }
 
@@ -41,6 +44,7 @@ function insertCountry(c) {
 function insertRegion(r) {
   insertArea(r, true);
 }
+
 function insertArea(a, isRegion) {
   isRegion = isRegion || false;
   var code = a.iso3_code.toLowerCase().slice(0, 3);
@@ -69,7 +73,7 @@ function insertArea(a, isRegion) {
     console.error(e);
     throw e;
   }
-
+  
   _.each(a.indicators, function(i) {
     var indicator = {
       countryCode: code,
@@ -91,6 +95,28 @@ function insertArea(a, isRegion) {
       throw e;
     }
   });
+}
+
+function insertDatumSource(ds){
+  console.log("REINOS: insertDatumSource aka indicator: " ,ds);
+  var indicator = {
+    id: ds.id,
+    name: ds.public_name,
+    shortName: ds.public_name,
+    sourceName: ds.source_name,
+    description: ds.description,
+    min: ds.min,
+    max: ds.max,
+    displayPrefix: ds.display_prefix
+  };
+  
+  try {
+    IMonIndicators.upsert({ id: indicator.id }, { $set: indicator });
+  } catch (e) {
+    console.error('IMon Data: Error inserting indicator data');
+    console.error(e);
+    throw e;
+  }
 }
 
 if (Meteor.settings.doJobs) {

@@ -6,6 +6,7 @@ Settings = {
 
 IMonData = new Mongo.Collection('imon_data');
 IMonCountries = new Mongo.Collection('imon_countries');
+IMonIndicators = new Mongo.Collection('imon_indicators');
 
 IMonCountries.attachSchema(new SimpleSchema({
   name:        { type: String },
@@ -27,4 +28,15 @@ IMonData.attachSchema(new SimpleSchema({
   name:        { type: String },
   value:       { type: Number, decimal: true },
   percent:     { type: Number, decimal: true }
+}));
+
+IMonIndicators.attachSchema(new SimpleSchema({
+  id:            { type: Number },
+  name:          { type: String },
+  shortName:     { type: String, optional:true },
+  description:   { type: String, optional:true },  
+  displaySuffix: { type: String, optional:true },
+  min:           { type: Number, decimal: true, optional: true },
+  max:           { type: Number, decimal: true, optional: true }, 
+  sourceName:    { type: String } 
 }));

@@ -2,6 +2,10 @@
   stroke: white;
 }
 
+.indicator_name {
+
+}
+
 .imon-choropleth .label {
-  font-weight: 300;
+    font-weight: 300;
 }

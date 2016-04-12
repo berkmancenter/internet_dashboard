@@ -1,4 +1,4 @@
-Meteor.publish('imon_indicators', function() {
+/*Meteor.publish('imon_indicators', function() {
   var publication = this;
   var pipeline = { $group: { _id: '$name', name: { $first: '$name' }}};
   var indicators = IMonData.aggregate(pipeline);
@@ -6,6 +6,11 @@ Meteor.publish('imon_indicators', function() {
     publication.added('imon_indicators', i._id, i);
   });
   publication.ready();
+});
+*/
+
+Meteor.publish('imon_indicators', function(){
+  return IMonIndicators.find();
 });
 
 Meteor.publish('imon_countries', function() {
