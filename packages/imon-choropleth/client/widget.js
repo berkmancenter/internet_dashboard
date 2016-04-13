@@ -95,7 +95,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
     }
     _.each(colorScale.quantiles(), function(quantile,i){
       if ( i > 0 && colorScale.quantiles()[i-1] === quantile){
-        console.log("Duplicate quantiles. Quantiles not working for this data. Use something else.", colorScale.quantiles);
+        console.log("Duplicate quantiles. Quantiles not working for this data. Use something else.", colorScale.quantiles());
         useQuantileScale = false;
         return;
       }
