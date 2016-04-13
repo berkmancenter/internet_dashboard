@@ -24,7 +24,7 @@ function fetchData() {
 
   _.each(store.findAll('regions'), insertRegion);
   _.each(store.findAll('countries'), insertCountry);
-  _.each(store.findAll('datum_sources'), insertDatumSource);
+  _.each(store.findAll('datum_sources'), insertIndicator);
   
   console.log('IMon Data: Fetched data');
 }
@@ -97,17 +97,18 @@ function insertArea(a, isRegion) {
   });
 }
 
-function insertDatumSource(ds){
-  console.log("REINOS: insertDatumSource aka indicator: " ,ds);
+function insertIndicator(i){
+  console.log("REINOS: insertDatumSource aka indicator: " ,i);
   var indicator = {
-    id: ds.id,
-    name: ds.public_name,
-    shortName: ds.public_name,
-    sourceName: ds.source_name,
-    description: ds.description,
-    min: ds.min,
-    max: ds.max,
-    displayPrefix: ds.display_prefix
+    id: i.id,
+    name: i.public_name,
+    shortName: i.short_name ? i.short_name : i.public_name,
+    sourceName: i.source_name,
+    sourceUrl: i.source_url ? i.source_url : 'https://thenetmonitor.org/sources/dashboard-data',
+    description: i.description,
+    min: i.min,
+    max: i.max,
+    displayPrefix: i.display_prefix
   };
   
   try {
@@ -122,7 +123,9 @@ function insertDatumSource(ds){
 if (Meteor.settings.doJobs) {
   if (IMonCountries.find().count() === 0) {
     Future.task(fetchData);
+  } else {
+    // REINOS: Force data refetch. Is there a way I can force this from the console?
+    Future.task(fetchData);
   }
-
   Meteor.setInterval(fetchData.future(), Settings.updateEvery);
 }
