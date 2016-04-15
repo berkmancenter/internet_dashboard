@@ -1,13 +1,3 @@
-/*Meteor.publish('imon_indicators', function() {
-  var publication = this;
-  var pipeline = { $group: { _id: '$name', name: { $first: '$name' }}};
-  var indicators = IMonData.aggregate(pipeline);
-  indicators.forEach(function(i) {
-    publication.added('imon_indicators', i._id, i);
-  });
-  publication.ready();
-});
-*/
 
 Meteor.publish('imon_indicators', function(){
   return IMonIndicators.find();
