@@ -1,4 +1,20 @@
 Template.WidgetShow.helpers(_.extend(CommonHelpers, {
+
+  dataSource: function(){
+    // where does the data in this widget come from?
+    if ( this.data.indicator ){
+      // IM API widgets have different data sources per indicator
+      return { url:this.data.indicator.sourceUrl, name:this.data.indicator.sourceName };
+    } else if (this.package.metadata().org) {
+      console.log("we have widget metadata!");
+      // Other widgets have data sources specified in the widget metadata
+      return {url: this.package.metadata().org.url, name:this.package.metadata().org.shortName};
+    } else {
+      // Other widgets have no data sources at all
+      return undefined;
+    }
+  },
+
   providesInfo: function() {
     return this.package.providesTemplate('Info');
   },
@@ -24,6 +40,7 @@ Template.WidgetShow.helpers(_.extend(CommonHelpers, {
     }
     return attrs;
   },
+  
   selecting: function() { return Session.get('selecting'); },
   selectable: function() {
     return _.contains(Session.get('selectable'), this._id);

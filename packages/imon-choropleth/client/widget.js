@@ -1,6 +1,10 @@
 
 var currentIndicator = function(){
-  return Template.currentData().indicator ? Template.currentData().indicator : indicator = Template.IMonChoroplethSettings.defaultIndicator;
+  if ( ! Template.currentData().indicator ) {
+    // Set indicator to default if none selected.
+    Template.currentData().set({indicator: Template.IMonChoroplethSettings.defaultIndicator});
+  }
+  return Template.currentData().indicator;
 };
 
 Template.IMonChoroplethWidget.updateSubscription = function(template){
@@ -21,7 +25,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
   var template = this;
 
   this.autorun(function() {
-
+    
     var indicator = currentIndicator();
 
     // there must be a better way to do this...

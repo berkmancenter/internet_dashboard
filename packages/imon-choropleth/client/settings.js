@@ -1,8 +1,20 @@
 
-Template.IMonChoroplethSettings.defaultIndicator = {name:'Percentage of households with Internet',_id: 'Percentage of households with Internet'};
+
+function setIndicator(widgetData,indicator){
+  console.log("REINOS:", widgetData);
+  var newData = { indicator: indicator };
+    widgetData.set(newData);
+};
+
+Template.IMonChoroplethSettings.defaultIndicator ={ "id" : 6, "name" : "Percentage of households with Internet", "shortName" : "Percentage of households with Internet", "sourceName" : "ITU", "min" : 1.34822, "max" : 97.4 };
+
+//{name:'Percentage of households with Internet',_id: 'Percentage of households with Internet'};
 
 Template.IMonChoroplethSettings.onCreated(function() {
   this.subscribe('imon_indicators');
+  this.autorun(function() {
+    //setIndicator(this,Template.IMonChoroplethSettings.defaultIndicator);
+  });
 });
 
 Template.IMonChoroplethSettings.helpers({
@@ -13,14 +25,8 @@ Template.IMonChoroplethSettings.helpers({
 
 Template.IMonChoroplethSettings.events({
   'click .save-settings': function(ev, template) {
-    var indicator = {
-      id: template.find('.indicator').value,
-      name: template.find('.indicator').selectedOptions[0].innerText.trim()
-    };
-    var newData = { indicator: indicator };
-    this.set(newData);
+    var indicatorName  = template.find('.indicator').value;
+    setIndicator(this,IMonIndicators.findOne({name:indicatorName}));
     template.closeSettings();
-    console.log("REINOS: Settings changed!");
-    //Template.IMonChoroplethWidget.updateSubscription();
   }
 });
