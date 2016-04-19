@@ -75,7 +75,8 @@ function insertArea(a, isRegion) {
   }
   
   _.each(a.indicators, function(i) {
-    var indicator = {
+    // it's confusing that the individual data points are called indicators
+    var datum = {
       countryCode: code,
       imId: i.id,
       sourceId: i.datum_source.id,
@@ -86,7 +87,7 @@ function insertArea(a, isRegion) {
     };
 
     try {
-      IMonData.upsert({ countryCode: code, imId: i.id }, { $set: indicator });
+      IMonData.upsert({ countryCode: code, imId: i.id }, { $set: datum });
       IMonCountries.update({ code: code },
           { $addToSet: { dataSources: i.datum_source.id }});
     } catch (e) {
@@ -100,7 +101,7 @@ function insertArea(a, isRegion) {
 function insertIndicator(i){
   console.log("REINOS: insertDatumSource aka indicator: " ,i);
   var indicator = {
-    id: i.id,
+    id: parseInt(i.id),
     name: i.public_name,
     shortName: i.short_name ? i.short_name : i.public_name,
     sourceName: i.source_name,
@@ -112,9 +113,10 @@ function insertIndicator(i){
   };
   
   try {
+    console.log('Upserting indicator data:',indicator);
     IMonIndicators.upsert({ id: indicator.id }, { $set: indicator });
   } catch (e) {
-    console.error('IMon Data: Error inserting indicator data');
+    console.error('IMon Data: Error upserting indicator data');
     console.error(e);
     throw e;
   }
