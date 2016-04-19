@@ -38,5 +38,6 @@ IMonIndicators.attachSchema(new SimpleSchema({
   displaySuffix: { type: String, optional:true },
   min:           { type: Number, decimal: true, optional: true },
   max:           { type: Number, decimal: true, optional: true }, 
-  sourceName:    { type: String } 
+  sourceName:    { type: String },
+  sourceUrl:     { type: String, regEx: SimpleSchema.RegEx.Url, optional: true}
 }));

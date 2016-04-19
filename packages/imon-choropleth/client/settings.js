@@ -6,7 +6,8 @@ function setIndicator(widgetData,indicator){
     widgetData.set(newData);
 };
 
-Template.IMonChoroplethSettings.defaultIndicator ={ "id" : 6, "name" : "Percentage of households with Internet", "shortName" : "Percentage of households with Internet", "sourceName" : "ITU", "min" : 1.34822, "max" : 97.4 };
+//REINOS: DO NOT HARD CODE HERE!
+Template.IMonChoroplethSettings.defaultIndicator ={ "id" : 6, "name" : "Percentage of households with Internet", "shortName" : "Percentage of households with Internet", "sourceName" : "ITU", "min" : 1.34822, "max" : 97.4, "sourceUrl" : "https://thenetmonitor.org/sources/dashboard-data" };
 
 //{name:'Percentage of households with Internet',_id: 'Percentage of households with Internet'};
 
