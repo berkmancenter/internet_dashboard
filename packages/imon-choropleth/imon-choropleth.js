@@ -19,7 +19,6 @@ IMonChoropleth = {
     description: 'Shows a global chloropleth map of individual indicators within the Internet Monitor Access Index.',
     url: 'https://thenetmonitor.org/sources/platform-data',
     dimensions: { width: 3, height: 2 },
-    category: 'access',
     typeIcon: 'globe',
     constructor: IMonChoroplethWidget,
     displays: 'countryData'
