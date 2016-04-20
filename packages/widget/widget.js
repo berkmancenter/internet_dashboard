@@ -147,7 +147,7 @@ Widgets.attachSchema(new SimpleSchema({
   'resize.constraints.width.max': {
     type: Number,
     defaultValue: 5,
-    allowedValues: [1, 2, 3, 4, 5, 6, 7, 8],
+    allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     optional: true,
   },
   'resize.constraints.height': {
