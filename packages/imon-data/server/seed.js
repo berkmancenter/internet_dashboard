@@ -105,7 +105,7 @@ function insertIndicator(i){
     name: i.public_name,
     shortName: i.short_name ? i.short_name : i.public_name,
     sourceName: i.source_name,
-    sourceUrl: i.source_url ? i.source_url : 'https://thenetmonitor.org/sources/dashboard-data',
+    sourceUrl: i.source_link ? i.source_link : 'https://thenetmonitor.org/sources/dashboard-data',
     description: i.description,
     min: i.min,
     max: i.max,

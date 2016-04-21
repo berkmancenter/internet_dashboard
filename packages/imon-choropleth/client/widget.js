@@ -35,7 +35,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
       return;
     }
 
-    d3.select(template.find('.indicator_name')).text(indicator.name);
+    d3.select(template.find('.indicator_name')).text(indicator.shortName);
     
     template.$('.imon-choropleth-data').html('');
 
