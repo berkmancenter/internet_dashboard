@@ -1,13 +1,11 @@
 var Future = Npm.require('fibers/future');
 
-console.log("REINOS: hacking imon seed.js to death. We must get better indicator metadata.");
-
 function fetchData() {
   console.log('IMon Data: Fetching data');
   var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
   var store = new Store();
 
-  var baseUrl = 'https://imon.dev.berkmancenter.org/v1/';
+  var baseUrl = 'https://thenetmonitor.org/v1/';
 
   var futures = [];
 
@@ -98,8 +96,23 @@ function insertArea(a, isRegion) {
   });
 }
 
+function isUrl(url){
+  return new SimpleSchema({ url: {type: String, regEx: SimpleSchema.RegEx.Url}}).validate({url: url})
+}
+
 function insertIndicator(i){
-  console.log("REINOS: insertDatumSource aka indicator: " ,i);
+  console.log("insertDatumSource aka indicator: " ,i);
+  var sourceUrl = 'https://thenetmonitor.org/sources/dashboard-data';
+  console.log("REINOS: source link: " + i.source_link);
+
+  // source links sometimes have other crap in front of the url.
+  if (i.source_link) {
+    var link = i.source_link.replace(/^.*http/,"http");
+    if ( isUrl(link)){
+      sourceUrl = source_link;
+    }
+  }
+  
   var indicator = {
     id: parseInt(i.id),
     name: i.public_name,
