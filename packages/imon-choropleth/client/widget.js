@@ -123,7 +123,9 @@ Template.IMonChoroplethWidget.onRendered(function() {
       }
     };
 
-    setLegendLabels(_.max(uniqueScores)>1 ? 1 : 2);
+    var precision =_.max(uniqueScores)>1 ? 1 : 2;
+    
+    setLegendLabels(precision);
       
     var svg = d3.select(template.find('.imon-choropleth')).append("svg:svg")
       .attr("width", Settings.map.width)
@@ -170,7 +172,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
           var title = d.properties.name;
           var country = countryDataByCode[d.id];
           if (country) {
-            return title += ': ' + indicator.name +  ': ' + country.value + '';
+            return title + ': ' + formatLegendLabelNumber(Number(country.value),precision) + '';
           }
           return title + ' (No data)';
         });
