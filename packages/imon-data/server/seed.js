@@ -5,8 +5,12 @@ function fetchData() {
   var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
   var store = new Store();
 
-  var baseUrl = 'https://thenetmonitor.org/v1/';
+  //var baseUrl = 'https://thenetmonitor.org/v1/';
 
+  //var baseUrl = 'https://imon.dev.berkmancenter.org/v1/';
+  
+  var baseUrl = 'https://thenetmonitor.org/v1/';
+  
   var futures = [];
 
   ['datum_sources', 'countries', 'regions'].forEach(function(type) {
@@ -76,8 +80,8 @@ function insertArea(a, isRegion) {
     // it's confusing that the individual data points are called indicators
     var datum = {
       countryCode: code,
-      imId: i.id,
-      sourceId: i.datum_source.id,
+      imId: parseInt(i.id),
+      sourceId: parseInt(i.datum_source.id),
       startDate: new Date(i.start_date),
       name: i.datum_source.public_name,
       value: i.original_value,
@@ -85,7 +89,7 @@ function insertArea(a, isRegion) {
     };
 
     try {
-      IMonData.upsert({ countryCode: code, imId: i.id }, { $set: datum });
+      IMonData.upsert({ countryCode: code, imId: datum.imId }, { $set: datum });
       IMonCountries.update({ code: code },
           { $addToSet: { dataSources: i.datum_source.id }});
     } catch (e) {
@@ -101,29 +105,35 @@ function isUrl(url){
 }
 
 function insertIndicator(i){
-  console.log("insertDatumSource aka indicator: " ,i);
+  console.log("insertDatumSource aka indicator: ", i.short_name);
   var sourceUrl = 'https://thenetmonitor.org/sources/dashboard-data';
   console.log("REINOS: source link: " + i.source_link);
 
   // source links sometimes have other crap in front of the url.
-  if (i.source_link) {
-    var link = i.source_link.replace(/^.*http/,"http");
-    if ( isUrl(link)){
-      sourceUrl = source_link;
-    }
-  }
+  //if (i.source_link) {
+  //  var link = i.source_link.replace(/^.*http/,"http");
+  //  if ( isUrl(link)){
+  ///    sourceUrl = source_link;
+  //  }
+  //}
+
+  console.log("REINOS WTF???? A");
   
   var indicator = {
     id: parseInt(i.id),
     name: i.public_name,
     shortName: i.short_name ? i.short_name : i.public_name,
     sourceName: i.source_name,
-    sourceUrl: i.source_link ? i.source_link : 'https://thenetmonitor.org/sources/dashboard-data',
+    sourceUrl: sourceUrl,
     description: i.description,
     min: i.min,
     max: i.max,
-    displayPrefix: i.display_prefix
+    displayPrefix: i.display_prefix,
+    displaySuffix: i.display_suffix,
+    displayClass:  i.display_class
   };
+
+  console.log("REINOS WTF???? B");
   
   try {
     console.log('Upserting indicator data:',indicator);
@@ -133,6 +143,9 @@ function insertIndicator(i){
     console.error(e);
     throw e;
   }
+
+  console.log("REINOS WTF???? C");
+
 }
 
 if (Meteor.settings.doJobs) {

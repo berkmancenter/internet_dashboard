@@ -1,6 +1,6 @@
 Settings = {
   baseUrl: 'https://thenetmonitor.org',
-  updateEvery: 1000 * 60 * 60 * 24 * 7,
+  updateEvery: 1000 * 60 * 60 * 1 * 1,
   timeout: 60 * 1000
 };
 
@@ -22,7 +22,7 @@ IMonCountries.attachSchema(new SimpleSchema({
 
 IMonData.attachSchema(new SimpleSchema({
   countryCode: { type: String, max: 3 },
-  imId:        { type: Number },
+  imId:        { type: Number, unique:true },
   sourceId:    { type: Number },
   startDate:   { type: Date },
   name:        { type: String },
