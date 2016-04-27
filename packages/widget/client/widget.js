@@ -1,15 +1,11 @@
 Template.WidgetShow.helpers(_.extend(CommonHelpers, {
 
   dataSource: function(){
-    // where does the data in this widget come from?
     if ( this.data.indicator ){
       // IM API widgets have different data sources per indicator, usually with distinct urls.
-      console.log('this.data.indicator:' , this.data.indicator);
       var url = this.data.indicator.sourceUrl;
-      console.log('url: ' , url);
       return { url:url ? url : this.package.metadata().org.url, name:this.data.indicator.sourceName };
     } else if (this.package.metadata().org) {
-      console.log("we have widget metadata!");
       // Other widgets have data sources specified in the widget metadata
       return {url: this.package.metadata().org.url, name:this.package.metadata().org.shortName};
     } else {
