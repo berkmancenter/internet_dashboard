@@ -16,7 +16,7 @@ IMonChoroplethWidget.prototype.constructor = IMonChoroplethWidget;
 IMonChoropleth = {
   widget: {
     name: 'Global Choropleth Map',
-    description: 'Shows a global chloropleth map of individual indicators within the Internet Monitor Access Index.',
+    description: 'Shows a global choropleth map of individual indicators within the Internet Monitor Access Index.',
     url: 'https://thenetmonitor.org/sources/platform-data',
     dimensions: { width: 3, height: 2 },
     typeIcon: 'globe',
