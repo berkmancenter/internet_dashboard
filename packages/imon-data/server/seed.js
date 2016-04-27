@@ -91,7 +91,7 @@ function insertArea(a, isRegion) {
     try {
       IMonData.upsert({ countryCode: code, imId: datum.imId }, { $set: datum });
       IMonCountries.update({ code: code },
-          { $addToSet: { dataSources: i.datum_source.id }});
+                           { $addToSet: { dataSources: parseInt(i.datum_source.id) }});
     } catch (e) {
       console.error('IMon Data: Error inserting data');
       console.error(e);
