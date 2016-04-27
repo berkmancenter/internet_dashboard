@@ -5,7 +5,7 @@ Template.IMonScatterWidget.onCreated(function() {
       Template.currentData().x.indicator,
       Template.currentData().y.indicator
     ];
-    template.subscribe('imon_data', 'all', indicators);
+    template.subscribe('imon_data', 'all', indicators,'name');
     template.subscribe('imon_countries');
   });
 });
