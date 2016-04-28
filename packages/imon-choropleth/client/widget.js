@@ -8,7 +8,6 @@ Template.IMonChoroplethWidget.updateSubscription = function(template){
   }
   if ( (Template.currentData().newIndicatorId !== Template.currentData().indicatorId)) {
     Template.currentData().set({indicatorId: Template.currentData().newIndicatorId});
-
     //return;
   }
   template.subscribe(
@@ -46,7 +45,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
     }
     
     if ( ! indicator ) {
-      console.log("No indicator found for indicatorId: " + Template.currentData().indicatorId);
+      console.log('No indicator found for indicatorId: ' + Template.currentData().indicatorId);
       return;
     }
       
@@ -111,30 +110,48 @@ Template.IMonChoroplethWidget.onRendered(function() {
     // but let's check, are quantile scales appropriate for this data?
     if ( uniqueScores.length < 5 ) {
       useQuantileScale = false;
+    } else {
+      _.each(colorScale.quantiles(), function(quantile,i){
+        if ( i > 0 && colorScale.quantiles()[i-1] === quantile){
+          console.log("Duplicate quantiles. Quantiles not working for this data. Use quantize.", colorScale.quantiles());
+          useQuantileScale = false;
+          return;
+        }
+      });
     }
-    _.each(colorScale.quantiles(), function(quantile,i){
-      if ( i > 0 && colorScale.quantiles()[i-1] === quantile){
-        console.log("Duplicate quantiles. Quantiles not working for this data. Use something else.", colorScale.quantiles());
-        useQuantileScale = false;
-        return;
-      }
-    });
 
     var lengendLabels;
     
     var setLegendLabels = function setLegendLabels(precision){
       legendLabels = [];
       if (useQuantileScale){
+        // quantile scale is best, most data-tailored scale when we have sufficient range of values.
         legendLabels[0]= "< " + formatLegendLabelNumber(colorScale.quantiles()[0],precision);
         _.each(colorScale.quantiles(), function(quantile,i){
           legendLabels[i+1] = ">="+formatLegendLabelNumber(quantile,precision);
         });
       } else {
-        colorScale = d3.scale.ordinal().domain(uniqueScores).range(range);
-        // sometimes these numbers are strings. why?
-        _.each(uniqueScores, function(score,i){
-          legendLabels[i] = formatLegendLabelNumber(Number(score),precision);
-        });
+        if ( uniqueScores.length <= 5 ) {
+          // use ordinal scale for just a few values.
+          colorScale = d3.scale.ordinal().domain(uniqueScores).range(range);
+          // sometimes these numbers are strings. why?
+          _.each(uniqueScores, function(score,i){
+            legendLabels[i] = formatLegendLabelNumber(Number(score),precision);
+          });
+        } else {
+          // use quantize scale to cut into 5 equal groups from min to max
+          var max = indicator.max;
+          // crude, temporary attempt to bring out resolution with lumpy data.
+          if (max > 100 && indicator.min < 10) {
+            max = 80;
+          }
+          colorScale = d3.scale.quantize().domain([indicator.min,max]).range(range);
+          var buckets = _.map(range,function(color,i){ return indicator.min + ((i+1)*((max-indicator.min)/5)); });
+          legendLabels[0]= "< " + formatLegendLabelNumber(buckets[0],precision);
+          _.each(buckets, function(bucket,i){
+            legendLabels[i+1] = ">="+formatLegendLabelNumber(bucket,precision);
+          });
+        }
       }
     };
 
