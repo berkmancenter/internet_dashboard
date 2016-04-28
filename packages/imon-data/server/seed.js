@@ -106,7 +106,7 @@ function isUrl(url){
 
 function insertIndicator(i){
   console.log("insertDatumSource aka indicator: ", i.short_name);
-  var sourceUrl = 'https://thenetmonitor.org/sources/dashboard-data';
+  var sourceUrl = 'https://thenetmonitor.org/sources/platform-data';
 
   // source links sometimes have other crap in front of the url.
   //if (i.source_link) {
