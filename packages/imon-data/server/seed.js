@@ -103,7 +103,9 @@ function isUrl(url){
 function insertIndicator(i){
   var dontShowTheseIndicatorIds = [32,33]; // temporary.
   var sourceUrl = 'https://thenetmonitor.org/sources/platform-data';
-
+  // toss anything after a period. Hack for embedded ITU notification.
+  var sourceName = i.source_name.split(".")[0]; 
+  
   // source links sometimes have other crap in front of the url.
   //if (i.source_link) {
   //  var link = i.source_link.replace(/^.*http/,"http");
@@ -116,7 +118,7 @@ function insertIndicator(i){
     id: parseInt(i.id),
     name: i.public_name,
     shortName: i.short_name ? i.short_name : i.public_name,
-    sourceName: i.source_name,
+    sourceName: sourceName,
     sourceUrl: sourceUrl,
     description: i.description,
     min: i.min,
