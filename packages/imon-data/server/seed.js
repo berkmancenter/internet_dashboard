@@ -1,14 +1,10 @@
 var Future = Npm.require('fibers/future');
 
 function fetchData() {
-  console.log('IMon Data: Fetching data');
+  console.log('IMonData: Fetching...');
   var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
   var store = new Store();
 
-  //var baseUrl = 'https://thenetmonitor.org/v1/';
-
-  //var baseUrl = 'https://imon.dev.berkmancenter.org/v1/';
-  
   var baseUrl = 'https://thenetmonitor.org/v1/';
   
   var futures = [];
@@ -22,13 +18,13 @@ function fetchData() {
 
   Future.wait(futures);
 
-  console.log('IMon Data: Inserting data');
+  console.log('IMonData: Inserting...');
 
   _.each(store.findAll('regions'), insertRegion);
   _.each(store.findAll('countries'), insertCountry);
   _.each(store.findAll('datum_sources'), insertIndicator);
   
-  console.log('IMon Data: Fetched data');
+  console.log('IMonData: Inserted.');
 }
 
 function countryUrl(iso3Code) {
@@ -71,7 +67,7 @@ function insertArea(a, isRegion) {
   try {
     IMonCountries.upsert({ code: code }, { $set: country });
   } catch (e) {
-    console.error('IMon Data: Error inserting data');
+    console.error('IMonData: Error upserting country data');
     console.error(e);
     throw e;
   }
@@ -93,7 +89,7 @@ function insertArea(a, isRegion) {
       IMonCountries.update({ code: code },
                            { $addToSet: { dataSources: parseInt(i.datum_source.id) }});
     } catch (e) {
-      console.error('IMon Data: Error inserting data');
+      console.error('IMonData: Error upserting data');
       console.error(e);
       throw e;
     }
@@ -105,7 +101,7 @@ function isUrl(url){
 }
 
 function insertIndicator(i){
-  console.log("insertDatumSource aka indicator: ", i.short_name);
+  var dontShowTheseIndicatorIds = [32,33]; // temporary.
   var sourceUrl = 'https://thenetmonitor.org/sources/platform-data';
 
   // source links sometimes have other crap in front of the url.
@@ -130,11 +126,16 @@ function insertIndicator(i){
     displayClass:  i.display_class
   };
 
+  if ( _.contains(dontShowTheseIndicatorIds,indicator.id)){
+    console.log('IMonData: Filtering out indicator: ' + indicator.name);
+    return;
+  }
+  
   try {
-    console.log('Upserting indicator data:',indicator);
+    console.log('IMonData: Upserting indicator:',indicator.name);
     IMonIndicators.upsert({ id: indicator.id }, { $set: indicator });
   } catch (e) {
-    console.error('IMon Data: Error upserting indicator data');
+    console.error('IMonData: Error upserting indicator data');
     console.error(e);
     throw e;
   }
@@ -142,11 +143,12 @@ function insertIndicator(i){
 }
 
 if (Meteor.settings.doJobs) {
+  // blow out country data if you want to force an immediate refresh.
   if (IMonCountries.find().count() === 0) {
+    console.log('IMonData: No country data. That\'s our cue to fetch...');
     Future.task(fetchData);
   } else {
-    // REINOS: Force data refetch. Is there a way I can force this from the console?
-    Future.task(fetchData);
+    console.log('IMonData: We already have data. Not fetching until next interval.');
   }
   Meteor.setInterval(fetchData.future(), Settings.updateEvery);
 }
