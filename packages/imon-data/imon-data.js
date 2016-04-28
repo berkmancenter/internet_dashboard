@@ -1,6 +1,6 @@
 Settings = {
   baseUrl: 'https://thenetmonitor.org',
-  updateEvery: 1000 * 60 * 60 * 1 * 1,
+  updateEvery: 1000 * 60 * 60 * 12 * 1,
   timeout: 60 * 1000
 };
 
