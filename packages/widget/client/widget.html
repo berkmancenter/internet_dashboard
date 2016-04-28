@@ -21,10 +21,10 @@
       </span>
       {{/if}}
 
-      {{# if package.metadata.org }}
+      {{# if dataSource }}
       <p class="data-source">
-        From <a href="{{ package.metadata.org.url }}" target="_blank">
-          {{ package.metadata.org.shortName }}
+        From <a href="{{ dataSource.url }}" target="_blank">
+          {{ dataSource.name }}
         </a>
       </p>
       {{/if}}

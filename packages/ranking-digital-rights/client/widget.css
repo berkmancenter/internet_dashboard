@@ -1,0 +1,66 @@
+.ranking-digital-rights h1 {
+  font-size: 1.5em;
+}
+.ranking-digital-rights h2 {
+  font-size: 1.3em;
+}
+.ranking-digital-rights table {
+  margin-top: .5em;
+}
+
+.ranking-digital-rights th.tilted {
+  width: 46px;
+  max-width: 46px;
+  transform: rotateZ(-18deg);
+  white-space: nowrap;
+  padding-left: 8px;
+  transform-origin: 8px 100%;
+}
+.ranking-digital-rights th.not-sorted {
+  color: #999;
+}
+.ranking-digital-rights th.sorted {
+  color: inherit;
+}
+.ranking-digital-rights td {
+  vertical-align: middle !important;
+  padding: 3px 2px 0 !important;
+}
+
+.ranking-digital-rights svg {
+    margin-top:1em;
+}
+
+.ranking-digital-rights svg text {
+    font-color: #000!;
+    font-size: .8em;
+}
+
+.ranking-digital-rights svg text.company-score {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.ranking-digital-rights th div.service-header {
+    color: #000;
+    font-size: 1.3em;
+}
+.ranking-digital-rights th div.company-header {
+    color: #666;
+    font-size: 1.0em;
+    font-weight: normal,
+}
+
+.ranking-digital-rights td div.service {
+    color: #000;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin-top: .1em;
+}
+
+.ranking-digital-rights td div.company {
+    color: #666;
+    font-size: 1.0em;
+    font-weight: normal;
+    margin-top: .2em;
+}

@@ -1,0 +1,7 @@
+<template name="IMonChoroplethWidget">
+  <h1 class="indicator_name"></h1>
+  {{# unless Template.subscriptionsReady }}
+    {{ widgetLoading }}
+  {{/unless}}
+  <div class="imon-choropleth-data imon-choropleth"></div>
+</template>

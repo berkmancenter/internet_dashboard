@@ -55,6 +55,7 @@ html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
 id-map@1.0.3
+imon-choropleth@0.0.1
 imon-data@0.0.1
 imon-scatter@0.0.1
 iron:controller@1.0.8
@@ -104,6 +105,7 @@ ostrio:iron-router-title@1.0.0
 percent-on-broadband@0.0.1
 percent-online@0.0.1
 random@1.0.3
+ranking-digital-rights@0.0.1
 reactive-dict@1.1.0
 reactive-var@1.0.5
 reload@1.1.3
