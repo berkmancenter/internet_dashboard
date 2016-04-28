@@ -1,12 +1,12 @@
 var Future = Npm.require('fibers/future');
 
 function fetchData() {
-  console.log('IMon Data: Fetching data');
+  console.log('IMonData: Fetching...');
   var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
   var store = new Store();
 
-  var baseUrl = 'https://imon.dev.berkmancenter.org/v1/';
-
+  var baseUrl = 'https://thenetmonitor.org/v1/';
+  
   var futures = [];
 
   ['datum_sources', 'countries', 'regions'].forEach(function(type) {
@@ -18,12 +18,13 @@ function fetchData() {
 
   Future.wait(futures);
 
-  console.log('IMon Data: Inserting data');
+  console.log('IMonData: Inserting...');
 
   _.each(store.findAll('regions'), insertRegion);
   _.each(store.findAll('countries'), insertCountry);
-
-  console.log('IMon Data: Fetched data');
+  _.each(store.findAll('datum_sources'), insertIndicator);
+  
+  console.log('IMonData: Inserted.');
 }
 
 function countryUrl(iso3Code) {
@@ -41,6 +42,7 @@ function insertCountry(c) {
 function insertRegion(r) {
   insertArea(r, true);
 }
+
 function insertArea(a, isRegion) {
   isRegion = isRegion || false;
   var code = a.iso3_code.toLowerCase().slice(0, 3);
@@ -65,16 +67,17 @@ function insertArea(a, isRegion) {
   try {
     IMonCountries.upsert({ code: code }, { $set: country });
   } catch (e) {
-    console.error('IMon Data: Error inserting data');
+    console.error('IMonData: Error upserting country data');
     console.error(e);
     throw e;
   }
-
+  
   _.each(a.indicators, function(i) {
-    var indicator = {
+    // it's confusing that the individual data points are called indicators
+    var datum = {
       countryCode: code,
-      imId: i.id,
-      sourceId: i.datum_source.id,
+      imId: parseInt(i.id),
+      sourceId: parseInt(i.datum_source.id),
       startDate: new Date(i.start_date),
       name: i.datum_source.public_name,
       value: i.original_value,
@@ -82,21 +85,72 @@ function insertArea(a, isRegion) {
     };
 
     try {
-      IMonData.upsert({ countryCode: code, imId: i.id }, { $set: indicator });
+      IMonData.upsert({ countryCode: code, imId: datum.imId }, { $set: datum });
       IMonCountries.update({ code: code },
-          { $addToSet: { dataSources: i.datum_source.id }});
+                           { $addToSet: { dataSources: parseInt(i.datum_source.id) }});
     } catch (e) {
-      console.error('IMon Data: Error inserting data');
+      console.error('IMonData: Error upserting data');
       console.error(e);
       throw e;
     }
   });
 }
 
-if (Meteor.settings.doJobs) {
-  if (IMonCountries.find().count() === 0) {
-    Future.task(fetchData);
+function isUrl(url){
+  return new SimpleSchema({ url: {type: String, regEx: SimpleSchema.RegEx.Url}}).validate({url: url})
+}
+
+function insertIndicator(i){
+  var dontShowTheseIndicatorIds = [32,33]; // temporary.
+  var sourceUrl = 'https://thenetmonitor.org/sources/platform-data';
+  // toss anything after a period. Hack for embedded ITU notification.
+  var sourceName = i.source_name.split(".")[0]; 
+  
+  // source links sometimes have other crap in front of the url.
+  //if (i.source_link) {
+  //  var link = i.source_link.replace(/^.*http/,"http");
+  //  if ( isUrl(link)){
+  ///    sourceUrl = source_link;
+  //  }
+  //}
+
+  var indicator = {
+    id: parseInt(i.id),
+    name: i.public_name,
+    shortName: i.short_name ? i.short_name : i.public_name,
+    sourceName: sourceName,
+    sourceUrl: sourceUrl,
+    description: i.description,
+    min: i.min,
+    max: i.max,
+    displayPrefix: i.display_prefix,
+    displaySuffix: i.display_suffix,
+    displayClass:  i.display_class
+  };
+
+  if ( _.contains(dontShowTheseIndicatorIds,indicator.id)){
+    console.log('IMonData: Filtering out indicator: ' + indicator.name);
+    return;
+  }
+  
+  try {
+    console.log('IMonData: Upserting indicator:',indicator.name);
+    IMonIndicators.upsert({ id: indicator.id }, { $set: indicator });
+  } catch (e) {
+    console.error('IMonData: Error upserting indicator data');
+    console.error(e);
+    throw e;
   }
 
+}
+
+if (Meteor.settings.doJobs) {
+  // blow out country data if you want to force an immediate refresh.
+  if (IMonCountries.find().count() === 0) {
+    console.log('IMonData: No country data. That\'s our cue to fetch...');
+    Future.task(fetchData);
+  } else {
+    console.log('IMonData: We already have data. Not fetching until next interval.');
+  }
   Meteor.setInterval(fetchData.future(), Settings.updateEvery);
 }
