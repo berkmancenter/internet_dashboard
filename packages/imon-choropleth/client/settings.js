@@ -1,7 +1,6 @@
 
 
 function setNewIndicatorId(widgetData,indicatorId){
-  console.log("REINOS: widgetData", widgetData);
   var newData = { newIndicatorId: indicatorId };
   widgetData.set(newData);
 };
@@ -32,7 +31,6 @@ Template.IMonChoroplethSettings.helpers({
 Template.IMonChoroplethSettings.events({
   'click .save-settings': function(ev, template) {
     var indicatorId  = template.find('.indicator').value;
-    console.log("REINOS: indicatorId: " , indicatorId);
     setNewIndicatorId(this,indicatorId);
     template.closeSettings();
   }

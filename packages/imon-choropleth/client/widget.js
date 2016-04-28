@@ -2,11 +2,8 @@
 Template.IMonChoroplethWidget.updateSubscription = function(template){
   // Make sure we're always subscribed to the currently selected indicator.
   // Seems unnecessarily complicated.
-  console.log("***REINOS: updateSubscription***");
-  console.log("REINOS: currentData: " , Template.currentData());
   if ( ! Template.currentData().newIndicatorId ) {
     Template.currentData().set({newIndicatorId: Template.IMonChoroplethSettings.defaultIndicatorId});
-    console.log("REINOS: updateSubscription: no new indicator id. Setting new indicator id to default.");
     //return;
   }
   if ( (Template.currentData().newIndicatorId !== Template.currentData().indicatorId)) {
@@ -14,7 +11,6 @@ Template.IMonChoroplethWidget.updateSubscription = function(template){
 
     //return;
   }
-  console.log("REINOS: updateSubscription. IndicatorId: " + Template.currentData().newIndicatorId);
   template.subscribe(
     'imon_indicators'
   );
@@ -32,24 +28,17 @@ Template.IMonChoroplethWidget.onCreated(function() {
 
 Template.IMonChoroplethWidget.onRendered(function() {
 
-  console.log("REINOS: onRendered");
-  
   var template = this;
 
   this.autorun(function() {
 
-    console.log("REINOS: autorun");
-    
     // there must be a better way to do this...
     Template.IMonChoroplethWidget.updateSubscription(template);
     
     if (!template.subscriptionsReady()) {
-      console.log("REINOS: subscriptions are NOT ready");
       return;
     }
 
-    console.log("REINOS: subscriptions are ready!");
-    
     var indicator = IMonIndicators.findOne({id:parseInt(Template.currentData().indicatorId)});
     var cachedIndicator = Template.currentData().indicator;
     if ( !(cachedIndicator) || (cachedIndicator.id !== indicator.id)){
@@ -57,12 +46,10 @@ Template.IMonChoroplethWidget.onRendered(function() {
     }
     
     if ( ! indicator ) {
-      console.log("REINOS: no indicator found for indicatorId: " + Template.currentData().indicatorId);
+      console.log("No indicator found for indicatorId: " + Template.currentData().indicatorId);
       return;
     }
       
-    console.log("REINOS indicator: ", indicator);
-    
     d3.select(template.find('.indicator_name')).text(indicator.shortName);
     
     template.$('.imon-choropleth-data').html('');
@@ -84,8 +71,6 @@ Template.IMonChoroplethWidget.onRendered(function() {
       }
     });
 
-    console.log("REINOS #scores: " + scores.length);
-    
     var formatLegendLabelNumber = function formatLegendLabelNumber (number,precision){
       precision = precision ? precision : 1;
       if ( number > 1000000 ) {

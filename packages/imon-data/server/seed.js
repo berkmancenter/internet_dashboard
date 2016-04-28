@@ -107,7 +107,6 @@ function isUrl(url){
 function insertIndicator(i){
   console.log("insertDatumSource aka indicator: ", i.short_name);
   var sourceUrl = 'https://thenetmonitor.org/sources/dashboard-data';
-  console.log("REINOS: source link: " + i.source_link);
 
   // source links sometimes have other crap in front of the url.
   //if (i.source_link) {
@@ -117,8 +116,6 @@ function insertIndicator(i){
   //  }
   //}
 
-  console.log("REINOS WTF???? A");
-  
   var indicator = {
     id: parseInt(i.id),
     name: i.public_name,
@@ -133,8 +130,6 @@ function insertIndicator(i){
     displayClass:  i.display_class
   };
 
-  console.log("REINOS WTF???? B");
-  
   try {
     console.log('Upserting indicator data:',indicator);
     IMonIndicators.upsert({ id: indicator.id }, { $set: indicator });
@@ -143,8 +138,6 @@ function insertIndicator(i){
     console.error(e);
     throw e;
   }
-
-  console.log("REINOS WTF???? C");
 
 }
 

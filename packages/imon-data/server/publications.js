@@ -1,7 +1,6 @@
 
 Meteor.publish('imon_indicators', function(indicatorIds){
   var selector = selectIndicators(indicatorIds);
-  console.log("REINOS: publishing imon_indicators with selector: " , selector);
   return IMonIndicators.find(selector);;
   //return IMonIndicators.find();
 });
@@ -11,13 +10,11 @@ Meteor.publish('imon_countries', function() {
 });
 
 Meteor.publish('imon_data', function(countryCode, indicatorIds, idField) {
-  console.log("REINOS: publishing imon_data with countryCode " + countryCode + " and indicatorIds " , indicatorIds , " and idField " + idField);
   var selector = {};
   if (!_.isUndefined(countryCode) && countryCode !== 'all') {
     selector.countryCode = countryCode;
   }
   selectIndicators(indicatorIds,selector,idField);
-  console.log("REINOS: publishing imon_data with selector: ", selector);
   return IMonData.find(selector);
 });
 
