@@ -84,7 +84,7 @@ Template.RDRWidget.onRendered(function() {
     $serviceList.empty();
 
     records = grain.fetchRecords();
-    
+
     records = _.sortBy(records, function(record) {
       return _.findWhere(record.metrics, { name: sort }).value*-1;
     });
@@ -100,21 +100,37 @@ Template.RDRWidget.onRendered(function() {
       selector = '.service-' + serviceSlug;
       metricsNode = template.find(selector);
       Settings.metrics.forEach(function(metric) {
+        var radius =  Settings.pie.radius;
         var metricData = _.findWhere(record.metrics, { name: metric.name });
         data = [metricData.value, 100.0 - metricData.value];
         cell = $('<td>').addClass('text-center').appendTo(metricsNode).get(0);
-        radius = metric.name === Settings.totalMetric ?
-          Settings.pie.totalRadius : Settings.pie.radius;
         drawGraph(cell, data, radius, pieColors(metric.name));
       });
     });
+
+    adjustRowSpacing(template);
+    
   });
 });
+
+function adjustRowSpacing(template){
+  var widgetId  = '#' + template.data.widget.componentId();
+  var preRdrHeight = 50+$(widgetId + ' > div.widget-body > table').position().top;
+  var widgetHeight = $(widgetId).height();
+  var rdrHeight = $(widgetId + ' > div.widget-body > table > tbody').height();
+  var idealRdrHeight = widgetHeight - preRdrHeight;
+  var serviceSelector = widgetId + ' > div.widget-body > table > tbody > tr.service';
+  var rowCount   = $(serviceSelector).length;
+  var newServiceRowHeight = (idealRdrHeight / rowCount)-2;
+  $(serviceSelector).height(newServiceRowHeight);
+  var newRdrHeight = $(widgetId + ' > div.widget-body > table > tbody').height();
+  console.log("adjustRowSpacing: changing " + rdrHeight+ ' to ' + newRdrHeight);
+};
 
 function drawGraph(parent, data, radius, color) {
   
   var width     = radius,
-      height    = radius +20;
+      height    = radius;
   var pieRadius = radius / 2;
 
   var arc = d3.svg.arc()
