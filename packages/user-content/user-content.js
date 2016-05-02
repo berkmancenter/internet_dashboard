@@ -16,7 +16,10 @@ UserContent = {
     name: 'Your Content',
     description: 'Allows you to add text and/or an image to your dashboard',
     dimensions: { width: 2, height: 1 },
-    resize: { mode: 'reflow' },
+    resize: {
+      constraints: { width: { max: 10 }},
+      mode: 'reflow'
+    },
     url: 'http://thenetmonitor.org/',
     typeIcon: 'user',
     constructor: UserContentWidget

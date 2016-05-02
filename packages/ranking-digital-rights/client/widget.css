@@ -24,11 +24,11 @@
 }
 .ranking-digital-rights td {
   vertical-align: middle !important;
-  padding: 3px 2px 0 !important;
+  padding: 0px 0px 0 !important;
 }
 
 .ranking-digital-rights svg {
-    margin-top:1em;
+    
 }
 
 .ranking-digital-rights svg text {
@@ -55,12 +55,10 @@
     color: #000;
     font-size: 1.2em;
     font-weight: normal;
-    margin-top: .1em;
 }
 
 .ranking-digital-rights td div.company {
     color: #666;
     font-size: 1.0em;
     font-weight: normal;
-    margin-top: .2em;
 }

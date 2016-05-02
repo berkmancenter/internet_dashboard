@@ -71,14 +71,14 @@ Commitment,Messaging & VoIP,KakaoTalk,Kakao,41.1116666667,3
 Freedom of expression,Messaging & VoIP,KakaoTalk,Kakao,52.916,1
 Privacy,Messaging & VoIP,KakaoTalk,Kakao,43.9107142857,2
 Total,Messaging & VoIP,KakaoTalk,Kakao,46.3526666667,2
-Commitment,Mail service,Mail.Ru,Mail.Ru,3.3333333333,5
-Freedom of expression,Mail service,Mail.Ru,Mail.Ru,38.0957142857,5
-Privacy,Mail service,Mail.Ru,Mail.Ru,9.7378571429,5
-Total,Mail service,Mail.Ru,Mail.Ru,15.6666666667,5
-Commitment,Messaging & VoIP,Mail.Ru,Mail.Ru,3.3333333333,6
-Freedom of expression,Messaging & VoIP,Mail.Ru,Mail.Ru,26.667,3
-Privacy,Messaging & VoIP,Mail.Ru,Mail.Ru,6.7621428571,6
-Total,Messaging & VoIP,Mail.Ru,Mail.Ru,12.7113333333,6
+Commitment,Mail service,Mail.Ru Agent,Mail.Ru,3.3333333333,5
+Freedom of expression,Mail service,Mail.Ru Agent,Mail.Ru,38.0957142857,5
+Privacy,Mail service,Mail.Ru Agent,Mail.Ru,9.7378571429,5
+Total,Mail service,Mail.Ru Agent,Mail.Ru,15.6666666667,5
+Commitment,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,3.3333333333,6
+Freedom of expression,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,26.667,3
+Privacy,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,6.7621428571,6
+Total,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,12.7113333333,6
 Commitment,Mobile,MTN,MTN,22.2216666667,4
 Freedom of expression,Mobile,MTN,MTN,20,6
 Privacy,Mobile,MTN,MTN,13.6941666667,7
@@ -91,10 +91,10 @@ Commitment,Mobile,Orange,Orange,73.3333333333,2
 Freedom of expression,Mobile,Orange,Orange,28.334,3
 Privacy,Mobile,Orange,Orange,24.5416666667,4
 Total,Mobile,Orange,Orange,36.3514285714,3
-Commitment,Mail service,Outlook,Microsoft,82.0366666667,1
-Freedom of expression,Mail service,Outlook,Microsoft,59.5228571429,3
-Privacy,Mail service,Outlook,Microsoft,54.6435714286,3
-Total,Mail service,Outlook,Microsoft,61.9959259259,2
+Commitment,Mail service,Outlook.com,Microsoft,82.0366666667,1
+Freedom of expression,Mail service,Outlook.com,Microsoft,59.5228571429,3
+Privacy,Mail service,Outlook.com,Microsoft,54.6435714286,3
+Total,Mail service,Outlook.com,Microsoft,61.9959259259,2
 Commitment,Messaging & VoIP,QQ,Tencent,7.9166666667,4
 Freedom of expression,Messaging & VoIP,QQ,Tencent,18.334,6
 Privacy,Messaging & VoIP,QQ,Tencent,19.6192857143,4
