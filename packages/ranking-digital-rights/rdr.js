@@ -1,5 +1,5 @@
 var granularities = ['Companies (by type)',  'Services (by category)', 'Services (by company)' ];
-var categories = [ 'Mobile', 'Fixed broadband', 'Social network & blog', 'Messaging & VoIP', 'Search', 'Mail service', 'Video/photo' ];
+var categories = [ 'Mobile', 'Fixed broadband', 'Social network & blog', 'Messaging & VoIP', 'Search', 'Email service', 'Video/photo' ];
 var companyTypes = ['Internet','Telecommunications'];
 
 Settings = {

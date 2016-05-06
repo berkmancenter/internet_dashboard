@@ -80,8 +80,17 @@ var dataToDocs = function(xmlData) {
 };
 
 var fetchData = function() {
-  console.log('AkamaiTraffic2: Fetching data');
-  var xmlData = Future.wrap(HTTP.get)(Settings.feedUrl).wait();
+  console.log('AkamaiTraffic2: Fetching data: ' + Settings.feedUrl);
+  var future = Future.wrap(HTTP.get)(Settings.feedUrl);
+  var xmlData;
+  try {
+    xmlData = future.wait();
+  } catch(error){
+    console.error('AkamaiTraffic2: HTTP Error: ', error);
+    return;
+  }
+  
+  
   var content = '<xml>' + xmlData.content + '</xml>';
 
   var future = Future.wrap(xmlParser.parseString)(content, { attrkey: 'attr' });
@@ -89,7 +98,8 @@ var fetchData = function() {
   try {
     result = future.wait();
   } catch (error) {
-    console.error(error);
+    console.error('AkamaiTraffic2: XML Parse Error: ', error);
+    return;
   }
   var docs = dataToDocs(result);
   if (docs.length > 0) {
