@@ -113,8 +113,9 @@ var fetchData = function() {
 };
 
 if (Meteor.settings.doJobs) {
-  Future.task(fetchData);
-  Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
+  console.log("AKamaiTraffic2: Disabled. NOT fetching data.");
+  //Future.task(fetchData);
+  //Meteor.setInterval(fetchData.future(), Settings.downloadInterval);
 }
 
 Meteor.publish('country_traffic', function() {
