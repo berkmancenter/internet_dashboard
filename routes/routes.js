@@ -81,6 +81,23 @@ Router.route('/users/me/dashboards', {
   title: 'My Dashboards | Internet Monitor Dashboard'
 });
 
+Router.route('/admin/metrics', {
+  name: 'admin-metrics',
+  loadingTemplate: 'Loading',
+  waitOn: function() {
+    return [
+      Meteor.subscribe('metrics'),
+      Meteor.subscribe('widgetCounts'),
+    ];
+  },
+  data: function() {
+    var metrics = Metrics.findOne() || {};
+    return _.extend(metrics, {
+      widgetCounts: WidgetCounts.find({}, { sort: { numInstances: -1 }}).fetch()
+    });
+  }
+});
+
 Router.plugin('ensureSignedIn', {
-    only: ['users-profile', 'users-dashboards']
+    only: ['users-profile', 'users-dashboards', 'admin-metrics']
 });

@@ -27,10 +27,10 @@ Commitment,Search,Bing,Microsoft,82.0366666667,1
 Freedom of expression,Search,Bing,Microsoft,36.4575,3
 Privacy,Search,Bing,Microsoft,55.2569230769,2
 Total,Search,Bing,Microsoft,55.6377777778,2
-Commitment,Email Service,Daum Mail,Kakao,38.6116666667,4
-Freedom of expression,Email Service,Daum Mail,Kakao,76.19,1
-Privacy,Email Service,Daum Mail,Kakao,41.0771428571,4
-Total,Email Service,Daum Mail,Kakao,49.6325925926,4
+Commitment,Email service,Daum Mail,Kakao,38.6116666667,4
+Freedom of expression,Email service,Daum Mail,Kakao,76.19,1
+Privacy,Email service,Daum Mail,Kakao,41.0771428571,4
+Total,Email service,Daum Mail,Kakao,49.6325925926,4
 Commitment,Search,Daum Search,Kakao,38.6116666667,3
 Freedom of expression,Search,Daum Search,Kakao,52.60375,2
 Privacy,Search,Daum Search,Kakao,42.0576923077,3
@@ -51,10 +51,10 @@ Commitment,Video/photo,Flickr,Yahoo,78.4266666667,2
 Freedom of expression,Video/photo,Flickr,Yahoo,54.93,2
 Privacy,Video/photo,Flickr,Yahoo,54.06,2
 Total,Video/photo,Flickr,Yahoo,59.2233333333,2
-Commitment,Email Service,Gmail,Google,78.1483333333,3
-Freedom of expression,Email Service,Gmail,Google,64.2857142857,2
-Privacy,Email Service,Gmail,Google,58.6785714286,1
-Total,Email Service,Gmail,Google,64.4588888889,1
+Commitment,Email service,Gmail,Google,78.1483333333,3
+Freedom of expression,Email service,Gmail,Google,64.2857142857,2
+Privacy,Email service,Gmail,Google,58.6785714286,1
+Total,Email service,Gmail,Google,64.4588888889,1
 Commitment,Search,Google Search,Google,76.4816666667,2
 Freedom of expression,Search,Google Search,Google,71.875,1
 Privacy,Search,Google Search,Google,60.2438461538,1
@@ -71,10 +71,10 @@ Commitment,Messaging & VoIP,KakaoTalk,Kakao,41.1116666667,3
 Freedom of expression,Messaging & VoIP,KakaoTalk,Kakao,52.916,1
 Privacy,Messaging & VoIP,KakaoTalk,Kakao,43.9107142857,2
 Total,Messaging & VoIP,KakaoTalk,Kakao,46.3526666667,2
-Commitment,Email Service,Mail.Ru,Mail.Ru,3.3333333333,5
-Freedom of expression,Email Service,Mail.Ru,Mail.Ru,38.0957142857,5
-Privacy,Email Service,Mail.Ru,Mail.Ru,9.7378571429,5
-Total,Email Service,Mail.Ru,Mail.Ru,15.6666666667,5
+Commitment,Email service,Mail.Ru,Mail.Ru,3.3333333333,5
+Freedom of expression,Email service,Mail.Ru,Mail.Ru,38.0957142857,5
+Privacy,Email service,Mail.Ru,Mail.Ru,9.7378571429,5
+Total,Email service,Mail.Ru,Mail.Ru,15.6666666667,5
 Commitment,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,3.3333333333,6
 Freedom of expression,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,26.667,3
 Privacy,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,6.7621428571,6
@@ -91,10 +91,10 @@ Commitment,Mobile,Orange,Orange,73.3333333333,2
 Freedom of expression,Mobile,Orange,Orange,28.334,3
 Privacy,Mobile,Orange,Orange,24.5416666667,4
 Total,Mobile,Orange,Orange,36.3514285714,3
-Commitment,Email Service,Outlook.com,Microsoft,82.0366666667,1
-Freedom of expression,Email Service,Outlook.com,Microsoft,59.5228571429,3
-Privacy,Email Service,Outlook.com,Microsoft,54.6435714286,3
-Total,Email Service,Outlook.com,Microsoft,61.9959259259,2
+Commitment,Email service,Outlook.com,Microsoft,82.0366666667,1
+Freedom of expression,Email service,Outlook.com,Microsoft,59.5228571429,3
+Privacy,Email service,Outlook.com,Microsoft,54.6435714286,3
+Total,Email service,Outlook.com,Microsoft,61.9959259259,2
 Commitment,Messaging & VoIP,QQ,Tencent,7.9166666667,4
 Freedom of expression,Messaging & VoIP,QQ,Tencent,18.334,6
 Privacy,Messaging & VoIP,QQ,Tencent,19.6192857143,4
@@ -135,10 +135,10 @@ Commitment,Messaging & VoIP,WhatsApp,Facebook,41.6666666667,2
 Freedom of expression,Messaging & VoIP,WhatsApp,Facebook,22.917,4
 Privacy,Messaging & VoIP,WhatsApp,Facebook,20.1192857143,3
 Total,Messaging & VoIP,WhatsApp,Facebook,25.3613333333,3
-Commitment,Email Service,Yahoo! Mail,Yahoo,78.4266666667,2
-Freedom of expression,Email Service,Yahoo! Mail,Yahoo,52.3814285714,4
-Privacy,Email Service,Yahoo! Mail,Yahoo,54.7742857143,2
-Total,Email Service,Yahoo! Mail,Yahoo,59.41,3
+Commitment,Email service,Yahoo! Mail,Yahoo,78.4266666667,2
+Freedom of expression,Email service,Yahoo! Mail,Yahoo,52.3814285714,4
+Privacy,Email service,Yahoo! Mail,Yahoo,54.7742857143,2
+Total,Email service,Yahoo! Mail,Yahoo,59.41,3
 Commitment,Video/photo,YouTube,Google,78.9816666667,1
 Freedom of expression,Video/photo,YouTube,Google,60.903,1
 Privacy,Video/photo,YouTube,Google,55.5835714286,1
