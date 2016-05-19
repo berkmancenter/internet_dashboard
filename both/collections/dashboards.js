@@ -84,6 +84,10 @@ Dashboards.attachSchema(new SimpleSchema({
     type: Number,
     defaultValue: 20
   },
+  isSeed: {
+    type: Boolean,
+    defaultValue: false
+  },
   ownerId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,

@@ -11,3 +11,9 @@ Meteor.publish('dashboard', function(id) {
   return Dashboards.find(id);
 });
 Dashboards._ensureIndex({ ownerId: 1 });
+
+Meteor.publish('seeds', function() {
+  var dashboards = Dashboards.find({isSeed: true});
+  if (!dashboards) { return; }
+  return dashboards;
+});
