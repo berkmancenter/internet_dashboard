@@ -11,12 +11,12 @@ Settings = {
   defaultData: {
     title: 'Scatter Plot',
     x: {
-      indicator: 'Percentage of individuals using the Internet',
+      indicator: 5, // Percentage of individuals using the Internet
       log: false,
       jitter: 0.0
     },
     y: {
-      indicator: 'Average download speed (kbps)',
+      indicator: 16, // Average download speed (kbps)
       log: false,
       jitter: 0.0
     }
