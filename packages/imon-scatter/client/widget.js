@@ -5,7 +5,8 @@ Template.IMonScatterWidget.onCreated(function() {
       Template.currentData().x.indicator,
       Template.currentData().y.indicator
     ];
-    template.subscribe('imon_data', 'all', indicators,'name');
+    template.subscribe('imon_data', 'all', indicators,'id');
+    template.subscribe('imon_indicators');
     template.subscribe('imon_countries');
   });
 });
@@ -67,7 +68,8 @@ Template.IMonScatterWidget.onRendered(function() {
     if (!template.subscriptionsReady()) { return; }
     var xIndicator = Template.currentData().x.indicator;
     var yIndicator = Template.currentData().y.indicator;
-    var xTitle = xIndicator, yTitle = yIndicator;
+    var xTitle = IMonIndicators.findOne({ id: xIndicator }).shortName;
+    var yTitle = IMonIndicators.findOne({ id: yIndicator }).shortName; 
     if (Template.currentData().x.log) {
       xTitle = 'Log ' + xTitle;
     }
@@ -77,8 +79,8 @@ Template.IMonScatterWidget.onRendered(function() {
 
     var data = [];
     IMonCountries.find().forEach(function(country) {
-      var x = IMonData.findOne({ countryCode: country.code, name: xIndicator });
-      var y = IMonData.findOne({ countryCode: country.code, name: yIndicator });
+      var x = IMonData.findOne({ countryCode: country.code, sourceId: xIndicator });
+      var y = IMonData.findOne({ countryCode: country.code, sourceId: yIndicator });
       if (_.isUndefined(x) || _.isUndefined(y)) { return; }
 
       var xValue = x.value, yValue = y.value;

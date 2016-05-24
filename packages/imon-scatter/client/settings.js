@@ -3,7 +3,7 @@ Template.IMonScatterSettings.onCreated(function() {
 });
 
 Template.IMonScatterSettings.helpers({
-  indicators: function() { return IMonIndicators.find({}, { sort: { name: 1 }}); },
+  indicators: function() { return IMonIndicators.find({}, { sort: { shortName: 1 }}); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(val) { return val ? 'checked' : ''; },
 });
@@ -13,12 +13,12 @@ Template.IMonScatterSettings.events({
     var newData = {
       title: template.find('#chart-title').value,
       x: {
-        indicator: template.find('#x-select').value,
+        indicator: parseInt(template.find('#x-select').value),
         log: template.find('#x-log').checked,
         jitter: parseInt(template.find('#x-jitter').value)
       },
       y: {
-        indicator: template.find('#y-select').value,
+        indicator: parseInt(template.find('#y-select').value),
         log: template.find('#y-log').checked,
         jitter: parseInt(template.find('#y-jitter').value)
       }};
