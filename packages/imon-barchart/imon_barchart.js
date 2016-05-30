@@ -35,7 +35,7 @@ IMonBarchart = {
     dimensions: { width: 3, height: 2 },
     resize: { mode: 'cover' },
     constructor: IMonBarchartWidget,
-    typeIcon: 'line-chart'
+    typeIcon: 'bar-chart'
   },
   org: {
     name: 'Internet Monitor',
