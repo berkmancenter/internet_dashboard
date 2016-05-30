@@ -10,11 +10,22 @@ Settings = {
   },
   defaultData: {
     title: 'Bar Chart',
+    mode: 'single', // other mode: 'multi', refers to the number of indicators.
     x: {
-      indicator: ['egy', 'kor'] // temp
+      single: {
+        indicator: ['egy', 'kor'] // temp
+      },
+      multi: {
+        indicator: [16, 5] // Average download speed, % of people using the internet. temp.
+      }
     },
     y: {
-      indicator: 16 // Average download speed (kbps)
+      single: {
+        indicator: 16 // Average download speed (kbps)
+      },
+      multi: {
+        indicator: 'kor' // temp
+      }
     }
   }
 };
