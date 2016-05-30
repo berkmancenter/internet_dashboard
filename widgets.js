@@ -21,6 +21,7 @@ ActiveWidgets = [
   'gsma-total',
   'imon-scatter',
   'imon-choropleth',
+  'imon-barchart',
   'gsma-prepaid',
   'gsma-3g',
   'gsma-4g',

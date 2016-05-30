@@ -1,0 +1,20 @@
+.imon-scatter-settings #x-jitter, .imon-scatter-settings #y-jitter {
+  width: 60px;
+}
+.imon-scatter-settings .form-group .row {
+  margin: 0.3em 1em 0;
+}
+.imon-scatter-settings .axis-options {
+  font-size: 0.8em;
+  padding-left: 0.8em;
+}
+.imon-scatter-settings .axis-options .caret {
+  content: "";
+  border-top: 0;
+  border-bottom: 4px dashed;
+}
+.imon-scatter-settings .axis-options.collapsed .caret {
+  content: "";
+  border-bottom: 0;
+  border-top: 4px dashed;
+}

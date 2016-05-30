@@ -1,0 +1,31 @@
+<template name="IMonBarchartSettings">
+<div class="form-group">
+  <label for="chart-title">Chart title</label>
+  <input placeholder="Bar Chart" class="form-control"
+         id="chart-title" name="chart-title" value="{{ title }}" />
+</div>
+
+{{# if Template.subscriptionsReady }}
+<div class="form-group">
+  <label for="y-select">Y-axis</label>
+  <select class="y-axis form-control" id="y-select" name="y-axis">
+  {{# each indicators }}
+  <option value="{{ id }}" {{ isSelected id ../y.indicator }}>{{ shortName }}</option>
+  {{/each}}
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="countries-select">Countries <small id="countries-select-number"></small></label>
+  <select class="form-control" id="countries-select" multiple>
+  {{# each country }}
+    <option class="country" value="{{ code }}" {{ isInArray code ../x.indicator }}>{{ name }}</option>
+  {{ /each }}
+  </select>
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>
