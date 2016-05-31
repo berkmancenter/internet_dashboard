@@ -41,7 +41,7 @@ IMonBarchartWidget.prototype.constructor = IMonBarchartWidget;
 IMonBarchart = {
   widget: {
     name: 'Bar Chart',
-    description: 'Shows a bar chart',
+    description: 'Shows a bar chart comparing an indicator across several countries, or several indicators for the same country.',
     url: 'https://thenetmonitor.org/sources',
     dimensions: { width: 3, height: 2 },
     resize: { mode: 'cover' },
