@@ -1,6 +1,8 @@
 Template.IMonBarchartSettings.onCreated(function() {
   this.subscribe('imon_indicators');
+  this.subscribe('imon_countries');
 });
+
 
 Template.IMonBarchartSettings.helpers({
   singleIndicator: function() { return Template.currentData().mode === 'single' ? true : false; },
@@ -8,34 +10,28 @@ Template.IMonBarchartSettings.helpers({
   country: function() { return IMonCountries.find({}, { sort: { name: 1 } } ); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
-  isInArray: function(val, arr) { 
-    var mode = $('input[name="mode"]:checked').val();;
-    if(mode==='single')
-      return arr.indexOf(val) == -1 ? '' : 'selected'; 
-    else
-      return arr.indexOf(parseInt(val)) == -1 ? '' : 'selected';
-  }
+  isInArray: function(val, arr) { return arr.indexOf(val) == -1 ? '' : 'selected'; }
 });
 
 Template.IMonBarchartSettings.events({
   'click .save-barchart-settings': function(ev, template) {
-    var instance = ev.target.parentElement;
+    //var instance = ev.target.parentElement;
     // mode
     var mode = template.find('input[name="mode"]:checked').value;
 
     // x
-    var xValueSingle = $('#countries-select', instance).val();
-    var xValueMulti = $('#indicators-select', instance).val();
+    var xValueSingle = $(template.find('.countries-select')).val();
+    var xValueMulti = $(template.find('.indicators-select')).val();
     var xIndicatorSingle = mode === 'single' ? xValueSingle : Template.currentData().x.single.indicator;
     var xIndicatorMulti = mode === 'multi' ? StringToInt(xValueMulti) : Template.currentData().x.multi.indicator;
 
     // y
-    var yIndicatorValue = $('#y-select-' + mode, instance).val();
+    var yIndicatorValue = $(template.find('#y-select-' + mode)).val();
     var yIndicatorSingle = mode === 'single' ? yIndicatorValue : Template.currentData().y.single.indicator;
     var yIndicatorMulti = mode === 'multi' ? yIndicatorValue : Template.currentData().y.multi.indicator;
 
     var newData = {
-      title: $('#chart-title', instance).val(),
+      title: $(template.find('.barchart-title')).val(),
       mode: mode,
       x: {
         single:{
@@ -53,35 +49,27 @@ Template.IMonBarchartSettings.events({
           indicator: yIndicatorMulti
         }
       }};
-    console.log(newData);
     template.closeSettings();
     this.set(newData);
   },
   'change input[name="mode"]': function(ev, template){
     var instance = ev.target.parentElement;
-    var mode = $('input[name="mode"]:checked', instance).val();
+    var mode = $(template.find('input[name="mode"]:checked')).val();
     var div = mode === 'single' ? { show: '.single-settings', hide: '.multi-settings' } : { hide: '.single-settings', show: '.multi-settings' };
-    $(div.show).show();
-    $(div.hide).hide();
-    var oldData = Template.currentData();
-    var newData = {
-      title: oldData.title,
-      mode: mode,
-      x: oldData.x,
-      y: oldData.y
-    }
-    this.set(newData);
+    $(template.find(div.show)).show();
+    $(template.find(div.hide)).hide();
   },
   'mousedown .multi-option': function(ev, template){ // Remove the need to hold down ctrl in order to select countries
     ev.preventDefault();
-    var instance = ev.target.parentElement;
-    var scroll_offset = instance.scrollTop;
-    var mode = $('input[name="mode"]:checked', instance).val();
-    var selectionBox = mode === 'single' ? '#countries-select' : '#indicators-select';
+    var box = ev.target.parentElement;
+    var instance = box.parentElement.parentElement;
+    var scroll_offset = box.scrollTop;
+    var mode = $(template.find('input[name="mode"]:checked')).val();
+    var selectionBox = mode === 'single' ? '.countries-select' : '.indicators-select';
     ev.target.selected = !ev.target.selected;
-    instance.scrollTop = scroll_offset; // Prevent scrolling away when selection is toggled
-    var num_selected = $(selectionBox, instance).val() == null ? 0 : $(selectionBox, instance).val().length;
-    $(selectionBox + '-number', instance).text(num_selected + ' SELECTED');
+    box.scrollTop = scroll_offset; // Prevent scrolling away when selection is toggled
+    var num_selected = $(template.find(selectionBox)).val() == null ? 0 : $(template.find(selectionBox)).val().length;
+    $(template.find(selectionBox + '-number')).text(num_selected + ' SELECTED');
   }
 });
 

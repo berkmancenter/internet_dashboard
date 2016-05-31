@@ -93,7 +93,7 @@ Template.IMonBarchartWidget.onRendered(function() {
     else{
       yIndicator = Template.currentData().y.multi.indicator;
       yTitle = IMonCountries.findOne({ code: yIndicator }).name;
-      IMonData.find({ countryCode: yIndicator }).forEach(function(field){
+      IMonData.find({ countryCode: yIndicator, sourceId: { $in: Template.currentData().x.multi.indicator } }).forEach(function(field){
         var yValue = Math.round(field.percent * 100).toFixed(2);
         var xValue = IMonIndicators.findOne({ id: field.sourceId }).shortName;
 
@@ -109,6 +109,7 @@ Template.IMonBarchartWidget.onRendered(function() {
 
     chart.margins(Settings.chart.margins);
     chart.responsive(false);
+
     chart.draw({
       data: data,
       xAxisTitle: xTitle,

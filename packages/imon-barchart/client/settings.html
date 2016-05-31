@@ -1,7 +1,7 @@
 <template name="IMonBarchartSettings">
 <div class="form-group">
   <label for="barchart-title">Chart title</label>
-  <input placeholder="Bar Chart" class="form-control"
+  <input placeholder="Bar Chart" class="form-control barchart-title"
          id="barchart-title" name="chart-title" value="{{ title }}" />
 </div>
 
@@ -10,8 +10,8 @@
   <label><input type="radio" name="mode" value="single" {{ isChecked 'single' mode }}>Single indicator (Y-axis), multiple countries.</label>
   <label><input type="radio" name="mode" value="multi" {{ isChecked 'multi' mode }}>Multiple indicators (X-axis), single country.</label>
 </div>
-{{# if singleIndicator }}
-<div class="single-settings">
+
+<div class="single-settings" style={{# unless singleIndicator }}display:none;{{/unless}}>
   <div class="form-group">
     <label for="y-select-single">Y-axis</label>
     <select class="y-axis form-control" id="y-select-single" name="y-axis-single">
@@ -22,16 +22,16 @@
   </div>
 
   <div class="form-group">
-    <label for="countries-select">Countries <small id="countries-select-number"></small></label>
-    <select class="form-control" id="countries-select" multiple>
+    <label for="countries-select">Countries <small  class="countries-select-number"></small></label>
+    <select class="form-control countries-select" id="countries-select" multiple>
     {{# each country }}
       <option class="multi-option" value="{{ code }}" {{ isInArray code ../x.single.indicator }}>{{ name }}</option>
     {{ /each }}
     </select>
   </div>
 </div>
-{{else}}
-<div class="multi-settings">
+
+<div class="multi-settings" style={{# if singleIndicator }}display:none;{{/if}}>
   <div class="form-group">
     <label for="y-select-multi">Country</label>
     <select class="y-axis form-control" id="y-select-multi" name="y-axis-multi">
@@ -41,15 +41,15 @@
     </select>
   </div>
   <div class="form-group">
-  <label for="indicators-select">Indicators <small id="indicators-select-number"></small></label>
-    <select class="form-control" id="indicators-select" multiple>
+  <label for="indicators-select">Indicators <small class="indicators-select-number"></small></label>
+    <select class="form-control indicators-select" id="indicators-select" multiple>
     {{# each indicator }}
       <option class="multi-option" value="{{ id }}" {{ isInArray id ../x.multi.indicator }}>{{ shortName }}</option>
     {{ /each }}
     </select>
   </div>
 </div>
-{{/if}}
+
 <button class="btn btn-primary save-barchart-settings">Save</button>
 {{ else }}
   {{ widgetLoading }}
