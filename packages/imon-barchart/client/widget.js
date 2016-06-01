@@ -14,15 +14,15 @@ Template.IMonBarchartWidget.onRendered(function() {
   var node = template.find('.barchart');
   var widgetNode = template.firstNode.parentNode.parentNode;
   var $widgetBody = $(widgetNode).find('.widget-body');
-  var mode = Template.currentData().mode;
+  //var mode = Template.currentData().mode;
   var chart = d3.select(node).chart('Compose', function(options) {
     var xs = _.pluck(options.data, 'x'), ys = _.pluck(options.data, 'y');
 
-    var scales = mode === 'single' ? {
+    var scales = options.mode === 'single'? {
       x: { domain: xs, type: 'ordinal', adjacent: true },
       y: { domain: [0, _.max(ys)] }
     } : {
-      x: { domain: xs, type: 'ordinal', adjacent: true },
+      x: { domain: xs, type: 'ordinal', adjacent: true},
       y: { domain: [0, 100] }
     };
 
@@ -112,6 +112,7 @@ Template.IMonBarchartWidget.onRendered(function() {
 
     chart.draw({
       data: data,
+      mode: mode_reactive,
       xAxisTitle: xTitle,
       yAxisTitle: yTitle
     });
