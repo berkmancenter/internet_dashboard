@@ -7,7 +7,7 @@ Template.IMonBarchartSettings.onCreated(function() {
 Template.IMonBarchartSettings.helpers({
   singleIndicator: function() { return Template.currentData().mode === 'single' ? true : false; },
   indicator: function() { return IMonIndicators.find({}, { sort: { shortName: 1 }}); },
-  country: function() { return IMonCountries.find({}, { sort: { name: 1 } } ); },
+  country: function() { return IMonCountries.find({ isRegion: false }, { sort: { name: 1 } } ); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
   isInArray: function(val, arr) { return arr.indexOf(val) == -1 ? '' : 'selected'; }

@@ -62,7 +62,7 @@ Template.IMonBarchartWidget.onRendered(function() {
     chart.redraw();
   });
 
-  var redrawn = false;
+
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
     var yIndicator;
@@ -123,13 +123,8 @@ Template.IMonBarchartWidget.onRendered(function() {
     var label = d3.selectAll(xAxisText);
     var longest = _.max(data, function(row){ return row.x.length; }).x.length; // longest number of letters in x-labels
     label.attr('transform', d3.compose.helpers.rotate(-45, {x: longest*1.5, y: longest*3}));
+    setChartDims();
+    chart.redraw(); // for when diagonal labels are long, since we can't rotate the axes before they even exist/are drawn.
 
-    // This is a hacky way to get the chart to fit the widget on first draw
-    // because it wouldn't throw the draw event correctly.
-    if (!redrawn) {
-      setChartDims();
-      chart.redraw();
-      redrawn = true;
-    }
   });
 });
