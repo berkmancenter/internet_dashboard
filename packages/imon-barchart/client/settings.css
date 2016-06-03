@@ -18,3 +18,8 @@
   border-bottom: 0;
   border-top: 4px dashed;
 }
+
+.imon-barchart-settings .hidden-options{
+  display: none;
+}
+

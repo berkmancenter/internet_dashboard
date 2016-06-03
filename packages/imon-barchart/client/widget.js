@@ -9,6 +9,17 @@ Template.IMonBarchartWidget.onCreated(function() {
   });
 });
 
+Template.IMonBarchartWidget.helpers({
+  isSingle: function(){ return Template.currentData().mode == 'single'; },
+  dataSource: function(){
+    var id = Template.currentData().y.single.indicator;
+    var indicator = IMonIndicators.findOne({ id: id });
+    var name = indicator.sourceName;
+    var url = indicator.sourceURL;
+    return _.isUndefined(url) ? name : name.link(url);
+  }
+});
+
 Template.IMonBarchartWidget.onRendered(function() {
   var template = this;
   var node = template.find('.barchart');

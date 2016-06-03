@@ -6,7 +6,7 @@
 </div>
 
 {{# if Template.subscriptionsReady }}
-<div class="form-group">
+<div class="form-group hidden-options">
   <label><input type="radio" name="mode" value="single" {{ isChecked 'single' mode }}>Single indicator (Y-axis), multiple countries.</label>
   <label><input type="radio" name="mode" value="multi" {{ isChecked 'multi' mode }}>Multiple indicators (X-axis), single country.</label>
 </div>
