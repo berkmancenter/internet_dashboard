@@ -14,7 +14,6 @@ Template.IMonBarchartWidget.onRendered(function() {
   var node = template.find('.barchart');
   var widgetNode = template.firstNode.parentNode.parentNode;
   var $widgetBody = $(widgetNode).find('.widget-body');
-  //var mode = Template.currentData().mode;
   var chart = d3.select(node).chart('Compose', function(options) {
     var xs = _.pluck(options.data, 'x'), ys = _.pluck(options.data, 'y');
 
@@ -49,6 +48,7 @@ Template.IMonBarchartWidget.onRendered(function() {
       xAxisTitle
     ];
   });
+  
 
   var setChartDims = function() {
     var width = $widgetBody.outerWidth() - Settings.chart.padding.right;
@@ -107,6 +107,7 @@ Template.IMonBarchartWidget.onRendered(function() {
       });
     }
 
+
     chart.margins(Settings.chart.margins);
     chart.responsive(false);
 
@@ -116,6 +117,11 @@ Template.IMonBarchartWidget.onRendered(function() {
       xAxisTitle: xTitle,
       yAxisTitle: yTitle
     });
+
+    // make x-axis labels diagonal
+    var label = d3.selectAll('[data-id="xAxis"] text');
+    var longest = _.max(data, function(row){ return row.x.length; }).x.length; // longest number of letters in x-labels
+    label.attr('transform', d3.compose.helpers.rotate(-45, {x: longest*1.5, y: longest*3}));
 
     // This is a hacky way to get the chart to fit the widget on first draw
     // because it wouldn't throw the draw event correctly.
