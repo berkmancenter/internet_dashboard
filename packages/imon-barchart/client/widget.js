@@ -119,7 +119,9 @@ Template.IMonBarchartWidget.onRendered(function() {
     });
 
     // make x-axis labels diagonal
-    var label = d3.selectAll('[data-id="xAxis"] text');
+    var xAxisText = template.findAll('[data-id="xAxis"] text');
+    var label = d3.selectAll(xAxisText);
+    console.log("jj" + label);
     var longest = _.max(data, function(row){ return row.x.length; }).x.length; // longest number of letters in x-labels
     label.attr('transform', d3.compose.helpers.rotate(-45, {x: longest*1.5, y: longest*3}));
 
