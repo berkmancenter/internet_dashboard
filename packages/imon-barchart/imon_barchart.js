@@ -11,6 +11,7 @@ Settings = {
   defaultData: {
     title: 'Bar Chart',
     mode: 'single', // other mode: 'multi', refers to the number of indicators.
+    sorted: false,
     x: {
       single: {
         indicator: ['egy', 'kor'] // temp

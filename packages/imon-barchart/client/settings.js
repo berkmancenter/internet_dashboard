@@ -10,7 +10,8 @@ Template.IMonBarchartSettings.helpers({
   country: function() { return IMonCountries.find({ isRegion: false }, { sort: { name: 1 } } ); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
-  isInArray: function(val, arr) { return arr.indexOf(val) == -1 ? '' : 'selected'; }
+  isInArray: function(val, arr) { return arr.indexOf(val) == -1 ? '' : 'selected'; },
+  isSorted: function(){ return Template.currentData().sorted ? 'checked' : ''; }
 });
 
 Template.IMonBarchartSettings.events({
@@ -33,6 +34,7 @@ Template.IMonBarchartSettings.events({
     var newData = {
       title: $(template.find('.barchart-title')).val(),
       mode: mode,
+      sorted: template.find('.sort-option').checked,
       x: {
         single:{
           indicator: xIndicatorSingle

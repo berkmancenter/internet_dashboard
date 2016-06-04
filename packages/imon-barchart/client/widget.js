@@ -126,6 +126,10 @@ Template.IMonBarchartWidget.onRendered(function() {
       });
     }
 
+    if(Template.currentData().sorted){
+      data = _.sortBy(data, 'y');
+      data.reverse();
+    }
 
     chart.margins(Settings.chart.margins);
     chart.responsive(false);
