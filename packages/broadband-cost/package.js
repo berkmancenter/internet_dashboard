@@ -10,7 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
 
-  api.use(['less', 'imon-data', 'underscore', 'jquery', 'widget', 'mongo',
+  api.use(['less@2.6.0', 'imon-data', 'underscore', 'jquery', 'widget', 'mongo',
       'aldeed:collection2', 'country-info']);
   api.use(['templating'], 'client');
 
@@ -20,9 +20,10 @@ Package.onUse(function(api) {
     'client/settings.html',
     'client/settings.js',
     'client/widget.html',
-    'client/widget.js',
-    'client/widget.css.less',
+    'client/widget.js'
     ], 'client');
 
+  api.addFiles('client/widget.css.less', 'client', { isImport: true });
+    
   api.export('BroadbandCost');
 });

@@ -6,17 +6,19 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
 
-  api.use(['widget', 'less', 'mongo', 'underscore']);
+  api.use(['widget', 'less@2.6.0', 'mongo', 'underscore']);
   api.use(['templating'], 'client');
 
   api.addFiles('embed.js');
   api.addFiles(['server.js'], 'server');
   api.addFiles([
     'client/widget.html',
-    'client/widget.css.less',
     'client/settings.html',
     'client/settings.js'
     ], 'client');
+
+  api.addFiles('client/widget.css.less', 'client', { isImport: true });
+
   api.export('Embed');
 });
 
