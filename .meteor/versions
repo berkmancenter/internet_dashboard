@@ -53,8 +53,8 @@ es5-shim@4.5.10
 fastclick@1.0.11
 feed@0.0.1
 feed-fetcher@0.0.1
-fortawesome:fontawesome@4.3.0
-fourseven:scss@0.9.6
+fortawesome:fontawesome@4.5.0
+fourseven:scss@3.4.3
 geojson-utils@1.0.8
 global-voices@0.0.1
 gsma-3g@0.0.1
@@ -78,7 +78,7 @@ iron:core@1.0.11
 iron:dynamic-template@1.0.12
 iron:layout@1.0.12
 iron:location@1.0.11
-iron:middleware-stack@1.0.11
+iron:middleware-stack@1.1.0
 iron:router@1.0.12
 iron:url@1.0.11
 jdcc:tabular-job-collection@0.0.2
@@ -92,7 +92,7 @@ livedata@1.0.18
 localstorage@1.0.9
 logging@1.0.12
 lumen@0.0.1
-mdg:validation-error@0.2.0
+mdg:validation-error@0.5.1
 mediacloud-data@0.0.1
 mediacloud-stories@0.0.1
 mediacloud-topics@0.0.1
@@ -107,7 +107,7 @@ mobile-experience@1.0.4
 mobile-status-bar@1.0.12
 modules@0.6.1
 modules-runtime@0.6.3
-momentjs:moment@2.10.6
+momentjs:moment@2.13.1
 mongo@1.1.7
 mongo-id@1.0.4
 mongo-livedata@1.0.12
@@ -146,12 +146,12 @@ tracker@1.0.13
 twbs:bootstrap@3.3.6
 ui@1.0.11
 underscore@1.0.8
-underscorestring:underscore.string@2.4.0
+underscorestring:underscore.string@3.3.4
 url@1.0.9
 user-content@0.0.1
 useraccounts:core@1.14.2
 useraccounts:iron-routing@1.14.2
-vsivsi:job-collection@1.2.3
+vsivsi:job-collection@1.4.0
 webapp@1.2.8
 webapp-hashing@1.0.9
 webindex@0.0.1
