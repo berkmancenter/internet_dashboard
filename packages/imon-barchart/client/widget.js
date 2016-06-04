@@ -9,17 +9,6 @@ Template.IMonBarchartWidget.onCreated(function() {
   });
 });
 
-Template.IMonBarchartWidget.helpers({
-  isSingle: function(){ return Template.currentData().mode == 'single'; },
-  dataSource: function(){
-    var id = Template.currentData().y.single.indicator;
-    var indicator = IMonIndicators.findOne({ id: id });
-    var name = indicator.sourceName;
-    var url = indicator.sourceURL;
-    return _.isUndefined(url) ? name : name.link(url);
-  }
-});
-
 Template.IMonBarchartWidget.onRendered(function() {
   var template = this;
   var node = template.find('.barchart');
@@ -77,18 +66,27 @@ Template.IMonBarchartWidget.onRendered(function() {
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
     var yIndicator;
+    var cachedIndicator = Template.currentData().indicator;
     var xTitle;
     var yTitle; 
 
     var data = [];
+    var missing = []; // for the error
     var mode_reactive = Template.currentData().mode;
     if(mode_reactive === 'single'){
       yIndicator = Template.currentData().y.single.indicator;
+      var dataIndicator = IMonIndicators.findOne({ id: yIndicator });
+      if ( !cachedIndicator || cachedIndicator.id !== yIndicator){
+        Template.currentData().set({indicator: dataIndicator});
+      }
       xTitle = 'Countries';
-      yTitle = IMonIndicators.findOne({ id: yIndicator }).shortName;
+      yTitle = dataIndicator.shortName;
       IMonCountries.find({ code: {$in: Template.currentData().x.single.indicator } }).forEach(function(country) {
         var y = IMonData.findOne({ countryCode: country.code, sourceId: yIndicator });
-        if (_.isUndefined(y)) { return; }
+        if (_.isUndefined(y)) {
+          missing.push(country.name); 
+          return; 
+        }
 
         var xValue = country.name, yValue = y.value;
 
@@ -100,8 +98,18 @@ Template.IMonBarchartWidget.onRendered(function() {
           label: yValue
         });
       });
+      if(missing.length>0){
+        var message = '<strong>[' + Template.currentData().title + ']</strong> No data found for ' + missing;
+        var error = template.find('.barchart-error');
+        $(error).html('<div class="alert alert-warning">'
+          +'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+          + message
+          +'</div>');
+      }
     }
     else{
+      if(cachedIndicator)
+        Template.currentData().set({indicator: undefined});
       yIndicator = Template.currentData().y.multi.indicator;
       yTitle = IMonCountries.findOne({ code: yIndicator }).name;
       IMonData.find({ countryCode: yIndicator, sourceId: { $in: Template.currentData().x.multi.indicator } }).forEach(function(field){
