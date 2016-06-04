@@ -71,3 +71,4 @@ http
 twbs:bootstrap
 less
 underscorestring:underscore.string
+session
