@@ -73,10 +73,12 @@ Template.IMonBarchartWidget.onRendered(function() {
     var data = [];
     var missing = []; // for the error
     var mode_reactive = Template.currentData().mode;
-    if(mode_reactive === 'single'){
+    if(mode_reactive === 'single'){ // Single indicator, multiple countries. Default.
+      // Get the y-axis indicator ID
       yIndicator = Template.currentData().y.single.indicator;
+      // Get the indicator as an object
       var dataIndicator = IMonIndicators.findOne({ id: yIndicator });
-      if ( !cachedIndicator || cachedIndicator.id !== yIndicator){
+      if ( !cachedIndicator || cachedIndicator.id !== yIndicator){ // What this does is change the "From SOURCE" in the upper right corner of the widget
         Template.currentData().set({indicator: dataIndicator});
       }
       xTitle = 'Countries';
@@ -98,7 +100,8 @@ Template.IMonBarchartWidget.onRendered(function() {
           label: yValue
         });
       });
-      if(missing.length>0){
+
+      if(missing.length>0){ // If there is missing data
         var message = '<strong>[' + Template.currentData().title + ']</strong> No data found for ' + missing;
         var error = template.find('.barchart-error');
         $(error).html('<div class="alert alert-warning">'
@@ -107,8 +110,8 @@ Template.IMonBarchartWidget.onRendered(function() {
           +'</div>');
       }
     }
-    else{
-      if(cachedIndicator)
+    else{ // = If mode is 'multi'
+      if(cachedIndicator) // If we have a cached indicator, remove it. 
         Template.currentData().set({indicator: undefined});
       yIndicator = Template.currentData().y.multi.indicator;
       yTitle = IMonCountries.findOne({ code: yIndicator }).name;
@@ -126,8 +129,8 @@ Template.IMonBarchartWidget.onRendered(function() {
       });
     }
 
-    if(Template.currentData().sorted){
-      data = _.sortBy(data, 'y');
+    if(Template.currentData().sorted){ 
+      data = _.sortBy(data, 'y'); 
       data.reverse();
     }
 
