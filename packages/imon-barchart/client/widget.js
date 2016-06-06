@@ -97,7 +97,7 @@ Template.IMonBarchartWidget.onRendered(function() {
           y: yValue,
           code: country.code,
           key: country.code,
-          label: yValue
+          label: yValue.toFixed(dataIndicator.precision)
         });
       });
 
