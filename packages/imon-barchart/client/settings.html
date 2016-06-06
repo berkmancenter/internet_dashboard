@@ -13,7 +13,7 @@
 
 <div class="single-settings" style={{# unless singleIndicator }}display:none;{{/unless}}>
   <div class="form-group">
-    <label for="y-select-single">Y-axis</label>
+    <label for="y-select-single">Indicator</label>
     <select class="y-axis form-control" id="y-select-single" name="y-axis-single">
     {{# each indicator }}
     <option value="{{ id }}" {{ isSelected id ../y.single.indicator }}>{{ shortName }}</option>
@@ -51,7 +51,7 @@
 </div>
 <div class="form-group">
   <div class="checkbox checkbox-success checkbox-big">
-    <input id="sort-option" type="checkbox" class="sort-option" {{ isSorted }}><label for="sort-option">Sort Results</label>
+    <input id="sort-option" type="checkbox" class="sort-option" {{ isSorted }}><label for="sort-option">Sort by value.</label>
   </div>
 </div>
 

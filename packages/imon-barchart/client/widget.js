@@ -133,6 +133,9 @@ Template.IMonBarchartWidget.onRendered(function() {
       data = _.sortBy(data, 'y'); 
       data.reverse();
     }
+    else{
+      data = _.sortBy(data, 'x');
+    }
 
     chart.margins(Settings.chart.margins);
     chart.responsive(false);

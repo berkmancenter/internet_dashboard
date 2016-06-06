@@ -11,7 +11,7 @@ Settings = {
   defaultData: {
     title: 'Bar Chart',
     mode: 'single', // other mode: 'multi', refers to the number of indicators.
-    sorted: true,
+    sorted: false, // sort by value. When false, the x-axis is sorted by name instead.
     x: {
       single: {
         indicator: ["isr", "ita", "mex", "mar", "kor", "gbr", "usa"]
