@@ -104,9 +104,6 @@ if (Meteor.settings.doJobs) {
   // If we don't have any counts or our most recent is older than our update
   // interval...
   
-  console.log("Luman: Disabled. NOT fetching data.");
-  
-  /*
   if (LumenCounts.find().count() < Settings.numBins ||
       LumenCounts.findOne({}, { sort: { start: -1 } }).start +
       Settings.updateEvery.asMilliseconds() < Date.now()) {
@@ -116,8 +113,7 @@ if (Meteor.settings.doJobs) {
   }
   Meteor.setInterval(updateLumenCounts.future(),
                      Settings.updateEvery.asMilliseconds());
-  */
-  
+
 
 }
 
