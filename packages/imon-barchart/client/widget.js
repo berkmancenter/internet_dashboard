@@ -57,12 +57,13 @@ Template.IMonBarchartWidget.onRendered(function() {
     chart.height(height);
   };
 
+
   $(widgetNode).on('gridster:resizestop', function() {
     setChartDims();
     chart.redraw();
   });
 
-
+  var redrawn = false;
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
     var yIndicator;
@@ -147,13 +148,24 @@ Template.IMonBarchartWidget.onRendered(function() {
       yAxisTitle: yTitle
     });
 
+    var rotateAxisLabels = function(){
     // make x-axis labels diagonal
     var xAxisText = template.findAll('[data-id="xAxis"] text');
     var label = d3.selectAll(xAxisText);
     var longest = _.max(data, function(row){ return row.x.length; }).x.length; // longest number of letters in x-labels
     label.attr('transform', d3.compose.helpers.rotate(-45, {x: longest*1.5, y: longest*3}));
+    }
+
+    rotateAxisLabels();
     setChartDims();
     chart.redraw(); // for when diagonal labels are long, since we can't rotate the axes before they even exist/are drawn.
+
+    if(!redrawn){
+      rotateAxisLabels();
+      setChartDims();
+      chart.redraw();
+      redrawn = true;
+    }
 
   });
 });
