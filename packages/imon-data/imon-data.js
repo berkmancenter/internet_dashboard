@@ -36,6 +36,7 @@ IMonIndicators.attachSchema(new SimpleSchema({
   shortName:     { type: String, optional:true },
   description:   { type: String, optional:true },  
   displaySuffix: { type: String, optional:true },
+  precision:     { type: Number, optional: true },
   min:           { type: Number, decimal: true, optional: true },
   max:           { type: Number, decimal: true, optional: true }, 
   sourceName:    { type: String },

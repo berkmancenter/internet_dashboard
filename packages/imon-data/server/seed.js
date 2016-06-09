@@ -125,7 +125,8 @@ function insertIndicator(i){
     max: i.max,
     displayPrefix: i.display_prefix,
     displaySuffix: i.display_suffix,
-    displayClass:  i.display_class
+    displayClass:  i.display_class,
+    precision: i.precision
   };
 
   if ( _.contains(dontShowTheseIndicatorIds,indicator.id)){

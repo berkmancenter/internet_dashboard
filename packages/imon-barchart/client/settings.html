@@ -1,0 +1,65 @@
+<template name="IMonBarchartSettings">
+<div class="form-group">
+  <label for="barchart-title">Chart title</label>
+  <input placeholder="Bar Chart" class="form-control barchart-title"
+         id="barchart-title" name="chart-title" value="{{ title }}" />
+</div>
+
+{{# if Template.subscriptionsReady }}
+<div class="form-group hidden-options">
+  <label><input type="radio" name="mode" value="single" {{ isChecked 'single' mode }}>Single indicator (Y-axis), multiple countries.</label>
+  <label><input type="radio" name="mode" value="multi" {{ isChecked 'multi' mode }}>Multiple indicators (X-axis), single country.</label>
+</div>
+
+<div class="single-settings" style={{# unless singleIndicator }}display:none;{{/unless}}>
+  <div class="form-group">
+    <label for="y-select-single">Indicator</label>
+    <select class="y-axis form-control" id="y-select-single" name="y-axis-single">
+    {{# each indicator }}
+    <option value="{{ id }}" {{ isSelected id ../y.single.indicator }}>{{ shortName }}</option>
+    {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Countries <small class="countries-select-number"></small></label>
+    <div class="countries-select-box">
+      {{# each country }}
+        <div class="checkbox checkbox-success checkbox-small">
+          <input type="checkbox" id="countries-option-{{ code }}" class="countries-option" value="{{ code }}" {{ isInArray code ../x.single.indicator }}><label for="countries-option-{{ code }}">{{ name }}</label>
+        </div>
+      {{ /each }}
+    </div>
+    <button class="btn btn-default" id="deselect-countries"><i class="fa fa-times"></i> DESELECT ALL</button>
+  </div>
+</div>
+
+<div class="multi-settings" style={{# if singleIndicator }}display:none;{{/if}}>
+  <div class="form-group">
+    <label for="y-select-multi">Country</label>
+    <select class="y-axis form-control" id="y-select-multi" name="y-axis-multi">
+      {{# each country }}
+      <option value="{{ code }}" {{ isSelected code ../y.multi.indicator }}>{{ name }}</option>
+      {{ /each }}
+    </select>
+  </div>
+  <div class="form-group">
+  <label for="indicators-select">Indicators <small class="indicators-select-number"></small></label>
+    <select class="form-control indicators-select" id="indicators-select" multiple>
+    {{# each indicator }}
+      <option class="multi-option" value="{{ id }}" {{ isInArray id ../x.multi.indicator }}>{{ shortName }}</option>
+    {{ /each }}
+    </select>
+  </div>
+</div>
+<div class="form-group">
+  <div class="checkbox checkbox-success checkbox-big">
+    <input id="sort-option" type="checkbox" class="sort-option" {{ isSorted }}><label for="sort-option">Sort by value.</label>
+  </div>
+</div>
+
+<button class="btn btn-primary save-barchart-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>

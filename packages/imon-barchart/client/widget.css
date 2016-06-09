@@ -1,0 +1,30 @@
+.imon-scatter .chart-compose, .imon-barchart .chart-compose {
+  border: 0;
+}
+
+.imon-scatter .chart-labels .chart-label {
+  pointer-events: none;
+  visibility: hidden;
+}
+.imon-scatter .chart-label-bg {
+  opacity: 0.5;
+}
+.imon-scatter .chart-labels .chart-label.visible-label {
+  visibility: visible;
+}
+
+.imon-scatter .chart-dots circle {
+  stroke-width: 0;
+}
+
+.imon-scatter .chart-dots circle.selected {
+  fill: #FF6A00 !important;
+  opacity: 1 !important;
+}
+
+
+
+.imon-barchart .barchart-error .alert{
+  box-shadow: none !important;
+  position: inherit !important;
+}
