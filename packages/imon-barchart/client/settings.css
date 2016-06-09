@@ -29,6 +29,7 @@
   border: 1px solid #ccc;
   padding-left: 1em;
   border-radius: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .imon-barchart-settings .checkbox-small input[type="checkbox"]:checked + label::before,
@@ -43,4 +44,8 @@
 
 .imon-barchart-settings .countries-option:checked + label{
   font-weight: bold;
+}
+
+.imon-barchart-settings #deselect-countries{
+  font-size: 0.8em;
 }

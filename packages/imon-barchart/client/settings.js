@@ -63,6 +63,13 @@ Template.IMonBarchartSettings.events({
   'change .countries-option': function(ev, template){ 
     var num_selected = GetChecked(template.findAll('.countries-option:checked')) == null ? 0 : GetChecked(template.findAll('.countries-option:checked')).length;
     $(template.find('.countries-select-number')).text(num_selected + ' SELECTED');
+  },
+  'click #deselect-countries': function(ev, template){
+    $(template.findAll('.countries-option:checked')).each(function(){
+      $(this).prop('checked', false);
+    });
+    var num_selected = GetChecked(template.findAll('.countries-option:checked')) == null ? 0 : GetChecked(template.findAll('.countries-option:checked')).length;
+    $(template.find('.countries-select-number')).text(num_selected + ' SELECTED');
   }
 });
 
