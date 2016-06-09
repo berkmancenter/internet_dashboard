@@ -23,3 +23,24 @@
   display: none;
 }
 
+.imon-barchart-settings .countries-select-box{
+  height: 10em;
+  overflow: auto;
+  border: 1px solid #ccc;
+  padding-left: 1em;
+  border-radius: 0.5em;
+}
+
+.imon-barchart-settings .checkbox-small input[type="checkbox"]:checked + label::before,
+.checkbox-small input[type="radio"]:checked + label::before{
+  background-color: #428bca;
+  border-color: #428bca;
+}
+
+.imon-barchart-settings .countries-select-number{
+  opacity: 0.8;
+}
+
+.imon-barchart-settings .countries-option:checked + label{
+  font-weight: bold;
+}

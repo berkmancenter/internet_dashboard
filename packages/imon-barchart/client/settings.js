@@ -10,7 +10,7 @@ Template.IMonBarchartSettings.helpers({
   country: function() { return IMonCountries.find({ isRegion: false }, { sort: { name: 1 } } ); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
-  isInArray: function(val, arr) { return arr.indexOf(val) == -1 ? '' : 'selected'; },
+  isInArray: function(val, arr) { return arr.indexOf(val) == -1 ? '' : 'checked'; }, 
   isSorted: function(){ return Template.currentData().sorted ? 'checked' : ''; }
 });
 
@@ -20,7 +20,7 @@ Template.IMonBarchartSettings.events({
     var mode = template.find('input[name="mode"]:checked').value;
 
     // x
-    var xValueSingle = $(template.find('.countries-select')).val();
+    var xValueSingle = GetChecked(template.findAll('.countries-option:checked'));
     var xValueMulti = $(template.find('.indicators-select')).val();
     var xIndicatorSingle = mode === 'single' ? xValueSingle : Template.currentData().x.single.indicator;
     var xIndicatorMulti = mode === 'multi' ? StringToInt(xValueMulti) : Template.currentData().x.multi.indicator;
@@ -60,19 +60,9 @@ Template.IMonBarchartSettings.events({
     $(template.find(div.show)).show();
     $(template.find(div.hide)).hide();
   },
-  'mousedown .multi-option': function(ev, template){ 
-    // 1. Remove the need to hold down ctrl in order to select countries
-    ev.preventDefault();
-    var box = ev.target.parentElement;
-    var scroll_offset = box.scrollTop; // How many px from the top
-    ev.target.selected = !ev.target.selected;
-    box.scrollTop = scroll_offset; // Prevent scrolling away when selection is toggled
-
-    // 2. Display the number of selected items
-    var mode = $(template.find('input[name="mode"]:checked')).val();
-    var selectionBox = mode === 'single' ? '.countries-select' : '.indicators-select';
-    var num_selected = $(template.find(selectionBox)).val() == null ? 0 : $(template.find(selectionBox)).val().length;
-    $(template.find(selectionBox + '-number')).text(num_selected + ' SELECTED');
+  'change .countries-option': function(ev, template){ 
+    var num_selected = GetChecked(template.findAll('.countries-option:checked')) == null ? 0 : GetChecked(template.findAll('.countries-option:checked')).length;
+    $(template.find('.countries-select-number')).text(num_selected + ' SELECTED');
   }
 });
 
@@ -82,4 +72,8 @@ function StringToInt(arr){
   for(var i=0; i<arr.length; i++)
     res.push(parseInt(arr[i]));
   return res;
+}
+
+function GetChecked(selector){
+  return $(selector).map(function(){ return $(this).val(); }).get();
 }

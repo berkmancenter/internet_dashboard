@@ -22,12 +22,14 @@
   </div>
 
   <div class="form-group">
-    <label for="countries-select">Countries <small  class="countries-select-number"></small></label>
-    <select class="form-control countries-select" id="countries-select" multiple>
-    {{# each country }}
-      <option class="multi-option" value="{{ code }}" {{ isInArray code ../x.single.indicator }}>{{ name }}</option>
-    {{ /each }}
-    </select>
+    <label>Countries <small class="countries-select-number"></small></label>
+    <div class="countries-select-box">
+      {{# each country }}
+        <div class="checkbox checkbox-success checkbox-small">
+          <input type="checkbox" id="countries-option-{{ code }}" class="countries-option" value="{{ code }}" {{ isInArray code ../x.single.indicator }}><label for="countries-option-{{ code }}">{{ name }}</label>
+        </div>
+      {{ /each }}
+    </div>
   </div>
 </div>
 
