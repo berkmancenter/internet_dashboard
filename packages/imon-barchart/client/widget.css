@@ -22,12 +22,9 @@
   opacity: 1 !important;
 }
 
-.imon-barchart .barchart-attr{
-	font-weight: bold;
-	opacity: 0.6;
-	font-size: 0.8em;
-	transition: opacity 0.5s;
-}
-.imon-barchart .barchart-attr:hover{
-	opacity: 1;
+
+
+.imon-barchart .barchart-error .alert{
+  box-shadow: none !important;
+  position: inherit !important;
 }

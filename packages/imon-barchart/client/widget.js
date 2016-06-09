@@ -52,7 +52,7 @@ Template.IMonBarchartWidget.onRendered(function() {
 
   var setChartDims = function() {
     var width = $widgetBody.outerWidth() - Settings.chart.padding.right;
-    var height = $widgetBody.outerHeight() - Settings.chart.padding.bottom;
+    var height = $widgetBody.innerHeight() - $(node).position().top;
     chart.width(width);
     chart.height(height);
   };
@@ -103,12 +103,19 @@ Template.IMonBarchartWidget.onRendered(function() {
       });
 
       if(missing.length>0){ // If there is missing data
-        var message = '<strong>[' + Template.currentData().title + ']</strong> No data found for ' + missing;
+        var message = '<strong><i class="fa fa-exclamation-triangle"></i></strong> No data found for ' + missing;
         var error = template.find('.barchart-error');
-        $(error).html('<div class="alert alert-warning">'
+        $(error).html('<div class="alert alert-warning" id="barchart-error-message">'
           +'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
           + message
           +'</div>');
+        $('#barchart-error-message').on('closed.bs.alert', function () {
+          setChartDims();
+          chart.redraw();
+        });
+      }
+      else{
+        $('#barchart-error-message').remove(); // if there's an error present from a previous save
       }
     }
     else{ // = If mode is 'multi'
