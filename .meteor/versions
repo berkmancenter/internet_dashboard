@@ -151,6 +151,7 @@ underscore@1.0.8
 underscorestring:underscore.string@3.3.4
 url@1.0.9
 user-content@0.0.1
+useraccounts:bootstrap@1.14.2
 useraccounts:core@1.14.2
 useraccounts:iron-routing@1.14.2
 vsivsi:job-collection@1.4.0
