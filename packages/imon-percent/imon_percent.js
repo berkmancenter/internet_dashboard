@@ -1,18 +1,14 @@
 Settings = {
-  icons: {
-    1: 'user',
-    2: 'user',
-    5: 'user',
+  icons: { // hash of indicator IDs : icons for when it's not 'user' / person.
     6: 'home',
-    7: 'user',
-    27: 'user',
     28: 'female',
     29: 'male'
   },
   defaultData: {
     country: 'usa',
     indicatorId: 1,
-    base: 100
+    base: 100,
+    form: 'percent' // other: 'fraction'
   }
 };
 

@@ -13,13 +13,20 @@
   <label for="indicator-select">Indicator</label>
   <select class="form-control indicator-select" id="indicator-select">
     {{# each indicators }}
-      <option value="{{ id }}" {{ isSelected id ../indicatorId }}>{{ shortName }}</option>
+      <option value="{{ id }}" {{ isSelected id ../indicatorId }}>{{ removePerc shortName }}</option>
     {{/ each }}
   </select>
 </div>
 <div class="form-group">
   <label for="base-select">Total number of units (3 - 100)</label>
   <input type="number" min="3" max="100" class="form-control base-select" id="base-select" value="{{ base }}">
+</div>
+<div class="form-group">
+  <label>Number Format</label>
+  <ul class="list-unstyled">
+    <li><label><input type="radio" name="format" value="percent" {{ isChecked 'percent' form }}> Percentage</label></li>
+    <li><label><input type="radio" name="format" value="fraction" {{ isChecked 'fraction' form }}> Fraction</label></li>
+  </ul>
 </div>
 
 <button class="btn btn-primary save-settings">Save</button>

@@ -29,6 +29,7 @@ Template.IMonPercentWidget.onRendered(function(){
     var base = Template.currentData().base; // default: 100
     var countryName = IMonCountries.findOne({ code: Template.currentData().country }).name;
     var indicatorName = IMonIndicators.findOne({ id: currId }).shortName;
+    var format = Template.currentData().form;
 
     // 3. All the functions
     var setDims = function(){
@@ -45,19 +46,25 @@ Template.IMonPercentWidget.onRendered(function(){
       else if (base<=70 && base>30)
         factor = 1;
       var sizeY = (factor + parseInt($(widgetNode).attr('data-sizey'))) + 'em';
-      var sizeXNum = parseInt($(widgetNode).attr('data-sizex')) > 3 ? 3 : parseInt($(widgetNode).attr('data-sizex'));
-      var sizeX =  sizeXNum + 'em';
-      var icon = currId in Settings.icons ? Settings.icons[currId] : 'user';
-      var valueFull = indicatorValue.toFixed(0);
+      var sizeX;
+      var sizeXNum = parseInt($(widgetNode).attr('data-sizex')) > 3 ? 3 : parseInt($(widgetNode).attr('data-sizex'));      var icon = currId in Settings.icons ? Settings.icons[currId] : 'user';
       var value = parseInt((( indicatorValue * base ) / 100).toFixed(0));
       $(node).empty();
-      $('h1', title).text(indicatorName);
+      $('h1', title).text(indicatorName.replace(' (%)', ''));
       $('h2', title).text(countryName);
-      $(valuePlace).text(valueFull + '%');
+      if( format == 'percent'){
+        var valueFull = indicatorValue.toFixed(0);
+        $(valuePlace).text(valueFull + '%');
+      }
+      else{
+        $(valuePlace).html(value+'/'+base);
+        sizeXNum-=1;
+      }
       _(base).times(function(i) {
         var colored = i < value ? 'colored' : 'plain';
         $(node).append('<i class="fa fa-' + icon + ' ' + colored + '"></i>');
       });
+      sizeX =  sizeXNum + 'em';
       $(node).css('font-size', sizeY);
       $(valuePlace).css('font-size', sizeX);
     };

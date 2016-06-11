@@ -6,7 +6,9 @@ Template.IMonPercentSettings.onCreated(function() {
 Template.IMonPercentSettings.helpers({
   countries: function() { return IMonCountries.find({ isRegion: false }, { sort: { name: 1 } }); },
   indicators: function() { return IMonIndicators.find({ displaySuffix: '%', max: { $lte: 100 } }, { sort: { shortName: 1 } }); },
-  isSelected: function(a, b) { return a === b ? 'selected' : ''; }
+  isSelected: function(a, b) { return a === b ? 'selected' : ''; },
+  isChecked: function(a, b) { return a === b ? 'checked' : ''; },
+  removePerc: function(a) { return a.replace(' (%)', ''); }
 });
 
 Template.IMonPercentSettings.events({
@@ -24,7 +26,8 @@ Template.IMonPercentSettings.events({
       var newData = {
       country: country,
       indicatorId: ind,
-      base: base
+      base: base,
+      form: template.find('input[name="format"]:checked').value
       };
       template.closeSettings();
       this.set(newData);
