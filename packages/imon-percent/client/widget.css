@@ -1,0 +1,26 @@
+.imon-percent .fa {
+  font-size: 1em;
+}
+
+.imon-percent .fa.colored {
+  color: #6192BD;
+}
+
+.imon-percent .fa.plain {
+  color: rgb(217, 217, 217);
+}
+
+.imon-percent .online-users {
+  line-height: 0px;
+}
+
+.imon-percent .no-data {
+  margin-top: 2em;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.imon-percent .indicator-value {
+  font-size: 3em;
+  color: #888;
+}
