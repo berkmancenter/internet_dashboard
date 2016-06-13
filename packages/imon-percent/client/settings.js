@@ -18,8 +18,8 @@ Template.IMonPercentSettings.events({
     var ind = parseInt(template.find('.indicator-select').value);
     var available = IMonCountries.findOne({ code: country }).dataSources.indexOf(ind) === -1 ? false : true;
     var base = template.find('.base-select').value;
-    if(base<3)
-      base = 3;
+    if(base<2)
+      base = 2;
     else if(base>100)
       base = 100;
     if(available){
