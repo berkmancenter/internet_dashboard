@@ -32,41 +32,69 @@ Template.IMonPercentWidget.onRendered(function(){
     var format = Template.currentData().form;
 
     // 3. All the functions
-    var setDims = function(){
-      var h =  $widgetBody.innerHeight() - $(node.parentNode.parentNode).position().top;
+    var setDims = function(){ // Set height for the container of the icons
+      var h =  $(widgetNode).height() - $('.title-bar', widgetNode).height() - $(node.parentNode.parentNode).position().top;
       $(node).height(h);
+      $(valuePlace.parentNode).height(h);
     };
 
     var draw = function(){
-      var factor = 0;
-      if(base<=10)
-        factor = 3;
-      else if (base<=30 && base>10)
-        factor = 2;
-      else if (base<=70 && base>30)
-        factor = 1;
-      var sizeY = (factor + parseInt($(widgetNode).attr('data-sizey'))) + 'em';
-      var sizeX;
-      var sizeXNum = parseInt($(widgetNode).attr('data-sizex')) > 3 ? 3 : parseInt($(widgetNode).attr('data-sizex'));      var icon = currId in Settings.icons ? Settings.icons[currId] : 'user';
+      // a. Calculate values
       var value = parseInt((( indicatorValue * base ) / 100).toFixed(0));
+      var icon = currId in Settings.icons ? Settings.icons[currId] : 'user';
+
+
+      // b. Empty the node & fill out titles
       $(node).empty();
       $('h1', title).text(indicatorName.replace(' (%)', ''));
       $('h2', title).text(countryName);
+
+      // c. Draw
+      for(var i=0; i<base; i++){
+        var colored = i < value ? 'colored' : 'plain';
+        $(node).append('<i class="fa fa-' + icon + ' ' + colored + '"></i>');
+      }
+      $(valuePlace).css('font-size', '5em');
       if( format == 'percent'){
         var valueFull = indicatorValue.toFixed(0);
         $(valuePlace).text(valueFull + '%');
       }
       else{
         $(valuePlace).html(value+'/'+base);
-        sizeXNum-=1;
       }
-      _(base).times(function(i) {
-        var colored = i < value ? 'colored' : 'plain';
-        $(node).append('<i class="fa fa-' + icon + ' ' + colored + '"></i>');
-      });
-      sizeX =  sizeXNum + 'em';
+      var sizeXNum = $(valuePlace).css('font-size').replace('px', '');
+      while(valuePlace.parentNode.scrollWidth > valuePlace.parentNode.clientWidth || valuePlace.parentNode.scrollHeight > valuePlace.parentNode.clientHeight){
+        sizeXNum*=0.9;
+        $(valuePlace).css('font-size', sizeXNum);
+      }
+
+
+      // d. Set dimensions for icons
+      //    The factors are mainly from trial-and-error. Would rather just adjust/ reduce if there's overflow
+      //    instead of make it bigger until it can't be any bigger within the boundaries.
+      var factor = 0;
+      if(base<=10)
+        factor = 5;
+      else if (base<=15 && base>10)
+        factor = 3;
+      else if (base<=30 && base>15)
+        factor = 2.5;
+      else if (base<=50 && base>30)
+        factor = 2;
+      else if (base<=70 && base>50)
+        factor = 1.5;
+      else if (base<=90 && base>70)
+        factor = 1;
+      var sizeYNum = factor + parseInt($(widgetNode).attr('data-sizey'));
+      var sizeY = sizeYNum + 'em';
       $(node).css('font-size', sizeY);
-      $(valuePlace).css('font-size', sizeX);
+
+      // e. Check if there is overflow
+      while(node.scrollHeight > node.clientHeight){
+        sizeYNum*=0.9;
+        $(node).css('font-size', sizeYNum + 'em');
+      }
+
     };
 
     // 4. Event handlers
@@ -75,6 +103,7 @@ Template.IMonPercentWidget.onRendered(function(){
       draw();
     });
 
+    // 5. Flow
     setDims();
     draw();
   });

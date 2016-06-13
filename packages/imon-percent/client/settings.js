@@ -5,6 +5,7 @@ Template.IMonPercentSettings.onCreated(function() {
 
 Template.IMonPercentSettings.helpers({
   countries: function() { return IMonCountries.find({ isRegion: false }, { sort: { name: 1 } }); },
+  regions: function() { return IMonCountries.find({ isRegion: true }, { sort: { name: 1 } }); },
   indicators: function() { return IMonIndicators.find({ displaySuffix: '%', max: { $lte: 100 } }, { sort: { shortName: 1 } }); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },

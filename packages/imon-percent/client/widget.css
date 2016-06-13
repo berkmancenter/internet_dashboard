@@ -13,6 +13,7 @@
 
 .imon-percent .online-users {
   line-height: 0px;
+  overflow: hidden;
 }
 
 .imon-percent .no-data {
@@ -22,7 +23,12 @@
 }
 
 .imon-percent .indicator-value {
-  font-size: 3em;
+  font-size: 5em;
   font-weight: bold;
   color: #888;
+}
+
+.imon-percent .value-container{
+  padding-left: 0px !important;
+  overflow: hidden;
 }
