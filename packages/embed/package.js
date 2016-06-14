@@ -14,10 +14,9 @@ Package.onUse(function(api) {
   api.addFiles([
     'client/widget.html',
     'client/settings.html',
-    'client/settings.js'
-    ], 'client');
-
-  api.addFiles('client/widget.css.less', 'client', { isImport: true });
+    'client/settings.js',
+    'client/widget.css.less',
+  ], 'client');
 
   api.export('Embed');
 });

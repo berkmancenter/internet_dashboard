@@ -20,10 +20,9 @@ Package.onUse(function(api) {
     'client/settings.html',
     'client/settings.js',
     'client/widget.html',
-    'client/widget.js'
-    ], 'client');
+    'client/widget.js',
+    'client/widget.css.less',
+  ], 'client');
 
-  api.addFiles('client/widget.css.less', 'client', { isImport: true });
-    
   api.export('AccessIndex');
 });
