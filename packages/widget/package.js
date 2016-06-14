@@ -11,8 +11,8 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['sub-counter'], 'server');
-  api.use(['underscore', 'less', 'mongo', 'aldeed:collection2', 'iron:router',
-      'aramk:tinycolor', 'vsivsi:job-collection@1.2.3',
+  api.use(['underscore', 'less@2.6.0', 'mongo', 'aldeed:collection2', 'iron:router',
+	'aramk:tinycolor', 'vsivsi:job-collection@1.2.3', 'aldeed:template-extension@4.0.0',
       'jdcc:tabular-job-collection', 'useraccounts:iron-routing'
   ]);
   api.use(['templating'], 'client');
@@ -23,7 +23,7 @@ Package.onUse(function(api) {
     'widget_package.js',
     'widget_data.js',
     'jobs.js',
-    'routes.js'
+    'routes.js',
   ]);
   api.addFiles([
     'server/seeds.js',
@@ -43,11 +43,13 @@ Package.onUse(function(api) {
     'client/info.js',
     'client/embed.js',
     'client/jobs.js',
-
     'client/widget.css.less',
     'client/embed.css.less',
   ], 'client');
 
+  //api.addFiles('client/widget.css.less', 'client', { isImport: true });
+  //api.addFiles('client/embed.css.less', 'client', { isImport: true });
+    
   api.export('Widget');
   api.export('Widgets');
   api.export('WidgetPackage');

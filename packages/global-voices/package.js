@@ -10,7 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['widget', 'less', 'underscore', 'momentjs:moment', 'country-info',
+  api.use(['widget', 'less@2.6.0', 'underscore', 'momentjs:moment', 'country-info',
       'feed-fetcher']);
   api.use(['templating'], 'client');
 
@@ -23,7 +23,7 @@ Package.onUse(function(api) {
     'client/widget.html',
     'client/widget.js',
     'client/widget.css.less',
-    ], 'client');
+  ], 'client');
 
   api.export('GlobalVoices');
 });

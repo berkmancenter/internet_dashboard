@@ -12,7 +12,7 @@ Package.onUse(function (api) {
     'templating',
     'momentjs:moment@2.10.6',
     'aldeed:tabular@1.4.0',
-    'aldeed:template-extension@3.4.3',
+    'aldeed:template-extension@4.0.0',
     'vsivsi:job-collection@1.2.3'
   ]);
 
