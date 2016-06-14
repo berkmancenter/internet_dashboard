@@ -13,6 +13,9 @@
 
 .imon-percent .online-users {
   line-height: 0px;
+}
+
+.imon-percent .users-container{
   overflow: hidden;
 }
 
