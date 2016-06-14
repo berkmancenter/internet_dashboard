@@ -23,7 +23,7 @@ Package.onUse(function(api) {
     'widget_package.js',
     'widget_data.js',
     'jobs.js',
-    'routes.js'
+    'routes.js',
   ]);
   api.addFiles([
     'server/seeds.js',
@@ -43,11 +43,12 @@ Package.onUse(function(api) {
     'client/info.js',
     'client/embed.js',
     'client/jobs.js',
-
+    'client/widget.css.less',
+    'client/embed.css.less',
   ], 'client');
 
-  api.addFiles('client/widget.css.less', 'client', { isImport: true });
-  api.addFiles('client/embed.css.less', 'client', { isImport: true });
+  //api.addFiles('client/widget.css.less', 'client', { isImport: true });
+  //api.addFiles('client/embed.css.less', 'client', { isImport: true });
     
   api.export('Widget');
   api.export('Widgets');
