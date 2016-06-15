@@ -30,7 +30,7 @@ Template.IMonPercentWidget.onRendered(function(){
       var tempOptions = findBases(tempPerc);
       Template.currentData().set({ temp: { availableBases: tempOptions } });
     }
-    
+
     // 2. All the variables
     var widgetNode = template.firstNode.parentNode.parentNode;
     var $widgetBody = $(widgetNode).find('.widget-body');
@@ -44,6 +44,7 @@ Template.IMonPercentWidget.onRendered(function(){
     var countryName = IMonCountries.findOne({ code: Template.currentData().country }).name;
     var indicatorName = IMonIndicators.findOne({ id: currId }).shortName;
     var format = Template.currentData().form;
+    var color = Template.currentData().color;
 
     // 3. All the functions
     var setDims = function(){ // Set height for the container of the icons
@@ -99,7 +100,7 @@ Template.IMonPercentWidget.onRendered(function(){
         var colored = i < value ? 'colored' : 'plain';
         $(node).append('<i class="fa fa-' + icon + ' ' + colored + '"></i>');
       }
-
+      $(template.findAll('.colored')).css('color', color);
       $(valuePlace).css('font-size', '5em');
       if( format == 'percent'){
         var valueFull = indicatorValue.toFixed(0);
@@ -136,7 +137,7 @@ Template.IMonPercentWidget.onRendered(function(){
       window.setTimeout(function(){
         setDims();
         draw();
-      }, 500);
+      }, 200);
       redrawn = true;
     }
 

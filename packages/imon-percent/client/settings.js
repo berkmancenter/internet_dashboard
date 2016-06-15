@@ -10,7 +10,15 @@ Template.IMonPercentSettings.helpers({
   indicators: function() { return IMonIndicators.find({ displaySuffix: '%', max: { $lte: 100 } }, { sort: { shortName: 1 } }); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
-  removePerc: function(a) { return a.replace(' (%)', ''); }
+  removePerc: function(a) { return a.replace(' (%)', ''); },
+  colors: function() { 
+    return [
+      { code: '#6192BD', name: 'Blue' },
+      { code: '#27ae60', name: 'Green' },
+      { code: '#f39c12', name: 'Orange' },
+      { code: '#c0392b', name: 'Red' }
+    ];
+  }
 });
 
 
@@ -30,7 +38,8 @@ Template.IMonPercentSettings.events({
       country: country,
       indicatorId: ind,
       base: base,
-      form: template.find('input[name="format"]:checked').value
+      form: template.find('input[name="format"]:checked').value,
+      color: template.find('.color-select').value
       };
       template.closeSettings();
       this.set(newData);
