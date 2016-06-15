@@ -8,7 +8,11 @@ Settings = {
     country: 'usa',
     indicatorId: 1,
     base: 100,
-    form: 'percent' // other: 'fraction'
+    form: 'percent', // other: 'fraction'
+    temp: { // to calculate available bases
+      indicatorId: 1,
+      country: 'usa'
+    }
   }
 };
 

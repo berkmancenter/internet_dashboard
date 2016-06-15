@@ -25,8 +25,14 @@
   </select>
 </div>
 <div class="form-group">
-  <label for="base-select">Total number of units (2 - 100)</label>
-  <input type="number" min="2" max="100" class="form-control base-select" id="base-select" value="{{ base }}">
+  <label for="base-select">Total number of units</label>
+  <select class="form-control base-select" id="base-select">
+  {{# each temp.availableBases }}
+    <option value="{{ this }}">{{ this }}</option>
+  {{ else }}
+    <option value="100" disabled>Loading...</option>
+  {{/ each }}
+  </select>
 </div>
 <div class="form-group">
   <label>Number Format</label>

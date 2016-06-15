@@ -1,7 +1,9 @@
 Template.IMonPercentWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    var indicators = [ Template.currentData().indicatorId ];
+    var perm = Template.currentData().indicatorId;
+    var temp = Template.currentData().temp.indicatorId;
+    var indicators = perm != temp ? [ perm, temp ] : [ perm ];
     template.subscribe('imon_data', 'all', indicators, 'id');
     template.subscribe('imon_indicators');
     template.subscribe('imon_countries');
@@ -19,6 +21,16 @@ Template.IMonPercentWidget.onRendered(function(){
       Template.currentData().set({ indicator: IMonIndicators.findOne({ id: currId })});
     }
 
+    //   Set "Available Bases" for temp indicator
+    var tempId = Template.currentData().temp.indicatorId;
+    var tempCountry = Template.currentData().temp.country;
+    var tempData = IMonData.findOne({ sourceId: tempId, countryCode: tempCountry });
+    if(!_.isUndefined(tempData)){
+      var tempPerc = tempData.value;
+      var tempOptions = findBases(tempPerc);
+      Template.currentData().set({ temp: { availableBases: tempOptions } });
+    }
+    
     // 2. All the variables
     var widgetNode = template.firstNode.parentNode.parentNode;
     var $widgetBody = $(widgetNode).find('.widget-body');
@@ -131,3 +143,13 @@ Template.IMonPercentWidget.onRendered(function(){
   });
 });
 
+function findBases(percentage){ // find all bases to accurately represent a percentage
+  percentage = parseInt(percentage.toFixed(0));
+  var res = [];
+  for(var i=100; i>=2; i--){
+    var val = (i * percentage)/100;
+    if(val % 1 == 0)
+      res.push(i);
+  }
+  return res;
+}
