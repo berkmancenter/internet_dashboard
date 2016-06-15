@@ -4,59 +4,76 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
-iron:router
-twbs:bootstrap
-less
-aldeed:collection2
-backbone
+meteor-base             # Packages every Meteor app needs to have
+mobile-experience       # Packages for a great mobile UX
+mongo                   # The database Meteor supports right now
+blaze-html-templates    # Compile .html files into Meteor Blaze views
+reactive-var            # Reactive variable for tracker
+jquery                  # Helpful client-side library
+tracker                 # Meteor's client-side reactive programming library
+
+standard-minifier-css   # CSS minifier run for production mode
+standard-minifier-js    # JS minifier run for production mode
+es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
+
+accounts-base
 accounts-password
-widget
-random
-msavin:mongol
-utils
-useraccounts:bootstrap
-isotope:isotope
-underscorestring:underscore.string
-useraccounts:iron-routing
-country-info
-similar-string
-aramk:tinycolor
-fortawesome:fontawesome
-hinas:meteor-bootstrap-confirmation
-ostrio:iron-router-title
-london:body-class
-meteorhacks:kadira
 alanning:roles
-jdcc:tabular-job-collection
+aldeed:collection2
+aldeed:tabular
+aldeed:template-extension
+aramk:tinycolor
+autoupdate
+backbone
+base64
+binary-heap
+boilerplate-generator
+callback-hook
+check
+claviska:jquery-minicolors
+coffeescript
+d3js:d3
+dburles:mongo-collection-instances
+useraccounts:core
+useraccounts:iron-routing
+widget
+webindex
+feed
+embed
+user-content
+gsma-4g
+gsma-3g
+gsma-prepaid
+imon-barchart
+imon-choropleth
 imon-scatter
-wikiedits
-access-index
-kaspersky
-tor-clients
-akamaitraffic
-broadband-cost
-akamaiattacks
-change-org
-mediacloud-topics
+gsma-total
+connection-speed
+akamaitraffic2
+ranking-digital-rights
+imon-percent
+percent-on-broadband
+percent-online
+wikivolume
+lumen
+global-voices
 herdict
 mediacloud-stories
-global-voices
-lumen
-wikivolume
-percent-online
-percent-on-broadband
-akamaitraffic2
-connection-speed
-gsma-total
-gsma-prepaid
-gsma-3g
-gsma-4g
-user-content
-embed
-feed
-webindex
-ranking-digital-rights
-imon-choropleth
-imon-barchart
-imon-percent
+mediacloud-topics
+change-org
+akamaiattacks
+broadband-cost
+akamaitraffic
+tor-clients
+kaspersky
+access-index
+wikiedits
+http
+twbs:bootstrap
+less
+underscorestring:underscore.string
+session
+isotope:isotope
+useraccounts:bootstrap
+
