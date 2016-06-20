@@ -32,23 +32,6 @@
     {{/ each }}
   </select>
 </div>
-<div class="form-group">
-  <label for="base-select">Total number of units</label>
-  <select class="form-control base-select" id="base-select">
-  {{# each temp.availableBases }}
-    <option value="{{ this }}" {{ isSelected this ../base }}>{{ this }}</option>
-  {{ else }}
-    <option value="100" disabled>Loading...</option>
-  {{/ each }}
-  </select>
-</div>
-<div class="form-group">
-  <label>Number Format</label>
-  <ul class="list-unstyled">
-    <li><label><input type="radio" name="format" value="percent" {{ isChecked 'percent' form }}> Percentage</label></li>
-    <li><label><input type="radio" name="format" value="fraction" {{ isChecked 'fraction' form }}> Fraction</label></li>
-  </ul>
-</div>
 
 <button class="btn btn-primary save-settings">Save</button>
 {{ else }}

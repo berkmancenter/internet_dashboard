@@ -1,9 +1,7 @@
 Template.IMonPercentWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    var perm = Template.currentData().indicatorId;
-    var temp = Template.currentData().temp.indicatorId;
-    var indicators = perm != temp ? [ perm, temp ] : [ perm ];
+    var indicators = [ Template.currentData().indicatorId ];
     template.subscribe('imon_data', 'all', indicators, 'id');
     template.subscribe('imon_indicators');
     template.subscribe('imon_countries');
@@ -21,16 +19,6 @@ Template.IMonPercentWidget.onRendered(function(){
       Template.currentData().set({ indicator: IMonIndicators.findOne({ id: currId })});
     }
 
-    //   Set "Available Bases" for temp indicator
-    var tempId = Template.currentData().temp.indicatorId;
-    var tempCountry = Template.currentData().temp.country;
-    var tempData = IMonData.findOne({ sourceId: tempId, countryCode: tempCountry });
-    if(!_.isUndefined(tempData)){
-      var tempPerc = tempData.value;
-      var tempOptions = findBases(tempPerc);
-      Template.currentData().set({ temp: { availableBases: tempOptions } });
-    }
-
     // 2. All the variables
     var widgetNode = template.firstNode.parentNode.parentNode;
     var $widgetBody = $(widgetNode).find('.widget-body');
@@ -40,10 +28,8 @@ Template.IMonPercentWidget.onRendered(function(){
     var title = template.find('.percent-title');
     var valuePlace = template.find('.indicator-value');
     var indicatorValue = IMonData.findOne({ sourceId: Template.currentData().indicatorId, countryCode: Template.currentData().country }).value;
-    var base = Template.currentData().base; // default: 100
     var countryName = IMonCountries.findOne({ code: Template.currentData().country }).name;
     var indicatorName = IMonIndicators.findOne({ id: currId }).shortName;
-    var format = Template.currentData().form;
     var color = Template.currentData().color;
 
     // 3. All the functions
@@ -61,28 +47,10 @@ Template.IMonPercentWidget.onRendered(function(){
       }
     };
 
-    var getFactor = function(base){
-      //    The factors are mainly from trial-and-error. Would rather just adjust/ reduce if there's overflow
-      //    instead of make it bigger until it can't be any bigger within the boundaries.
-      var factor = 0;
-      if(base<=10)
-        factor = 5;
-      else if (base<=15 && base>10)
-        factor = 3;
-      else if (base<=30 && base>15)
-        factor = 2.5;
-      else if (base<=50 && base>30)
-        factor = 2;
-      else if (base<=70 && base>50)
-        factor = 1.5;
-      else if (base<=90 && base>70)
-        factor = 1;
-      return factor;
-    };
 
     var draw = function(){
       // a. Calculate values
-      var value = parseInt((( indicatorValue * base ) / 100).toFixed(0));
+      var value = parseInt((indicatorValue).toFixed(0));
       var icon = currId in Settings.icons ? Settings.icons[currId] : 'user';
 
 
@@ -92,23 +60,18 @@ Template.IMonPercentWidget.onRendered(function(){
       $('h2', title).text(countryName);
 
       // c. Draw
-      var sizeYNum = getFactor(base) + parseInt($(widgetNode).attr('data-sizey'));
+      var sizeYNum =  parseInt($(widgetNode).attr('data-sizey'));
       var sizeY = sizeYNum + 'em';
       $(node).css('font-size', sizeY);
 
-      for(var i=0; i<base; i++){
+      for(var i=0; i<100; i++){
         var colored = i < value ? 'colored' : 'plain';
         $(node).append('<i class="fa fa-' + icon + ' ' + colored + '"></i>');
       }
       $(template.findAll('.colored')).css('color', color);
       $(valuePlace).css('font-size', '5em');
-      if( format == 'percent'){
-        var valueFull = indicatorValue.toFixed(0);
-        $(valuePlace).text(valueFull + '%');
-      }
-      else{
-        $(valuePlace).html(value+'/'+base);
-      }
+      var valueFull = indicatorValue.toFixed(0);
+      $(valuePlace).text(valueFull + '%');
       var sizeXNum = $(valuePlace).css('font-size').replace('px', '');
       while(valuePlace.parentNode.scrollWidth > valuePlace.parentNode.clientWidth || valuePlace.parentNode.scrollHeight > valuePlace.parentNode.clientHeight){
         sizeXNum*=0.9;
@@ -144,13 +107,3 @@ Template.IMonPercentWidget.onRendered(function(){
   });
 });
 
-function findBases(percentage){ // find all bases to accurately represent a percentage
-  percentage = parseInt(percentage.toFixed(0));
-  var res = [];
-  for(var i=100; i>=2; i--){
-    var val = (i * percentage)/100;
-    if(val % 1 == 0)
-      res.push(i);
-  }
-  return res;
-}

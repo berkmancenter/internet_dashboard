@@ -7,13 +7,7 @@ Settings = {
   defaultData: {
     country: 'usa',
     indicatorId: 1,
-    base: 100,
-    form: 'percent', // other: 'fraction'
-    color: '#6192BD',
-    temp: { // to calculate available bases
-      indicatorId: 1,
-      country: 'usa'
-    }
+    color: '#6192BD'
   }
 };
 
