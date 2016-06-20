@@ -97,10 +97,10 @@ Template.IMonPercentWidget.onRendered(function(){
     draw();
 
     if(!redrawn){ // Yet to determine why a variation of this always works.
-      window.setTimeout(function(){
+      Meteor.setTimeout(function(){
         setDims();
         draw();
-      }, 200);
+      }, 500);
       redrawn = true;
     }
 
