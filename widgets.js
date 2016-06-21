@@ -23,6 +23,7 @@ ActiveWidgets = [
   'imon-choropleth',
   'imon-barchart',
   'imon-percent',
+  'imon-speedometer',
   'gsma-prepaid',
   'gsma-3g',
   'gsma-4g',

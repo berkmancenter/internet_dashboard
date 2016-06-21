@@ -1,0 +1,7 @@
+.imon-speedometer .gauge {
+  margin-top: 15%;
+}
+
+.imon-speedometer .title h1{
+	text-transform: capitalize;
+}

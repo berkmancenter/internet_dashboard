@@ -1,0 +1,41 @@
+<template name="IMonSpeedometerSettings">
+{{# if Template.subscriptionsReady }}
+
+<div class="form-group">
+  <label for="indicator-select">Indicator</label>
+  <select class="indicator form-control" id="indicator-select" name="indicator">
+    {{# each indicators }}
+      <option value="{{ id }}" {{ isSelected id ../indicatorId }}>{{ trim name }}</option>
+    {{/ each }}
+  </select>
+</div>
+<div class="form-group">
+  <label for="country-select">Country</label>
+  <select class="country form-control" id="country-select" name="country">
+      <optgroup label="Countries">
+        {{# each countries }}
+          <option value="{{ code }}" {{ isSelected code ../country }}>{{ name }}</option>
+        {{/each}}
+      </optgroup>
+
+      <optgroup label="Regions">
+        {{# each regions }}
+          <option value="{{ code }}" {{ isSelected code ../country }}>{{ name }}</option>
+        {{/each}}
+      </optgroup>
+  </select>
+</div>
+<div class="form-group">
+  <label for="color-select">Color</label>
+  <select class="color form-control" id="color-select" name="color">
+    {{# each colors }}
+      <option value="{{ code }}" {{ isSelected code ../color }}>{{ name }}</option>
+    {{/ each }}
+  </select>
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>
