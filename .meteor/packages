@@ -52,6 +52,7 @@ gsma-total
 connection-speed
 akamaitraffic2
 ranking-digital-rights
+imon-percent
 percent-on-broadband
 percent-online
 wikivolume
@@ -75,3 +76,4 @@ underscorestring:underscore.string
 session
 isotope:isotope
 useraccounts:bootstrap
+

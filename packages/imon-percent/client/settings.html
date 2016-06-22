@@ -1,0 +1,41 @@
+<template name="IMonPercentSettings">
+{{# if Template.subscriptionsReady }}
+<div class="percent-error"></div>
+<div class="form-group">
+  <label for="country-select">Country</label>
+  <select class="country-select form-control" id="country-select">
+    <optgroup label="Countries">
+    {{# each countries }}
+      <option value="{{ code }}" {{ isSelected code ../country }}>{{ name }}</option>
+    {{/ each }}
+    </optgroup>
+    <optgroup label="Regions">
+    {{# each regions }}
+      <option value="{{ code }}" {{ isSelected code ../country }}>{{ name }}</option>
+    {{/ each }}
+    </optgroup>
+  </select>
+</div>
+<div class="form-group">
+  <label for="indicator-select">Indicator</label>
+  <select class="form-control indicator-select" id="indicator-select">
+    {{# each indicators }}
+      <option value="{{ id }}" {{ isSelected id ../indicatorId }}>{{ removePerc shortName }}</option>
+    {{/ each }}
+  </select>
+</div>
+<div class="form-group">
+  <label for="color-select">Unit color</label>
+  <select class="form-control color-select" id="color-select">
+    {{# each colors }}
+      <option value="{{ code }}" class="color-select-option" {{ isSelected code ../color }}>{{ name }}</option>
+    {{/ each }}
+  </select>
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>
+
