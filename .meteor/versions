@@ -75,6 +75,7 @@ imon-choropleth@0.0.1
 imon-data@0.0.1
 imon-percent@0.0.1
 imon-scatter@0.0.1
+imon-speedometer@0.0.1
 iron:controller@1.0.12
 iron:core@1.0.11
 iron:dynamic-template@1.0.12
