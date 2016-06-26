@@ -22,6 +22,10 @@ Meteor.publish('imon_dev', function(){
   return IMonDev.find();
 });
 
+Meteor.publish('imon_countries_dev', function(){
+  return IMonCountriesDev.find();
+});
+
 function selectIndicators(indicatorIds,selector,idField){
   idField = idField === 'name' ? 'name' : 'sourceId';
   selector = selector ? selector : {};

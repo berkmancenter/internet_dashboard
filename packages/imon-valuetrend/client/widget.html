@@ -1,0 +1,25 @@
+<template name="IMonValuetrendWidget">
+{{# if Template.subscriptionsReady }}
+<div class="title row">
+  <div class="col-xs-12"><h1>{{ indicator }}</h1></div>
+  <div class="col-xs-12"><h2>{{ countryName }}</h2></div>
+</div>
+{{/if}}
+<div class="current-data row">
+  <div class="current text-center col-xs-7">
+  {{# if Template.subscriptionsReady }}
+    {{# if currentValue }}
+      <div class="current-value">{{{ currentValue }}}</div>
+    {{ else }}
+      <div class="no-data">No data available.</div>
+    {{/if}}
+  {{/if}}
+  </div>
+  <div class="trend-line col-xs-5">
+    <div class="epoch chart" id="chart"></div>
+    {{# if Template.subscriptionsReady }}
+    <div class="trend-label text-center">{{ trendLabel }}</div>
+    {{/if}}
+  </div>
+</div>
+</template>

@@ -1,0 +1,46 @@
+.imon-valuetrend h1 {
+  font-size:2em;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.imon-valuetrend .title, .imon-valuetrend .current-data, .imon-valuetrend .current-value {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.imon-valuetrend .current-value {
+  font-size: 4em;
+  line-height: 1em;
+}
+
+.imon-valuetrend .display-suffix{
+  font-size:0.4em;
+  opacity: 0.7;
+}
+
+.imon-valuetrend .value-label {
+  font-size: 0.9em;
+}
+.imon-valuetrend .trend-line {
+  display: inline-block;
+}
+.imon-valuetrend .trend-label {
+  font-size: 0.9em;
+}
+
+.imon-valuetrend .no-data {
+  padding: 1em;
+  font-size: 14px;
+}
+
+.imon-valuetrend .epoch.chart {
+  height: 45px;
+}
+
+.imon-valuetrend .epoch.chart .line {
+  stroke-width: 1.5px;
+  stroke: #2ca02c;
+}
