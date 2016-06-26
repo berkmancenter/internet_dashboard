@@ -19,6 +19,8 @@ Package.onUse(function(api) {
   api.export('IMonIndicators');
   api.export('IMonCountries');
   api.export('IMonData');
+  api.export('IMonDev');
+  api.export('IMonCountriesDev');
 });
 
 Npm.depends({ 'jsonapi-datastore': '0.3.2-beta' });

@@ -1,8 +1,8 @@
 var Future = Npm.require('fibers/future');
+var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
 
 function fetchData() {
   console.log('IMonData: Fetching...');
-  var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
   var store = new Store();
 
   var baseUrl = 'https://thenetmonitor.org/v1/';
@@ -25,6 +25,67 @@ function fetchData() {
   _.each(store.findAll('datum_sources'), insertIndicator);
   
   console.log('IMonData: Inserted.');
+
+}
+
+function fetchDev(){
+  console.log('IMonDev: Fetching...');
+
+  var countryList = [];
+
+  if(Settings.dev.getAll){
+    var store = new Store();
+    var futures = [];
+    var baseUrl = 'https://imon.dev.berkmancenter.org/v2/';
+
+    var fut = HTTP.get.future()(baseUrl + 'countries', { timeout: Settings.timeout });
+    futures.push(fut);
+    var results = fut.wait();
+    store.sync(results.data);
+
+    Future.wait(futures);
+
+    // for this we only need the country codes, so.
+    console.log('IMonDev: Inserting country codes...');
+    _.each(store.findAll('countries'), function(country){
+      countryList.push(country.iso3_code.toLowerCase().slice(0,3));
+    });
+    console.log('IMonDev: Country codes inserted.');
+  }
+  else{
+    countryList = Settings.dev.getCountries;
+  }
+
+  Future.task(function(){
+    return fetchDevData(countryList);
+  });
+
+}
+
+function fetchDevData(countryList){
+  console.log('IMonDev: Fetching country data...');
+
+  var store = new Store();
+  var futures = [];
+  var baseUrl = 'https://imon.dev.berkmancenter.org/v2/countries/';
+
+  var countryData = [];
+
+  countryList.forEach(function(code){
+    console.log('IMonDev: Adding data for country: '+ code);
+    var fut = HTTP.get.future()(baseUrl + code, { timeout: Settings.timeout });
+    futures.push(fut);
+    var results = fut.wait();
+    store.sync(results.data);
+    store.sync(results.data.data.relationships.data_points); 
+  });
+
+  Future.wait(futures);
+
+  console.log('IMonDev: Inserting all country data...');
+  _.each(store.findAll('countries'), insertDevData);
+  console.log('IMonDev: Country data inserted.');
+
 }
 
 function countryUrl(iso3Code) {
@@ -100,6 +161,7 @@ function isUrl(url){
   return new SimpleSchema({ url: {type: String, regEx: SimpleSchema.RegEx.Url}}).validate({url: url})
 }
 
+
 function insertIndicator(i){
   var dontShowTheseIndicatorIds = [32,33]; // temporary.
   var sourceUrl = 'https://thenetmonitor.org/sources/platform-data';
@@ -126,7 +188,8 @@ function insertIndicator(i){
     displayPrefix: i.display_prefix,
     displaySuffix: i.display_suffix,
     displayClass:  i.display_class,
-    precision: i.precision
+    precision: i.precision,
+    adminName: i.admin_name
   };
 
   if ( _.contains(dontShowTheseIndicatorIds,indicator.id)){
@@ -145,6 +208,49 @@ function insertIndicator(i){
 
 }
 
+
+// temp, for dev purposes/trying out new api
+function insertDevData(country){
+  var code = country.iso3_code.toLowerCase().slice(0,3);
+  console.log('IMonDev: Upserting country: ' + code);
+  var dataSources = [];
+  _.each(country.data_points, function(dp){
+    var d = {
+      countryCode: code,
+      imId: parseInt(dp.id),
+      indAdminName: dp.indicator,
+      date: new Date(dp.date),
+      value: dp.value
+    };
+    try{
+      IMonDev.upsert({ countryCode: code, imId: d.imId }, { $set: d });
+    }
+    catch(e){
+      console.error('IMonDev: Could not upsert data point for ' + code);
+      console.error(e);
+      throw e;
+    }
+    dataSources.push(d.indAdminName);
+  });
+
+  var c = {
+    code: code,
+    name: country.name,
+    dataSources: dataSources
+  };
+
+  try{
+    IMonCountriesDev.upsert({ code: code }, { $set: c });
+    console.log('IMonDev: Upserted country: ' + code);
+  }
+  catch(e){
+    console.error('IMonDev: Could not upsert country: ' + code);
+    console.error(e);
+    throw e;
+  }
+}
+// end temp.
+
 if (Meteor.settings.doJobs) {
   // blow out country data if you want to force an immediate refresh.
   if (IMonCountries.find().count() === 0) {
@@ -154,4 +260,13 @@ if (Meteor.settings.doJobs) {
     console.log('IMonData: We already have data. Not fetching until next interval.');
   }
   Meteor.setInterval(fetchData.future(), Settings.updateEvery);
+
+  if(IMonCountriesDev.find().count() === 0){
+    console.log('IMonDev: No country dev data. Let\'s fetch...');
+    Future.task(fetchDev);
+  }
+  else {
+    console.log('IMonDev: Already have data.');
+  }
+  Meteor.setInterval(fetchDev.future(), Settings.updateEvery);
 }

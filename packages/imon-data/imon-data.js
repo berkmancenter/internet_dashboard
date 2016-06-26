@@ -1,12 +1,18 @@
 Settings = {
   baseUrl: 'https://thenetmonitor.org',
   updateEvery: 1000 * 60 * 60 * 12 * 1,
-  timeout: 60 * 1000
+  timeout: 60 * 1000,
+  dev:{ // temp settings
+    getAll: false, // get all countries?
+    getCountries: ['usa', 'kor', 'mex'] // if not all
+  }
 };
 
 IMonData = new Mongo.Collection('imon_data');
 IMonCountries = new Mongo.Collection('imon_countries');
 IMonIndicators = new Mongo.Collection('imon_indicators');
+IMonDev = new Mongo.Collection('imon_dev');
+IMonCountriesDev = new Mongo.Collection('imon_dev_countries');
 
 IMonCountries.attachSchema(new SimpleSchema({
   name:        { type: String },
@@ -34,6 +40,7 @@ IMonIndicators.attachSchema(new SimpleSchema({
   id:            { type: Number, unique: true },
   name:          { type: String, unique: true },
   shortName:     { type: String, optional:true },
+  adminName:     { type: String, unique: true }, 
   description:   { type: String, optional:true },  
   displaySuffix: { type: String, optional:true },
   precision:     { type: Number, optional: true },
@@ -41,4 +48,18 @@ IMonIndicators.attachSchema(new SimpleSchema({
   max:           { type: Number, decimal: true, optional: true }, 
   sourceName:    { type: String },
   sourceUrl:     { type: String, regEx: SimpleSchema.RegEx.Url, optional: true}
+}));
+
+IMonDev.attachSchema(new SimpleSchema({
+  countryCode: { type: String, max: 3 },
+  imId:        { type: Number },
+  indAdminName:{ type: String, optional: true },
+  date:        { type: Date, optional: true },
+  value:       { type: Number, decimal: true, optional: true }
+}));
+
+IMonCountriesDev.attachSchema(new SimpleSchema({
+  code:         { type: String, unique: true },
+  name:         { type: String },
+  dataSources:  { type: [String], defaultValue: [] }
 }));

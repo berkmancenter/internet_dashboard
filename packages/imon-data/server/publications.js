@@ -18,6 +18,10 @@ Meteor.publish('imon_data', function(countryCode, indicatorIds, idField) {
   return IMonData.find(selector);
 });
 
+Meteor.publish('imon_dev', function(){
+  return IMonDev.find();
+});
+
 function selectIndicators(indicatorIds,selector,idField){
   idField = idField === 'name' ? 'name' : 'sourceId';
   selector = selector ? selector : {};
