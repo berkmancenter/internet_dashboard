@@ -101,6 +101,7 @@ Template.IMonValuetrendWidget.onRendered(function() {
         margins: { left: 0, right: 0, top: 3, bottom: 3 },
       });
     }
+    $(template.find('.line')).css('stroke', Template.currentData().color);
   });
 });
 

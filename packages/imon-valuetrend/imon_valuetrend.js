@@ -2,7 +2,8 @@ Settings = {
   months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   defaultData: {
    country: 'usa',
-   indicatorName: 'hhnet'
+   indicatorName: 'hhnet',
+   color: '#2ca02c'
  }
 };
 
