@@ -9,7 +9,7 @@ Template.IMonValuetrendSettings.onCreated(function(){
 
 Template.IMonValuetrendSettings.helpers({
   countries: function() { return IMonCountriesDev.find({}, { sort: { name: 1 } }); },
-  indicators: function() { return IMonIndicators.find({ adminName: { $nin: ['ONIco', 'ONIs', 'ONIp', 'ONIit', 'ONIcs', 'ONItr']}}, { sort: { shortName: 1 } }); },
+  indicators: function() { return IMonIndicators.find({}, { sort: { shortName: 1 } }); },
   isSelected: function(a, b) { return a == b ? 'selected' : ''; },
 });
 
