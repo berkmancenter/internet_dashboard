@@ -1,5 +1,9 @@
 Settings = {
   months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  suffix: {
+    percentage: '%',
+    speed: 'kbps'
+  },
   defaultData: {
    country: 'usa',
    indicatorName: 'hhnet',

@@ -3,13 +3,14 @@ Template.IMonValuetrendWidget.onCreated(function() {
   template.autorun(function() {
     template.subscribe('imon_dev', Template.currentData().country, [ Template.currentData().indicatorName ]);
     template.subscribe('imon_countries_dev');
-    template.subscribe('imon_indicators');
+    template.subscribe('imon_indicators'); // for provider data
+    template.subscribe('imon_indicators_dev');
   });
 });
 
 Template.IMonValuetrendWidget.helpers({
   countryName: function() { return IMonCountriesDev.findOne({ code: Template.currentData().country }).name; },
-  indicator: function() { return IMonIndicators.findOne({ adminName: Template.currentData().indicatorName }).shortName; },
+  indicator: function() { return IMonIndicatorsDev.findOne({ adminName: Template.currentData().indicatorName }).shortName; },
   currentValue: function() {
     var max = new Date("1000");
     var val = 0;
@@ -25,8 +26,8 @@ Template.IMonValuetrendWidget.helpers({
       }
     });
     val = val >= 1000000 ? (Math.round(val/1000000*100)/100).toLocaleString() + 'M' : (Math.round(val * 100) / 100).toLocaleString();
-    var suffix = IMonIndicators.findOne({ adminName: Template.currentData().indicatorName }).displaySuffix;
-    val = suffix ? val + '<span class="display-suffix">' + suffix  + '</span>' : val;
+    var dispClass = IMonIndicatorsDev.findOne({ adminName: Template.currentData().indicatorName }).displayClass;
+    val = (dispClass && dispClass in Settings.suffix) ? val + '<span class="display-suffix">' + Settings.suffix[dispClass]  + '</span>' : val;
     return found ? val : '<p class="no-data"> No data found.</p>';
   },
   trendLabel: function() {
@@ -64,9 +65,11 @@ Template.IMonValuetrendWidget.onRendered(function() {
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
     var cachedIndicator = Template.currentData().indicator;
-    var currId = Template.currentData().indicatorName; 
-    if(!cachedIndicator || cachedIndicator.adminName !== currId){
-      Template.currentData().set({ indicator: IMonIndicators.findOne({ adminName: currId })});
+    var currId = Template.currentData().indicatorName;
+    if(!cachedIndicator || IMonIndicatorsDev.findOne({ id: cachedIndicator.id }).adminName !== currId){
+      // done this way until provider/source data is in IndicatorsDev/equiv. 
+      var newId = IMonIndicatorsDev.findOne({ adminName: currId }).id;
+      Template.currentData().set({ indicator: IMonIndicators.findOne({ id: newId })});
     }
 
     var graph = template.find('#chart');

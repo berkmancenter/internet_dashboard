@@ -29,12 +29,12 @@ function fetchData() {
 }
 
 function fetchDev(){
-  console.log('IMonDev: Fetching...');
+  console.log('IMonDev: Fetching country data...');
   var store = new Store();
   var futures = [];
-  var baseUrl = 'https://imon.dev.berkmancenter.org/v2/';
+  var baseUrl = 'https://imon.dev.berkmancenter.org/v2/countries';
 
-  var fut = HTTP.get.future()(baseUrl + 'countries', { timeout: Settings.timeout*3 });
+  var fut = HTTP.get.future()(baseUrl, { timeout: Settings.timeout*3 });
   futures.push(fut);
   var results = fut.wait();
   store.sync(results.data);
@@ -46,13 +46,36 @@ function fetchDev(){
   Future.wait(futures);
 
   var insert = function(){
-    console.log('IMonDev: Inserting...');
+    console.log('IMonDev: Inserting Countries...');
     _.each(store.findAll('countries'), insertDevData);
-    console.log('IMonDev: Inserted.');
+    console.log('IMonDev: Countries Inserted.');
   }
 
   Future.task(insert);
 
+}
+
+function fetchDevInd(){ // in separate function temporarily.
+  console.log('IMonDev: Fetching indicator data...');
+  var store = new Store();
+  var futures = [];
+  var baseUrl = 'https://imon.dev.berkmancenter.org/v2/indicators';
+
+  var fut = HTTP.get.future()(baseUrl, { timeout: Settings.timeout });
+  futures.push(fut);
+  var results = fut.wait();
+  store.sync(results.data);
+
+  console.log('IMonDev: Indicator data fetched.');
+  Future.wait(futures);
+
+  var insert = function(){
+    console.log('IMonDev: Inserting Indicators..');
+    _.each(store.findAll('indicators'), insertDevInd);
+    console.log('IMonDev: Indicators Inserted.');
+  }
+
+  Future.task(insert);
 }
 
 
@@ -156,8 +179,7 @@ function insertIndicator(i){
     displayPrefix: i.display_prefix,
     displaySuffix: i.display_suffix,
     displayClass:  i.display_class,
-    precision: i.precision,
-    adminName: i.admin_name
+    precision: i.precision
   };
 
   if ( _.contains(dontShowTheseIndicatorIds,indicator.id)){
@@ -222,6 +244,27 @@ function insertDevData(country){
     throw e;
   }
 }
+
+function insertDevInd(ind){
+  var i = {
+    id: parseInt(ind.id),
+    adminName: ind.admin_name,
+    name: ind.name,
+    shortName: ind.short_name,
+    description: ind.description,
+    displayClass: ind.display_class,
+    precision: ind.precision
+  }
+  try{
+    IMonIndicatorsDev.upsert({ id: i.id }, { $set: i });
+    console.log('IMonDev: Upserted indicator: ' + i.adminName);
+  }
+  catch(e){
+    console.error('IMonDev: Could not upsert indicator: ' + i.adminName);
+    console.error(e);
+    throw e;
+  }
+}
 // end temp.
 
 if (Meteor.settings.doJobs) {
@@ -239,7 +282,16 @@ if (Meteor.settings.doJobs) {
     Future.task(fetchDev);
   }
   else {
-    console.log('IMonDev: Already have data.');
+    console.log('IMonDev: Already have country data.');
   }
   Meteor.setInterval(fetchDev.future(), Settings.updateEvery);
+
+  if(IMonIndicatorsDev.find().count() === 0){
+    console.log('IMonDev: Missing indicator dev data. Let\'s fetch...');
+    Future.task(fetchDevInd);
+  }
+  else {
+    console.log('IMonDev: Already have indicator data.');
+  }
+  Meteor.setInterval(fetchDevInd.future(), Settings.updateEvery);
 }
