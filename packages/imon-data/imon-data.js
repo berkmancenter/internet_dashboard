@@ -1,11 +1,7 @@
 Settings = {
   baseUrl: 'https://thenetmonitor.org',
   updateEvery: 1000 * 60 * 60 * 12 * 1,
-  timeout: 60 * 1000,
-  dev:{ // temp settings
-    getAll: false, // get all countries?
-    getCountries: ['usa', 'kor', 'mex'] // if not all
-  }
+  timeout: 60 * 1000
 };
 
 IMonData = new Mongo.Collection('imon_data');

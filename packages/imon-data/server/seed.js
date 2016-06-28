@@ -30,63 +30,31 @@ function fetchData() {
 
 function fetchDev(){
   console.log('IMonDev: Fetching...');
-
-  var countryList = [];
-
-  if(Settings.dev.getAll){
-    var store = new Store();
-    var futures = [];
-    var baseUrl = 'https://imon.dev.berkmancenter.org/v2/';
-
-    var fut = HTTP.get.future()(baseUrl + 'countries', { timeout: Settings.timeout });
-    futures.push(fut);
-    var results = fut.wait();
-    store.sync(results.data);
-
-    Future.wait(futures);
-
-    // for this we only need the country codes, so.
-    console.log('IMonDev: Inserting country codes...');
-    _.each(store.findAll('countries'), function(country){
-      countryList.push(country.iso3_code.toLowerCase().slice(0,3));
-    });
-    console.log('IMonDev: Country codes inserted.');
-  }
-  else{
-    countryList = Settings.dev.getCountries;
-  }
-
-  Future.task(function(){
-    return fetchDevData(countryList);
-  });
-
-}
-
-function fetchDevData(countryList){
-  console.log('IMonDev: Fetching country data...');
-
   var store = new Store();
   var futures = [];
-  var baseUrl = 'https://imon.dev.berkmancenter.org/v2/countries/';
+  var baseUrl = 'https://imon.dev.berkmancenter.org/v2/';
 
-  var countryData = [];
-
-  countryList.forEach(function(code){
-    console.log('IMonDev: Adding data for country: '+ code);
-    var fut = HTTP.get.future()(baseUrl + code, { timeout: Settings.timeout });
-    futures.push(fut);
-    var results = fut.wait();
-    store.sync(results.data);
-    store.sync(results.data.data.relationships.data_points); 
+  var fut = HTTP.get.future()(baseUrl + 'countries', { timeout: Settings.timeout*3 });
+  futures.push(fut);
+  var results = fut.wait();
+  store.sync(results.data);
+  _.each(results.data.data, function(d){
+    store.sync(d.relationships.data_points);
   });
 
+  console.log('IMonDev: Country data fetched.');
   Future.wait(futures);
 
-  console.log('IMonDev: Inserting all country data...');
-  _.each(store.findAll('countries'), insertDevData);
-  console.log('IMonDev: Country data inserted.');
+  var insert = function(){
+    console.log('IMonDev: Inserting...');
+    _.each(store.findAll('countries'), insertDevData);
+    console.log('IMonDev: Inserted.');
+  }
+
+  Future.task(insert);
 
 }
+
 
 function countryUrl(iso3Code) {
   return Settings.baseUrl + '/countries/' + iso3Code;
@@ -212,26 +180,31 @@ function insertIndicator(i){
 // temp, for dev purposes/trying out new api
 function insertDevData(country){
   var code = country.iso3_code.toLowerCase().slice(0,3);
-  console.log('IMonDev: Upserting country: ' + code);
   var dataSources = [];
-  _.each(country.data_points, function(dp){
-    var d = {
-      countryCode: code,
-      imId: parseInt(dp.id),
-      indAdminName: dp.indicator,
-      date: new Date(dp.date),
-      value: dp.value
-    };
-    try{
-      IMonDev.upsert({ countryCode: code, imId: d.imId }, { $set: d });
-    }
-    catch(e){
-      console.error('IMonDev: Could not upsert data point for ' + code);
-      console.error(e);
-      throw e;
-    }
-    dataSources.push(d.indAdminName);
-  });
+
+  var insertDp = function(){
+    console.log('IMonDev: Upserting country: ' + country.name);
+    _.each(country.data_points, function(dp){
+      var d = {
+        countryCode: code,
+        imId: parseInt(dp.id),
+        indAdminName: dp.indicator,
+        date: new Date(dp.date),
+        value: dp.value
+      };
+      try{
+        IMonDev.upsert({ countryCode: code, imId: d.imId }, { $set: d });
+      }
+      catch(e){
+        console.error('IMonDev: Could not upsert data point for ' + code);
+        console.error(e);
+        throw e;
+      }
+      dataSources.push(d.indAdminName);
+    });
+  };
+  
+  Future.wait(Future.task(insertDp));
 
   var c = {
     code: code,
@@ -241,7 +214,7 @@ function insertDevData(country){
 
   try{
     IMonCountriesDev.upsert({ code: code }, { $set: c });
-    console.log('IMonDev: Upserted country: ' + code);
+    console.log('IMonDev: Upserted country: ' + c.name);
   }
   catch(e){
     console.error('IMonDev: Could not upsert country: ' + code);
@@ -262,7 +235,7 @@ if (Meteor.settings.doJobs) {
   Meteor.setInterval(fetchData.future(), Settings.updateEvery);
 
   if(IMonCountriesDev.find().count() === 0){
-    console.log('IMonDev: No country dev data. Let\'s fetch...');
+    console.log('IMonDev: Missing country dev data. Let\'s fetch...');
     Future.task(fetchDev);
   }
   else {

@@ -1,7 +1,7 @@
 Template.IMonValuetrendWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_dev');
+    template.subscribe('imon_dev', Template.currentData().country, [ Template.currentData().indicatorName ]);
     template.subscribe('imon_countries_dev');
     template.subscribe('imon_indicators');
   });

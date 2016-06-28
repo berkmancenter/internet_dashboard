@@ -1,7 +1,6 @@
 Template.IMonValuetrendSettings.onCreated(function(){
   var template = this;
   template.autorun(function(){
-    template.subscribe('imon_dev');
     template.subscribe('imon_countries_dev');
     template.subscribe('imon_indicators');
   });
@@ -31,7 +30,6 @@ Template.IMonValuetrendSettings.events({
       indicatorName: ind,
       color: color
     };
-    if(_.isUndefined(IMonDev.find({ countryCode: country, indAdminName: ind }))) { console.log("No data found!"); }
     template.closeSettings();
     this.set(newData);
   }

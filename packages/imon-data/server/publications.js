@@ -18,8 +18,16 @@ Meteor.publish('imon_data', function(countryCode, indicatorIds, idField) {
   return IMonData.find(selector);
 });
 
-Meteor.publish('imon_dev', function(){
-  return IMonDev.find();
+Meteor.publish('imon_dev', function(countryCode, indicatorIds){ //indicatorIds: Array, countryCode: String
+  var selector = {};
+  if(_.isUndefined(countryCode) || _.isUndefined(indicatorIds)) { return; }
+  if (countryCode !== 'all') {
+    selector.countryCode = countryCode;
+  }
+  if(_.isArray(indicatorIds)){
+    selector.indAdminName = { $in: indicatorIds }; 
+  }
+  return IMonDev.find(selector);
 });
 
 Meteor.publish('imon_countries_dev', function(){
