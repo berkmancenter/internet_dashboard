@@ -55,12 +55,12 @@ Template.IMonValuetrendWidget.helpers({
 
 Template.IMonValuetrendWidget.onRendered(function() {
   var template = this;
-  var hideGraph = function($graph) {
-    $(template.find('svg')).hide();
-    if ($(template.find('.no-data')).length === 0) {
-      $($graph).append('<p class="no-data">No trend data available.</p>');
-    }
-  };
+  
+  var showDate = function(ms, graph){
+    var toDate = new Date(ms);
+    var toYear = toDate.getFullYear();
+    $(graph).html('<p class="no-data one-data" title="No trend data available.">From ' + toYear + '</p>');
+  }
 
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
@@ -85,10 +85,11 @@ Template.IMonValuetrendWidget.onRendered(function() {
         points.push(temp);
       });
     if (points.length<2 || allEqual(_.pluck(points, 'x'))) {
-      hideGraph(graph);
+      if(points.length>0)
+        showDate(points[0].x, graph);
       return;
     } else {
-      $(template.find('.no-data')).remove();
+      $(template.findAll('.no-data')).remove();
       $(template.find('svg')).show();
     }
 

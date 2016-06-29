@@ -35,7 +35,7 @@ Meteor.publish('imon_countries_dev', function(){
 });
 
 Meteor.publish('imon_indicators_dev', function(){
-  return IMonIndicatorsDev.find();
+  return IMonIndicatorsDev.find({ id: { $nin: [32,33] } }); // all except Herdict & Morningside until there's data for them
 });
 
 function selectIndicators(indicatorIds,selector,idField){

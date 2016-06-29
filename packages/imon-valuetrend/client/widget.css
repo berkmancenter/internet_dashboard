@@ -36,6 +36,10 @@
   font-size: 14px;
 }
 
+.imon-valuetrend .one-data{
+  font-size:1em;
+}
+
 .imon-valuetrend .epoch.chart {
   height: 45px;
 }
