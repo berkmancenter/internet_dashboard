@@ -59,7 +59,8 @@ Template.IMonValuetrendWidget.onRendered(function() {
   var showDate = function(ms, graph){
     var toDate = new Date(ms);
     var toYear = toDate.getFullYear();
-    $(graph).html('<p class="no-data one-data" title="No trend data available.">From ' + toYear + '</p>');
+    $(template.find('svg')).hide();
+    $(graph).append('<p class="no-data one-data" title="No trend data available.">From ' + toYear + '</p>');
   }
 
   template.autorun(function() {
@@ -75,6 +76,7 @@ Template.IMonValuetrendWidget.onRendered(function() {
     var graph = template.find('#chart');
 
     var points = [];
+
     var data = IMonDev.find({ 
       countryCode: Template.currentData().country, 
       indAdminName: Template.currentData().indicatorName }, { sort: { date: 1 } }).forEach(function(d){
@@ -84,12 +86,18 @@ Template.IMonValuetrendWidget.onRendered(function() {
         };
         points.push(temp);
       });
-    if (points.length<2 || allEqual(_.pluck(points, 'x'))) {
-      if(points.length>0)
-        showDate(points[0].x, graph);
+
+    if(points.length>0 && (points.length<2 || allEqual(_.pluck(points, 'x')))){ // has data but not enough for a trend line
+      showDate(points[0].x, graph);
       return;
-    } else {
-      $(template.findAll('.no-data')).remove();
+    }
+    else if(points.length === 0){ // does not have data at all
+      $(template.findAll('.one-data')).remove();
+      $(template.find('svg')).hide();
+      return;
+    }
+    else{
+      $(template.findAll('.one-data')).remove();
       $(template.find('svg')).show();
     }
 
@@ -113,7 +121,7 @@ function allEqual(results){
   var x = results[0];
   var equal = true;
   for(var i=0; i<results.length; i++){
-    if(results[i] != x){
+    if(results[i] !== x){
       equal = false;
       break;
     }
