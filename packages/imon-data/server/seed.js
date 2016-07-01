@@ -28,11 +28,12 @@ function fetchData() {
 
 }
 
+
 function fetchDev(){
   console.log('IMonDev: Fetching country data...');
   var store = new Store();
   var futures = [];
-  var baseUrl = 'https://imon.dev.berkmancenter.org/v2/countries';
+  var baseUrl = 'https://thenetmonitor.org/v2/countries';
 
   var fut = HTTP.get.future()(baseUrl, { timeout: Settings.timeout*3 });
   futures.push(fut);
@@ -59,7 +60,7 @@ function fetchDevInd(){ // in separate function temporarily.
   console.log('IMonDev: Fetching indicator data...');
   var store = new Store();
   var futures = [];
-  var baseUrl = 'https://imon.dev.berkmancenter.org/v2/indicators';
+  var baseUrl = 'https://thenetmonitor.org/v2/indicators';
 
   var fut = HTTP.get.future()(baseUrl, { timeout: Settings.timeout });
   futures.push(fut);
@@ -253,7 +254,8 @@ function insertDevInd(ind){
     shortName: ind.short_name,
     description: ind.description,
     displayClass: ind.display_class,
-    precision: ind.precision
+    precision: ind.precision,
+    inverted: ind.inverted
   }
   try{
     IMonIndicatorsDev.upsert({ id: i.id }, { $set: i });

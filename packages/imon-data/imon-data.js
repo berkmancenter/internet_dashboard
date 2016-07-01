@@ -7,9 +7,9 @@ Settings = {
 IMonData = new Mongo.Collection('imon_data');
 IMonCountries = new Mongo.Collection('imon_countries');
 IMonIndicators = new Mongo.Collection('imon_indicators');
-IMonDev = new Mongo.Collection('imon_dev');
-IMonCountriesDev = new Mongo.Collection('imon_dev_countries');
-IMonIndicatorsDev = new Mongo.Collection('imon_dev_indicators');
+IMonDev = new Mongo.Collection('imon_data_v2');
+IMonCountriesDev = new Mongo.Collection('imon_countries_v2');
+IMonIndicatorsDev = new Mongo.Collection('imon_indicators_v2');
 
 IMonCountries.attachSchema(new SimpleSchema({
   name:        { type: String },
@@ -67,5 +67,6 @@ IMonIndicatorsDev.attachSchema(new SimpleSchema({
   description:  { type: String, optional: true },
   adminName:    { type: String, unique: true },
   precision:    { type: Number, optional: true },
-  displayClass: { type: String, optional: true }
+  displayClass: { type: String, optional: true },
+  inverted:     { type: Boolean, optional: true }
 }));
