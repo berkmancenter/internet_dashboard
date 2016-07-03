@@ -39,12 +39,12 @@ Meteor.publish('imon_data_v2', function(countries, indicators, recentOnly){
   /**
   Countries: either String (one code, or 'all') or array. Type: country code(s).
   Indicators: either String (one code, or 'all') or array. Type: admin name(s).
-  recentOnly: boolean (true: only get most recent data, false: also get historical data)
+  recentOnly: boolean (true: only get most recent data, false: also get historical data). Works only if single country & single indicator.
   **/
   var selector = {};
   setSelector(selector, 'countryCode', countries);
   setSelector(selector, 'indAdminName', indicators);
-  return recentOnly ? IMonData.find(selector, { sort: { date: -1 }, limit: 1 }): IMonData.find(selector);
+  return recentOnly && _.isString(countries) && _.isString(indicators) ? IMonData.find(selector, { sort: { date: -1 }, limit: 1 }): IMonData.find(selector);
 });
 
 function setSelector(selector, fieldName, input){

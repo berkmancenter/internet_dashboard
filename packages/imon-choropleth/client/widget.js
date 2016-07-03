@@ -1,74 +1,56 @@
-
-Template.IMonChoroplethWidget.updateSubscription = function(template){
-  // Make sure we're always subscribed to the currently selected indicator.
-  // Seems unnecessarily complicated.
-  if ( ! Template.currentData().newIndicatorId ) {
-    Template.currentData().set({newIndicatorId: Template.IMonChoroplethSettings.defaultIndicatorId});
-    //return;
-  }
-  if ( (Template.currentData().newIndicatorId !== Template.currentData().indicatorId)) {
-    Template.currentData().set({indicatorId: Template.currentData().newIndicatorId});
-    //return;
-  }
-  template.subscribe(
-    'imon_indicators'
-  );
-  template.subscribe(
-    'imon_data',
-    'all',
-    [ parseInt(Template.currentData().newIndicatorId) ],
-    'id'
-  );    
-};
-
 Template.IMonChoroplethWidget.onCreated(function() {
-  Template.IMonChoroplethWidget.updateSubscription(this);
+  var template = this;
+  template.autorun(function(){
+    template.subscribe('imon_indicators');
+    template.subscribe('imon_indicators_v2');
+    template.subscribe('imon_countries_v2');
+    template.subscribe('imon_data_v2', 'all', Template.currentData().indicatorName, false);
+  });
 });
 
 Template.IMonChoroplethWidget.onRendered(function() {
 
   var template = this;
 
-  this.autorun(function() {
+  template.autorun(function() {
+    if (!template.subscriptionsReady()) {  return;  }
 
-    // there must be a better way to do this...
-    Template.IMonChoroplethWidget.updateSubscription(template);
-    
-    if (!template.subscriptionsReady()) {
-      return;
-    }
-
-    var indicator = IMonIndicators.findOne({id:parseInt(Template.currentData().indicatorId)});
+    var newIndicator = IMonIndicators.findOne({adminName:Template.currentData().indicatorName});
+    var indicator = IMonIndicatorsD.findOne({ id: newIndicator.id });
     var cachedIndicator = Template.currentData().indicator;
     if ( !(cachedIndicator) || (cachedIndicator.id !== indicator.id)){
       Template.currentData().set({indicator: indicator});
     }
     
-    if ( ! indicator ) {
-      console.log('No indicator found for indicatorId: ' + Template.currentData().indicatorId);
+    if ( ! newIndicator ) {
+      console.log('No indicator found for indicator admin name: ' + Template.currentData().indicatorName);
       return;
     }
       
-    d3.select(template.find('.indicator_name')).text(indicator.shortName);
+    d3.select(template.find('.indicator_name')).text(newIndicator.shortName);
     
     template.$('.imon-choropleth-data').html('');
 
     var countryDataByCode = {};
-    var query = { };
     var scores=[];
     var scoreSet={};
-    query.sourceId = parseInt(indicator.id); // why is this necessary?
-    IMonData.find(query).forEach(function(countryData){
-      countryDataByCode[countryData.countryCode.toUpperCase()]=countryData;
-      if ( countryData.value !== undefined) {
-        scores.push(countryData.value);
-        if (_.has(scoreSet,countryData.value)){
-          scoreSet[countryData.value]+=1;
-        } else {
-          scoreSet[countryData.value]=1;
+    var countries = IMonCountries.find().fetch(); // get list of all countries
+    for(var i=0; i<countries.length; i++){
+      var currCode = countries[i].code;
+      IMonData.find({ countryCode: currCode, indAdminName: Template.currentData().indicatorName }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
+        countryDataByCode[currCode.toUpperCase()] = d;
+        if(d.value !== undefined){
+          scores.push(d.value);
         }
-      }
-    });
+        if(_.has(scoreSet, d.value)){
+          scoreSet[d.value]+=1;
+        }
+        else{
+          scoreSet[d.value]=1;
+        }
+      });
+    }
+
 
     var formatLegendLabelNumber = function formatLegendLabelNumber (number,precision){
       precision = precision ? precision : 1;
@@ -77,8 +59,8 @@ Template.IMonChoroplethWidget.onRendered(function() {
       } else if ( number > 1000 ) {
         return (number / 1000).toFixed(precision) + "K";
       } else {
-        if ( indicator.displaySuffix){
-          return number.toFixed(1) + indicator.displaySuffix;
+        if ( newIndicator.displayClass && newIndicator.displayClass in Settings.suffix){
+          return number.toFixed(1) + Settings.suffix[newIndicator.displayClass];
         } else if ( number % 1 === 0 ) {
           return number;
         } else {

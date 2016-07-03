@@ -16,7 +16,7 @@
     <label for="y-select-single">Indicator</label>
     <select class="y-axis form-control" id="y-select-single" name="y-axis-single">
     {{# each indicator }}
-    <option value="{{ adminName }}" {{ isSelected id ../y.single.indicator }}>{{ shortName }}</option>
+    <option value="{{ adminName }}" {{ isSelected adminName ../y.single.indicator }}>{{ shortName }}</option>
     {{/each}}
     </select>
   </div>
@@ -47,7 +47,7 @@
   <label for="indicators-select">Indicators <small class="indicators-select-number"></small></label>
     <select class="form-control indicators-select" id="indicators-select" multiple>
     {{# each indicator }}
-      <option class="multi-option" value="{{ adminName }}" {{ isInArray id ../x.multi.indicator }}>{{ shortName }}</option>
+      <option class="multi-option" value="{{ adminName }}" {{ isInArray adminName ../x.multi.indicator }}>{{ shortName }}</option>
     {{ /each }}
     </select>
   </div>
