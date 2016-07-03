@@ -4,14 +4,17 @@ Settings = {
   timeout: 60 * 1000
 };
 
-IMonData = new Mongo.Collection('imon_data');
-IMonCountries = new Mongo.Collection('imon_countries');
-IMonIndicators = new Mongo.Collection('imon_indicators');
-IMonDev = new Mongo.Collection('imon_data_v2');
-IMonCountriesDev = new Mongo.Collection('imon_countries_v2');
-IMonIndicatorsDev = new Mongo.Collection('imon_indicators_v2');
+// old API
+IMonDataD = new Mongo.Collection('imon_data');
+IMonCountriesD = new Mongo.Collection('imon_countries');
+IMonIndicatorsD = new Mongo.Collection('imon_indicators');
 
-IMonCountries.attachSchema(new SimpleSchema({
+// new API
+IMonData = new Mongo.Collection('imon_data_v2');
+IMonCountries = new Mongo.Collection('imon_countries_v2');
+IMonIndicators = new Mongo.Collection('imon_indicators_v2');
+
+IMonCountriesD.attachSchema(new SimpleSchema({
   name:        { type: String },
   code:        { type: String, max: 3, unique:true },
   iso2Code:    { type: String, max: 2, optional: true },
@@ -23,7 +26,7 @@ IMonCountries.attachSchema(new SimpleSchema({
   dataSources: { type: [Number], defaultValue: [] }
 }));
 
-IMonData.attachSchema(new SimpleSchema({
+IMonDataD.attachSchema(new SimpleSchema({
   countryCode: { type: String, max: 3 },
   imId:        { type: Number, unique:true },
   sourceId:    { type: Number },
@@ -33,7 +36,7 @@ IMonData.attachSchema(new SimpleSchema({
   percent:     { type: Number, decimal: true }
 }));
 
-IMonIndicators.attachSchema(new SimpleSchema({
+IMonIndicatorsD.attachSchema(new SimpleSchema({
   id:            { type: Number, unique: true },
   name:          { type: String, unique: true },
   shortName:     { type: String, optional:true },
@@ -46,7 +49,7 @@ IMonIndicators.attachSchema(new SimpleSchema({
   sourceUrl:     { type: String, regEx: SimpleSchema.RegEx.Url, optional: true}
 }));
 
-IMonDev.attachSchema(new SimpleSchema({
+IMonData.attachSchema(new SimpleSchema({
   countryCode: { type: String, max: 3 },
   imId:        { type: Number },
   indAdminName:{ type: String, optional: true },
@@ -54,13 +57,13 @@ IMonDev.attachSchema(new SimpleSchema({
   value:       { type: Number, decimal: true, optional: true }
 }));
 
-IMonCountriesDev.attachSchema(new SimpleSchema({
+IMonCountries.attachSchema(new SimpleSchema({
   code:         { type: String, unique: true },
   name:         { type: String },
   dataSources:  { type: [String], defaultValue: [] }
 }));
 
-IMonIndicatorsDev.attachSchema(new SimpleSchema({
+IMonIndicators.attachSchema(new SimpleSchema({
   id:           { type: Number, unique: true },
   name:         { type: String, unique: true },
   shortName:    { type: String, optional: true },

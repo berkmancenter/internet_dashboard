@@ -2,7 +2,7 @@ var Future = Npm.require('fibers/future');
 var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
 
 function fetchData() {
-  console.log('IMonData: Fetching...');
+  console.log('IMonData: [Old API] Fetching...');
   var store = new Store();
 
   var baseUrl = 'https://thenetmonitor.org/v1/';
@@ -18,19 +18,19 @@ function fetchData() {
 
   Future.wait(futures);
 
-  console.log('IMonData: Inserting...');
+  console.log('IMonData: [Old API] Inserting...');
 
   _.each(store.findAll('regions'), insertRegion);
   _.each(store.findAll('countries'), insertCountry);
   _.each(store.findAll('datum_sources'), insertIndicator);
   
-  console.log('IMonData: Inserted.');
+  console.log('IMonData: [Old API] Inserted.');
 
 }
 
 
-function fetchDev(){
-  console.log('IMonDev: Fetching country data...');
+function fetchCountries(){
+  console.log('IMonData: [Countries] Fetching data..');
   var store = new Store();
   var futures = [];
   var baseUrl = 'https://thenetmonitor.org/v2/countries';
@@ -43,21 +43,21 @@ function fetchDev(){
     store.sync(d.relationships.data_points);
   });
 
-  console.log('IMonDev: Country data fetched.');
+  console.log('IMonData: [Countries] Data fetched.');
   Future.wait(futures);
 
   var insert = function(){
-    console.log('IMonDev: Inserting Countries...');
-    _.each(store.findAll('countries'), insertDevData);
-    console.log('IMonDev: Countries Inserted.');
+    console.log('IMonData: [Countries] Inserting...');
+    _.each(store.findAll('countries'), insertCountryData);
+    console.log('IMonData: [Countries] Inserted.');
   }
 
   Future.task(insert);
 
 }
 
-function fetchDevInd(){ // in separate function temporarily.
-  console.log('IMonDev: Fetching indicator data...');
+function fetchIndicators(){ // in separate function temporarily.
+  console.log('IMonData: [Indicators] Fetching data...');
   var store = new Store();
   var futures = [];
   var baseUrl = 'https://thenetmonitor.org/v2/indicators';
@@ -67,13 +67,13 @@ function fetchDevInd(){ // in separate function temporarily.
   var results = fut.wait();
   store.sync(results.data);
 
-  console.log('IMonDev: Indicator data fetched.');
+  console.log('IMonData: [Indicators] Data fetched.');
   Future.wait(futures);
 
   var insert = function(){
-    console.log('IMonDev: Inserting Indicators..');
-    _.each(store.findAll('indicators'), insertDevInd);
-    console.log('IMonDev: Indicators Inserted.');
+    console.log('IMonData: [Indicators] Inserting..');
+    _.each(store.findAll('indicators'), insertIndData);
+    console.log('IMonData: [Indicators] Inserted.');
   }
 
   Future.task(insert);
@@ -118,9 +118,9 @@ function insertArea(a, isRegion) {
   }
 
   try {
-    IMonCountries.upsert({ code: code }, { $set: country });
+    IMonCountriesD.upsert({ code: code }, { $set: country });
   } catch (e) {
-    console.error('IMonData: Error upserting country data');
+    console.error('IMonData: [Old API] Error upserting country data');
     console.error(e);
     throw e;
   }
@@ -138,11 +138,11 @@ function insertArea(a, isRegion) {
     };
 
     try {
-      IMonData.upsert({ countryCode: code, imId: datum.imId }, { $set: datum });
-      IMonCountries.update({ code: code },
+      IMonDataD.upsert({ countryCode: code, imId: datum.imId }, { $set: datum });
+      IMonCountriesD.update({ code: code },
                            { $addToSet: { dataSources: parseInt(i.datum_source.id) }});
     } catch (e) {
-      console.error('IMonData: Error upserting data');
+      console.error('IMonData: [Old API] Error upserting data');
       console.error(e);
       throw e;
     }
@@ -184,29 +184,27 @@ function insertIndicator(i){
   };
 
   if ( _.contains(dontShowTheseIndicatorIds,indicator.id)){
-    console.log('IMonData: Filtering out indicator: ' + indicator.name);
+    console.log('IMonData: [Old API] Filtering out indicator: ' + indicator.name);
     return;
   }
   
   try {
-    console.log('IMonData: Upserting indicator:',indicator.name);
-    IMonIndicators.upsert({ id: indicator.id }, { $set: indicator });
+    console.log('IMonData: [Old API] Upserting indicator:',indicator.name);
+    IMonIndicatorsD.upsert({ id: indicator.id }, { $set: indicator });
   } catch (e) {
-    console.error('IMonData: Error upserting indicator data');
+    console.error('IMonData: [Old API] Error upserting indicator data');
     console.error(e);
     throw e;
   }
 
 }
 
-
-// temp, for dev purposes/trying out new api
-function insertDevData(country){
+function insertCountryData(country){
   var code = country.iso3_code.toLowerCase().slice(0,3);
   var dataSources = [];
 
   var insertDp = function(){
-    console.log('IMonDev: Upserting country: ' + country.name);
+    console.log('IMonData: [Countries] Upserting: ' + country.name);
     _.each(country.data_points, function(dp){
       var d = {
         countryCode: code,
@@ -216,10 +214,10 @@ function insertDevData(country){
         value: dp.value
       };
       try{
-        IMonDev.upsert({ countryCode: code, imId: d.imId }, { $set: d });
+        IMonData.upsert({ countryCode: code, imId: d.imId }, { $set: d });
       }
       catch(e){
-        console.error('IMonDev: Could not upsert data point for ' + code);
+        console.error('IMonData: [Countries] Could not upsert data point '+ d.imId + ' for ' + code);
         console.error(e);
         throw e;
       }
@@ -236,17 +234,17 @@ function insertDevData(country){
   };
 
   try{
-    IMonCountriesDev.upsert({ code: code }, { $set: c });
-    console.log('IMonDev: Upserted country: ' + c.name);
+    IMonCountries.upsert({ code: code }, { $set: c });
+    console.log('IMonData: [Countries] Upserted: ' + c.name);
   }
   catch(e){
-    console.error('IMonDev: Could not upsert country: ' + code);
+    console.error('IMonData: [Countries] Could not upsert: ' + code);
     console.error(e);
     throw e;
   }
 }
 
-function insertDevInd(ind){
+function insertIndData(ind){
   var i = {
     id: parseInt(ind.id),
     adminName: ind.admin_name,
@@ -258,42 +256,42 @@ function insertDevInd(ind){
     inverted: ind.inverted
   }
   try{
-    IMonIndicatorsDev.upsert({ id: i.id }, { $set: i });
-    console.log('IMonDev: Upserted indicator: ' + i.adminName);
+    IMonIndicators.upsert({ id: i.id }, { $set: i });
+    console.log('IMonData: [Indicators] Upserted: ' + i.adminName);
   }
   catch(e){
-    console.error('IMonDev: Could not upsert indicator: ' + i.adminName);
+    console.error('IMonData: [Indicators] Could not upsert: ' + i.adminName);
     console.error(e);
     throw e;
   }
 }
-// end temp.
+
 
 if (Meteor.settings.doJobs) {
   // blow out country data if you want to force an immediate refresh.
-  if (IMonCountries.find().count() === 0) {
-    console.log('IMonData: No country data. That\'s our cue to fetch...');
+    if(IMonCountriesD.find().count() === 0){
+    console.log('IMonData: [Old API] Missing data. Let\'s fetch...');
     Future.task(fetchData);
-  } else {
-    console.log('IMonData: We already have data. Not fetching until next interval.');
-  }
-  Meteor.setInterval(fetchData.future(), Settings.updateEvery);
-
-  if(IMonCountriesDev.find().count() === 0){
-    console.log('IMonDev: Missing country dev data. Let\'s fetch...');
-    Future.task(fetchDev);
   }
   else {
-    console.log('IMonDev: Already have country data.');
+    console.log('IMonData: [Old API] Already have data.');
   }
-  Meteor.setInterval(fetchDev.future(), Settings.updateEvery);
-
-  if(IMonIndicatorsDev.find().count() === 0){
-    console.log('IMonDev: Missing indicator dev data. Let\'s fetch...');
-    Future.task(fetchDevInd);
+  Meteor.setInterval(fetchCountries.future(), Settings.updateEvery);
+  if(IMonCountries.find().count() === 0){
+    console.log('IMonData: [Countries] Missing data. Let\'s fetch...');
+    Future.task(fetchCountries);
   }
   else {
-    console.log('IMonDev: Already have indicator data.');
+    console.log('IMonData: [Countries] Already have data.');
   }
-  Meteor.setInterval(fetchDevInd.future(), Settings.updateEvery);
+  Meteor.setInterval(fetchCountries.future(), Settings.updateEvery);
+
+  if(IMonIndicators.find().count() === 0){
+    console.log('IMonData: [Indicators] Missing  data. Let\'s fetch...');
+    Future.task(fetchIndicators);
+  }
+  else {
+    console.log('IMonData: [Indicators] Already have data.');
+  }
+  Meteor.setInterval(fetchIndicators.future(), Settings.updateEvery);
 }
