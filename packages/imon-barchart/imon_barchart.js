@@ -17,12 +17,12 @@ Settings = {
         indicator: ["isr", "ita", "mex", "mar", "kor", "gbr", "usa"]
       },
       multi: {
-        indicator: [16, 5] // Average download speed, % of people using the internet. temp.
+        indicator: ['downloadkbps', 'ipr'] // Average download speed, % of people using the internet. temp.
       }
     },
     y: {
       single: {
-        indicator: 5 // % of people using the internet
+        indicator: 'ipr' // % of people using the internet
       },
       multi: {
         indicator: 'kor' // temp
