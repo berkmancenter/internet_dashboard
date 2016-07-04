@@ -1,4 +1,7 @@
 <template name="IMonScatterWidget">
   <h1>{{ title }}</h1>
+  {{# unless Template.subscriptionsReady }}
+  	{{widgetLoading}}
+  {{/unless}}
   <div class="scatter-chart"></div>
 </template>
