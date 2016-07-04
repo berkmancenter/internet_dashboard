@@ -1,13 +1,13 @@
 <template name="AccessIndexWidget">
-{{# if Template.subscriptionsReady }}
+{{# if dataReady }}
   {{# with country }}
     <h1>IM Access Index</h1>
     <h2>{{ name }} <small>
-        <a class="out-link" href="{{ accessUrl }}" target="_blank"
+        <a class="out-link" href="{{ accessUrl code }}" target="_blank"
           title="Visit this country in Internet Monitor">
           <span class="glyphicon glyphicon-new-window"></span></a></small></h2>
     <div class="clearfix">
-      <img class="country-thumb img-thumbnail" src="{{ imageUrl }}" />
+      <img class="country-thumb img-thumbnail" src="{{ imageUrl code }}" />
       <div class="ranking">
         <h3>Rank</h3>
         <ul class="rank-list">

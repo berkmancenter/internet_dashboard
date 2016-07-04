@@ -10,11 +10,12 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['widget', 'less@2.6.0', 'underscore', 'imon-data', 'country-info']);
+  api.use(['widget', 'less@2.6.0', 'underscore']);
   api.use(['templating'], 'client');
 
   api.addFiles(['access-index.js']);
-
+  api.addFiles(['rankData.csv'], 'server', { isAsset: true });
+  api.addFiles(['server/oldAPI.js'], 'server');
   api.addFiles([
     'client/info.html',
     'client/settings.html',
