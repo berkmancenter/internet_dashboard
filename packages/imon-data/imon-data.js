@@ -4,6 +4,7 @@ Settings = {
   timeout: 60 * 1000
 };
 
+
 // old API
 IMonDataD = new Mongo.Collection('imon_data');
 IMonCountriesD = new Mongo.Collection('imon_countries');
@@ -64,12 +65,15 @@ IMonCountries.attachSchema(new SimpleSchema({
 }));
 
 IMonIndicators.attachSchema(new SimpleSchema({
-  id:           { type: Number, unique: true },
-  name:         { type: String, unique: true },
+  id:           { type: Number, optional: true },
+  name:         { type: String, optional: true },
   shortName:    { type: String, optional: true },
   description:  { type: String, optional: true },
   adminName:    { type: String, unique: true },
   precision:    { type: Number, optional: true },
   displayClass: { type: String, optional: true },
-  inverted:     { type: Boolean, optional: true }
+  inverted:     { type: Boolean, optional: true },
+  min:          { type: Number, decimal: true, optional: true },
+  max:          { type: Number, decimal: true, optional: true }
 }));
+

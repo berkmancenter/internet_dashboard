@@ -122,13 +122,13 @@ Template.IMonChoroplethWidget.onRendered(function() {
           });
         } else {
           // use quantize scale to cut into 5 equal groups from min to max
-          var max = indicator.max;
+          var max = newIndicator.max;
           // crude, temporary attempt to bring out resolution with lumpy data.
-          if (max > 100 && indicator.min < 10) {
+          if (max > 100 && newIndicator.min < 10) {
             max = 80;
           }
-          colorScale = d3.scale.quantize().domain([indicator.min,max]).range(range);
-          var buckets = _.map(range,function(color,i){ return indicator.min + ((i+1)*((max-indicator.min)/5)); });
+          colorScale = d3.scale.quantize().domain([newIndicator.min,max]).range(range);
+          var buckets = _.map(range,function(color,i){ return newIndicator.min + ((i+1)*((max-newIndicator.min)/5)); });
           legendLabels[0]= "< " + formatLegendLabelNumber(buckets[0],precision);
           _.each(buckets, function(bucket,i){
             legendLabels[i+1] = ">="+formatLegendLabelNumber(bucket,precision);

@@ -105,8 +105,6 @@ Template.IMonScatterWidget.onRendered(function() {
       });
     });
 
-    console.log(data);
-
     chart.margins(Settings.chart.margins);
     chart.responsive(false);
 

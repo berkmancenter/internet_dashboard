@@ -215,6 +215,14 @@ function insertCountryData(country){
       };
       try{
         IMonData.upsert({ countryCode: code, imId: d.imId }, { $set: d });
+        var indMax = d.value;
+        var indMin = d.value; 
+        var thisInd = IMonIndicators.findOne({ adminName: d.indAdminName });
+        if(!_.isUndefined(thisInd)){
+          indMax = _.isUndefined(thisInd.max) || thisInd.max < d.value ? d.value : thisInd.max;
+          indMin = _.isUndefined(thisInd.min) || thisInd.min > d.value ? d.value : thisInd.min;
+        }
+        IMonIndicators.upsert({ adminName: d.indAdminName }, { $set: {adminName: d.indAdminName, max: indMax, min: indMin} });
       }
       catch(e){
         console.error('IMonData: [Countries] Could not upsert data point '+ d.imId + ' for ' + code);
@@ -256,7 +264,7 @@ function insertIndData(ind){
     inverted: ind.inverted
   }
   try{
-    IMonIndicators.upsert({ id: i.id }, { $set: i });
+    IMonIndicators.upsert({ adminName: i.adminName }, { $set: i });
     console.log('IMonData: [Indicators] Upserted: ' + i.adminName);
   }
   catch(e){
@@ -265,7 +273,6 @@ function insertIndData(ind){
     throw e;
   }
 }
-
 
 if (Meteor.settings.doJobs) {
   // blow out country data if you want to force an immediate refresh.

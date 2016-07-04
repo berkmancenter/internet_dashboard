@@ -1,10 +1,10 @@
 Template.IMonSpeedometerWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    var indicators = [ Template.currentData().indicatorId ];
-    template.subscribe('imon_data', 'all', indicators, 'id');
+    template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData.indicatorName, true);
     template.subscribe('imon_indicators');
-    template.subscribe('imon_countries');
+    template.subscribe('imon_indicators_v2');
+    template.subscribe('imon_countries_v2');
   });
 });
 
@@ -50,25 +50,30 @@ Template.IMonSpeedometerWidget.onRendered(function() {
 
     // 1. Set data source/indicator
     var cachedIndicator = Template.currentData().indicator;
-    var currId = Template.currentData().indicatorId; 
+    var currName = Template.currentData().indicatorName;
+    var currInd = IMonIndicators.findOne({ adminName: Template.currentData().indicatorName });
+    var currId = currInd.id; 
     if(!cachedIndicator || cachedIndicator.id !== currId){
-      Template.currentData().set({ indicator: IMonIndicators.findOne({ id: currId })});
+      Template.currentData().set({ indicator: IMonIndicatorsD.findOne({ id: currId })});
     }
 
     // Fill title
     var titlePlace = template.find('.title');
-    var indicatorName = IMonIndicators.findOne({ id: Template.currentData().indicatorId }).name.replace(/( \(kbps\))/ig, '');
+    var indicatorName = IMonIndicators.findOne({ adminName: Template.currentData().indicatorName }).name.replace(/( \(kbps\))/ig, '');
     var countryName = IMonCountries.findOne({ code: Template.currentData().country }).name;
     $('h1', titlePlace).text(indicatorName);
     $('h2', titlePlace).text(countryName);
 
-    var indicator = IMonData.findOne({ 
+    var indicator;
+    IMonData.find({ 
       countryCode: Template.currentData().country,
-      sourceId: Template.currentData().indicatorId
+      indAdminName: Template.currentData().indicatorName
+    }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
+      indicator = d;
     });
     var speedPercent = 0.001;
-    if (indicator && indicator.percent > 0) {
-      speedPercent = indicator.percent * 100;
+    if (indicator && getPercent(indicator.value, currInd.max) > 0) {
+      speedPercent = getPercent(indicator.value, currInd.max) * 100;
       var text = indicator.value.toLocaleString() + ' kbps';
       svg.select('.speed').text(text);
     } else {
@@ -99,3 +104,7 @@ Template.IMonSpeedometerWidget.onRendered(function() {
     updateSel.exit().remove();
   });
 });
+
+function getPercent(value, max){ // only max since speed can't be -ve
+  return value/max;
+}

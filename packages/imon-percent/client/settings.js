@@ -6,10 +6,7 @@ Template.IMonPercentSettings.onCreated(function() {
 
 Template.IMonPercentSettings.helpers({
   countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
-  indicators: function() { 
-    return IMonIndicators.find({ displayClass: 'percentage', 
-    adminName: { $nin: ['mobilebb', 'bbcost1', 'bbcost2', 'bbcost3', 'bbcost4', 'bbcost5'] } }, { sort: { shortName: 1 } }); 
-  },
+  indicators: function() { return IMonIndicators.find({ displayClass: 'percentage', max: { $lte: 100 } }, { sort: { shortName: 1 } }); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
   removePerc: function(a) { return a.replace(' (%)', ''); },
@@ -33,7 +30,7 @@ Template.IMonPercentSettings.events({
       $('#percent-error-message').remove();
       var newData = {
       country: country,
-      indicatorId: ind,
+      indicatorName: ind,
       color: template.find('.color-select').value
       };
       template.closeSettings();
