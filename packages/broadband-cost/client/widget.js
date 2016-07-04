@@ -1,12 +1,12 @@
 Template.BroadbandCostWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_data', Template.currentData().country.code);
+    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorIds, false);
+    template.subscribe('imon_indicators_v2');
   });
 });
 
 Template.BroadbandCostWidget.helpers({
-  roundedPercent: function() { return (this.percent * 100).toFixed(1); },
   speed: function() {
     var match = this.name.match(Settings.speedRegex)[0];
     if (match === Settings.maxSpeed) {
@@ -14,34 +14,41 @@ Template.BroadbandCostWidget.helpers({
     }
     return match;
   },
-  percentValue: function() {
-    return this.value.toFixed(1) + '%';
+  percentValue: function(code) {
+    var val = getValue(code, this);
+    return val.toFixed(1) + '%';
+  },
+  dataValue: function(code){
+    return getValue(code, this) === -1 ? false : true;
   },
   indicators: function() {
-    var data = IMonData.find({
-      countryCode: Template.currentData().country.code
-    }).fetch();
-
-    // Make sure we always return all the indicators, just with empty values
-    // where we don't have data.
-    return _.map(Settings.indicatorNames, function(name) {
-      var indicator = _.findWhere(data, { name: name });
-      return _.extend({ name: name }, indicator);
-    });
+    return IMonIndicators.find({ adminName: {$in: Settings.indicatorIds}  });
   },
-  cellColor: function() {
-    if (_.isUndefined(this.percent)) {
+  cellColor: function(code) {
+    var dataValue = getValue(code, this);
+
+    if (dataValue===-1) {
       return 'active';
     }
 
-    var keys = _.keys(Settings.lowerCellClassBounds).sort(function(a, b) {
+    var keys = _.keys(Settings.lowerCellClassBounds).sort(function(a, b){
       return parseInt(b, 10) - parseInt(a, 10);
     });
-
-    var key = _.find(keys, function(key) {
-      return this.percent * 100 >= parseInt(key, 10);
-    }, this);
-
+    var key;
+    for(var i=0; i<keys.length; i++){
+      if(dataValue>=parseInt(keys[i])){
+        key = keys[i];
+        break;
+      }
+    }
     return Settings.lowerCellClassBounds[key];
   }
 });
+
+function getValue(code, context){
+  var val = -1;
+  IMonData.find({ countryCode: code, indAdminName: context.adminName }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
+    val = d.value;
+  });
+  return val;
+}

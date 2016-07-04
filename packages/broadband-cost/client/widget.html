@@ -6,8 +6,8 @@
   <tbody>
     <tr>
     {{# each indicators }}
-    <td class="{{ cellColor }}">
-      {{# if value }}{{ percentValue }}{{ else }}&ndash;{{/if}}
+    <td class="{{ cellColor ../country.code }}">
+      {{# if dataValue ../country.code }}{{ percentValue ../country.code }}{{ else }}&ndash;{{/if}}
     </td>
     {{/each}}
     </tr>
