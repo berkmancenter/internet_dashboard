@@ -1,7 +1,7 @@
 Template.BroadbandCostWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorIds, false);
+    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorIds, true);
     template.subscribe('imon_indicators_v2');
   });
 });
@@ -46,9 +46,6 @@ Template.BroadbandCostWidget.helpers({
 });
 
 function getValue(code, context){
-  var val = -1;
-  IMonData.find({ countryCode: code, indAdminName: context.adminName }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
-    val = d.value;
-  });
-  return val;
+  var record = IMonRecent.findOne({ countryCode: code, indAdminName: context.adminName });
+  return _.isUndefined(record) ? -1 : record.value;
 }

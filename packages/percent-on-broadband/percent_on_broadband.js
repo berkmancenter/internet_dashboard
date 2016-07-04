@@ -25,14 +25,10 @@ _.extend(PercentOnBroadbandWidget.prototype, {
     });
   },
   getIndicator: function() {
-    var v;
-    IMonData.find({
+    return IMonRecent.findOne({
       countryCode: this.data.country.code,
       indAdminName: Settings.indicatorId
-    }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
-      v = d;
     });
-    return v;
   }
 });
 

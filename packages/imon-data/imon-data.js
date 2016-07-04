@@ -14,6 +14,7 @@ IMonIndicatorsD = new Mongo.Collection('imon_indicators');
 IMonData = new Mongo.Collection('imon_data_v2');
 IMonCountries = new Mongo.Collection('imon_countries_v2');
 IMonIndicators = new Mongo.Collection('imon_indicators_v2');
+IMonRecent = new Mongo.Collection('imon_recent'); // Unique indAdminName + countryCode records with most recent data. Updated on publications, no need to seed.
 
 IMonCountriesD.attachSchema(new SimpleSchema({
   name:        { type: String },

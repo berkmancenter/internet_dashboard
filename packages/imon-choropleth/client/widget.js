@@ -4,7 +4,7 @@ Template.IMonChoroplethWidget.onCreated(function() {
     template.subscribe('imon_indicators');
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
-    template.subscribe('imon_data_v2', 'all', Template.currentData().indicatorName, false);
+    template.subscribe('imon_data_v2', 'all', Template.currentData().indicatorName, true);
   });
 });
 
@@ -14,7 +14,6 @@ Template.IMonChoroplethWidget.onRendered(function() {
 
   template.autorun(function() {
     if (!template.subscriptionsReady()) {  return;  }
-
     var newIndicator = IMonIndicators.findOne({adminName:Template.currentData().indicatorName});
     var indicator = IMonIndicatorsD.findOne({ id: newIndicator.id });
     var cachedIndicator = Template.currentData().indicator;
@@ -37,7 +36,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
     var countries = IMonCountries.find().fetch(); // get list of all countries
     for(var i=0; i<countries.length; i++){
       var currCode = countries[i].code;
-      IMonData.find({ countryCode: currCode, indAdminName: Template.currentData().indicatorName }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
+      IMonRecent.find({ countryCode: currCode, indAdminName: Template.currentData().indicatorName }).forEach(function(d){
         countryDataByCode[currCode.toUpperCase()] = d;
         if(d.value !== undefined){
           scores.push(d.value);

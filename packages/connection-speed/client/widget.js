@@ -40,12 +40,9 @@ Template.ConnectionSpeedWidget.onRendered(function() {
   this.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
     var max = IMonIndicators.findOne({ adminName: Settings.indicatorId }).max;
-    var indicator;
-    IMonData.find({
+    var indicator = IMonRecent.findOne({
         countryCode: Template.currentData().country.code,
         indAdminName: Settings.indicatorId
-    }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
-      indicator = d;
     });
     var speedPercent = 0.001;
     if (indicator && getPercent(indicator.value, max) > 0) {

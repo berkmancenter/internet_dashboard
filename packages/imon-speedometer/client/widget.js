@@ -1,7 +1,7 @@
 Template.IMonSpeedometerWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData.indicatorName, true);
+    template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData().indicatorName, true);
     template.subscribe('imon_indicators');
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
@@ -64,12 +64,9 @@ Template.IMonSpeedometerWidget.onRendered(function() {
     $('h1', titlePlace).text(indicatorName);
     $('h2', titlePlace).text(countryName);
 
-    var indicator;
-    IMonData.find({ 
+    var indicator = IMonRecent.findOne({ 
       countryCode: Template.currentData().country,
       indAdminName: Template.currentData().indicatorName
-    }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
-      indicator = d;
     });
     var speedPercent = 0.001;
     if (indicator && getPercent(indicator.value, currInd.max) > 0) {

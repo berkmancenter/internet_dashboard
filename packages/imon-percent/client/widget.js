@@ -28,10 +28,7 @@ Template.IMonPercentWidget.onRendered(function(){
     var container = template.find('.users-container');
     var title = template.find('.percent-title');
     var valuePlace = template.find('.indicator-value');
-    var indicatorValue;
-    IMonData.find({ indAdminName: Template.currentData().indicatorName, countryCode: Template.currentData().country }, { sort: { date: -1 }, limit: 1}).forEach(function(d){
-      indicatorValue = d.value;
-    });
+    var indicatorValue = IMonRecent.findOne({ indAdminName: Template.currentData().indicatorName, countryCode: Template.currentData().country }).value;
     var countryName = IMonCountries.findOne({ code: Template.currentData().country }).name;
     var indicatorName = IMonIndicators.findOne({ adminName: currName }).shortName;
     var color = Template.currentData().color;

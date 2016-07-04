@@ -4,7 +4,7 @@ Template.IMonBarchartWidget.onCreated(function() {
     var mode = Template.currentData().mode;
     var indicators = mode === 'single' ? Template.currentData().y.single.indicator :  Template.currentData().x.multi.indicator;
     var countries = mode === 'single' ? Template.currentData().x.single.indicator : Template.currentData().y.multi.indicator;
-    template.subscribe('imon_data_v2', countries, indicators, false);
+    template.subscribe('imon_data_v2', countries, indicators, true);
     template.subscribe('imon_indicators'); // for provider data
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
@@ -87,10 +87,7 @@ Template.IMonBarchartWidget.onRendered(function() {
       xTitle = 'Countries';
       yTitle = yIndicator.shortName;
       IMonCountries.find({ code: {$in: Template.currentData().x.single.indicator } }).forEach(function(country){
-        var y;
-        IMonData.find({ countryCode: country.code, indAdminName: Template.currentData().y.single.indicator }, { sort: { date: -1 }, limit: 1}).forEach(function(d){ // only one
-          y = d;
-        });
+        var y = IMonRecent.findOne({ countryCode: country.code, indAdminName: Template.currentData().y.single.indicator });
         if (_.isUndefined(y)) {
           missing.push(country.name); 
           return; 
@@ -127,7 +124,7 @@ Template.IMonBarchartWidget.onRendered(function() {
         Template.currentData().set({indicator: undefined});
       yIndicator = Template.currentData().y.multi.indicator;
       yTitle = IMonCountries.findOne({ code: yIndicator }).name;
-      IMonData.find({ countryCode: yIndicator, indAdminName: { $in: Template.currentData().x.multi.indicator } }).forEach(function(field){
+      IMonRecent.find({ countryCode: yIndicator, indAdminName: { $in: Template.currentData().x.multi.indicator } }).forEach(function(field){
         var yValue = Math.round(field.percent * 100).toFixed(2);
         var xValue = IMonIndicators.findOne({ adminName: field.indAdminName }).shortName;
 

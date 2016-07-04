@@ -19,6 +19,7 @@ Package.onUse(function(api) {
   api.export('IMonIndicators');
   api.export('IMonCountries');
   api.export('IMonData');
+  api.export('IMonRecent');
   api.export('IMonDataD');
   api.export('IMonCountriesD');
   api.export('IMonIndicatorsD');
