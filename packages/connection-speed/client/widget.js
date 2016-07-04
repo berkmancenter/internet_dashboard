@@ -44,7 +44,7 @@ Template.ConnectionSpeedWidget.onRendered(function() {
     IMonData.find({
         countryCode: Template.currentData().country.code,
         indAdminName: Settings.indicatorId
-    }).forEach(function(d){
+    }, { sort: { date: -1 }, limit: 1 }).forEach(function(d){
       indicator = d;
     });
     var speedPercent = 0.001;

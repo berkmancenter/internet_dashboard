@@ -3,7 +3,7 @@ Template.ConnectionSpeedSettings.onCreated(function() {
 });
 
 Template.ConnectionSpeedSettings.helpers({
-  countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); }
+  countries: function() { return IMonCountries.find({ dataSources: Settings.indicatorId }, { sort: { name: 1 } }); }
 });
 
 Template.ConnectionSpeedSettings.events({
