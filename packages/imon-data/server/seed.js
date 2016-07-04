@@ -284,7 +284,7 @@ if (Meteor.settings.doJobs) {
     console.log('IMonData: [Old API] Already have data.');
   }
   Meteor.setInterval(fetchCountries.future(), Settings.updateEvery);
-  if(IMonCountries.find().count() === 0){
+  if(IMonCountries.find().count() === 0 || !minMaxDataAvailable()){
     console.log('IMonData: [Countries] Missing data. Let\'s fetch...');
     Future.task(fetchCountries);
   }
@@ -301,4 +301,14 @@ if (Meteor.settings.doJobs) {
     console.log('IMonData: [Indicators] Already have data.');
   }
   Meteor.setInterval(fetchIndicators.future(), Settings.updateEvery);
+}
+
+function minMaxDataAvailable(){
+  var flag = false;
+  IMonIndicators.find().forEach(function(ind){
+    if(ind.max){
+      flag = true;
+    }
+  });
+  return flag;
 }
