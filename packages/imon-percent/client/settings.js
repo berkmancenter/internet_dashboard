@@ -1,13 +1,15 @@
 Template.IMonPercentSettings.onCreated(function() {
-  this.subscribe('imon_countries');
-  this.subscribe('imon_indicators');
+  this.subscribe('imon_countries_v2');
+  this.subscribe('imon_indicators_v2');
 });
 
 
 Template.IMonPercentSettings.helpers({
-  countries: function() { return IMonCountries.find({ isRegion: false }, { sort: { name: 1 } }); },
-  regions: function() { return IMonCountries.find({ isRegion: true }, { sort: { name: 1 } }); },
-  indicators: function() { return IMonIndicators.find({ displaySuffix: '%', max: { $lte: 100 } }, { sort: { shortName: 1 } }); },
+  countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
+  indicators: function() { 
+    return IMonIndicators.find({ displayClass: 'percentage', 
+    adminName: { $nin: ['mobilebb', 'bbcost1', 'bbcost2', 'bbcost3', 'bbcost4', 'bbcost5'] } }, { sort: { shortName: 1 } }); 
+  },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
   removePerc: function(a) { return a.replace(' (%)', ''); },
@@ -25,7 +27,7 @@ Template.IMonPercentSettings.helpers({
 Template.IMonPercentSettings.events({
   'click .save-settings': function(ev, template) {
     var country = template.find('.country-select').value;
-    var ind = parseInt(template.find('.indicator-select').value);
+    var ind = template.find('.indicator-select').value;
     var available = IMonCountries.findOne({ code: country }).dataSources.indexOf(ind) === -1 ? false : true;
     if(available){
       $('#percent-error-message').remove();
@@ -39,7 +41,7 @@ Template.IMonPercentSettings.events({
     }
     else if(!available){
       var missingCountry = IMonCountries.findOne({ code: country }).name;
-      var missingInd = IMonIndicators.findOne({ id: ind }).shortName;
+      var missingInd = IMonIndicators.findOne({ adminName: ind }).shortName;
       var message = '<strong><i class="fa fa-exclamation-triangle"></i></strong> No '+ missingInd +' data found for ' + missingCountry;
       var error = template.find('.percent-error');
       $(error).html('<div class="alert alert-warning" id="percent-error-message" style="position:inherit;box-shadow:none;">'
