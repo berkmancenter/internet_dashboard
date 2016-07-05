@@ -6,7 +6,7 @@ Settings = {
 AccessWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.defaults(this.data, { country: Settings.defaultCountry, hasData: false });
+  _.defaults(this.data, { country: Settings.defaultCountry });
 };
 
 AccessWidget.prototype = Object.create(Widget.prototype);

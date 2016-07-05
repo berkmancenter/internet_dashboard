@@ -1,4 +1,3 @@
-
 Meteor.methods({
 	rankData: function(){
 		var old = Assets.getText('rankData.csv');

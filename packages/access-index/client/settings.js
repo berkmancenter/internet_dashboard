@@ -1,14 +1,17 @@
 DATA = {};
-Template.AccessIndexSettings.onCreated(function() {
-  Session.set('hasData', false);
-  Meteor.call('rankData', function(e, r){
-    DATA = r;
-    Session.set('hasData', true);
-  });
+
+Template.AccessIndexSettings.onRendered(function() {
+  var currData = Template.currentData();
+  if(!currData.rData){ // this shouldn't happen, as AccessIndexWidget should handle it on render.
+    Meteor.call('rankData', function(e, r){
+      DATA = r;
+      currData.set({ rData: r });
+    });
+  }
 });
 
 Template.AccessIndexSettings.helpers({
-  dataReady: function(){ return Session.get('hasData'); },
+  dataReady: function(){ return Template.currentData().rData; },
   countries: function() { return toArray(DATA); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; }
 });

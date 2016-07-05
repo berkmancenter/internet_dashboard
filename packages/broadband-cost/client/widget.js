@@ -15,21 +15,22 @@ Template.BroadbandCostWidget.helpers({
     return match;
   },
   percentValue: function(code) {
-    var val = getValue(code, this);
+    var val = getValue(code, this).value;
     return val.toFixed(1) + '%';
   },
   dataValue: function(code){
-    return getValue(code, this) === -1 ? false : true;
+    return getValue(code, this);
   },
   indicators: function() {
     return IMonIndicators.find({ adminName: {$in: Settings.indicatorIds}  });
   },
   cellColor: function(code) {
-    var dataValue = getValue(code, this);
+    var d = getValue(code, this);
 
-    if (dataValue===-1) {
+    if(_.isUndefined(d))
       return 'active';
-    }
+
+    var dataValue = d.value;
 
     var keys = _.keys(Settings.lowerCellClassBounds).sort(function(a, b){
       return parseInt(b, 10) - parseInt(a, 10);
@@ -46,6 +47,5 @@ Template.BroadbandCostWidget.helpers({
 });
 
 function getValue(code, context){
-  var record = IMonRecent.findOne({ countryCode: code, indAdminName: context.adminName });
-  return _.isUndefined(record) ? -1 : record.value;
+  return IMonRecent.findOne({ countryCode: code, indAdminName: context.adminName });
 }

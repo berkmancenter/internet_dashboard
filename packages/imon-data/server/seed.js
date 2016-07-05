@@ -1,33 +1,13 @@
 var Future = Npm.require('fibers/future');
 var Store = Npm.require('jsonapi-datastore').JsonApiDataStore;
 
-function fetchData() {
-  console.log('IMonData: [Old API] Fetching...');
-  var store = new Store();
+//================================NEW API================================//
+/// 1. FETCH
 
-  var baseUrl = 'https://thenetmonitor.org/v1/';
-  
-  var futures = [];
-
-  ['datum_sources', 'countries', 'regions'].forEach(function(type) {
-    var fut = HTTP.get.future()(baseUrl + type, { timeout: Settings.timeout });
-    futures.push(fut);
-    var results = fut.wait();
-    store.sync(results.data);
-  });
-
-  Future.wait(futures);
-
-  console.log('IMonData: [Old API] Inserting...');
-
-  _.each(store.findAll('regions'), insertRegion);
-  _.each(store.findAll('countries'), insertCountry);
-  _.each(store.findAll('datum_sources'), insertIndicator);
-  
-  console.log('IMonData: [Old API] Inserted.');
-
-}
-
+////// What to expect:
+//////// - Log messages for fetch-start, fetch-end, insert-start, and insert-end for 'IMonData: [Countries]' & 'IMonData: [Indicators]'
+//////// - At this point in time (release of v2 in prod), country data is relatively large and will take a while to process all the
+////////   historical data points per country in the insert phase.
 
 function fetchCountries(){
   console.log('IMonData: [Countries] Fetching data..');
@@ -79,7 +59,112 @@ function fetchIndicators(){ // in separate function temporarily.
   Future.task(insert);
 }
 
+/// 2. INSERT
+function insertCountryData(country){
+  var code = country.iso3_code.toLowerCase().slice(0,3);
+  var dataSources = [];
 
+  var insertDp = function(){
+    console.log('IMonData: [Countries] Upserting: ' + country.name);
+    _.each(country.data_points, function(dp){
+      var d = {
+        countryCode: code,
+        imId: parseInt(dp.id),
+        indAdminName: dp.indicator,
+        date: new Date(dp.date),
+        value: dp.value
+      };
+      try{
+        IMonData.upsert({ countryCode: code, imId: d.imId }, { $set: d });
+        var indMax = d.value;
+        var indMin = d.value; 
+        var thisInd = IMonIndicators.findOne({ adminName: d.indAdminName });
+        if(!_.isUndefined(thisInd)){
+          indMax = _.isUndefined(thisInd.max) || thisInd.max < d.value ? d.value : thisInd.max;
+          indMin = _.isUndefined(thisInd.min) || thisInd.min > d.value ? d.value : thisInd.min;
+        }
+        IMonIndicators.upsert({ adminName: d.indAdminName }, { $set: {adminName: d.indAdminName, max: indMax, min: indMin} });
+      }
+      catch(e){
+        console.error('IMonData: [Countries] Could not upsert data point '+ d.imId + ' for ' + code);
+        console.error(e);
+        throw e;
+      }
+      dataSources.push(d.indAdminName);
+    });
+  };
+  
+  Future.wait(Future.task(insertDp));
+
+  var c = {
+    code: code,
+    name: country.name,
+    dataSources: dataSources
+  };
+
+  try{
+    IMonCountries.upsert({ code: code }, { $set: c });
+    console.log('IMonData: [Countries] Upserted: ' + c.name);
+  }
+  catch(e){
+    console.error('IMonData: [Countries] Could not upsert: ' + code);
+    console.error(e);
+    throw e;
+  }
+}
+
+function insertIndData(ind){
+  var i = {
+    id: parseInt(ind.id),
+    adminName: ind.admin_name,
+    name: ind.name,
+    shortName: ind.short_name,
+    description: ind.description,
+    displayClass: ind.display_class,
+    precision: ind.precision,
+    inverted: ind.inverted
+  }
+  try{
+    IMonIndicators.upsert({ adminName: i.adminName }, { $set: i });
+    console.log('IMonData: [Indicators] Upserted: ' + i.adminName);
+  }
+  catch(e){
+    console.error('IMonData: [Indicators] Could not upsert: ' + i.adminName);
+    console.error(e);
+    throw e;
+  }
+}
+
+//================================OLD API================================//
+/// 1. FETCH
+function fetchData() {
+  console.log('IMonData: [Old API] Fetching...');
+  var store = new Store();
+
+  var baseUrl = 'https://thenetmonitor.org/v1/';
+  
+  var futures = [];
+
+  ['datum_sources', 'countries', 'regions'].forEach(function(type) {
+    var fut = HTTP.get.future()(baseUrl + type, { timeout: Settings.timeout });
+    futures.push(fut);
+    var results = fut.wait();
+    store.sync(results.data);
+  });
+
+  Future.wait(futures);
+
+  console.log('IMonData: [Old API] Inserting...');
+
+  _.each(store.findAll('regions'), insertRegion);
+  _.each(store.findAll('countries'), insertCountry);
+  _.each(store.findAll('datum_sources'), insertIndicator);
+  
+  console.log('IMonData: [Old API] Inserted.');
+
+}
+
+/// 2. INSERT
 function countryUrl(iso3Code) {
   return Settings.baseUrl + '/countries/' + iso3Code;
 }
@@ -199,82 +284,9 @@ function insertIndicator(i){
 
 }
 
-function insertCountryData(country){
-  var code = country.iso3_code.toLowerCase().slice(0,3);
-  var dataSources = [];
-
-  var insertDp = function(){
-    console.log('IMonData: [Countries] Upserting: ' + country.name);
-    _.each(country.data_points, function(dp){
-      var d = {
-        countryCode: code,
-        imId: parseInt(dp.id),
-        indAdminName: dp.indicator,
-        date: new Date(dp.date),
-        value: dp.value
-      };
-      try{
-        IMonData.upsert({ countryCode: code, imId: d.imId }, { $set: d });
-        var indMax = d.value;
-        var indMin = d.value; 
-        var thisInd = IMonIndicators.findOne({ adminName: d.indAdminName });
-        if(!_.isUndefined(thisInd)){
-          indMax = _.isUndefined(thisInd.max) || thisInd.max < d.value ? d.value : thisInd.max;
-          indMin = _.isUndefined(thisInd.min) || thisInd.min > d.value ? d.value : thisInd.min;
-        }
-        IMonIndicators.upsert({ adminName: d.indAdminName }, { $set: {adminName: d.indAdminName, max: indMax, min: indMin} });
-      }
-      catch(e){
-        console.error('IMonData: [Countries] Could not upsert data point '+ d.imId + ' for ' + code);
-        console.error(e);
-        throw e;
-      }
-      dataSources.push(d.indAdminName);
-    });
-  };
-  
-  Future.wait(Future.task(insertDp));
-
-  var c = {
-    code: code,
-    name: country.name,
-    dataSources: dataSources
-  };
-
-  try{
-    IMonCountries.upsert({ code: code }, { $set: c });
-    console.log('IMonData: [Countries] Upserted: ' + c.name);
-  }
-  catch(e){
-    console.error('IMonData: [Countries] Could not upsert: ' + code);
-    console.error(e);
-    throw e;
-  }
-}
-
-function insertIndData(ind){
-  var i = {
-    id: parseInt(ind.id),
-    adminName: ind.admin_name,
-    name: ind.name,
-    shortName: ind.short_name,
-    description: ind.description,
-    displayClass: ind.display_class,
-    precision: ind.precision,
-    inverted: ind.inverted
-  }
-  try{
-    IMonIndicators.upsert({ adminName: i.adminName }, { $set: i });
-    console.log('IMonData: [Indicators] Upserted: ' + i.adminName);
-  }
-  catch(e){
-    console.error('IMonData: [Indicators] Could not upsert: ' + i.adminName);
-    console.error(e);
-    throw e;
-  }
-}
-
+//==============MAIN==============//
 if (Meteor.settings.doJobs) {
+  // 1. OLD API
   // blow out country data if you want to force an immediate refresh.
     if(IMonCountriesD.find().count() === 0){
     console.log('IMonData: [Old API] Missing data. Let\'s fetch...');
@@ -284,6 +296,8 @@ if (Meteor.settings.doJobs) {
     console.log('IMonData: [Old API] Already have data.');
   }
   Meteor.setInterval(fetchCountries.future(), Settings.updateEvery);
+
+  // 2. NEW API
   if(IMonCountries.find().count() === 0 || !minMaxDataAvailable()){
     console.log('IMonData: [Countries] Missing data. Let\'s fetch...');
     Future.task(fetchCountries);
@@ -304,6 +318,8 @@ if (Meteor.settings.doJobs) {
 }
 
 function minMaxDataAvailable(){
+  // Force check if min/max data for indicators are available. 
+  // To make build after v2 and before this change that some widgets depend on smoother.
   var flag = false;
   IMonIndicators.find().forEach(function(ind){
     if(ind.max){

@@ -3,16 +3,15 @@ DATA = {};
 Template.AccessIndexWidget.onRendered(function() {
   var template = this;
   var currData = Template.currentData();
-  Meteor.call('rankData', function(e, r){
-    DATA = r;
-    currData.set({ hasData: true }); 
-  });
-  
+  Meteor.call('rankData', function(e, r){ // Meteor.method in 'server/oldAPI.js'
+    DATA = r; // just for easier usage here.
+    currData.set({ rData: r }); 
+  }); 
 });
 
 Template.AccessIndexWidget.helpers({
   dataReady: function(){
-    return Template.currentData().hasData;
+    return Template.currentData().rData;
   },
   score: function() {
     return this.score.toFixed(2);
