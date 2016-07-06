@@ -7,6 +7,9 @@ Settings = {
 IMonData = new Mongo.Collection('imon_data');
 IMonCountries = new Mongo.Collection('imon_countries');
 IMonIndicators = new Mongo.Collection('imon_indicators');
+IMonDev = new Mongo.Collection('imon_data_v2');
+IMonCountriesDev = new Mongo.Collection('imon_countries_v2');
+IMonIndicatorsDev = new Mongo.Collection('imon_indicators_v2');
 
 IMonCountries.attachSchema(new SimpleSchema({
   name:        { type: String },
@@ -41,4 +44,29 @@ IMonIndicators.attachSchema(new SimpleSchema({
   max:           { type: Number, decimal: true, optional: true }, 
   sourceName:    { type: String },
   sourceUrl:     { type: String, regEx: SimpleSchema.RegEx.Url, optional: true}
+}));
+
+IMonDev.attachSchema(new SimpleSchema({
+  countryCode: { type: String, max: 3 },
+  imId:        { type: Number },
+  indAdminName:{ type: String, optional: true },
+  date:        { type: Date, optional: true },
+  value:       { type: Number, decimal: true, optional: true }
+}));
+
+IMonCountriesDev.attachSchema(new SimpleSchema({
+  code:         { type: String, unique: true },
+  name:         { type: String },
+  dataSources:  { type: [String], defaultValue: [] }
+}));
+
+IMonIndicatorsDev.attachSchema(new SimpleSchema({
+  id:           { type: Number, unique: true },
+  name:         { type: String, unique: true },
+  shortName:    { type: String, optional: true },
+  description:  { type: String, optional: true },
+  adminName:    { type: String, unique: true },
+  precision:    { type: Number, optional: true },
+  displayClass: { type: String, optional: true },
+  inverted:     { type: Boolean, optional: true }
 }));

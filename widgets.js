@@ -24,6 +24,7 @@ ActiveWidgets = [
   'imon-barchart',
   'imon-percent',
   'imon-speedometer',
+  'imon-valuetrend',
   'gsma-prepaid',
   'gsma-3g',
   'gsma-4g',

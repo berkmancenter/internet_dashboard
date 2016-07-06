@@ -18,6 +18,26 @@ Meteor.publish('imon_data', function(countryCode, indicatorIds, idField) {
   return IMonData.find(selector);
 });
 
+Meteor.publish('imon_dev', function(countryCode, indicatorIds){ //indicatorIds: Array, countryCode: String
+  var selector = {};
+  if(_.isUndefined(countryCode) || _.isUndefined(indicatorIds)) { return; }
+  if (countryCode !== 'all') {
+    selector.countryCode = countryCode;
+  }
+  if(_.isArray(indicatorIds)){
+    selector.indAdminName = { $in: indicatorIds }; 
+  }
+  return IMonDev.find(selector);
+});
+
+Meteor.publish('imon_countries_dev', function(){
+  return IMonCountriesDev.find();
+});
+
+Meteor.publish('imon_indicators_dev', function(){
+  return IMonIndicatorsDev.find({ id: { $nin: [32,33] } }); // all except Herdict & Morningside until there's data for them
+});
+
 function selectIndicators(indicatorIds,selector,idField){
   idField = idField === 'name' ? 'name' : 'sourceId';
   selector = selector ? selector : {};
