@@ -26,7 +26,7 @@ IMonPercent = {
     description: 'Visualizes percentage indicators.', // temp
     url: 'https://thenetmonitor.org/sources',
     dimensions: { width: 2, height: 2 },
-    resize: { mode: 'cover' },
+    resize: { mode: 'cover', constraints: { height: { min: 2 } } },
     constructor: IMonPercentWidget,
     typeIcon: 'th'
   },
