@@ -4,7 +4,8 @@ Template.IMonChoroplethWidget.onCreated(function() {
     template.subscribe('imon_indicators');
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
-    template.subscribe('imon_data_v2', 'all', Template.currentData().indicatorName, true);
+    if(Template.currentData().indicatorName)
+      template.subscribe('imon_data_v2', 'all', Template.currentData().indicatorName, true);
   });
 });
 
@@ -14,6 +15,14 @@ Template.IMonChoroplethWidget.onRendered(function() {
 
   template.autorun(function() {
     if (!template.subscriptionsReady()) {  return;  }
+    // Make sure indicator is in the right format
+    if(Template.currentData().indicatorId && !Template.currentData().indicatorName){ // because old structure used indicatorId
+        var adName = IMonMethods.idToAdminName(Template.currentData().indicatorId);
+        var newData = {
+          indicatorName: adName
+        };
+        Template.currentData().set(newData);
+    }
     var newIndicator = IMonIndicators.findOne({adminName:Template.currentData().indicatorName});
     var indicator = IMonIndicatorsD.findOne({ id: newIndicator.id });
     var cachedIndicator = Template.currentData().indicator;

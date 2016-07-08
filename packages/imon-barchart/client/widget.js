@@ -77,6 +77,19 @@ Template.IMonBarchartWidget.onRendered(function() {
     var missing = []; // for the error
     var mode_reactive = Template.currentData().mode;
     if(mode_reactive === 'single'){ // Single indicator, multiple countries. Default.
+      // Make sure indicator is in right format
+      if(!IMonMethods.isAdminName(Template.currentData().y.single.indicator)){
+        var adName = IMonMethods.idToAdminName(Template.currentData().y.single.indicator);
+        var newData = {
+          y: {
+            single: {
+              indicator: adName
+            }
+          }
+        };
+        Template.currentData().set(newData);
+      }
+      
       // Get the y-axis indicator ID
       yIndicator = IMonIndicators.findOne({ adminName: Template.currentData().y.single.indicator });;
       // Get the indicator as an object

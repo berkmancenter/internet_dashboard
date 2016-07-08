@@ -1,10 +1,12 @@
 Template.IMonSpeedometerWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData().indicatorName, true);
     template.subscribe('imon_indicators');
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
+    if(Template.currentData().indicatorName){
+      template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData().indicatorName, true);
+    }
   });
 });
 
@@ -13,6 +15,14 @@ Template.IMonSpeedometerWidget.onRendered(function() {
 
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
+
+    if(Template.currentData().indicatorId && !Template.currentData().indicatorName){
+      var adName = IMonMethods.idToAdminName(Template.currentData().indicatorId);
+      var newData = {
+        indicatorName: adName
+      };
+      Template.currentData().set(newData);
+    }
 
     $(template.find('.gauge')).empty();
 

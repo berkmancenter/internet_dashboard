@@ -66,6 +66,21 @@ Template.IMonScatterWidget.onRendered(function() {
   var redrawn = false;
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
+    
+    if(!IMonMethods.isAdminName(Template.currentData().x.indicator)){ // if one isn't an adminName, both aren't
+      var xAdminName = IMonMethods.idToAdminName(Template.currentData().x.indicator);
+      var yAdminName = IMonMethods.idToAdminName(Template.currentData().y.indicator);
+      var newData = {
+        x: {
+          indicator: xAdminName
+        },
+        y: {
+          indicator: yAdminName
+        }
+      };
+      Template.currentData().set(newData);
+    }
+
     var xIndicator = Template.currentData().x.indicator;
     var yIndicator = Template.currentData().y.indicator;
     var xTitle = IMonIndicators.findOne({ adminName: xIndicator }).shortName;

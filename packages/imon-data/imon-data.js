@@ -78,3 +78,13 @@ IMonIndicatorsD.attachSchema(new SimpleSchema({
   sourceUrl:     { type: String, regEx: SimpleSchema.RegEx.Url, optional: true}
 }));
 
+// SHARED METHODS
+IMonMethods = { // For those to work, widget has to be subscribed to imon_indicators_v2
+  isAdminName: function(input){
+    var test = IMonIndicators.findOne({ adminName: input });
+    return !_.isUndefined(test);
+  },
+  idToAdminName: function(id){
+    return IMonIndicators.findOne({ id: id }).adminName;
+  }
+};
