@@ -1,5 +1,5 @@
 Template.IMonScatterSettings.onCreated(function() {
-  this.subscribe('imon_indicators');
+  this.subscribe('imon_indicators_v2');
 });
 
 Template.IMonScatterSettings.helpers({
@@ -13,12 +13,12 @@ Template.IMonScatterSettings.events({
     var newData = {
       title: template.find('#chart-title').value,
       x: {
-        indicator: parseInt(template.find('#x-select').value),
+        indicator: template.find('#x-select').value,
         log: template.find('#x-log').checked,
         jitter: parseInt(template.find('#x-jitter').value)
       },
       y: {
-        indicator: parseInt(template.find('#y-select').value),
+        indicator: template.find('#y-select').value,
         log: template.find('#y-log').checked,
         jitter: parseInt(template.find('#y-jitter').value)
       }};

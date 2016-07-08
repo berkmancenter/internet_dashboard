@@ -1,12 +1,12 @@
 Settings = {
   icons: { // hash of indicator IDs : icons for when it's not 'user' / person.
-    6: 'home',
-    28: 'female',
-    29: 'male'
+    hhnet: 'home',
+    edf: 'female',
+    edm: 'male'
   },
   defaultData: {
     country: 'usa',
-    indicatorId: 1,
+    indicatorName: 'bbrate',
     color: '#6192BD'
   }
 };
@@ -26,7 +26,7 @@ IMonPercent = {
     description: 'Visualizes percentage indicators.', // temp
     url: 'https://thenetmonitor.org/sources',
     dimensions: { width: 2, height: 2 },
-    resize: { mode: 'cover' },
+    resize: { mode: 'cover', constraints: { height: { min: 2 } } },
     constructor: IMonPercentWidget,
     typeIcon: 'th'
   },

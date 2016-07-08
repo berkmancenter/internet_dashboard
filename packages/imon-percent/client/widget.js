@@ -1,10 +1,12 @@
 Template.IMonPercentWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    var indicators = [ Template.currentData().indicatorId ];
-    template.subscribe('imon_data', 'all', indicators, 'id');
-    template.subscribe('imon_indicators');
-    template.subscribe('imon_countries');
+    template.subscribe('imon_indicators'); // for provider data
+    template.subscribe('imon_indicators_v2');
+    template.subscribe('imon_countries_v2');
+    if(Template.currentData().indicatorName){
+      template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData().indicatorName, true);
+    }
   });
 });
 Template.IMonPercentWidget.onRendered(function(){
@@ -12,11 +14,21 @@ Template.IMonPercentWidget.onRendered(function(){
   var redrawn = false;
   template.autorun(function(){
     if (!template.subscriptionsReady()) { return; }
+    // Make sure indicator is in the right format
+    if(Template.currentData().indicatorId && !Template.currentData().indicatorName){ // because old structure used indicatorId
+        var adName = IMonMethods.idToAdminName(Template.currentData().indicatorId);
+        var newData = {
+          indicatorName: adName
+        };
+        Template.currentData().set(newData);
+    }
+
     // 1. Set indicator for the top right corner
     var cachedIndicator = Template.currentData().indicator;
-    var currId = Template.currentData().indicatorId; 
+    var currName = Template.currentData().indicatorName;
+    var currId = IMonIndicators.findOne({ adminName: currName }).id;
     if(!cachedIndicator || cachedIndicator.id !== currId){
-      Template.currentData().set({ indicator: IMonIndicators.findOne({ id: currId })});
+      Template.currentData().set({ indicator: IMonIndicatorsD.findOne({ id: currId })});
     }
 
     // 2. All the variables
@@ -27,9 +39,9 @@ Template.IMonPercentWidget.onRendered(function(){
     var container = template.find('.users-container');
     var title = template.find('.percent-title');
     var valuePlace = template.find('.indicator-value');
-    var indicatorValue = IMonData.findOne({ sourceId: Template.currentData().indicatorId, countryCode: Template.currentData().country }).value;
+    var indicatorValue = IMonRecent.findOne({ indAdminName: Template.currentData().indicatorName, countryCode: Template.currentData().country }).value;
     var countryName = IMonCountries.findOne({ code: Template.currentData().country }).name;
-    var indicatorName = IMonIndicators.findOne({ id: currId }).shortName;
+    var indicatorName = IMonIndicators.findOne({ adminName: currName }).shortName;
     var color = Template.currentData().color;
 
     // 3. All the functions
@@ -51,7 +63,7 @@ Template.IMonPercentWidget.onRendered(function(){
     var draw = function(){
       // a. Calculate values
       var value = parseInt((indicatorValue).toFixed(0));
-      var icon = currId in Settings.icons ? Settings.icons[currId] : 'user';
+      var icon = currName in Settings.icons ? Settings.icons[currName] : 'user';
 
 
       // b. Empty the node & fill out titles

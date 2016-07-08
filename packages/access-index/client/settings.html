@@ -1,5 +1,5 @@
 <template name="AccessIndexSettings">
-{{# if Template.subscriptionsReady }}
+{{# if dataReady }}
 <div class="form-group">
   <label for="country-select">Country</label>
   <select class="country form-control" id="country-select" name="country">
@@ -8,7 +8,6 @@
   {{/each}}
 </select>
 </div>
-
 <button class="btn btn-primary save-settings">Save</button>
 {{ else }}
   {{ widgetLoading }}

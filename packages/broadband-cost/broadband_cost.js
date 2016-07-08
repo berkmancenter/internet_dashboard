@@ -6,17 +6,16 @@ Settings = {
     'Broadband subscription charge as a percentage of GDP per capita PPP (>10-25 Mbps)',
     'Broadband subscription charge as a percentage of GDP per capita PPP (>25 Mbps)',
   ],
-  indicatorIds: [9, 10, 11, 12, 13],
+  indicatorIds: ['bbcost1', 'bbcost2', 'bbcost3', 'bbcost4', 'bbcost5'],
   speedRegex: /(\d+-)?\d+ Mbps/,
   maxSpeed: '25 Mbps',
-  lowerCellClassBounds: { 66: 'success', 33: 'warning', 0: 'danger' },
-  defaultCountry: { name: 'United States', code: 'usa' }
+  lowerCellClassBounds: { 66: 'danger', 33: 'warning', 0: 'success' },
+  defaultCountry: { country: { name: 'United States', code: 'usa' } }
 };
 
 BroadbandCostWidget = function(doc) {
   Widget.call(this, doc);
-
-  _.defaults(this.data, { country: Settings.defaultCountry });
+  _.defaults(this.data, Settings.defaultCountry);
 };
 
 BroadbandCostWidget.prototype = Object.create(Widget.prototype);

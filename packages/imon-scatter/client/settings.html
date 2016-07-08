@@ -13,7 +13,7 @@
   </a>
   <select class="x-axis form-control" id="x-select" name="x-axis">
   {{# each indicators }}
-  <option value="{{ id }}" {{ isSelected id ../x.indicator }}>{{ shortName }}</option>
+  <option value="{{ adminName }}" {{ isSelected adminName ../x.indicator }}>{{ shortName }}</option>
   {{/each}}
   </select>
   <div class="row collapse" id="x-options">
@@ -38,7 +38,7 @@
   </a>
   <select class="y-axis form-control" id="y-select" name="y-axis">
   {{# each indicators }}
-  <option value="{{ id }}" {{ isSelected id ../y.indicator }}>{{ shortName }}</option>
+  <option value="{{ adminName }}" {{ isSelected adminName ../y.indicator }}>{{ shortName }}</option>
   {{/each}}
   </select>
   <div class="row collapse" id="y-options">

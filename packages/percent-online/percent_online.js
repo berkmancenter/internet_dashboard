@@ -1,6 +1,6 @@
 Settings = {
   indicatorName: 'Percentage of individuals using the Internet',
-  indicatorId: 5,
+  indicatorId: 'ipr',
   defaultCountry: { name: 'United States', code: 'usa' }
 };
 
@@ -25,9 +25,9 @@ _.extend(PercentOnlineWidget.prototype, {
     });
   },
   getIndicator: function() {
-    return IMonData.findOne({
+    return IMonRecent.findOne({
       countryCode: this.data.country.code,
-      name: Settings.indicatorName
+      indAdminName: Settings.indicatorId
     });
   }
 });

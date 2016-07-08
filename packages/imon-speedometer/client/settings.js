@@ -1,12 +1,11 @@
 Template.IMonSpeedometerSettings.onCreated(function() {
-  this.subscribe('imon_countries');
-  this.subscribe('imon_indicators');
+  this.subscribe('imon_countries_v2');
+  this.subscribe('imon_indicators_v2');
 });
 
 Template.IMonSpeedometerSettings.helpers({
-  countries: function() { return findAreas(false); },
-  regions: function() { return findAreas(true); },
-  indicators: function() { return IMonIndicators.find({ displaySuffix: 'kbps'}, { sort: { shortName: 1 } }); },
+  countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
+  indicators: function() { return IMonIndicators.find({ displayClass: 'speed'}, { sort: { shortName: 1 } }); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   trim: function(exp) { 
     var temp = exp.replace(/( \(kbps\))/ig, '');
@@ -25,11 +24,11 @@ Template.IMonSpeedometerSettings.helpers({
 Template.IMonSpeedometerSettings.events({
   'click .save-settings': function(ev, template) {
     var countryCode = template.find('.country').value;
-    var indicatorId = parseInt(template.find('.indicator').value);
+    var indicatorId = template.find('.indicator').value;
     var color = template.find('.color').value;
     var newData = {
       country: countryCode,
-      indicatorId: indicatorId,
+      indicatorName: indicatorId,
       color: color
     };
     template.closeSettings();
@@ -38,8 +37,3 @@ Template.IMonSpeedometerSettings.events({
 });
 
 
-
-function findAreas(isRegion) {
-  isRegion = isRegion || false;
-  return IMonCountries.find({ isRegion: isRegion }, { sort: { name: 1 } });
-}

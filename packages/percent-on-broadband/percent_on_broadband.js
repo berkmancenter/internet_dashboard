@@ -1,6 +1,6 @@
 Settings = {
   indicatorName: 'Broadband adoption rate',
-  indicatorId: 1,
+  indicatorId: 'bbrate',
   defaultCountry: { name: 'United States', code: 'usa' }
 };
 
@@ -25,9 +25,9 @@ _.extend(PercentOnBroadbandWidget.prototype, {
     });
   },
   getIndicator: function() {
-    return IMonData.findOne({
+    return IMonRecent.findOne({
       countryCode: this.data.country.code,
-      name: Settings.indicatorName
+      indAdminName: Settings.indicatorId
     });
   }
 });

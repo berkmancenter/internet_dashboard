@@ -2,10 +2,12 @@ Template.IMonBarchartWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
     var mode = Template.currentData().mode;
-    var indicators = mode === 'single' ? [ Template.currentData().y.single.indicator ] :  Template.currentData().x.multi.indicator ;
-    template.subscribe('imon_data', 'all', indicators,'id');
-    template.subscribe('imon_indicators');
-    template.subscribe('imon_countries');
+    var indicators = mode === 'single' ? Template.currentData().y.single.indicator :  Template.currentData().x.multi.indicator;
+    var countries = mode === 'single' ? Template.currentData().x.single.indicator : Template.currentData().y.multi.indicator;
+    template.subscribe('imon_data_v2', countries, indicators, true);
+    template.subscribe('imon_indicators'); // for provider data
+    template.subscribe('imon_indicators_v2');
+    template.subscribe('imon_countries_v2');
   });
 });
 
@@ -75,22 +77,34 @@ Template.IMonBarchartWidget.onRendered(function() {
     var missing = []; // for the error
     var mode_reactive = Template.currentData().mode;
     if(mode_reactive === 'single'){ // Single indicator, multiple countries. Default.
+      // Make sure indicator is in right format
+      if(!IMonMethods.isAdminName(Template.currentData().y.single.indicator)){
+        var adName = IMonMethods.idToAdminName(Template.currentData().y.single.indicator);
+        var newData = {
+          y: {
+            single: {
+              indicator: adName
+            }
+          }
+        };
+        Template.currentData().set(newData);
+      }
+      
       // Get the y-axis indicator ID
-      yIndicator = Template.currentData().y.single.indicator;
+      yIndicator = IMonIndicators.findOne({ adminName: Template.currentData().y.single.indicator });;
       // Get the indicator as an object
-      var dataIndicator = IMonIndicators.findOne({ id: yIndicator });
-      if ( !cachedIndicator || cachedIndicator.id !== yIndicator){ // What this does is change the "From SOURCE" in the upper right corner of the widget
+      var dataIndicator = IMonIndicatorsD.findOne({ id: yIndicator.id });
+      if ( !cachedIndicator || cachedIndicator.id !== yIndicator.id){ // What this does is change the "From SOURCE" in the upper right corner of the widget
         Template.currentData().set({indicator: dataIndicator});
       }
       xTitle = 'Countries';
-      yTitle = dataIndicator.shortName;
-      IMonCountries.find({ code: {$in: Template.currentData().x.single.indicator } }).forEach(function(country) {
-        var y = IMonData.findOne({ countryCode: country.code, sourceId: yIndicator });
+      yTitle = yIndicator.shortName;
+      IMonCountries.find({ code: {$in: Template.currentData().x.single.indicator } }).forEach(function(country){
+        var y = IMonRecent.findOne({ countryCode: country.code, indAdminName: Template.currentData().y.single.indicator });
         if (_.isUndefined(y)) {
           missing.push(country.name); 
           return; 
         }
-
         var xValue = country.name, yValue = y.value;
 
         data.push({
@@ -98,7 +112,7 @@ Template.IMonBarchartWidget.onRendered(function() {
           y: yValue,
           code: country.code,
           key: country.code,
-          label: yValue.toFixed(dataIndicator.precision)
+          label: yValue.toFixed(yIndicator.precision)
         });
       });
 
@@ -123,9 +137,9 @@ Template.IMonBarchartWidget.onRendered(function() {
         Template.currentData().set({indicator: undefined});
       yIndicator = Template.currentData().y.multi.indicator;
       yTitle = IMonCountries.findOne({ code: yIndicator }).name;
-      IMonData.find({ countryCode: yIndicator, sourceId: { $in: Template.currentData().x.multi.indicator } }).forEach(function(field){
+      IMonRecent.find({ countryCode: yIndicator, indAdminName: { $in: Template.currentData().x.multi.indicator } }).forEach(function(field){
         var yValue = Math.round(field.percent * 100).toFixed(2);
-        var xValue = IMonIndicators.findOne({ id: field.sourceId }).shortName;
+        var xValue = IMonIndicators.findOne({ adminName: field.indAdminName }).shortName;
 
         data.push({
           x: xValue,

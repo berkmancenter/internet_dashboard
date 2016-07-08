@@ -1,13 +1,13 @@
 Template.IMonBarchartSettings.onCreated(function() {
-  this.subscribe('imon_indicators');
-  this.subscribe('imon_countries');
+  this.subscribe('imon_indicators_v2');
+  this.subscribe('imon_countries_v2');
 });
 
 
 Template.IMonBarchartSettings.helpers({
   singleIndicator: function() { return Template.currentData().mode === 'single' ? true : false; },
   indicator: function() { return IMonIndicators.find({}, { sort: { shortName: 1 }}); },
-  country: function() { return IMonCountries.find({ isRegion: false }, { sort: { name: 1 } } ); },
+  country: function() { return IMonCountries.find({}, { sort: { name: 1 } } ); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
   isInArray: function(val, arr) { return arr.indexOf(val) == -1 ? '' : 'checked'; }, 
@@ -21,9 +21,9 @@ Template.IMonBarchartSettings.events({
 
     // x
     var xValueSingle = GetChecked(template.findAll('.countries-option:checked'));
-    var xValueMulti = $(template.find('.indicators-select')).val();
+    var xValueMulti = $(template.find('.indicators-select')).val(); // move this to new selection technique when multi is available
     var xIndicatorSingle = mode === 'single' ? xValueSingle : Template.currentData().x.single.indicator;
-    var xIndicatorMulti = mode === 'multi' ? StringToInt(xValueMulti) : Template.currentData().x.multi.indicator;
+    var xIndicatorMulti = mode === 'multi' ? xValueMulti : Template.currentData().x.multi.indicator;
 
     // y
     var yIndicatorValue = template.find('#y-select-' + mode).value;
@@ -44,7 +44,7 @@ Template.IMonBarchartSettings.events({
       },
       y: {
         single:{
-          indicator: parseInt(yIndicatorSingle)
+          indicator: yIndicatorSingle
         },
         multi: {
           indicator: yIndicatorMulti
@@ -73,13 +73,6 @@ Template.IMonBarchartSettings.events({
   }
 });
 
-function StringToInt(arr){
-  // Convert an array of strings (of numbers) into an array of integers. Used for array of indicator IDs.
-  var res = [];
-  for(var i=0; i<arr.length; i++)
-    res.push(parseInt(arr[i]));
-  return res;
-}
 
 function GetChecked(selector){
   return $(selector).map(function(){ return $(this).val(); }).get();

@@ -3,25 +3,9 @@
 <div class="form-group">
   <label for="country-select">Country</label>
   <select class="country form-control" id="country-select" name="country">
-    {{# if showRegions }}
-      <optgroup label="Countries">
         {{# each countries }}
         {{> ConnectionSpeedOption }}
         {{/each}}
-      </optgroup>
-    {{ else }}
-      {{# each countries }}
-      {{> ConnectionSpeedOption }}
-      {{/each}}
-    {{/if}}
-
-    {{# if showRegions }}
-      <optgroup label="Regions">
-        {{# each regions }}
-        {{> ConnectionSpeedOption }}
-        {{/each}}
-      </optgroup>
-    {{/if}}
   </select>
 </div>
 

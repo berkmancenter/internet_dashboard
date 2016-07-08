@@ -1,4 +1,11 @@
 Settings = {
+  defaultData: {
+    indicatorName: 'hhnet'
+  },
+  suffix: {
+    percentage: '%',
+    speed: 'kbps'
+  },
   map: {
     width: 450,
     height: 270,
@@ -9,7 +16,10 @@ Settings = {
   }
 };
 
-IMonChoroplethWidget = function(doc) { Widget.call(this, doc); };
+IMonChoroplethWidget = function(doc) { 
+  Widget.call(this, doc); 
+  _.defaults(this.data, Settings.defaultData);
+};
 IMonChoroplethWidget.prototype = Object.create(Widget.prototype);
 IMonChoroplethWidget.prototype.constructor = IMonChoroplethWidget;
 

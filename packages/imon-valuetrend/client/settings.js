@@ -7,8 +7,8 @@ Template.IMonValuetrendSettings.onCreated(function(){
 });
 
 Template.IMonValuetrendSettings.helpers({
-  countries: function() { return IMonCountriesDev.find({}, { sort: { name: 1 } }); },
-  indicators: function() { return IMonIndicatorsDev.find({}, { sort: { shortName: 1 } }); },
+  countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
+  indicators: function() { return IMonIndicators.find({}, { sort: { shortName: 1 } }); },
   isSelected: function(a, b) { return a == b ? 'selected' : ''; },
   colors: function() { 
     return [

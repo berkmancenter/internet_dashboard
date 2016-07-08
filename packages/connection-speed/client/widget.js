@@ -1,7 +1,8 @@
 Template.ConnectionSpeedWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_data', Template.currentData().country.code);
+    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorId, true);
+    template.subscribe('imon_indicators_v2');
   });
 });
 
@@ -38,14 +39,14 @@ Template.ConnectionSpeedWidget.onRendered(function() {
 
   this.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
-
-    var indicator = IMonData.findOne({
+    var max = IMonIndicators.findOne({ adminName: Settings.indicatorId }).max;
+    var indicator = IMonRecent.findOne({
         countryCode: Template.currentData().country.code,
-        name: Settings.indicatorName
+        indAdminName: Settings.indicatorId
     });
     var speedPercent = 0.001;
-    if (indicator && indicator.percent > 0) {
-      speedPercent = indicator.percent * 100;
+    if (indicator && getPercent(indicator.value, max) > 0) {
+      speedPercent = getPercent(indicator.value, max) * 100;
       var text = indicator.value.toLocaleString() + ' kbps';
       svg.select('.speed').text(text);
     } else {
@@ -76,3 +77,7 @@ Template.ConnectionSpeedWidget.onRendered(function() {
     updateSel.exit().remove();
   });
 });
+
+function getPercent(value, max){
+  return value/max;
+}

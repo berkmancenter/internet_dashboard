@@ -1,6 +1,6 @@
 Settings = {
   indicatorName: 'Average connection speed (kbps)',
-  indicatorId: 3,
+  indicatorId: 'speedkbps',
   gaugeWidth: 292,
   defaultCountry: { name: 'United States', code: 'usa' }
 };

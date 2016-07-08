@@ -1,11 +1,9 @@
 Template.ConnectionSpeedSettings.onCreated(function() {
-  this.subscribe('imon_countries');
+  this.subscribe('imon_countries_v2');
 });
 
 Template.ConnectionSpeedSettings.helpers({
-  countries: function() { return findAreas(false); },
-  regions: function() { return findAreas(true); },
-  showRegions: function() { return findAreas(true).count() > 0; }
+  countries: function() { return IMonCountries.find({ dataSources: Settings.indicatorId }, { sort: { name: 1 } }); }
 });
 
 Template.ConnectionSpeedSettings.events({
@@ -22,10 +20,3 @@ Template.ConnectionSpeedSettings.events({
 Template.ConnectionSpeedOption.helpers({
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
 });
-
-function findAreas(isRegion) {
-  isRegion = isRegion || false;
-  return IMonCountries.find(
-      { isRegion: isRegion, dataSources: Settings.indicatorId },
-      { sort: { name: 1 } });
-}

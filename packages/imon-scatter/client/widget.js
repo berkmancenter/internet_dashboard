@@ -5,9 +5,9 @@ Template.IMonScatterWidget.onCreated(function() {
       Template.currentData().x.indicator,
       Template.currentData().y.indicator
     ];
-    template.subscribe('imon_data', 'all', indicators,'id');
-    template.subscribe('imon_indicators');
-    template.subscribe('imon_countries');
+    template.subscribe('imon_data_v2', 'all', indicators, true);
+    template.subscribe('imon_indicators_v2');
+    template.subscribe('imon_countries_v2');
   });
 });
 
@@ -66,10 +66,25 @@ Template.IMonScatterWidget.onRendered(function() {
   var redrawn = false;
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
+    
+    if(!IMonMethods.isAdminName(Template.currentData().x.indicator)){ // if one isn't an adminName, both aren't
+      var xAdminName = IMonMethods.idToAdminName(Template.currentData().x.indicator);
+      var yAdminName = IMonMethods.idToAdminName(Template.currentData().y.indicator);
+      var newData = {
+        x: {
+          indicator: xAdminName
+        },
+        y: {
+          indicator: yAdminName
+        }
+      };
+      Template.currentData().set(newData);
+    }
+
     var xIndicator = Template.currentData().x.indicator;
     var yIndicator = Template.currentData().y.indicator;
-    var xTitle = IMonIndicators.findOne({ id: xIndicator }).shortName;
-    var yTitle = IMonIndicators.findOne({ id: yIndicator }).shortName; 
+    var xTitle = IMonIndicators.findOne({ adminName: xIndicator }).shortName;
+    var yTitle = IMonIndicators.findOne({ adminName: yIndicator }).shortName; 
     if (Template.currentData().x.log) {
       xTitle = 'Log ' + xTitle;
     }
@@ -79,8 +94,8 @@ Template.IMonScatterWidget.onRendered(function() {
 
     var data = [];
     IMonCountries.find().forEach(function(country) {
-      var x = IMonData.findOne({ countryCode: country.code, sourceId: xIndicator });
-      var y = IMonData.findOne({ countryCode: country.code, sourceId: yIndicator });
+      var x = IMonRecent.findOne({ countryCode: country.code, indAdminName: xIndicator });
+      var y = IMonRecent.findOne({ countryCode: country.code, indAdminName: yIndicator });
       if (_.isUndefined(x) || _.isUndefined(y)) { return; }
 
       var xValue = x.value, yValue = y.value;

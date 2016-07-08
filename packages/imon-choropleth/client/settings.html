@@ -5,7 +5,7 @@
   <label for="indicator-select">Indicator</label>
   <select class="indicator form-control" id="indicator-select" name="indicator">
   {{# each indicators }}
-  <option value="{{ id }}" {{ isSelected id ../indicator.id }}>{{ shortName }}</option>
+  <option value="{{ adminName }}" {{ isSelected id ../indicator.id }}>{{ shortName }}</option>
   {{/each}}
   </select>
 </div>
