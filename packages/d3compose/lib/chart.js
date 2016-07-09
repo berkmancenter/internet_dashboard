@@ -1,6 +1,18 @@
 var helpers = d3.compose.helpers;
 var mixins = d3.compose.mixins;
 
+Settings = {
+  chart: {
+    padding: { right: 40, bottom: 80 },
+    margins: { top: 30, bottom: 0, right: 35 },
+    dots: {
+      size: 5,
+      color: '#378E00',
+      opacity: 0.7
+    }
+  }
+};
+
 Mixed = helpers.mixin(d3.chart('Chart'), mixins.XY, mixins.Series,
     mixins.StandardLayer, mixins.Transition, mixins.LabelsXY);
 
