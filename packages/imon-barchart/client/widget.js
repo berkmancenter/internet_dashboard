@@ -123,13 +123,13 @@ Template.IMonBarchartWidget.onRendered(function() {
           +'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
           + message
           +'</div>');
-        $('#barchart-error-message').on('closed.bs.alert', function () {
+        $(template.find('#barchart-error-message')).on('closed.bs.alert', function () {
           setChartDims();
           chart.redraw();
         });
       }
       else{
-        $('#barchart-error-message').remove(); // if there's an error present from a previous save
+        $(template.find('#barchart-error-message')).remove(); // if there's an error present from a previous save
       }
     }
     else{ // = If mode is 'multi'

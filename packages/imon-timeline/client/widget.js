@@ -60,6 +60,7 @@ Template.IMonTimelineWidget.onRendered(function() {
       var maxValue = IMonIndicators.findOne({ adminName: currId }).min;
       var years = [];
       var d = [];
+      var missingCountries = [];
       //// c. Get data
       for(var i=0; i<countryList.length; i++){
         var countryName = IMonCountries.findOne({ code: countryList[i] }).name;
@@ -77,7 +78,7 @@ Template.IMonTimelineWidget.onRendered(function() {
             y: d.value,
             code: d.value,
             key: d.value,
-            label: d.value.toFixed(0)
+            label: d.value % 1 !== 0 ? d.value.toFixed(2) : d.value.toFixed(0)
           };
           if(years.indexOf(d.date.getFullYear())===-1) years.push(d.date.getFullYear());
           if(d.date < minDate) minDate = d.date;
@@ -90,10 +91,11 @@ Template.IMonTimelineWidget.onRendered(function() {
           tempObj.values = points;
           d.push(tempObj);
         }
+        else{
+          missingCountries.push(countryName);
+        }
       }
-
       //// d. Draw chart
-      if(d.length===0) { return; } // No data at all
       var node = createChartNode('singleIndicator');
       var chartNode = template.find(node.chart);
       var chart = d3.select(chartNode).chart('Compose', function(options){
@@ -126,12 +128,32 @@ Template.IMonTimelineWidget.onRendered(function() {
           xAxis
         ];
       });
-      
+      var setHeight = function(){
+        height = $widgetBody.innerHeight() - 50 - $(chartPlace).position().top;
+        chart.height(height);
+      };
       var width = parseInt($(chartNode).css('width').replace('px', ''));
-      var height = $widgetBody.innerHeight() - 90;
+      setHeight();
       chart.width(width);
       chart.margins({ top: 30, bottom: 0, left: 35 });
-      chart.height(height);
+
+      if(missingCountries.length > 0){ // some data not found/enough for a line
+        var missingString = missingCountries.join(', ');
+        var error = template.find('.timeline-error');
+        $(error).html('<div class="alert alert-warning" id="timeline-error-message">'
+          +'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+          + '<i class="fa fa-exclamation-triangle"></i> No trend data found for ' + missingString
+          +'</div>');
+          setHeight();
+        $(template.find('#timeline-error-message')).on('closed.bs.alert', function () {
+          setHeight();
+          chart.redraw();
+        });
+      }
+      else{
+        $(template.find('.timeline-error')).empty();
+      }
+      if(d.length===0) { return; } // no data at all
       chart.draw({ data:d });
     }
   });

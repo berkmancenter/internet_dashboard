@@ -9,7 +9,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.use(['widget', 'underscore', 'momentjs:moment', 'imon-data']);
-  api.use(['templating', 'd3compose'], 'client');
+  api.use(['templating', 'd3compose', 'fortawesome:fontawesome'], 'client');
 
   api.addFiles('imon_timeline.js');
   api.addFiles([

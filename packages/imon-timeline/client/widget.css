@@ -87,3 +87,12 @@
   opacity: 1 !important;
 }
 
+.imon-timeline .timeline-error .alert{
+  box-shadow: none !important;
+  position: inherit !important;
+}
+
+.imon-timeline .chart-legend-label{
+  font-weight: bold;
+  font-size:1.1em;
+}
