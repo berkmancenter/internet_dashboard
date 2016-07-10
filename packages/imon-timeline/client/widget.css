@@ -1,0 +1,89 @@
+.imon-timeline h1 {
+  font-size:2em;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.imon-timeline .title {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.imon-timeline .tick text{
+  font-weight: bold;
+}
+
+.imon-timeline .current-value {
+  font-size: 4em;
+  line-height: 1em;
+}
+
+.imon-timeline .display-suffix{
+  font-size:0.4em;
+  opacity: 0.7;
+}
+
+.imon-timeline .value-label {
+  font-size: 0.9em;
+}
+.imon-timeline .trend-line {
+  display: inline-block;
+}
+.imon-timeline .trend-label {
+  font-size: 1.2em;
+  margin-top:.7em;
+}
+
+.imon-timeline .no-data {
+  padding: 1em;
+  font-size: 14px;
+}
+
+.imon-timeline .one-data{
+  font-size:1em;
+}
+
+.imon-timeline .epoch.chart {
+  height: 45px;
+}
+
+.imon-timeline .overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.imon-timeline .focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+.imon-timeline .chart-layer{
+  
+}
+
+.imon-timeline .chart-compose {
+  border: 0;
+}
+
+.imon-timeline .chart-labels .chart-label {
+  pointer-events: none;
+  visibility: hidden;
+}
+.imon-timeline .chart-label-bg {
+  opacity: 0.5;
+}
+.imon-timeline .chart-labels .chart-label.visible-label {
+  visibility: visible;
+}
+
+.imon-timeline .chart-points circle {
+  transition-duration: 0.2s;
+  stroke-width: 0;
+}
+
+.imon-timeline .chart-points circle.selected {
+  opacity: 1 !important;
+}
+
