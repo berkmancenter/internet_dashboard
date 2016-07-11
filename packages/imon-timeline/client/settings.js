@@ -44,11 +44,12 @@ Template.IMonTimelineSettings.events({
     var selector = mode === 'singleIndicator' ? '.singleInd-countries-option' : '.singleCntry-indicators-option';
     var num_place = mode === 'singleIndicator' ? '.countries-select-number' : '.indicators-select-number';
     var num_selected = GetChecked(template.findAll(selector + ':checked')) == null ? 0 : GetChecked(template.findAll(selector + ':checked')).length;
+    var limit = mode === 'singleIndicator' ? 10 : 5;
     $(template.find(num_place)).text(num_selected + ' SELECTED');
-    if(num_selected===10){ // reached limit 
+    if(num_selected===limit){ // reached limit 
       $(template.findAll(selector + ':not(:checked)')).prop('disabled', true);     
     }
-    else if(num_selected<10){
+    else if(num_selected<limit){
       $(template.findAll(selector + ':not(:checked)')).prop('disabled', false); 
     }
   },
