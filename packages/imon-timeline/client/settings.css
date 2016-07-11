@@ -1,4 +1,4 @@
-.imon-timeline-settings .countries-select-box{
+.imon-timeline-settings .select-box{
   height: 10em;
   overflow: auto;
   border: 1px solid #ccc;
@@ -13,14 +13,14 @@
   border-color: #428bca;
 }
 
-.imon-timeline-settings .countries-select-number{
+.imon-timeline-settings .select-number{
   opacity: 0.8;
 }
 
-.imon-timeline-settings .countries-option:checked + label{
+.imon-timeline-settings .select-box-option:checked + label{
   font-weight: bold;
 }
 
-.imon-timeline-settings #deselect-countries{
+.imon-timeline-settings .deselect-btn{
   font-size: 0.8em;
 }

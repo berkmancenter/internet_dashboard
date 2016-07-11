@@ -1,6 +1,7 @@
 /*!
  * d3.compose - Compose complex, data-driven visualizations from reusable charts and components with d3
  * v0.15.13 - https://github.com/CSNW/d3.compose - license: MIT
+ * EDITED: ADDED CHART-INDEX-8 AND CHART-INDEX-9 COLORS
  */
 .chart-compose {
   font-size: 14px;
@@ -16,6 +17,8 @@
 .chart-index-5 {stroke: #8c564b; fill: #8c564b;}
 .chart-index-6 {stroke: #e377c2; fill: #e377c2;}
 .chart-index-7 {stroke: #7f7f7f; fill: #7f7f7f;}
+.chart-index-8 {stroke: #1abc9c; fill: #1abc9c;}
+.chart-index-9 {stroke: #000000; fill: #000000;}
 
 .chart-line {
   stroke-width: 1.5px;

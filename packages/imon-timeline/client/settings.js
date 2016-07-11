@@ -11,7 +11,7 @@ Template.IMonTimelineSettings.helpers({
   countries: function() { return IMonCountries.find({}, { sort: { name: 1 } }); },
   indicators: function() { return IMonIndicators.find({}, { sort: { shortName: 1 } }); },
   isSelected: function(a, b) { return a == b ? 'selected' : ''; },
-  isInArray: function(a, arr) { return arr.indexOf(a) === -1 ? '' : 'checked'; },
+  isInArray: function(a, arr) { return !_.isArray(arr) || arr.indexOf(a) === -1 ? '' : 'checked'; },
   isChecked: function(a, b) { return a == b ? 'checked' : ''; },
   singleIndicator: function() { return Template.currentData().mode == 'singleIndicator' ? true : false; }
 });
@@ -19,9 +19,10 @@ Template.IMonTimelineSettings.helpers({
 Template.IMonTimelineSettings.events({
   'click .save-settings': function(ev, template) {
     var mode = template.find('input[name="mode"]:checked').value;
-    var country = mode == 'singleIndicator' ? GetChecked(template.findAll('.singleInd-countries-option:checked')) : 'usa'; // temp
-    var ind = mode == 'singleIndicator' ? template.find('.singleInd-indicator').value : ['bbrate', 'hhnet']; // temp
+    var country = mode == 'singleIndicator' ? GetChecked(template.findAll('.singleInd-countries-option:checked')) : template.find('.singleCntry-country').value;
+    var ind = mode == 'singleIndicator' ? template.find('.singleInd-indicator').value : GetChecked(template.findAll('.singleCntry-indicators-option:checked'));
     var newData = {
+      mode: mode,
       indicatorName: ind,
       country: country
     };
@@ -35,16 +36,26 @@ Template.IMonTimelineSettings.events({
     $(template.find(div.show)).show();
     $(template.find(div.hide)).hide();
   },
-  'change .singleInd-countries-option': function(ev, template){ 
-    var num_selected = GetChecked(template.findAll('.singleInd-countries-option:checked')) == null ? 0 : GetChecked(template.findAll('.singleInd-countries-option:checked')).length;
-    $(template.find('.countries-select-number')).text(num_selected + ' SELECTED');
+  'change .select-box-option': function(ev, template){ 
+    var mode = $(template.find('input[name="mode"]:checked')).val();
+    var selector = mode === 'singleIndicator' ? '.singleInd-countries-option' : '.singleCntry-indicators-option';
+    var num_place = mode === 'singleIndicator' ? '.countries-select-number' : '.indicators-select-number';
+    var num_selected = GetChecked(template.findAll(selector + ':checked')) == null ? 0 : GetChecked(template.findAll(selector + ':checked')).length;
+    $(template.find(num_place)).text(num_selected + ' SELECTED');
+    if(num_selected===10){ // reached limit 
+      $(template.findAll(selector + ':not(:checked)')).prop('disabled', true);     
+    }
+    else if(num_selected<10){
+      $(template.findAll(selector + ':not(:checked)')).prop('disabled', false); 
+    }
   },
-  'click #deselect-countries': function(ev, template){
-    $(template.findAll('.singleInd-countries-option:checked')).each(function(){
-      $(this).prop('checked', false);
-    });
-    var num_selected = GetChecked(template.findAll('.singleInd-countries-option:checked')) == null ? 0 : GetChecked(template.findAll('.singleInd-countries-option:checked')).length;
-    $(template.find('.countries-select-number')).text(num_selected + ' SELECTED');
+  'click .deselect-btn': function(ev, template){
+    var mode = $(template.find('input[name="mode"]:checked')).val();
+    var selector = mode === 'singleIndicator' ? '.singleInd-countries-option' : '.singleCntry-indicators-option';
+    $(template.findAll(selector + ':checked')).prop('checked', false);
+    $(template.findAll(selector + ':not(:checked)')).prop('disabled', false);
+    var num_place = mode === 'singleIndicator' ? '.countries-select-number' : '.indicators-select-number';
+    $(template.find(num_place)).text('0 SELECTED');
   }
 });
 
