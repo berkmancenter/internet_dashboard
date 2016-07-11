@@ -25,7 +25,7 @@
   position: inherit !important;
 }
 
-.imon-timeline .chart-legend-label{
+.imon-timeline .chart-legend-label, .imon-timeline .label-multi{
   font-weight: bold;
   font-size:1em;
 }
@@ -44,4 +44,8 @@
 
 .imon-timeline .chart-legend-group .chart-line{
   stroke-width:0.8em;
+}
+
+.imon-timeline .label-multi{
+  text-align: left;
 }

@@ -1,13 +1,16 @@
 Settings = {
-  months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  suffix: {
-    percentage: '%',
-    speed: 'kbps'
-  },
+  margins: { top: 10, bottom: 10, left: 10, right: 30 },
+  colors: [
+      { code: '#6192BD', name: 'Blue' },
+      { code: '#27ae60', name: 'Green' },
+      { code: '#f39c12', name: 'Orange' },
+      { code: '#c0392b', name: 'Red' }
+  ],
   defaultData: {
    mode: 'singleIndicator',
    country: ['usa','kor','can','hkg'],
-   indicatorName: 'bbrate'
+   indicatorName: 'bbrate',
+   color: '#6192BD'
  }
 };
 

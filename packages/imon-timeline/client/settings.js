@@ -13,7 +13,8 @@ Template.IMonTimelineSettings.helpers({
   isSelected: function(a, b) { return a == b ? 'selected' : ''; },
   isInArray: function(a, arr) { return !_.isArray(arr) || arr.indexOf(a) === -1 ? '' : 'checked'; },
   isChecked: function(a, b) { return a == b ? 'checked' : ''; },
-  singleIndicator: function() { return Template.currentData().mode == 'singleIndicator' ? true : false; }
+  singleIndicator: function() { return Template.currentData().mode == 'singleIndicator' ? true : false; },
+  colors: function(){ return Settings.colors; }
 });
 
 Template.IMonTimelineSettings.events({
@@ -21,10 +22,12 @@ Template.IMonTimelineSettings.events({
     var mode = template.find('input[name="mode"]:checked').value;
     var country = mode == 'singleIndicator' ? GetChecked(template.findAll('.singleInd-countries-option:checked')) : template.find('.singleCntry-country').value;
     var ind = mode == 'singleIndicator' ? template.find('.singleInd-indicator').value : GetChecked(template.findAll('.singleCntry-indicators-option:checked'));
+    var color = mode == 'singleIndicator' ? Template.currentData().color : template.find('.color').value;
     var newData = {
       mode: mode,
       indicatorName: ind,
-      country: country
+      country: country,
+      color: color
     };
     template.closeSettings();
     this.set(newData);

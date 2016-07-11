@@ -40,6 +40,15 @@
   </div>
 
   <div class="form-group">
+    <label for="color-select">Color</label>
+    <select class="color form-control" id="color-select">
+      {{# each colors }}
+      <option value="{{ code }}" {{ isSelected code ../color }}>{{ name }}</option>
+      {{/ each }}
+    </select>
+  </div>
+
+  <div class="form-group">
     <label>Indicators <small class="indicators-select-number select-number"></small></label>
     <div class="indicators-select-box select-box">
       {{# each indicators }}
