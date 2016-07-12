@@ -72,6 +72,7 @@ htmljs@1.0.9
 http@1.1.5
 id-map@1.0.7
 imon-barchart@0.0.1
+imon-bubblechart@0.0.1
 imon-choropleth@0.0.1
 imon-data@0.0.1
 imon-percent@0.0.1
