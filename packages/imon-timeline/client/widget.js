@@ -112,11 +112,8 @@ Template.IMonTimelineWidget.onRendered(function() {
               data: [obj],
               xAxis: false, 
               multi: true,
-              minDate: minDate, 
-              maxDate: maxDate, 
               minValue: minValue,
-              maxValue: maxValue,
-              years: years.length 
+              maxValue: maxValue
             }});
           }
         }
@@ -163,11 +160,14 @@ Template.IMonTimelineWidget.onRendered(function() {
       for(var i=0; i<multiCharts.length; i++){
         var one = multiCharts[i];
         if(i===multiCharts.length-1) one.options.xAxis = true;
-        setDimensions(one.chart, multiCharts.length, one.chartNode);
+        setDimensions(one.chart, multiCharts.length, one.chartNode, false);
         one.chart.responsive(false);
         one.chart.margins(Settings.margins);
         $(one.labelNode).text(one.label);
-        one.chart.draw(multiCharts[i].options);
+        one.options.minDate = minDate;
+        one.options.maxDate = maxDate;
+        one.options.years = years.length;
+        one.chart.draw(one.options);
       }
       if(missing.length>0){
         createError(missing, error, function(){
@@ -218,8 +218,24 @@ function createError(array, errorPlace, setDims){
 }
 
 function handleChart(options){
+  var ticks; 
+  var minDate = options.minDate;
+  var maxDate = options.maxDate;
+
+  if(options.years === 2){
+    ticks = 3;
+    minDate = new Date(options.minDate.getTime() - ONE_MONTH);
+    maxDate = new Date(options.maxDate.getTime() + ONE_MONTH);
+  }
+  else if(options.years === 1){
+    ticks = 5;
+  }
+  else{
+    ticks = options.years;
+  }
+
   var scales = {
-    x: d3.time.scale().domain([options.minDate, options.maxDate]),
+    x: d3.time.scale().domain([minDate, maxDate]),
     y: { domain: [options.minValue, options.maxValue] }
   };
   var charts = [
@@ -237,7 +253,6 @@ function handleChart(options){
       rValue: 3
     }
   ];
-  var ticks = options.years > 10 ? 10 : options.years < 5 ? 5 : options.years;
   var xAxis;
   if(options.xAxis) xAxis = d3c.axis('xAxis', {scale: scales.x, ticks: ticks});
   var legend;

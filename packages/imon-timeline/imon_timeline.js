@@ -1,5 +1,5 @@
 Settings = {
-  margins: { top: 10, bottom: 10, left: 10, right: 30 },
+  margins: { top: 10, bottom: 10, left: 30, right: 30 },
   colors: [
       { code: '#6192BD', name: 'Blue' },
       { code: '#27ae60', name: 'Green' },
@@ -13,6 +13,8 @@ Settings = {
    color: '#6192BD'
  }
 };
+
+ONE_MONTH = 2.628e+9;
 
 IMonTimelineWidget = function(doc) {
   Widget.call(this, doc);
