@@ -33,7 +33,7 @@ IMonScatterWidget.prototype.constructor = IMonScatterWidget;
 
 IMonScatter = {
   widget: {
-    name: 'Scatter Plot',
+    name: 'Scatterplot',
     description: 'Shows a scatterplot of two chosen metrics from the Internet Monitor dataset across all countries',
     url: 'https://thenetmonitor.org/sources',
     dimensions: { width: 3, height: 2 },
