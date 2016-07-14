@@ -231,7 +231,7 @@ function handleChart(options){
     ticks = 5;
   }
   else{
-    ticks = options.years;
+    ticks = options.years > 10 ? 10 : options.years;
   }
 
   var scales = {
