@@ -1,0 +1,13 @@
+<template name="IMonBubbleChartWidget">
+  <h1>{{ title }}</h1>
+  <div class="row">
+  {{# unless Template.subscriptionsReady }}
+  <div class="col-xs-12">
+  	{{widgetLoading}}
+  </div>
+  {{ else }}
+  	<div class="z-index col-xs-12">{{ bubbleSize }}</div>
+  {{/unless}}
+  <div class="bubble-chart col-xs-12"></div>
+  </div>
+</template>
