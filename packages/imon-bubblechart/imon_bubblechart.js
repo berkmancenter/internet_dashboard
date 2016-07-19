@@ -1,7 +1,7 @@
 Settings = {
   chart: {
     padding: { right: 40, bottom: 120 },
-    margins: { top: 20, bottom: 20, right: 35 },
+    margins: { top: 20, bottom: 40, right: 35 },
     maxSize: 15,
     minSize: 3,
     defaultSize: 8

@@ -115,7 +115,7 @@ Template.IMonBubbleChartWidget.onRendered(function() {
         if(i!==common.length) Meteor.setTimeout(function(){ play(i); }, 1000);
       };
 
-      $(buttonPlace).html('<button id="play-button">Play!</button>');
+      $(buttonPlace).html('<button class="animation-button" id="play-button"><i class="fa fa-play-circle"></i></button>');
       $(template.find('#play-button')).click(function(){ play(0); });
 
       var circles = d3.selectAll(template.findAll('circle'));
