@@ -27,6 +27,7 @@ Meteor.publish('imon_data_v2', function(countries, indicators, recentOnly){
   }
 });
 
+
 function setSelector(selector, fieldName, input){
   if(_.isString(input) && input !== 'all'){
     selector[fieldName] = input;
@@ -35,6 +36,7 @@ function setSelector(selector, fieldName, input){
     selector[fieldName] = { $in: input };
   }
 }
+
 
 Meteor.publish('imon_countries_v2', function(){
   return IMonCountries.find();

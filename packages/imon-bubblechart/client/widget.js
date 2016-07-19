@@ -1,12 +1,6 @@
 Template.IMonBubbleChartWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    var indicators = [
-      Template.currentData().x.indicator,
-      Template.currentData().y.indicator
-    ];
-    if(!Template.currentData().z.same) indicators.push(Template.currentData().z.indicator);
-    template.subscribe('imon_data_v2', 'all', indicators, true);
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
   });
@@ -61,11 +55,18 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     chart.height(height);
   };
 
-  var redrawn = false;
+
   template.autorun(function() {
+    var loadingPlace = template.find('.bubblechart-loading');
+    var errorPlace = template.find('.bubblechart-error');
+    var yearPlace = template.find('.bubblechart-year');
+    var buttonPlace = template.find('.bubblechart-button');
+    $(errorPlace).empty();
     if (!template.subscriptionsReady()) { return; }
+    $(node).hide(); 
     var xIndicator = Template.currentData().x.indicator;
     var yIndicator = Template.currentData().y.indicator;
+    var zIndicator = Template.currentData().z.indicator;
     var xTitle = IMonIndicators.findOne({ adminName: xIndicator }).shortName;
     var yTitle = IMonIndicators.findOne({ adminName: yIndicator }).shortName; 
 
@@ -76,66 +77,64 @@ Template.IMonBubbleChartWidget.onRendered(function() {
       yTitle = 'Log ' + yTitle;
     }
 
+    var indicators = Template.currentData().z.same ? [xIndicator, yIndicator] : [xIndicator, yIndicator, zIndicator];
+    var currentData = Template.currentData();
 
-    var data = [];
-    IMonCountries.find(countrySelector(Template.currentData().countries)).forEach(function(country) {
-      var x = IMonRecent.findOne({ countryCode: country.code, indAdminName: xIndicator });
-      var y = IMonRecent.findOne({ countryCode: country.code, indAdminName: yIndicator });
-      if (_.isUndefined(x) || _.isUndefined(y)) { return; }
+    $(loadingPlace).html('<i class="fa fa-spinner fa-pulse"></i> Processing data...');
 
-      var xValue = x.value, yValue = y.value, r;
+    Meteor.call('getData', { indAdminName: { $in: indicators } }, currentData.x.indicator, currentData.y.indicator, currentData.z.same, currentData.z.indicator, currentData.x.log, currentData.y.log, function(error, result){
+      var common = result.common, hash = result.hash;
+      // 1. Error handling
+      if(common.length===0){
+        createError(errorPlace, 'No common years found between the selected indicators.'); 
+        $(loadingPlace).text('');
+        $(yearPlace).text('');
+        return;
+     }
+      $(loadingPlace).html('');
+      $(node).show();
+      setChartDims();
+      chart.margins(Settings.chart.margins);
+      chart.responsive(false);
+      var chosen = common[0];
+      var options = {
+        xAxisTitle: xTitle,
+        yAxisTitle: yTitle,
+        xJitter: currentData.x.jitter,
+        yJitter: currentData.y.jitter
+      };
+      draw(chart, hash, common[0], yearPlace, options);
+      var play = function(i){
+        chosen = common[i];
+        draw(chart, hash, chosen, yearPlace, options);
+        var circles = d3.selectAll(template.findAll('circle'));
+          circles.append('svg:title').text(function(d){ 
+            return d.label;
+          });
+        i++;
+        if(i!==common.length) Meteor.setTimeout(function(){ play(i); }, 1000);
+      };
 
-      if (Template.currentData().x.log && xValue > 0) {
-        xValue = Math.log(xValue);
-      }
-      if (Template.currentData().y.log && yValue > 0) {
-        yValue = Math.log(yValue);
-      }
+      $(buttonPlace).html('<button id="play-button">Play!</button>');
+      $(template.find('#play-button')).click(function(){ play(0); });
 
-      if(Template.currentData().z.same){
-        r = Settings.chart.defaultSize;
-      }
-      else{ // zIndicator here can't be undefined
-        var zIndicator = IMonIndicators.findOne({ adminName: Template.currentData().z.indicator });
-        var zMax = zIndicator.max;
-        var sizeVal = IMonRecent.findOne({ countryCode: country.code, indAdminName: zIndicator.adminName });
-        if(_.isUndefined(sizeVal)) { return; }
-        r = ((sizeVal.value * Settings.chart.maxSize)/zMax) + Settings.chart.minSize;
-      }
-      data.push({
-        x: xValue,
-        y: yValue,
-        code: country.code,
-        key: country.code,
-        label: country.name,
-        r: r
+      var circles = d3.selectAll(template.findAll('circle'));
+      circles.append('svg:title').text(function(d){ 
+        return d.label;
       });
     });
-
-    setChartDims();
-    chart.margins(Settings.chart.margins);
-    chart.responsive(false);
-
-    chart.draw({
-      data: data,
-      xAxisTitle: xTitle,
-      yAxisTitle: yTitle,
-      xJitter: Template.currentData().x.jitter,
-      yJitter: Template.currentData().y.jitter
-    });
-
-    var circles = d3.selectAll(template.findAll('circle'));
-    circles.append('svg:title').text(function(d){ 
-      return d.label;
-    });
-
   });
 });
 
-function countrySelector(countries){
-  var sel = {};
-  if(_.isArray(countries)){ // if it's one country, it will also be in an array
-    sel.code = { $in: countries };
-  }
-  return sel;
+
+function createError(errorPlace, errorString){
+  $(errorPlace).html('<div class="alert alert-warning" id="bubblechart-error-message">'
+          + '<i class="fa fa-exclamation-triangle"></i> ' + errorString
+          +'</div>');
+}
+
+function draw(chart, hash, chosen, yearPlace, options){
+  $(yearPlace).text(chosen);
+  options.data = hash[chosen];
+  chart.draw(options);
 }

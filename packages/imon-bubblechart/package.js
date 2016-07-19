@@ -14,6 +14,7 @@ Package.onUse(function(api) {
   api.use(['templating', 'd3compose'], 'client');
 
   api.addFiles(['imon_bubblechart.js']);
+  api.addFiles(['server/methods.js'], 'server');
   api.addFiles([
     'client/info.html',
     'client/settings.html',

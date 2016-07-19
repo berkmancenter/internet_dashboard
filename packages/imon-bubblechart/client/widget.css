@@ -28,3 +28,12 @@
   font-weight: bold;
   font-size: 1.1em;
 }
+
+.imon-bubblechart .bubblechart-error .alert{
+  width: 95%;
+  margin-top:2em;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: none !important;
+  position: inherit !important;
+}

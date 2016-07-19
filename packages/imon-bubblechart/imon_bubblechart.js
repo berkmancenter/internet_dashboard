@@ -1,17 +1,17 @@
 Settings = {
   chart: {
-    padding: { right: 40, bottom: 80 },
-    margins: { top: 30, bottom: 20, right: 35 },
+    padding: { right: 40, bottom: 120 },
+    margins: { top: 20, bottom: 20, right: 35 },
     maxSize: 15,
     minSize: 3,
-    defaultSize: 5
+    defaultSize: 8
   },
   defaultData: {
     title: 'Bubble Chart',
     countries: 'all',
     z: { // Size of bubble
       same: false, // Bubbles are all of the same size?
-      indicator: 'pop' // Population
+      indicator: 'bbrate' // Broadband Adoption (%)
     },
     x: {
       indicator: 'ipr', // Percentage of individuals using the Internet
