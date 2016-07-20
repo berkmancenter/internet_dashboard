@@ -14,7 +14,14 @@ Template.IMonBubbleChartWidget.onRendered(function() {
   var template = this;
   var node = template.find('.bubble-chart');
   var widgetNode = template.firstNode.parentNode.parentNode;
+  var id = widgetNode.getAttribute('data-mid');
   var $widgetBody = $(widgetNode).find('.widget-body');
+  var loadingPlace = template.find('.bubblechart-loading');
+  var errorPlace = template.find('.bubblechart-error');
+  var yearPlace = template.find('.bubblechart-year');
+  var buttonPlace = template.find('.bubblechart-button');
+  var playing; // variable for the timeout
+  var hash;
 
   var chart = d3.select(node).chart('Compose', function(options) {
     var xs = _.pluck(options.data, 'x'), ys = _.pluck(options.data, 'y');
@@ -55,14 +62,26 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     chart.height(height);
   };
 
+  var play = function(i, options){
+    var c = Session.get(id+'-common');
+    chosen = c[i];
+    draw(chart, hash, chosen, yearPlace, options);
+    var circles = d3.selectAll(template.findAll('circle'));
+    circles.append('svg:title').text(function(d){ 
+       return d.label;
+    });
+    Session.set(id+'-current', i);
+    i++;
+    if(i!==c.length) { playing = Meteor.setTimeout(function(){ play(i, options); }, 1000);  }
+    else{ $('#pause-button', buttonPlace).hide(); $('#play-button', buttonPlace).show();}
+  };
+
 
   template.autorun(function() {
-    var loadingPlace = template.find('.bubblechart-loading');
-    var errorPlace = template.find('.bubblechart-error');
-    var yearPlace = template.find('.bubblechart-year');
-    var buttonPlace = template.find('.bubblechart-button');
     $(errorPlace).empty();
     if (!template.subscriptionsReady()) { return; }
+    $(template.findAll('.animation-button')).hide();
+    $(template.findAll('.animation-button')).off();
     $(node).hide(); 
     var xIndicator = Template.currentData().x.indicator;
     var yIndicator = Template.currentData().y.indicator;
@@ -83,7 +102,8 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     $(loadingPlace).html('<i class="fa fa-spinner fa-pulse"></i> Processing data...');
 
     Meteor.call('getData', { indAdminName: { $in: indicators } }, currentData.x.indicator, currentData.y.indicator, currentData.z.same, currentData.z.indicator, currentData.x.log, currentData.y.log, function(error, result){
-      var common = result.common, hash = result.hash;
+      var common = result.common;
+      hash = result.hash;
       // 1. Error handling
       if(common.length===0){
         createError(errorPlace, 'No common years found between the selected indicators.'); 
@@ -104,19 +124,20 @@ Template.IMonBubbleChartWidget.onRendered(function() {
         yJitter: currentData.y.jitter
       };
       draw(chart, hash, common[0], yearPlace, options);
-      var play = function(i){
-        chosen = common[i];
-        draw(chart, hash, chosen, yearPlace, options);
-        var circles = d3.selectAll(template.findAll('circle'));
-          circles.append('svg:title').text(function(d){ 
-            return d.label;
-          });
-        i++;
-        if(i!==common.length) Meteor.setTimeout(function(){ play(i); }, 1000);
-      };
-
-      $(buttonPlace).html('<button class="animation-button" id="play-button"><i class="fa fa-play-circle"></i></button>');
-      $(template.find('#play-button')).click(function(){ play(0); });
+      Session.set(id+'-current', 0); // Current place
+      Session.set(id+'-common', common);
+      $('#play-button', buttonPlace).show();
+      $('#play-button', buttonPlace).click(function(){
+        var p = Session.get(id+'-current') === Session.get(id+'-common').length - 1 ? 0 : Session.get(id+'-current'); 
+        play(p, options);
+        $(this).hide();
+        $('#pause-button', buttonPlace).show();
+      });
+      $('#pause-button', buttonPlace).click(function(){
+        Meteor.clearTimeout(playing);
+        $(this).hide();
+        $('#play-button', buttonPlace).show();
+      });
 
       var circles = d3.selectAll(template.findAll('circle'));
       circles.append('svg:title').text(function(d){ 
