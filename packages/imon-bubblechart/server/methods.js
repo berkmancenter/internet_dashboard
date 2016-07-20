@@ -1,56 +1,71 @@
 Meteor.methods({
 	'getData': function(selector, xIndicator, yIndicator, same, zIndicator, xLog, yLog){
-	  var records = IMonData.aggregate([
+	  var years = IMonData.aggregate([
 	    { $match: selector },
 	    { $group: { _id: '$indAdminName' , date: { $push: { $year: '$date' } } } },
-	    { $project: { _id: 0, indAdminName: '$_id', date: 1 } }
+	    { $project: { _id: 0, date: 1 } }
 	  ]);
-	  records.sort(function(a, b){ return a.date.length < b.date.length ? -1 : a.date.length > b.date.length ? 1 : 0; });
-	  var common = intersection(records);
+	  years.sort(function(a, b){ return a.date.length < b.date.length ? -1 : a.date.length > b.date.length ? 1 : 0; });
+	  var common = intersection(years);
 
     var hash = {};
+    common.forEach(function(year){ hash[year] = []; }); // Initialize hash
     var data;
     var remove = [];
-    common.forEach(function(year, index){
-      data = [];
-      IMonCountries.find().forEach(function(country){
-        var x = IMonData.findOne({ countryCode: country.code, indAdminName: xIndicator, date: { $gte: new Date(year, 1, 1), $lte: new Date(year, 12, 31) } }, { $sort: { date: 1 } });
-        var y = IMonData.findOne({ countryCode: country.code, indAdminName: yIndicator, date: { $gte: new Date(year, 1, 1), $lte: new Date(year, 12, 31) } }, { $sort: { date: 1 } });
-        if(_.isUndefined(x) || _.isUndefined(y)) { return; }
-        var xValue = x.value, yValue = y.value, r;
-        if (xLog && xValue > 0) {
-           xValue = Math.log(xValue);
-        }
-        if (yLog && yValue > 0) {
-          yValue = Math.log(yValue);
-        }
+    selector.$where = function(){ return common.indexOf(this.date.getFullYear())!==-1; };
+    var records = IMonData.aggregate([
+      { $match: selector },
+      { $sort:  { date: 1, countryCode: 1, indAdminName: 1 } },
+      { $group: { _id: { year: { $year: '$date'}, country: '$countryCode', indAdminName: '$indAdminName' }, value: { $last: '$value' }  } },
+      { $group: { _id: { year: '$_id.year', country: '$_id.country' }, values: { $push: { indAdminName: '$_id.indAdminName', value: '$value' } } } },
+      { $project: { _id: 0, year: '$_id.year', country: '$_id.country', values: 1 } }
+    ]);
+    records.forEach(function(record){
+      // Each record has a year, country, and an array of values
+      var xIndex = index(record.values, xIndicator);
+      var yIndex = index(record.values, yIndicator);
+      if(xIndex === -1 || yIndex === -1){ return; }
 
-        if(same){
-          r = Settings.chart.defaultSize;
-        }
-        else{
-          var sizeIndicator = IMonIndicators.findOne({ adminName: zIndicator });
-          var zMax = sizeIndicator.max;
-          var sizeVal = IMonData.findOne({ countryCode: country.code, indAdminName: zIndicator, date: { $gte: new Date(year, 1, 1), $lte: new Date(year, 12, 31) }}, { $sort: { date: 1 } });
-          if(_.isUndefined(sizeVal)) { return; }
-          r = ((sizeVal.value * Settings.chart.maxSize)/zMax) + Settings.chart.minSize;
-        }
-        data.push({
-          x: xValue,
-          y: yValue,
-          code: country.code,
-          key: country.code,
-          label: country.name,
-          r: r
-        });
-      });
-      if(data.length>0) hash[year] = data;
-      else{ remove.push(index); }
+      var xValue = record.values[xIndex].value, yValue = record.values[yIndex].value, r;
+
+      if (xLog && xValue > 0) {
+        xValue = Math.log(xValue);
+      }
+      if (yLog && yValue > 0) {
+        yValue = Math.log(yValue);
+      }
+
+      if(same){
+        r = Settings.chart.defaultSize;
+      }
+      else{
+        var zIndex = index(record.values, zIndicator);
+        if(zIndex === -1) { return; }
+        var sizeIndicator = IMonIndicators.findOne({ adminName: zIndicator});
+        var zMax = sizeIndicator.max;
+        var sizeVal = record.values[zIndex].value;
+        r = ((sizeVal * Settings.chart.maxSize)/zMax) + Settings.chart.minSize;
+      }
+
+      var temp = {
+        x: xValue,
+        y: yValue,
+        code: record.country,
+        key: record.country,
+        label: IMonCountries.findOne({ code: record.country }).name,
+        r: r
+      };
+
+      hash[record.year].push(temp);
     });
+
+    Object.keys(hash).forEach(function(key){
+      if(hash[key].length === 0){ remove.push(common.indexOf(key)); }
+    });
+    remove.sort(function(a,b){ return a-b; });
     for(var i=remove.length-1; i>=0; i--){
       common.splice(remove[i], 1);
     }  
-
     return { common: common, hash: hash };
 	}
 });
@@ -68,6 +83,9 @@ function intersection(records){
   return result.sort(function(a,b){ return a-b; });
 }
 
-function countrySelector(countries){
-  return _.isArray(countries) ? { code: { $in: countries } } : {};
+function index(array, indicator){
+  for(var i=0; i<array.length; i++){
+    if(array[i].indAdminName===indicator) return i;
+  }
+  return -1;
 }

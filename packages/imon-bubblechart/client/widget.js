@@ -21,7 +21,6 @@ Template.IMonBubbleChartWidget.onRendered(function() {
   var yearPlace = template.find('.bubblechart-year');
   var buttonPlace = template.find('.bubblechart-button');
   var playing; // variable for the timeout
-  var hash;
 
   var chart = d3.select(node).chart('Compose', function(options) {
     var xs = _.pluck(options.data, 'x'), ys = _.pluck(options.data, 'y');
@@ -38,8 +37,7 @@ Template.IMonBubbleChartWidget.onRendered(function() {
       xScale: scales.x,
       yScale: scales.y,
       xJitter: options.xJitter,
-      yJitter: options.yJitter,
-      rValue: Settings.chart.defaultSize
+      yJitter: options.yJitter
     }];
 
     var title = d3c.title('Custom Chart');
@@ -65,7 +63,7 @@ Template.IMonBubbleChartWidget.onRendered(function() {
   var play = function(i, options){
     var c = Session.get(id+'-common');
     chosen = c[i];
-    draw(chart, hash, chosen, yearPlace, options);
+    draw(chart, Session.get(id+'-hash'), chosen, yearPlace, options);
     var circles = d3.selectAll(template.findAll('circle'));
     circles.append('svg:title').text(function(d){ 
        return d.label;
@@ -76,6 +74,20 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     else{ $('#pause-button', buttonPlace).hide(); $('#play-button', buttonPlace).show();}
   };
 
+  var moveCurrent = function(isForward, options){
+    var common = Session.get(id+'-common');
+    var current = Session.get(id+'-current');
+    var diff = isForward ? 1 : -1;
+    var newVal = current + diff;
+    if(newVal >= common.length || newVal<0){ return; }
+    var chosen = Session.get(id+'-common')[newVal];
+    Session.set(id+'-current', newVal);
+    draw(chart, Session.get(id+'-hash'), chosen, yearPlace, options);
+    var circles = d3.selectAll(template.findAll('circle'));
+    circles.append('svg:title').text(function(d){ 
+       return d.label;
+    });
+  };
 
   template.autorun(function() {
     $(errorPlace).empty();
@@ -102,8 +114,7 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     $(loadingPlace).html('<i class="fa fa-spinner fa-pulse"></i> Processing data...');
 
     Meteor.call('getData', { indAdminName: { $in: indicators } }, currentData.x.indicator, currentData.y.indicator, currentData.z.same, currentData.z.indicator, currentData.x.log, currentData.y.log, function(error, result){
-      var common = result.common;
-      hash = result.hash;
+      var common = result.common, hash = result.hash;
       // 1. Error handling
       if(common.length===0){
         createError(errorPlace, 'No common years found between the selected indicators.'); 
@@ -126,7 +137,10 @@ Template.IMonBubbleChartWidget.onRendered(function() {
       draw(chart, hash, common[0], yearPlace, options);
       Session.set(id+'-current', 0); // Current place
       Session.set(id+'-common', common);
+      Session.set(id+'-hash', hash);
       $('#play-button', buttonPlace).show();
+      $('#step-forward-button', buttonPlace).show();
+      $('#step-backward-button', buttonPlace).show();
       $('#play-button', buttonPlace).click(function(){
         var p = Session.get(id+'-current') === Session.get(id+'-common').length - 1 ? 0 : Session.get(id+'-current'); 
         play(p, options);
@@ -138,6 +152,12 @@ Template.IMonBubbleChartWidget.onRendered(function() {
         $(this).hide();
         $('#play-button', buttonPlace).show();
       });
+      $('#step-forward-button', buttonPlace).click(function(){
+        moveCurrent(true, options);
+      });
+      $('#step-backward-button', buttonPlace).click(function(){
+        moveCurrent(false, options);
+      });
 
       var circles = d3.selectAll(template.findAll('circle'));
       circles.append('svg:title').text(function(d){ 
@@ -146,7 +166,6 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     });
   });
 });
-
 
 function createError(errorPlace, errorString){
   $(errorPlace).html('<div class="alert alert-warning" id="bubblechart-error-message">'
