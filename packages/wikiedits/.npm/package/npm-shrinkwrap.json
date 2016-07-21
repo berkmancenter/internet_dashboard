@@ -1,31 +1,45 @@
 {
   "dependencies": {
     "wikichanges": {
-      "version": "https://github.com/jdcc/wikichanges/tarball/f2a70d12df72c3e97669c712a1b60a10201e117b",
+      "version": "0.2.7",
+      "resolved": "https://github.com/jdcc/wikichanges/tarball/f2a70d12df72c3e97669c712a1b60a10201e117b",
+      "from": "https://github.com/jdcc/wikichanges/tarball/f2a70d12df72c3e97669c712a1b60a10201e117b",
       "dependencies": {
         "irc": {
-          "version": "https://github.com/martynsmith/node-irc/tarball/master",
+          "version": "0.5.0",
+          "resolved": "https://github.com/martynsmith/node-irc/tarball/master",
+          "from": "https://github.com/martynsmith/node-irc/tarball/master",
           "dependencies": {
+            "ansi-color": {
+              "version": "0.2.1",
+              "resolved": "https://registry.npmjs.org/ansi-color/-/ansi-color-0.2.1.tgz",
+              "from": "ansi-color@0.2.1"
+            },
             "irc-colors": {
               "version": "1.1.0",
+              "resolved": "https://registry.npmjs.org/irc-colors/-/irc-colors-1.1.0.tgz",
+              "from": "irc-colors@1.1.0",
               "dependencies": {
                 "hashish": {
                   "version": "0.0.4",
+                  "resolved": "https://registry.npmjs.org/hashish/-/hashish-0.0.4.tgz",
+                  "from": "hashish@0.0.4",
                   "dependencies": {
                     "traverse": {
-                      "version": "0.6.6"
+                      "version": "0.6.6",
+                      "resolved": "https://registry.npmjs.org/traverse/-/traverse-0.6.6.tgz",
+                      "from": "traverse@0.6.6"
                     }
                   }
                 }
               }
-            },
-            "ansi-color": {
-              "version": "0.2.1"
             }
           }
         },
         "underscore": {
-          "version": "1.3.3"
+          "version": "1.3.3",
+          "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.3.3.tgz",
+          "from": "underscore@1.3.3"
         }
       }
     }

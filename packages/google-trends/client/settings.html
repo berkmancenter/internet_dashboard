@@ -1,0 +1,14 @@
+<template name="GoogleTrendsSettings">
+  <div class="form-group">
+    <label for="feed-title">Widget Title</label>
+    <input id="feed-title" class="form-control" type="text"
+           name="feed-title" value="{{ title }}" >
+  </div>
+  <div class="form-group">
+    <label for="keyword">Search Term</label>
+    <input id="keyword" class="form-control" type="url"
+           name="keyword" value="{{ keyword }}" >
+    <span class="help-block">Any alpha-numeric search term is supported.</span>
+  </div>
+  <button class="btn btn-primary" id="keyword-save">Save</button>
+</template>
