@@ -2,9 +2,13 @@
   "dependencies": {
     "flatten-obj": {
       "version": "2.0.1",
+      "resolved": "https://registry.npmjs.org/flatten-obj/-/flatten-obj-2.0.1.tgz",
+      "from": "flatten-obj@2.0.1",
       "dependencies": {
         "isobj": {
-          "version": "1.0.0"
+          "version": "1.0.0",
+          "resolved": "https://registry.npmjs.org/isobj/-/isobj-1.0.0.tgz",
+          "from": "isobj@1.0.0"
         }
       }
     }

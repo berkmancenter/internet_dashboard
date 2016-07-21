@@ -1,0 +1,12 @@
+<template name="GoogleTrendsWidget">
+ 
+  {{# if Template.subscriptionsReady }}
+  <h2>Search index map of {{keyword}}</h2>
+  <iframe width="500" height="500" scrolling="no" src="http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q={{keyword}}&cid=GEO_MAP_0_0&export=5&w=500&h=500#_ABSTRACT_RENDERER_ID_0"></iframe>
+ {{else}}
+    {{ widgetLoading }}
+  {{/if}}
+</template>
+
+
+
