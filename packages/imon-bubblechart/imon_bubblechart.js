@@ -8,7 +8,6 @@ Settings = {
   },
   defaultData: {
     title: 'Bubble Chart',
-    countries: 'all',
     z: { // Size of bubble
       same: false, // Bubbles are all of the same size?
       indicator: 'bbrate' // Broadband Adoption (%)
@@ -19,7 +18,7 @@ Settings = {
       jitter: 0.0
     },
     y: {
-      indicator: 'downloadkbps', // Average download speed (kbps)
+      indicator: 'speedkbps', // Average download speed (kbps)
       log: false,
       jitter: 0.0
     }
@@ -39,7 +38,7 @@ IMonBubbleChart = {
     name: 'Bubble Chart',
     description: 'Shows an animated bubble chart of multi-dimensions of data.',
     url: 'https://thenetmonitor.org/sources',
-    dimensions: { width: 3, height: 2 },
+    dimensions: { width: 3, height: 3 },
     resize: { mode: 'cover' },
     constructor: IMonBubbleChartWidget,
     typeIcon: 'play-circle'

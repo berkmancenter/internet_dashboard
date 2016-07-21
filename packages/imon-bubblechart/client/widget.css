@@ -19,7 +19,7 @@
   transition-duration: 0.2s;
 }
 
-.imon-bubblechart .chart-points circle:hover {
+.imon-bubblechart .chart-points circle:hover, .imon-bubblechart .chart-points circle.clicked {
   fill: #FF6A00 !important;
   opacity: 1 !important;
 }

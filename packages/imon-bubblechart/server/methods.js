@@ -5,6 +5,7 @@ Meteor.methods({
 	    { $group: { _id: '$indAdminName' , date: { $push: { $year: '$date' } } } },
 	    { $project: { _id: 0, date: 1 } }
 	  ]);
+
 	  years.sort(function(a, b){ return a.date.length < b.date.length ? -1 : a.date.length > b.date.length ? 1 : 0; });
 	  var common = intersection(years);
 
@@ -13,6 +14,7 @@ Meteor.methods({
     var data;
     var remove = [];
     selector.$where = function(){ return common.indexOf(this.date.getFullYear())!==-1; };
+
     var records = IMonData.aggregate([
       { $match: selector },
       { $sort:  { date: 1, countryCode: 1, indAdminName: 1 } },
@@ -20,6 +22,7 @@ Meteor.methods({
       { $group: { _id: { year: '$_id.year', country: '$_id.country' }, values: { $push: { indAdminName: '$_id.indAdminName', value: '$value' } } } },
       { $project: { _id: 0, year: '$_id.year', country: '$_id.country', values: 1 } }
     ]);
+    
     records.forEach(function(record){
       // Each record has a year, country, and an array of values
       var xIndex = index(record.values, xIndicator);

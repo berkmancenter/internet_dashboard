@@ -23,3 +23,21 @@
   font-weight: bold;
   text-transform: uppercase;
 }
+
+.imon-bubblechart-settings .tip{
+  opacity: 0.5;
+  background-color: #f0ad4e;
+  color:white;
+  font-size:0.9em;
+  padding:0.2em;
+  margin:0.2em;
+  margin-bottom:1em;
+  border-radius: 0.3em;
+  text-align: center;
+  transition-duration: 1s;
+}
+
+.imon-bubblechart-settings .tip:hover{
+  opacity:1;
+  cursor:help;
+}
