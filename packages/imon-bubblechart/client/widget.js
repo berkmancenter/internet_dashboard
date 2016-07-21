@@ -62,6 +62,10 @@ Template.IMonBubbleChartWidget.onRendered(function() {
 
   var play = function(i, options){
     var c = Session.get(id+'-common');
+    if(i!==0){ $('#step-backward-button', buttonPlace).prop('disabled', false); }
+    else{ $('#step-backward-button', buttonPlace).prop('disabled', true); }
+    if(i===c.length-1){ $('#step-forward-button', buttonPlace).prop('disabled', true); }
+    else{ $('#step-forward-button', buttonPlace).prop('disabled', false); }
     chosen = c[i];
     draw(chart, Session.get(id+'-hash'), chosen, yearPlace, options);
     var circles = d3.selectAll(template.findAll('circle'));
@@ -71,7 +75,7 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     Session.set(id+'-current', i);
     i++;
     if(i!==c.length) { playing = Meteor.setTimeout(function(){ play(i, options); }, 1000);  }
-    else{ $('#pause-button', buttonPlace).hide(); $('#play-button', buttonPlace).show();}
+    else{ $('#pause-button', buttonPlace).hide(); $('#play-button', buttonPlace).show(); $('#step-forward-button', buttonPlace).prop('disabled', true); }
   };
 
   var moveCurrent = function(isForward, options){
@@ -87,6 +91,8 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     circles.append('svg:title').text(function(d){ 
        return d.label;
     });
+    if(isForward){ $('#step-backward-button', buttonPlace).prop('disabled', false); if(newVal===common.length-1){ $('#step-forward-button', buttonPlace).prop('disabled', true); } }
+    else{ $('#step-forward-button', buttonPlace).prop('disabled', false); if(newVal===0){ $('#step-backward-button', buttonPlace).prop('disabled', true); } }
   };
 
   template.autorun(function() {
@@ -141,6 +147,9 @@ Template.IMonBubbleChartWidget.onRendered(function() {
       $('#play-button', buttonPlace).show();
       $('#step-forward-button', buttonPlace).show();
       $('#step-backward-button', buttonPlace).show();
+      $('#step-backward-button', buttonPlace).prop('disabled', true);
+      var disabled = Session.get(id+'-common').length === 1 ? true : false;
+      $('#play-button, #step-forward-button', buttonPlace).prop('disabled', disabled);
       $('#play-button', buttonPlace).click(function(){
         var p = Session.get(id+'-current') === Session.get(id+'-common').length - 1 ? 0 : Session.get(id+'-current'); 
         play(p, options);

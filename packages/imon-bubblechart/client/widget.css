@@ -31,6 +31,11 @@
   border: none;
 }
 
+.imon-bubblechart .animation-button:disabled{
+  cursor: not-allowed;
+  color: #bdc3c7;
+}
+
 .imon-bubblechart .bubblechart-year{
   display: inline;
   margin-bottom:0;
