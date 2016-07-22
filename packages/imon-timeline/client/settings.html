@@ -1,0 +1,68 @@
+<template name="IMonTimelineSettings">
+{{# if Template.subscriptionsReady }}
+
+<div class="form-group">
+  <label><input type="radio" name="mode" value="singleIndicator" {{ isChecked 'singleIndicator' mode }}>Single indicator, multiple countries.</label>
+  <label><input type="radio" name="mode" value="singleCountry" {{ isChecked 'singleCountry' mode }}>Multiple indicators, single country.</label>
+</div>
+
+<div class="single-settings" style={{# unless singleIndicator }}display:none;{{/unless}}>
+  <div class="form-group">
+    <label for="singleInd-indicator-select">Indicator</label>
+    <select class="singleInd-indicator form-control" id="singleInd-indicator-select">
+    {{# each indicators }}
+    <option value="{{ adminName }}" {{ isSelected adminName ../indicatorName }}>{{ shortName }}</option>
+    {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Countries <small class="countries-select-number select-number"></small></label>
+    <div class="countries-select-box select-box">
+      {{# each countries }}
+        <div class="checkbox checkbox-success checkbox-small">
+          <input type="checkbox" id="countries-option-{{ code }}" class="singleInd-countries-option select-box-option" value="{{ code }}" {{ isInArray code ../country }}><label for="countries-option-{{ code }}">{{ name }}</label>
+        </div>
+      {{ /each }}
+    </div>
+    <button class="btn btn-default deselect-btn" id="deselect-countries"><i class="fa fa-times"></i> DESELECT ALL</button>
+  </div>
+</div>
+
+<div class="multi-settings" style={{# if singleIndicator }}display:none;{{/if}}>
+  <div class="form-group">
+    <label for="singleCntry-country-select">Country</label>
+    <select class="singleCntry-country form-control" id="singleCntry-country-select">
+    {{# each countries }}
+    <option value="{{ code }}" {{ isSelected code ../country }}>{{ name }}</option>
+    {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="color-select">Color</label>
+    <select class="color form-control" id="color-select">
+      {{# each colors }}
+      <option value="{{ code }}" {{ isSelected code ../color }}>{{ name }}</option>
+      {{/ each }}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Indicators <small class="indicators-select-number select-number"></small></label>
+    <div class="indicators-select-box select-box">
+      {{# each indicators }}
+        <div class="checkbox checkbox-success checkbox-small">
+          <input type="checkbox" id="indicators-option-{{ adminName }}" class="singleCntry-indicators-option select-box-option" value="{{ adminName }}" {{ isInArray adminName ../indicatorName }}><label for="indicators-option-{{ adminName }}">{{ shortName }}</label>
+        </div>
+      {{ /each }}
+    </div>
+    <button class="btn btn-default deselect-btn" id="deselect-indicators"><i class="fa fa-times"></i> DESELECT ALL</button>
+  </div>
+</div>
+
+<button class="btn btn-primary save-settings">Save</button>
+{{ else }}
+	{{ widgetLoading }}
+{{/if}}
+</template>

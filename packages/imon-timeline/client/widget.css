@@ -1,0 +1,51 @@
+.imon-timeline h1 {
+  font-size:2em;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.imon-timeline .title {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.imon-timeline .tick text{
+  font-weight: bold;
+}
+
+
+.imon-timeline .chart-compose {
+  border: 0;
+}
+
+.imon-timeline .timeline-error .alert{
+  box-shadow: none !important;
+  position: inherit !important;
+}
+
+.imon-timeline .chart-legend-label, .imon-timeline .label-multi{
+  font-weight: bold;
+  font-size:1em;
+}
+
+.imon-timeline .chart-line{
+  stroke-width:2.2px;
+}
+
+.imon-timeline .chart-points circle{
+  transition-duration: 0.2s;
+}
+
+.imon-timeline .chart-points circle:hover {
+  opacity: 1 !important;
+}
+
+.imon-timeline .chart-legend-group .chart-line{
+  stroke-width:0.8em;
+}
+
+.imon-timeline .label-multi{
+  text-align: left;
+}

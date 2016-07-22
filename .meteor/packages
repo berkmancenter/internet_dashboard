@@ -79,3 +79,5 @@ useraccounts:bootstrap
 
 imon-speedometer
 imon-valuetrend
+imon-timeline
+d3compose

@@ -1,0 +1,14 @@
+<template name="IMonTimelineWidget">
+{{# if Template.subscriptionsReady }}
+<div class="title row">
+  <div class="col-xs-12"><h1>{{ title }}</h1></div>
+</div>
+{{ else }}
+{{ widgetLoading }}
+{{/ if }}
+<div class="timeline-error"></div>
+<div class="current-data row">
+<div class="chart-single col-xs-12"></div>
+<div class="chart-multi"></div>
+</div>
+</template>
