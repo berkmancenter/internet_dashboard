@@ -36,7 +36,7 @@ IMonBubbleChartWidget.prototype.constructor = IMonBubbleChartWidget;
 IMonBubbleChart = {
   widget: {
     name: 'Bubble Chart',
-    description: 'Shows an animated bubble chart of multi-dimensions of data.',
+    description: 'Shows an animated bubble chart that displays three selected indicators over time.',
     url: 'https://thenetmonitor.org/sources',
     dimensions: { width: 3, height: 3 },
     resize: { mode: 'cover' },
