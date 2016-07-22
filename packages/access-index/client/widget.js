@@ -2,7 +2,6 @@ DATA = {};
 
 Template.AccessIndexWidget.onRendered(function() {
   var id = Template.instance().data.widget._id;
-  var currData = Template.currentData();
   Meteor.call('rankData', function(e, r){ // Meteor.method in 'server/oldAPI.js'
     DATA = r; // just for easier usage here.
     Session.set(id+'-data', r);
