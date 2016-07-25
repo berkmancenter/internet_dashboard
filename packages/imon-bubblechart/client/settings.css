@@ -1,0 +1,43 @@
+.imon-bubblechart-settings #x-jitter, .imon-bubblechart-settings #y-jitter {
+  width: 60px;
+}
+.imon-bubblechart-settings .form-group .row {
+  margin: 0.3em 1em 0;
+}
+.imon-bubblechart-settings .axis-options {
+  font-size: 0.8em;
+  padding-left: 0.8em;
+}
+.imon-bubblechart-settings .axis-options .caret {
+  content: "";
+  border-top: 0;
+  border-bottom: 4px dashed;
+}
+.imon-bubblechart-settings .axis-options.collapsed .caret {
+  content: "";
+  border-bottom: 0;
+  border-top: 4px dashed;
+}
+
+.imon-bubblechart-settings .same-size{
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.imon-bubblechart-settings .tip{
+  opacity: 0.5;
+  background-color: #f0ad4e;
+  color:white;
+  font-size:0.9em;
+  padding:0.2em;
+  margin:0.2em;
+  margin-bottom:1em;
+  border-radius: 0.3em;
+  text-align: center;
+  transition-duration: 1s;
+}
+
+.imon-bubblechart-settings .tip:hover{
+  opacity:1;
+  cursor:help;
+}

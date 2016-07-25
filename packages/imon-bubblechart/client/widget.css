@@ -1,0 +1,61 @@
+.imon-bubblechart .chart-compose {
+  border: 0;
+}
+
+.imon-bubblechart .chart-labels .chart-label {
+  pointer-events: none;
+  visibility: hidden;
+}
+.imon-bubblechart .chart-label-bg {
+  opacity: 0.5;
+}
+.imon-bubblechart .chart-labels .chart-label.visible-label {
+  visibility: visible;
+}
+
+.imon-bubblechart .chart-points circle {
+  stroke-width: 0;
+  opacity: 0.7 !important;
+  transition-duration: 0.2s;
+}
+
+.imon-bubblechart .chart-points circle:hover, .imon-bubblechart .chart-points circle.clicked {
+  fill: #FF6A00 !important;
+  opacity: 1 !important;
+}
+
+.imon-bubblechart .animation-button{
+  display: none;
+  background-color: transparent;
+  font-size:1.8em;
+  border: none;
+}
+
+.imon-bubblechart .animation-button:disabled{
+  cursor: not-allowed;
+  color: #bdc3c7;
+}
+
+.imon-bubblechart .bubblechart-year{
+  display: inline;
+  margin-bottom:0;
+  margin-top:0;
+}
+
+.imon-bubblechart .bubblechart-button{
+  float:right;
+}
+
+.imon-bubblechart .z-index{
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.imon-bubblechart .bubblechart-error .alert{
+  width: 95%;
+  margin-top:2em;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: none !important;
+  position: inherit !important;
+}

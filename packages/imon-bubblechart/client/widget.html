@@ -1,0 +1,22 @@
+<template name="IMonBubbleChartWidget">
+  <h1>{{ title }}</h1>
+  <div class="bubblechart-button">
+    <button class="animation-button" id="step-backward-button"><i class="fa fa-backward"></i></button>
+    <button class="animation-button" id="play-button"><i class="fa fa-play-circle"></i></button>
+    <button class="animation-button" id="pause-button"><i class="fa fa-pause-circle"></i></button>
+    <button class="animation-button" id="step-forward-button"><i class="fa fa-forward"></i></button>
+  </div>
+  <h2 class="bubblechart-year"></h2>
+  <div class="row">
+  {{# unless Template.subscriptionsReady }}
+  <div class="col-xs-12">
+  	{{widgetLoading}}
+  </div>
+  {{ else }}
+  	<div class="z-index col-xs-12">{{ bubbleSize }}</div>
+  {{/unless}}
+  <div class="bubblechart-loading col-xs-12"></div>
+  <div class="bubblechart-error"></div>
+  <div class="bubble-chart col-xs-12"></div>
+  </div>
+</template>

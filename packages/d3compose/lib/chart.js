@@ -120,7 +120,8 @@ Mixed.extend('Points', {
     this.setupTransition(selection);
     selection
       .attr('cx', this.xJit)
-      .attr('cy', this.yJit);
+      .attr('cy', this.yJit)
+      .attr('r', this.r);
   },
   onExitTransition: function(selection) {
     this.setupTransition(selection);
@@ -156,7 +157,7 @@ Mixed.extend('Points', {
     return chart.y(d, i) + _.random(-1 * chart.yJitter(), chart.yJitter());
   }),
   r: helpers.di(function(chart, d, i) {
-    return chart.rValue();
+    return d.r ? d.r : chart.rValue();
   }),
   key: function(d, i) {
     return d.code;

@@ -23,6 +23,7 @@ ActiveWidgets = [
   'imon-choropleth',
   'imon-barchart',
   'imon-percent',
+  'imon-bubblechart',
   'imon-speedometer',
   'imon-valuetrend',
   'imon-timeline',
