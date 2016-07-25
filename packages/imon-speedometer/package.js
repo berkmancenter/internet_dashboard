@@ -10,7 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['imon-data', 'underscore', 'widget']);
+  api.use(['imon-data', 'underscore', 'widget', 'country-info']);
   api.use(['templating', 'd3js:d3'], 'client');
 
   api.addFiles(['imon_speedometer.js']);

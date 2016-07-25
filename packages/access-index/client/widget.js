@@ -1,5 +1,10 @@
 DATA = {};
 
+Template.AccessIndexWidget.onCreated(function(){
+  var template = this;
+  template.subscribe('imon_countries_v2');
+});
+
 Template.AccessIndexWidget.onRendered(function() {
   var id = Template.instance().data.widget._id;
   Meteor.call('rankData', function(e, r){ // Meteor.method in 'server/oldAPI.js'

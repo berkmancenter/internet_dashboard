@@ -12,6 +12,18 @@ AccessWidget = function(doc) {
 AccessWidget.prototype = Object.create(Widget.prototype);
 AccessWidget.prototype.constructor = AccessIndex;
 
+_.extend(AccessWidget.prototype, {
+  setCountry: function(countryCode) {
+    var widget = this;
+    CountryInfo.byCode(countryCode, function(country) {
+      var code = country.alpha3.toLowerCase();
+      var country = IMonCountries.findOne({ code: code });
+      if (country) {
+        widget.data.set({ country: country });
+      }
+    });
+  }
+});
 
 AccessIndex = {
   widget: {
