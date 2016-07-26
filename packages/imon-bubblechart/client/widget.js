@@ -12,7 +12,6 @@ Template.IMonBubbleChartWidget.helpers({
 
 Template.IMonBubbleChartWidget.onRendered(function() {
   var template = this;
-  var playing; // variable for the timeout
 
   var widgetNode = template.firstNode.parentNode.parentNode;
   var id = widgetNode.getAttribute('data-mid');
@@ -82,7 +81,13 @@ Template.IMonBubbleChartWidget.onRendered(function() {
 
     // 5. End/Continue recursion
     if(i!==c.length){
-      playing = Meteor.setTimeout(function(){ play(i, options); }, 1000); 
+      var playing = Meteor.setTimeout(function(){ play(i, options); }, 1000);
+      $('#pause-button', buttonPlace).one('click', function(){
+        console.log('.');
+        Meteor.clearTimeout(playing);
+        $(this).hide();
+        $('#play-button', buttonPlace).show();
+      });
     }
     else{
       $('#pause-button', buttonPlace).hide(); 
@@ -209,15 +214,9 @@ Template.IMonBubbleChartWidget.onRendered(function() {
       // 5. Attach event handlers
       $('#play-button', buttonPlace).click(function(){
         var p = Session.get(id+'-current') === Session.get(id+'-common').length - 1 ? 0 : Session.get(id+'-current'); 
+        $(this).hide();
         play(p, options);
-        $(this).hide();
         $('#pause-button', buttonPlace).show();
-      });
-
-      $('#pause-button', buttonPlace).click(function(){
-        Meteor.clearTimeout(playing);
-        $(this).hide();
-        $('#play-button', buttonPlace).show();
       });
 
       $('#step-forward-button', buttonPlace).click(function(){
