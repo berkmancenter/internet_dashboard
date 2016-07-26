@@ -24,6 +24,19 @@ IMonTimelineWidget = function(doc) {
 IMonTimelineWidget.prototype = Object.create(Widget.prototype);
 IMonTimelineWidget.prototype.constructor = IMonTimelineWidget;
 
+_.extend(IMonTimelineWidget.prototype, {
+  setCountry: function(countryCode) {
+    var widget = this;
+    CountryInfo.byCode(countryCode, function(country) {
+      var code = country.alpha3.toLowerCase();
+      var country = IMonCountries.findOne({ code: code });
+      if (country && widget.data.mode === 'singleCountry') {
+        widget.data.set({ country: code });
+      }
+    });
+  }
+});
+
 
 IMonTimeline = {
   widget: {

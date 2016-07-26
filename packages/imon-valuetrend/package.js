@@ -8,7 +8,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
-  api.use(['widget', 'underscore', 'momentjs:moment', 'imon-data']);
+  api.use(['widget', 'underscore', 'momentjs:moment', 'imon-data', 'country-info']);
   api.use(['templating', 'd3js:d3','epoch'], 'client');
 
   api.addFiles('imon_valuetrend.js');

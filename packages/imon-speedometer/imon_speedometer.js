@@ -15,6 +15,18 @@ IMonSpeedometerWidget = function(doc) {
 IMonSpeedometerWidget.prototype = Object.create(Widget.prototype);
 IMonSpeedometerWidget.prototype.constructor = IMonSpeedometerWidget;
 
+_.extend(IMonSpeedometerWidget.prototype, {
+  setCountry: function(countryCode) {
+    var widget = this;
+    CountryInfo.byCode(countryCode, function(country) {
+      var code = country.alpha3.toLowerCase();
+      var country = IMonCountries.findOne({ code: code });
+      if (country) {
+        widget.data.set({ country: code });
+      }
+    });
+  }
+});
 
 
 IMonSpeedometer = {
