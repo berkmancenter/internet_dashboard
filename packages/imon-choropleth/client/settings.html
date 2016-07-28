@@ -9,6 +9,11 @@
   {{/each}}
   </select>
 </div>
+<div class="form-group">
+	<div class="checkbox checkbox-success checkbox-small">
+          <input type="checkbox" id="animate" class="animate" value="yes" {{ isAnimated }}><label for="animate" title="Unchecking this displays the most recent collected data for every country regardless of year" >Animate and display historical data</label>
+    </div>
+</div>
 
 <button class="btn btn-primary save-settings">Save</button>
 {{ else }}

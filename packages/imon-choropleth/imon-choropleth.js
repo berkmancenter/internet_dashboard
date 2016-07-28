@@ -1,5 +1,6 @@
 Settings = {
   defaultData: {
+    animate: false,
     indicatorName: 'hhnet'
   },
   suffix: {
@@ -8,8 +9,8 @@ Settings = {
   },
   map: {
     width: 450,
-    height: 270,
-    scale: 110,
+    height: 250,
+    scale: 90,
     squash: 0.90,
     bumpDown: 30,
     bumpLeft: 30

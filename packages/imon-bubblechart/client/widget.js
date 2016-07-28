@@ -83,7 +83,6 @@ Template.IMonBubbleChartWidget.onRendered(function() {
     if(i!==c.length){
       var playing = Meteor.setTimeout(function(){ play(i, options); }, 1000);
       $('#pause-button', buttonPlace).one('click', function(){
-        console.log('.');
         Meteor.clearTimeout(playing);
         $(this).hide();
         $('#play-button', buttonPlace).show();

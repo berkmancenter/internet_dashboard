@@ -7,6 +7,8 @@ Meteor.publish('imon_data_v2', function(countries, indicators, recentOnly){
   RETURNS:
   - If requesting historical data: IMonData
   - If requesting recent data: IMonRecent
+  NOTE: IMonRecent holds the latest data provided for a country/indicator combination, NOT the data of the latest batch collected for that indicator.
+  Meaning, if there's an indicator X which had data for country Y in 2011 at the latest, while country Z's latest data for X was in 2014, IMonRecent has both an X/Y record and an X/Z record. 
   **/
   var selector = {};
   setSelector(selector, 'countryCode', countries);
@@ -14,7 +16,7 @@ Meteor.publish('imon_data_v2', function(countries, indicators, recentOnly){
   if(recentOnly){
     IMonData.aggregate([
       { $match: selector },
-      { $sort: { countryCode: 1, date: -1 } },
+      { $sort: { countryCode: 1, indAdminName: 1, date: -1 } },
       { $group: {_id: { countryCode: '$countryCode', indAdminName: '$indAdminName' }, date: { $first: '$date' }, value: { $first: '$value' } } },
       { $project: { _id: 0, countryCode: '$_id.countryCode', indAdminName: '$_id.indAdminName', date: 1, value: 1 } }
     ]).forEach(function(record){
