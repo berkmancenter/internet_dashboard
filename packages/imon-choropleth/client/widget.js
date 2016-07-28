@@ -4,9 +4,6 @@ Template.IMonChoroplethWidget.onCreated(function() {
     template.subscribe('imon_indicators');
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
-    if(Template.currentData().indicatorName){
-      template.subscribe('imon_data_v2', 'all', Template.currentData().indicatorName, !Template.currentData().animate);
-    }
   });
 });
 
