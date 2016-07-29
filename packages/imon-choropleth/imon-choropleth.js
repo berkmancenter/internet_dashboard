@@ -9,7 +9,7 @@ Settings = {
   },
   map: {
     width: 450,
-    height: 250,
+    height: 200,
     scale: 90,
     squash: 0.90,
     bumpDown: 30,

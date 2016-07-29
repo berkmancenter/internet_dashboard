@@ -4,16 +4,13 @@ Template.IMonChoroplethWidget.onCreated(function() {
     template.subscribe('imon_indicators');
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
-    // Even though data is arranged and sent as an array from the server, this is needed because IMonRecent updates with new subs as opposed to seeding
-    // so to make sure the latest data is fetched/used for these indicators, we must sub.
-    if(!Template.currentData().animate) template.subscribe('imon_data_v2', 'all', Template.currentData().indicatorName, true);
   });
 });
 
 Template.IMonChoroplethWidget.helpers({
   year: function(){ 
     var id = Template.instance().data.widget._id;
-    return Template.currentData().animate && Session.get(id+'-array') ? Session.get(id+'-array')[Session.get(id+'-current')] : '';
+    return Session.get(id+'-array') ? Session.get(id+'-array')[Session.get(id+'-current')] : '';
   },
   isLooping: function(){
     var id = Template.instance().data.widget._id;
@@ -31,7 +28,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
     template.$('.animation-button').off();
     if (!template.subscriptionsReady()) {  return;  }
     var svg;
-    var height = Template.currentData().animate ? Settings.map.height - 50 : Settings.map.height;
+    var height = Settings.map.height;
     // Make sure indicator is in the right format
     if(Template.currentData().indicatorId && !Template.currentData().indicatorName){ // because old structure used indicatorId
         var adName = IMonMethods.idToAdminName(Template.currentData().indicatorId);
@@ -73,7 +70,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
 
     var currData = Template.currentData();
 
-    Meteor.call('getChoroplethData', currData.indicatorName, !currData.animate, function(error, result){
+    Meteor.call('getChoroplethData', currData.indicatorName, function(error, result){
       var draw = function(isRecent, year, currentData, isFirst){
       // 1. Common
           var countryDataByCode = {};
@@ -243,11 +240,11 @@ Template.IMonChoroplethWidget.onRendered(function() {
       svg.select(".legend")
         .call(legend);
     };
-    if(currData.animate){
+
       var buttonPlace = template.find('.choropleth-button');
       var arr = getYears(result);
       Session.set(id+'-array', arr);
-      Session.set(id+'-current', 0);
+      Session.set(id+'-current', arr.length - 1);
       var play = function(i, currentData, iterate){
         if(i!==0) toggle('#step-backward-button', buttonPlace, false);
         else toggle('#step-backward-button', buttonPlace, true); 
@@ -339,11 +336,8 @@ Template.IMonChoroplethWidget.onRendered(function() {
         toggle('#step-forward-button', buttonPlace, true);
         toggle('#loop-button', buttonPlace, true);
       }
-      play(0, currData, false);
-    }
-    else{
-      draw(true, 0, currData);
-    }
+      play(arr.length - 1, currData, false);
+
     });
   });
 });
