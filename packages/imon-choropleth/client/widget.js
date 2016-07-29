@@ -100,7 +100,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
           
           var colorScale;
           colorScale = d3.scale.quantile()
-            .domain(scores)
+            .domain([newIndicator.min, newIndicator.max])
             .range(range);
 
           var useQuantileScale = true;
@@ -197,7 +197,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
                     return colorScale(country.value);
                   } else {
                     // No data for this country. Make it gray or something.
-                    return 'rgb(186,186,186)';
+                    return  'rgb(186,186,186)';
                   }
                 })
                 .style('transform', 'scaleY(' + Settings.map.squash + ')')
