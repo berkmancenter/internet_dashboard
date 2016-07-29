@@ -1,7 +1,9 @@
 .imon-choropleth .country {
   stroke: white;
 }
-
+.imon-choropleth h1{
+	min-height: 2em;
+}
 .imon-choropleth .choropleth-button{
 	float: right;
 	margin-top:-1.8em;
