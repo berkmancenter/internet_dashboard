@@ -14,6 +14,10 @@ Template.IMonChoroplethWidget.helpers({
   year: function(){ 
     var id = Template.instance().data.widget._id;
     return Template.currentData().animate && Session.get(id+'-array') ? Session.get(id+'-array')[Session.get(id+'-current')] : '';
+  },
+  isLooping: function(){
+    var id = Template.instance().data.widget._id;
+    return Session.get(id+'-loop') ? 'shown' : 'hidden';
   }
 });
 
@@ -253,8 +257,10 @@ Template.IMonChoroplethWidget.onRendered(function() {
 
         draw(false, arr[i], currentData, !iterate);
         Session.set(id+'-current', i);
+        var loop = Session.get(id+'-loop');
         i++;
-        if(i!==arr.length && iterate){
+        if(i!==arr.length && iterate || i===arr.length && loop){
+          i = loop && i===arr.length ? 0 : i;
           var playing = Meteor.setTimeout(function(){ play(i, currentData, true); }, 1000);
           $('#pause-button', buttonPlace).one('click', function(){
             Meteor.clearTimeout(playing);
@@ -262,7 +268,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
             $('#play-button', buttonPlace).show();
           });
         }
-        else if(i===arr.length){
+        else if(i===arr.length && !loop){
           $('#pause-button', buttonPlace).hide(); 
           $('#play-button', buttonPlace).show(); 
           toggle('#step-forward-button', buttonPlace, true); 
@@ -301,12 +307,14 @@ Template.IMonChoroplethWidget.onRendered(function() {
     };
 
       $('#play-button', buttonPlace).show();
+      $('#loop-button', buttonPlace).show();
       $('#step-forward-button', buttonPlace).show();
       $('#step-backward-button', buttonPlace).show();
       if(arr.length>1){
         toggle('#play-button', buttonPlace, false);
         toggle('#step-backward-button', buttonPlace, false);
         toggle('#step-forward-button', buttonPlace, false);
+        toggle('#loop-button', buttonPlace, false);
         $('#play-button', buttonPlace).click(function(){
           $(this).hide();
           $('#pause-button', buttonPlace).show();
@@ -319,11 +327,17 @@ Template.IMonChoroplethWidget.onRendered(function() {
         $('#step-forward-button', buttonPlace).click(function(){
           moveCurrent(true, currData);
         });
+        $('#loop-button', buttonPlace).off();
+        $('#loop-button', buttonPlace).click(function(){
+          var enabled = Session.get(id+'-loop');
+          Session.set(id+'-loop', !enabled);
+        });
       }
       else{
         toggle('#play-button', buttonPlace, true);
         toggle('#step-backward-button', buttonPlace, true);
         toggle('#step-forward-button', buttonPlace, true);
+        toggle('#loop-button', buttonPlace, true);
       }
       play(0, currData, false);
     }
