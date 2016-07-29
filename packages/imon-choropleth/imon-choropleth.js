@@ -1,6 +1,6 @@
 Settings = {
   defaultData: {
-    animate: false,
+    animate: true,
     indicatorName: 'hhnet'
   },
   suffix: {

@@ -4,6 +4,9 @@ Template.IMonChoroplethWidget.onCreated(function() {
     template.subscribe('imon_indicators');
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
+    // Even though data is arranged and sent as an array from the server, this is needed because IMonRecent updates with new subs as opposed to seeding
+    // so to make sure the latest data is fetched/used for these indicators, we must sub.
+    if(!Template.currentData().animate) template.subscribe('imon_data_v2', 'all', Template.currentData().indicatorName, true);
   });
 });
 
