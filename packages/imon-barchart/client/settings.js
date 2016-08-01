@@ -83,9 +83,9 @@ Template.IMonBarchartSettings.events({
   'change #y-select-single': function(ev, template){
     var id = Template.instance().data.widget._id;
     var indicator = template.find('#y-select-single').value;
-    toggle('#year-select-single', template, true);
+    toggle(template.find('#year-select-single'), true);
     Meteor.call('getIndicatorYears', indicator, function(error, result){
-      toggle('#year-select-single', template, false);
+      toggle(template.find('#year-select-single'), false);
       Session.set(id+'-years', result);
     });
   },
@@ -107,6 +107,6 @@ function GetChecked(selector){
   return $(selector).map(function(){ return $(this).val(); }).get();
 }
 
-function toggle(selector, context, isDisabled){
-  $(selector, context).prop('disabled', isDisabled);
+function toggle(selector, isDisabled){
+  $(selector).prop('disabled', isDisabled);
 }
