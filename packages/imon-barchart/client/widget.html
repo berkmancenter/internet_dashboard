@@ -1,5 +1,8 @@
 <template name="IMonBarchartWidget">
 <div class="barchart-error"></div>
   <h1>{{ title }}</h1>
+  {{#if byYear}}
+  	<h2>{{ chosenYear }}</h2>
+  {{/if}}
 <div class="barchart"></div>
 </template>

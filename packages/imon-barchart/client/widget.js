@@ -4,7 +4,7 @@ Template.IMonBarchartWidget.onCreated(function() {
     var mode = Template.currentData().mode;
     var indicators = mode === 'single' ? Template.currentData().y.single.indicator :  Template.currentData().x.multi.indicator;
     var countries = mode === 'single' ? Template.currentData().x.single.indicator : Template.currentData().y.multi.indicator;
-    template.subscribe('imon_data_v2', countries, indicators, true);
+    template.subscribe('imon_data_v2', countries, indicators, !Template.currentData().byYear);
     template.subscribe('imon_indicators'); // for provider data
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
@@ -99,8 +99,14 @@ Template.IMonBarchartWidget.onRendered(function() {
       }
       xTitle = 'Countries';
       yTitle = yIndicator.shortName;
+      var IMon = Template.currentData().byYear ? IMonData : IMonRecent;
       IMonCountries.find({ code: {$in: Template.currentData().x.single.indicator } }).forEach(function(country){
-        var y = IMonRecent.findOne({ countryCode: country.code, indAdminName: Template.currentData().y.single.indicator });
+        var selector = { countryCode: country.code, indAdminName: Template.currentData().y.single.indicator };
+        if(Template.currentData().byYear){
+          var chosenYear = Template.currentData().chosenYear;
+         selector.$where = function(){ return this.date.getFullYear() === chosenYear; };
+       }
+        var y = IMon.findOne(selector, { sort: { date: -1 } });
         if (_.isUndefined(y)) {
           missing.push(country.name); 
           return; 
