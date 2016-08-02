@@ -2,6 +2,9 @@
   border: 0;
 }
 
+.imon-scatter h2{
+	margin:0;
+}
 .imon-scatter .chart-labels .chart-label {
   pointer-events: none;
   visibility: hidden;

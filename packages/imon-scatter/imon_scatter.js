@@ -1,6 +1,6 @@
 Settings = {
   chart: {
-    padding: { right: 40, bottom: 80 },
+    padding: { right: 40, bottom: 100 },
     margins: { top: 30, bottom: 0, right: 35 },
     dots: {
       size: 5,
@@ -10,6 +10,8 @@ Settings = {
   },
   defaultData: {
     title: 'Scatter Plot',
+    byYear: false,
+    chosenYear: '',
     x: {
       indicator: 'ipr', // Percentage of individuals using the Internet
       log: false,
