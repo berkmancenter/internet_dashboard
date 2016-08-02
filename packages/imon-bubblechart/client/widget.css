@@ -2,6 +2,24 @@
   border: 0;
 }
 
+.imon-bubblechart .checkmark, .imon-bubblechart .checkmark-bg{
+  font-size:0.6em;
+}
+.imon-bubblechart .animation-button .checkmark-bg{
+  margin-left:-0.5em;
+  color:white;
+}
+.imon-bubblechart .animation-button .checkmark{
+  margin-left:-0.85em;
+  color:#27ae60;
+}
+.imon-bubblechart #loop-enabled.hidden{
+  display:none;
+}
+.imon-bubblechart #loop-enabled.shown{
+  display:inline;
+}
+
 .imon-bubblechart .chart-labels .chart-label {
   pointer-events: none;
   visibility: hidden;
