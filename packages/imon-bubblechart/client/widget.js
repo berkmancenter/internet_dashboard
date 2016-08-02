@@ -7,7 +7,11 @@ Template.IMonBubbleChartWidget.onCreated(function() {
 });
 
 Template.IMonBubbleChartWidget.helpers({
-  bubbleSize: function(){ return Template.currentData().z.same ? '' : 'Size: ' + IMonIndicators.findOne({ adminName: Template.currentData().z.indicator }).shortName; }
+  bubbleSize: function(){ return Template.currentData().z.same ? '' : 'Size: ' + IMonIndicators.findOne({ adminName: Template.currentData().z.indicator }).shortName; },
+  isLooping: function(){
+    var id = Template.instance().data.widget._id;
+    return Session.get(id+'-loop') ? 'shown' : 'hidden';
+  }
 });
 
 Template.IMonBubbleChartWidget.onRendered(function() {
@@ -77,10 +81,12 @@ Template.IMonBubbleChartWidget.onRendered(function() {
 
     // 4. Iterate
     Session.set(id+'-current', i);
+    var loop = Session.get(id+'-loop');
     i++;
 
     // 5. End/Continue recursion
-    if(i!==c.length){
+    if(i!==c.length || i===c.length && loop){
+      i = loop && i===c.length ? 0 : i;
       var playing = Meteor.setTimeout(function(){ play(i, options); }, 1000);
       $('#pause-button', buttonPlace).one('click', function(){
         Meteor.clearTimeout(playing);
@@ -88,10 +94,10 @@ Template.IMonBubbleChartWidget.onRendered(function() {
         $('#play-button', buttonPlace).show();
       });
     }
-    else{
+    else if(i===c.length && !loop){
       $('#pause-button', buttonPlace).hide(); 
       $('#play-button', buttonPlace).show(); 
-      $('#step-forward-button', buttonPlace).prop('disabled', true); 
+      toggle('#step-forward-button', buttonPlace, true); 
     }
   };
 
@@ -184,7 +190,7 @@ Template.IMonBubbleChartWidget.onRendered(function() {
         ys: [yi.min, yi.max]
       };
 
-      draw(chart, hash, common[0], yearPlace, options, template);
+      draw(chart, hash, common[common.length-1], yearPlace, options, template);
 
       var circles = d3.selectAll(template.findAll('circle'));
       circles.on('click', function(d){
@@ -205,10 +211,11 @@ Template.IMonBubbleChartWidget.onRendered(function() {
 
       // 4. Initialize controllers
       $('#play-button', buttonPlace).show();
+      $('#loop-button', buttonPlace).show();
       $('#step-forward-button', buttonPlace).show();
       $('#step-backward-button', buttonPlace).show();
-      toggle('#step-backward-button', buttonPlace, true);
-      toggle('#play-button, #step-forward-button', buttonPlace, common.length === 1 ? true : false);
+      toggle('#step-forward-button', buttonPlace, true);
+      toggle('#play-button, #step-backward-button, #loop-button', buttonPlace, common.length === 1 ? true : false);
 
       // 5. Attach event handlers
       $('#play-button', buttonPlace).click(function(){
@@ -224,6 +231,11 @@ Template.IMonBubbleChartWidget.onRendered(function() {
 
       $('#step-backward-button', buttonPlace).click(function(){
         moveCurrent(false, options);
+      });
+      $('#loop-button', buttonPlace).off();
+      $('#loop-button', buttonPlace).click(function(){
+        var enabled = Session.get(id+'-loop');
+        Session.set(id+'-loop', !enabled);
       });
     });
   });
