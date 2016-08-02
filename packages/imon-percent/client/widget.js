@@ -5,7 +5,7 @@ Template.IMonPercentWidget.onCreated(function() {
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
     if(Template.currentData().indicatorName){
-      template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData().indicatorName, true);
+      template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData().indicatorName, !Template.currentData().byYear);
     }
   });
 });
@@ -39,7 +39,12 @@ Template.IMonPercentWidget.onRendered(function(){
     var container = template.find('.users-container');
     var title = template.find('.percent-title');
     var valuePlace = template.find('.indicator-value');
-    var indicatorValue = IMonRecent.findOne({ indAdminName: Template.currentData().indicatorName, countryCode: Template.currentData().country }).value;
+    var IMon = Template.currentData().byYear ? IMonData : IMonRecent;
+    var selector = { indAdminName: Template.currentData().indicatorName, countryCode: Template.currentData().country }; 
+    if(Template.currentData().byYear){ selector.$where = function(){ return this.date.getFullYear() === Template.currentData().chosenYear; }; }
+    var record = IMon.findOne(selector, { $sort: { date: -1 } });
+    if(_.isUndefined(record)){ return; }
+    var indicatorValue = record.value;
     var countryName = IMonCountries.findOne({ code: Template.currentData().country }).name;
     var indicatorName = IMonIndicators.findOne({ adminName: currName }).shortName;
     var color = Template.currentData().color;
