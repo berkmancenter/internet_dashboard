@@ -2,6 +2,8 @@ Settings = {
   gaugeWidth: 146, // per unit width
   defaultData: {
     country: 'usa',
+    byYear: false,
+    chosenYear: '',
     indicatorName: 'speedkbps', // Average connection speed (kbps)
     color: '#6192BD'
  }
