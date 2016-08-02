@@ -3,12 +3,12 @@
     "pubnub": {
       "version": "3.7.15",
       "resolved": "https://registry.npmjs.org/pubnub/-/pubnub-3.7.15.tgz",
-      "from": "pubnub@3.7.15",
+      "from": "https://registry.npmjs.org/pubnub/-/pubnub-3.7.15.tgz",
       "dependencies": {
         "agentkeepalive": {
           "version": "0.2.4",
           "resolved": "https://registry.npmjs.org/agentkeepalive/-/agentkeepalive-0.2.4.tgz",
-          "from": "agentkeepalive@0.2.4"
+          "from": "https://registry.npmjs.org/agentkeepalive/-/agentkeepalive-0.2.4.tgz"
         }
       }
     }

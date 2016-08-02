@@ -1,0 +1,11 @@
+.google-trends-map .country {
+  stroke: white;
+}
+
+.indicator_name {
+
+}
+
+.google-trends-map .label {
+    font-weight: 300;
+}

@@ -1,0 +1,7 @@
+<template name="GoogleTrendsMapWidget">
+  <h1 class="indicator_name"></h1>
+  {{# unless Template.subscriptionsReady }}
+    {{ widgetLoading }}
+  {{/unless}}
+  <div class="google-trends-map-data google-trends-map"></div>
+</template>

@@ -58,6 +58,7 @@ fourseven:scss@3.4.3
 geojson-utils@1.0.8
 global-voices@0.0.1
 google-trends@0.0.1
+google-trends-map@0.0.1
 gsma-3g@0.0.1
 gsma-4g@0.0.1
 gsma-data@0.0.1
