@@ -7,7 +7,8 @@ Template.IMonBarchartSettings.onCreated(function() {
 Template.IMonBarchartSettings.onRendered(function(){
   var template = this;
   var id = Template.instance().data.widget._id;
-  // Initially fill the years
+  // Logic here is only for single mode
+  // 1. Initially fill the years
   var indicator = Template.currentData().y.single.indicator;
   Meteor.call('getIndicatorYears', indicator, function(error, result){
     Session.set(id+'-years', result);
