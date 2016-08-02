@@ -2,6 +2,15 @@
   <h1 class="indicator_name"></h1>
   {{# unless Template.subscriptionsReady }}
     {{ widgetLoading }}
+    {{else}}
+     <div class="choropleth-year"><h2>{{year}}</h2></div>
   {{/unless}}
+  <div class="choropleth-button">
+    <button class="animation-button" id="step-backward-button" title="Step Backward"><i class="fa fa-backward"></i></button>
+    <button class="animation-button" id="loop-button" title="Loop"><i class="fa fa-retweet"></i><span id="loop-enabled" class="{{ isLooping }}"><i class="fa fa-circle checkmark-bg"></i><i class="fa fa-check-circle checkmark"></i></span></button>
+    <button class="animation-button" id="play-button" title="Play"><i class="fa fa-play-circle"></i></button>
+    <button class="animation-button" id="pause-button" title="Pause"><i class="fa fa-pause-circle"></i></button>
+    <button class="animation-button" id="step-forward-button" title="Step Forward"><i class="fa fa-forward"></i></button>
+  </div>
   <div class="imon-choropleth-data imon-choropleth"></div>
 </template>

@@ -12,6 +12,7 @@ Package.onUse(function(api) {
   api.use(['http'], 'server');
   api.use(['templating', 'epoch', 'd3js:d3'], 'client');
   api.addFiles('imon-choropleth.js');
+  api.addFiles(['server/methods.js'], 'server');
   api.addFiles([
     'client/lib/d3.geo.js',
     'client/info.html',

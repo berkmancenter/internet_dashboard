@@ -11,7 +11,9 @@ Template.IMonChoroplethSettings.helpers({
 Template.IMonChoroplethSettings.events({
   'click .save-settings': function(ev, template) {
     var indicatorName = template.find('.indicator').value;
-    this.set({ indicatorName: indicatorName });
+    this.set({ 
+    	indicatorName: indicatorName
+    });
     template.closeSettings();
   }
 });
