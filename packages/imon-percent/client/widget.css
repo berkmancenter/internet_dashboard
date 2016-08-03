@@ -2,6 +2,10 @@
   font-size: 1em;
 }
 
+.imon-percent h3{
+  float: right;
+}
+
 .imon-percent .fa.colored {
   color: #6192BD;
 }

@@ -4,7 +4,7 @@ Template.IMonBarchartWidget.onCreated(function() {
     var mode = Template.currentData().mode;
     var indicators = mode === 'single' ? Template.currentData().y.single.indicator :  Template.currentData().x.multi.indicator;
     var countries = mode === 'single' ? Template.currentData().x.single.indicator : Template.currentData().y.multi.indicator;
-    template.subscribe('imon_data_v2', countries, indicators, true);
+    template.subscribe('imon_data_v2', countries, indicators, !Template.currentData().byYear);
     template.subscribe('imon_indicators'); // for provider data
     template.subscribe('imon_indicators_v2');
     template.subscribe('imon_countries_v2');
@@ -13,9 +13,12 @@ Template.IMonBarchartWidget.onCreated(function() {
 
 Template.IMonBarchartWidget.onRendered(function() {
   var template = this;
-  var node = template.find('.barchart');
+  var redrawn = false;
+
   var widgetNode = template.firstNode.parentNode.parentNode;
   var $widgetBody = $(widgetNode).find('.widget-body');
+  var node = template.find('.barchart');
+
   var chart = d3.select(node).chart('Compose', function(options) {
     var xs = _.pluck(options.data, 'x'), ys = _.pluck(options.data, 'y');
 
@@ -38,7 +41,6 @@ Template.IMonBarchartWidget.onRendered(function() {
       }
     }];
 
-    var title = d3c.title('Custom Chart');
     var xAxis = d3c.axis('xAxis', {scale: scales.x, ticks: 3});
     var yAxis = d3c.axis('yAxis', {scale: scales.y, ticks: 3});
     var xAxisTitle = d3c.axisTitle(options.xAxisTitle);
@@ -65,19 +67,19 @@ Template.IMonBarchartWidget.onRendered(function() {
     chart.redraw();
   });
 
-  var redrawn = false;
   template.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
-    var yIndicator;
-    var cachedIndicator = Template.currentData().indicator;
-    var xTitle;
-    var yTitle; 
+
+    var yIndicator, xTitle, yTitle;
+    var cachedIndicator = Template.currentData().indicator; 
 
     var data = [];
     var missing = []; // for the error
     var mode_reactive = Template.currentData().mode;
+
     if(mode_reactive === 'single'){ // Single indicator, multiple countries. Default.
-      // Make sure indicator is in right format
+
+      // 1. Make sure indicator is in right format
       if(!IMonMethods.isAdminName(Template.currentData().y.single.indicator)){
         var adName = IMonMethods.idToAdminName(Template.currentData().y.single.indicator);
         var newData = {
@@ -90,21 +92,33 @@ Template.IMonBarchartWidget.onRendered(function() {
         Template.currentData().set(newData);
       }
       
-      // Get the y-axis indicator ID
-      yIndicator = IMonIndicators.findOne({ adminName: Template.currentData().y.single.indicator });;
-      // Get the indicator as an object
+      // 2. Get the y-axis indicator ID
+      yIndicator = IMonIndicators.findOne({ adminName: Template.currentData().y.single.indicator });
+
+      // 3. Get the indicator as an object
       var dataIndicator = IMonIndicatorsD.findOne({ id: yIndicator.id });
-      if ( !cachedIndicator || cachedIndicator.id !== yIndicator.id){ // What this does is change the "From SOURCE" in the upper right corner of the widget
+
+      // 4. Change the source in the upper right corner
+      if ( !cachedIndicator || cachedIndicator.id !== yIndicator.id){  
         Template.currentData().set({indicator: dataIndicator});
       }
-      xTitle = 'Countries';
-      yTitle = yIndicator.shortName;
+
+      // 5. Chart Data
+      xTitle = 'Countries', yTitle = yIndicator.shortName;
+
+      var IMon = Template.currentData().byYear ? IMonData : IMonRecent;
+
       IMonCountries.find({ code: {$in: Template.currentData().x.single.indicator } }).forEach(function(country){
-        var y = IMonRecent.findOne({ countryCode: country.code, indAdminName: Template.currentData().y.single.indicator });
-        if (_.isUndefined(y)) {
-          missing.push(country.name); 
-          return; 
-        }
+        var selector = { countryCode: country.code, indAdminName: Template.currentData().y.single.indicator };
+
+        if(Template.currentData().byYear){
+          var chosenYear = Template.currentData().chosenYear;
+          selector.$where = function(){ return this.date.getFullYear() === chosenYear; };
+       }
+
+        var y = IMon.findOne(selector, { sort: { date: -1 } });
+        if (_.isUndefined(y)) { missing.push(country.name); return;  }
+
         var xValue = country.name, yValue = y.value;
 
         data.push({
@@ -116,14 +130,10 @@ Template.IMonBarchartWidget.onRendered(function() {
         });
       });
 
-      if(missing.length>0){ // If there is missing data
-        var message = '<strong><i class="fa fa-exclamation-triangle"></i></strong> No data found for ' + missing;
-        var error = template.find('.barchart-error');
-        $(error).html('<div class="alert alert-warning" id="barchart-error-message">'
-          +'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-          + message
-          +'</div>');
-        $(template.find('#barchart-error-message')).on('closed.bs.alert', function () {
+      // 6. Handle errors
+      if(missing.length>0){ 
+        $(template.find('.barchart-error')).html(getErrorHTML(missing));
+        $(template.find('#barchart-error-message')).on('closed.bs.alert', function(){
           setChartDims();
           chart.redraw();
         });
@@ -132,24 +142,7 @@ Template.IMonBarchartWidget.onRendered(function() {
         $(template.find('#barchart-error-message')).remove(); // if there's an error present from a previous save
       }
     }
-    else{ // = If mode is 'multi'
-      if(cachedIndicator) // If we have a cached indicator, remove it. 
-        Template.currentData().set({indicator: undefined});
-      yIndicator = Template.currentData().y.multi.indicator;
-      yTitle = IMonCountries.findOne({ code: yIndicator }).name;
-      IMonRecent.find({ countryCode: yIndicator, indAdminName: { $in: Template.currentData().x.multi.indicator } }).forEach(function(field){
-        var yValue = Math.round(field.percent * 100).toFixed(2);
-        var xValue = IMonIndicators.findOne({ adminName: field.indAdminName }).shortName;
-
-        data.push({
-          x: xValue,
-          y: yValue,
-          code: field.id,
-          key: field.id,
-          label: yValue
-        });
-      });
-    }
+    // PLACE LOGIC FOR MODE = 'MULTI' HERE IN AN ELSE CLAUSE
 
     if(Template.currentData().sorted){ 
       data = _.sortBy(data, 'y'); 
@@ -171,6 +164,7 @@ Template.IMonBarchartWidget.onRendered(function() {
 
     var rotateAxisLabels = function(){
     // make x-axis labels diagonal
+    if(data.length===0){ return; }
     var xAxisText = template.findAll('[data-id="xAxis"] text');
     var label = d3.selectAll(xAxisText);
     var longest = _.max(data, function(row){ return row.x.length; }).x.length; // longest number of letters in x-labels
@@ -190,3 +184,10 @@ Template.IMonBarchartWidget.onRendered(function() {
 
   });
 });
+
+function getErrorHTML(missingCountries){
+  return '<div class="alert alert-warning" id="barchart-error-message">'
+          +'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+          +'<strong><i class="fa fa-exclamation-triangle"></i></strong> No data found for ' + missingCountries
+          +'</div>';
+}

@@ -2,22 +2,19 @@ Settings = {
   chart: {
     padding: { right: 40, bottom: 80 },
     margins: { top: 30, bottom: 0, right: 35 },
-    dots: {
-      size: 5,
-      color: '#378E00',
-      opacity: 0.7
-    }
   },
   defaultData: {
     title: 'Bar Chart',
     mode: 'single', // other mode: 'multi', refers to the number of indicators.
+    byYear: false,
+    chosenYear: '',
     sorted: false, // sort by value. When false, the x-axis is sorted by name instead.
     x: {
       single: {
         indicator: ["isr", "ita", "mex", "mar", "kor", "gbr", "usa"]
       },
       multi: {
-        indicator: ['downloadkbps', 'ipr'] // Average download speed, % of people using the internet. temp.
+        indicator: ['downloadkbps', 'speedkbps'] // Average download speed, % of people using the internet. temp.
       }
     },
     y: {

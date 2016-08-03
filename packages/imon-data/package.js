@@ -14,7 +14,7 @@ Package.onUse(function(api) {
 
   api.addFiles(['imon-data.js']);
   api.addFiles(['client.js'], 'client');
-  api.addFiles(['server/seed.js', 'server/publications.js'], 'server');
+  api.addFiles(['server/seed.js', 'server/publications.js', 'server/methods.js'], 'server');
 
   api.export('IMonIndicators');
   api.export('IMonCountries');

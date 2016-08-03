@@ -6,6 +6,8 @@ Settings = {
   },
   defaultData: {
     country: 'usa',
+    byYear: false,
+    chosenYear: '',
     indicatorName: 'bbrate',
     color: '#6192BD'
   }

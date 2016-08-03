@@ -1,6 +1,18 @@
 Template.IMonBarchartSettings.onCreated(function() {
-  this.subscribe('imon_indicators_v2');
-  this.subscribe('imon_countries_v2');
+  var template = this;
+  template.subscribe('imon_indicators_v2');
+  template.subscribe('imon_countries_v2');
+});
+
+Template.IMonBarchartSettings.onRendered(function(){
+  var template = this;
+  var id = Template.instance().data.widget._id;
+  // Logic here is only for single mode
+  // 1. Initially fill the years
+  var indicator = Template.currentData().y.single.indicator;
+  Meteor.call('getIndicatorYears', indicator, function(error, result){
+    Session.set(id+'-years', result);
+  });
 });
 
 
@@ -8,11 +20,13 @@ Template.IMonBarchartSettings.helpers({
   singleIndicator: function() { return Template.currentData().mode === 'single' ? true : false; },
   indicator: function() { return IMonIndicators.find({}, { sort: { shortName: 1 }}); },
   country: function() { return IMonCountries.find({}, { sort: { name: 1 } } ); },
+  year: function(){ var id = Template.instance().data.widget._id; return Session.get(id+'-years'); },
   isSelected: function(a, b) { return a === b ? 'selected' : ''; },
   isChecked: function(a, b) { return a === b ? 'checked' : ''; },
   isInArray: function(val, arr) { return arr.indexOf(val) == -1 ? '' : 'checked'; }, 
   isSorted: function(){ return Template.currentData().sorted ? 'checked' : ''; }
 });
+
 
 Template.IMonBarchartSettings.events({
   'click .save-barchart-settings': function(ev, template) {
@@ -30,10 +44,17 @@ Template.IMonBarchartSettings.events({
     var yIndicatorSingle = mode === 'single' ? yIndicatorValue : Template.currentData().y.single.indicator;
     var yIndicatorMulti = mode === 'multi' ? yIndicatorValue : Template.currentData().y.multi.indicator;
 
+    //years
+    var year = template.find('#year-select-single').value;
+    var byYear = !(year === 'none');
+    var chosenYear = year === 'none' ? '' : parseInt(year);
+
     var newData = {
       title: template.find('.barchart-title').value,
       mode: mode,
       sorted: template.find('.sort-option').checked,
+      byYear: byYear,
+      chosenYear: chosenYear,
       x: {
         single:{
           indicator: xIndicatorSingle
@@ -60,6 +81,15 @@ Template.IMonBarchartSettings.events({
     $(template.find(div.show)).show();
     $(template.find(div.hide)).hide();
   },
+  'change #y-select-single': function(ev, template){
+    var id = Template.instance().data.widget._id;
+    var indicator = template.find('#y-select-single').value;
+    toggle(template.find('#year-select-single'), true);
+    Meteor.call('getIndicatorYears', indicator, function(error, result){
+      toggle(template.find('#year-select-single'), false);
+      Session.set(id+'-years', result);
+    });
+  },
   'change .countries-option': function(ev, template){ 
     var num_selected = GetChecked(template.findAll('.countries-option:checked')) == null ? 0 : GetChecked(template.findAll('.countries-option:checked')).length;
     $(template.find('.countries-select-number')).text(num_selected + ' SELECTED');
@@ -76,4 +106,8 @@ Template.IMonBarchartSettings.events({
 
 function GetChecked(selector){
   return $(selector).map(function(){ return $(this).val(); }).get();
+}
+
+function toggle(selector, isDisabled){
+  $(selector).prop('disabled', isDisabled);
 }
