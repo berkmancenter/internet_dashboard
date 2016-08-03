@@ -318,9 +318,11 @@ Template.IMonChoroplethWidget.onRendered(function() {
           var p = Session.get(id+'-current') === arr.length - 1 ? 0 :  Session.get(id+'-current');
           play(p, currData, true);
         });
+        $('#step-backward-button', buttonPlace).off();
         $('#step-backward-button', buttonPlace).click(function(){
           moveCurrent(false, currData);
         });
+        $('#step-forward-button', buttonPlace).off();
         $('#step-forward-button', buttonPlace).click(function(){
           moveCurrent(true, currData);
         });

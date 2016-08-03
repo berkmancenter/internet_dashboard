@@ -205,7 +205,7 @@ Template.IMonBubbleChartWidget.onRendered(function() {
       });
 
       // 3. Set session variables
-      Session.set(id+'-current', 0); // Current place
+      Session.set(id+'-current', common.length - 1); // Current place
       Session.set(id+'-common', common);
       Session.set(id+'-hash', hash);      
 
@@ -224,11 +224,11 @@ Template.IMonBubbleChartWidget.onRendered(function() {
         play(p, options);
         $('#pause-button', buttonPlace).show();
       });
-
+      $('#step-forward-button', buttonPlace).off();
       $('#step-forward-button', buttonPlace).click(function(){
         moveCurrent(true, options);
       });
-
+      $('#step-backward-button', buttonPlace).off();
       $('#step-backward-button', buttonPlace).click(function(){
         moveCurrent(false, options);
       });
