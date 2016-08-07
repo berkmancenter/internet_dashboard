@@ -82,7 +82,8 @@ Kaspersky = {
     dimensions: { width: 2, height: 3 },
     category: 'control',
     typeIcon: 'line-chart',
-    constructor: KasperskyWidget
+    constructor: KasperskyWidget,
+    country: 'single'
   },
   org: {
     name: 'Kaspersky Lab ZAO',

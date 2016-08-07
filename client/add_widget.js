@@ -1,3 +1,8 @@
+Template.DashboardsAdd.onCreated(function(){
+  var template = this;
+  template.subscribe('imon_indicators_v2');
+});
+
 Template.DashboardsAdd.onRendered(function() {
   var template = this;
   template.$grid = template.$('.add-widget-grid').isotope({
@@ -25,6 +30,9 @@ Template.DashboardsAdd.helpers({
   },
   categoryStyle: function() {
     return 'background-color: ' + tinycolor(this.category().color).lighten(35);
+  },
+  indicator: function(){
+    return IMonIndicators.find({}, { sort: { shortName: 1 } });
   }
 });
 
@@ -54,5 +62,62 @@ Template.DashboardsAdd.events({
         }, i * Dashboard.Settings.addWidgetDelay);
       });
     template.$('.add-widget-modal').modal('hide');
+  },
+  'click .filter-submit': function(ev, template){
+    var packages = filter({
+      indicator: template.find('.filter-indicator').value,
+      countryNumber: template.find('.filter-country').value  
+    });
+    template.$('.addable-widget').each(function(e, i){
+      if(packages.indexOf($(this).prop('id')) === -1){ $(this).hide(); }
+      else{ $(this).show(); }
+    });
+    template.$grid.isotope();
+  },
+  'click .clear-filter': function(ev, template){
+    template.$('.addable-widget').show();
+    template.$grid.isotope();
   }
 });
+
+function filter(options){
+  /**
+   * Returns a selector for the widgets that should be shown
+   * options = {
+   *  indicator: STRING, adminName of indicator OR 'any-indicators' OR 'all-indicators',
+   *  year: NUMBER, year that needs to be included,
+   *  countryNumber: STRING, 'single', 'multi', or 'either',
+   *  countries: ARRAY, country codes that should be included
+   * }
+  **/
+  var ids = [];
+  WidgetPackages.find().forEach(function(package){
+    var widgetIndicators = package.metadata().widget.indicators;
+    var widgetNumberOfCountries = package.metadata().widget.country;
+
+    // 1. Filter out those whose number of countries don't match
+    if(options.countryNumber !== 'either'){ if((options.countryNumber !== widgetNumberOfCountries) && widgetNumberOfCountries !== 'both'){ return; } } 
+
+    // 2. Filter out those whose indicators don't match
+    if((_.isUndefined(widgetIndicators) && options.indicator !== 'any-indicators') || (options.indicator === 'all-indicators' && widgetIndicators !== 'all')){ return; }
+    if(options.indicator !== 'any-indicators' && options.indicator !== 'all-indicators'){
+      var indicators = _.isString(widgetIndicators) && widgetIndicators !== 'all' ? getAdminNames(IMonIndicators.find({ displayClass: widgetIndicators }).fetch()) : widgetIndicators === 'all' ? getAdminNames(IMonIndicators.find().fetch()) : widgetIndicators;
+      if(indicators.indexOf(options.indicator) === -1){ return; }
+    }
+
+    // Finally, if it wasn't filtered out yet, add it.
+    ids.push(package.packageName);
+  });
+  
+  return ids;
+}
+
+function getAdminNames(records){
+  var result = [];
+  for(var i=0; i<records.length; i++){
+    result.push(records[i].adminName);
+  }
+  return result;
+}
+
+

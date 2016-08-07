@@ -41,7 +41,9 @@ IMonScatter = {
     dimensions: { width: 3, height: 2 },
     resize: { mode: 'cover' },
     constructor: IMonScatterWidget,
-    typeIcon: 'line-chart'
+    typeIcon: 'line-chart',
+    indicators: 'all',
+    country: 'multi'
   },
   org: {
     name: 'Internet Monitor',

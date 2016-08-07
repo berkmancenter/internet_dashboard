@@ -26,7 +26,8 @@ WebIndex = {
     dimensions: { width: 3, height: 2 },
     category: 'access',
     typeIcon: 'globe',
-    constructor: WebIndexWidget
+    constructor: WebIndexWidget,
+    country: 'multi'
   },
   org: {
     name: 'World Wide Web Foundation',

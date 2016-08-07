@@ -42,7 +42,8 @@ TorClients = {
     dimensions: { width: 2, height: 1 },
     category: 'access',
     typeIcon: 'line-chart',
-    constructor: TorClientsWidget
+    constructor: TorClientsWidget,
+    country: 'single'
   },
   org: {
     name: 'The Tor Project, Inc.',

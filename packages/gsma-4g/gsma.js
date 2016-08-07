@@ -38,7 +38,8 @@ GSMA4G = {
     dimensions: { width: 2, height: 1 },
     constructor: GSMA4GWidget,
     typeIcon: 'line-chart',
-    category: 'access'
+    category: 'access',
+    country: 'single'
   },
   org: {
     name: 'GSMA Intelligence',

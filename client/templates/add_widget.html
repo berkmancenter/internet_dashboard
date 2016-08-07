@@ -14,6 +14,32 @@
         <h4 class="modal-title" id="myModalLabel">Add Widgets</h4>
       </div>
       <div class="modal-body">
+      {{#if Template.subscriptionsReady }}
+        <div class="btn-toolbar filter-toolbar" role="toolbar">
+          <form class="form-inline">
+            <span class="filter-group-label">Show widgets that display</span>
+            <div class="form-group">
+              <select class="filter-indicator form-control filter-control">
+                <option value="any-indicators" selected>any indicators</option>
+                <option value="all-indicators">all indicators</option>
+                {{# each indicator}}
+                <option value="{{ adminName }}">{{ shortName }}</option>
+                {{/each}}
+              </select>
+            </div>
+            <span class="filter-group-label">in</span>
+            <div class="form-group">
+              <select class="filter-country form-control filter-control">
+                <option value="either" selected>any number of countries</option>
+                <option value="single">a single country</option>
+                <option value="multi">multiple countries (compared)</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-default filter-btn filter-submit" title="Filter"><i class="fa fa-filter"></i></button>
+            <button type="reset" class="btn btn-default filter-btn clear-filter" title="Clear"><i class="fa fa-minus-square-o"></i></button>
+          </form>
+        </div>
+        {{/if}}
         <div class="btn-toolbar" role="toolbar">
           <span class="btn-group-label">Sort by</span>
           <div class="btn-group sort-by-btn-group" role="group" aria-label="Sort by">
@@ -26,7 +52,7 @@
         </div>
         <ul class="add-widget-grid">
         {{# each widgetPackages }}
-          <li class="addable-widget">
+          <li class="addable-widget" id="{{ packageName }}">
             <div class="checkbox checkbox-success checkbox-big">
               <input type="checkbox" id="checkbox-{{ packageName }}">
               <label for="checkbox-{{ packageName }}"></label>

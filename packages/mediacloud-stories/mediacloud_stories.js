@@ -33,6 +33,7 @@ MediaCloudStories = {
     category: 'activity',
     typeIcon: 'list',
     constructor: MCStoryWidget,
+    country: 'single'
   },
   org: {
     name: 'Media Cloud',

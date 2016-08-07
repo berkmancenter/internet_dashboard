@@ -33,7 +33,8 @@ AccessIndex = {
     dimensions: { width: 2, height: 2 },
     category: 'access',
     typeIcon: 'list',
-    constructor: AccessWidget
+    constructor: AccessWidget,
+    country: 'single'
   },
   org: {
     name: 'Internet Monitor',

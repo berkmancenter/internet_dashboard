@@ -46,7 +46,9 @@ IMonTimeline = {
     dimensions: { width: 4, height: 2 },
     constructor: IMonTimelineWidget,
     typeIcon: 'line-chart',
-    resize: { mode: 'cover' }
+    resize: { mode: 'cover' },
+    indicators: 'all',
+    country: 'both'
   },
   org: {
     name: 'Internet Monitor',

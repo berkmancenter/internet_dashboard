@@ -42,7 +42,9 @@ IMonPercent = {
     dimensions: { width: 2, height: 2 },
     resize: { mode: 'cover', constraints: { height: { min: 2 } } },
     constructor: IMonPercentWidget,
-    typeIcon: 'th'
+    typeIcon: 'th',
+    indicators: 'percentage',
+    country: 'single'
   },
   org: {
     name: 'Internet Monitor',

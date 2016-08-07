@@ -40,6 +40,8 @@ IMonSpeedometer = {
     resize: { mode: 'cover' },
     typeIcon: 'tachometer',
     constructor: IMonSpeedometerWidget,
+    indicators: 'speed',
+    country: 'single'
   },
   org: {
     name: 'Internet Monitor',

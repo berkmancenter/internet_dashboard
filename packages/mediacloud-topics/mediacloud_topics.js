@@ -38,6 +38,7 @@ MediaCloudTopics = {
     category: 'activity',
     typeIcon: 'tags',
     constructor: MCWidget,
+    country: 'single'
   },
   org: {
     name: 'Media Cloud',

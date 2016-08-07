@@ -40,7 +40,9 @@ IMonValuetrend = {
     dimensions: { width: 3, height: 1 },
     constructor: IMonValuetrendWidget,
     typeIcon: 'line-chart',
-    resize: { mode: 'cover', constraints: { height: { max: 1 } } }
+    resize: { mode: 'cover', constraints: { height: { max: 1 } } },
+    indicators: 'all',
+    country: 'single'
   },
   org: {
     name: 'Internet Monitor',

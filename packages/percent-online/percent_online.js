@@ -40,7 +40,9 @@ PercentOnline = {
     dimensions: { width: 2, height: 1 },
     constructor: PercentOnlineWidget,
     typeIcon: 'th',
-    category: 'access'
+    category: 'access',
+    indicators: [ Settings.indicatorId ],
+    country: 'single'
   },
   org: {
     name: 'International Telecommunications Union',

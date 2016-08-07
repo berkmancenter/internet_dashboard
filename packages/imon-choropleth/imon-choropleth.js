@@ -32,7 +32,9 @@ IMonChoropleth = {
     dimensions: { width: 3, height: 2 },
     typeIcon: 'globe',
     constructor: IMonChoroplethWidget,
-    displays: 'countryData'
+    displays: 'countryData',
+    indicators: 'all',
+    country: 'multi'
   },
   org: {
     name: 'Internet Monitor',
