@@ -75,7 +75,6 @@ Template.DashboardsAdd.events({
   'submit .filter-form': function(ev, template){
     ev.preventDefault();
     template.$('#error').remove();
-    template.$('.available-indicators').empty();
     var mode = $('.active', template.find('.filter-mode-group')).prop('id');
     if(mode === 'filter-indicator'){
       var packages = filter({
@@ -115,7 +114,6 @@ Template.DashboardsAdd.events({
   },
   'click .clear-filter': function(ev, template){
     template.$('#error').remove();
-    template.$('.available-indicators').empty();
     template.$('.addable-widget').show();
     template.$grid.isotope();
   },
