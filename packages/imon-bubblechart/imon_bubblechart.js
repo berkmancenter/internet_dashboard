@@ -43,7 +43,8 @@ IMonBubbleChart = {
     constructor: IMonBubbleChartWidget,
     typeIcon: 'play-circle',
     indicators: 'all',
-    country: 'multi'
+    country: 'multi',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

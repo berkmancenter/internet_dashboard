@@ -34,7 +34,8 @@ IMonChoropleth = {
     constructor: IMonChoroplethWidget,
     displays: 'countryData',
     indicators: 'all',
-    country: 'multi'
+    country: 'multi',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

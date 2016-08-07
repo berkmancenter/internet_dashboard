@@ -46,7 +46,8 @@ BroadbandCost = {
     typeIcon: 'table',
     constructor: BroadbandCostWidget,
     indicators: Settings.indicatorIds,
-    country: 'single'
+    country: 'single',
+    countries: 'all'
   },
   org: {
     name: 'Google Policy by the Numbers and Communications Chambers',

@@ -27,4 +27,5 @@ Package.onUse(function(api) {
     ], 'client');
 
   api.export('TorClients');
+  api.export('TorCountries');
 });

@@ -46,7 +46,8 @@ IMonBarchart = {
     constructor: IMonBarchartWidget,
     typeIcon: 'bar-chart',
     indicators: 'all',
-    country: 'multi'
+    country: 'multi',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

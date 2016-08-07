@@ -46,6 +46,7 @@ ChangeOrg = {
     category: 'activity',
     typeIcon: 'globe',
     constructor: ChangeOrgWidget,
-    country: 'multi'
+    country: 'multi',
+    countries: 'all'
   }
 };

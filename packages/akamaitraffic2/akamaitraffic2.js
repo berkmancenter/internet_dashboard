@@ -27,7 +27,8 @@ AkamaiTraffic2 = {
     category: 'access',
     typeIcon: 'globe',
     constructor: TrafficWidget,
-    country: 'multi'
+    country: 'multi',
+    countries: 'all'
   },
   org: {
     name: 'Akamai Technologies, Inc.',

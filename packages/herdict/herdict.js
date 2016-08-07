@@ -55,7 +55,8 @@ Herdict = {
     constructor: HerdictWidget,
     typeIcon: 'list',
     category: 'control',
-    country: 'single'
+    country: 'single',
+    countries: 'CountryInfo'
   },
   org: {
     name: 'Herdict',

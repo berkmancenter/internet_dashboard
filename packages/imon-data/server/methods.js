@@ -10,6 +10,14 @@ Meteor.methods({
 		]);
 		records.sort(function(a, b){ return a.years.length < b.years.length ? -1 : a.years.length > b.years.length ? 1 : 0; });
 		return intersection(records);
+	},
+	'getYearIndicators': function(year){
+		var records = IMonData.aggregate([
+			{ $match: { date: { $gte: new Date(year,1,1), $lte: new Date(year,12,31) } } },
+			{ $group: { _id: '$indAdminName' } },
+			{ $project: { indAdminName: '$_id' } }
+		]);
+		return records;
 	}
 });
 

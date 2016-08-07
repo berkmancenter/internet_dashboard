@@ -41,7 +41,8 @@ IMonSpeedometer = {
     typeIcon: 'tachometer',
     constructor: IMonSpeedometerWidget,
     indicators: 'speed',
-    country: 'single'
+    country: 'single',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

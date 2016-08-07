@@ -42,7 +42,8 @@ PercentOnline = {
     typeIcon: 'th',
     category: 'access',
     indicators: [ Settings.indicatorId ],
-    country: 'single'
+    country: 'single',
+    countries: Settings.indicatorId
   },
   org: {
     name: 'International Telecommunications Union',

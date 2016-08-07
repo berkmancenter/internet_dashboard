@@ -41,7 +41,8 @@ ConnectionSpeed = {
     typeIcon: 'tachometer',
     constructor: ConnectionSpeedWidget,
     indicators: [ Settings.indicatorId ],
-    country: 'single'
+    country: 'single',
+    countries: 'all'
   },
   org: {
     name: 'Akamai Technologies, Inc.',

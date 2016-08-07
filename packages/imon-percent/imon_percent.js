@@ -44,7 +44,8 @@ IMonPercent = {
     constructor: IMonPercentWidget,
     typeIcon: 'th',
     indicators: 'percentage',
-    country: 'single'
+    country: 'single',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

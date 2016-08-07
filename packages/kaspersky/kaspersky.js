@@ -83,7 +83,8 @@ Kaspersky = {
     category: 'control',
     typeIcon: 'line-chart',
     constructor: KasperskyWidget,
-    country: 'single'
+    country: 'single',
+    countries: 'CountryMetrics'
   },
   org: {
     name: 'Kaspersky Lab ZAO',

@@ -23,6 +23,7 @@ Package.onUse(function(api) {
   api.addFiles(['server.js'], 'server');
 
   api.export('Kaspersky');
+  api.export('CountryMetrics');
 });
 
 Npm.depends({

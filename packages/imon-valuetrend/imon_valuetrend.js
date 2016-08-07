@@ -42,7 +42,8 @@ IMonValuetrend = {
     typeIcon: 'line-chart',
     resize: { mode: 'cover', constraints: { height: { max: 1 } } },
     indicators: 'all',
-    country: 'single'
+    country: 'single',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

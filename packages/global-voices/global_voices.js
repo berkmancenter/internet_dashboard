@@ -33,7 +33,8 @@ GlobalVoices = {
     typeIcon: 'list',
     url: 'http://globalvoicesonline.org/feeds/',
     constructor: GlobalVoicesWidget,
-    country: 'single'
+    country: 'single',
+    countries: 'CountryInfo'
   },
   org: {
     name: 'Global Voices Online',

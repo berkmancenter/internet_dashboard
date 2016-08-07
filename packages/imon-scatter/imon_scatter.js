@@ -43,7 +43,8 @@ IMonScatter = {
     constructor: IMonScatterWidget,
     typeIcon: 'line-chart',
     indicators: 'all',
-    country: 'multi'
+    country: 'multi',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

@@ -30,6 +30,7 @@ AkamaiAttacks = {
     category: 'control',
     typeIcon: 'globe',
     constructor: AttacksWidget,
-    country: 'multi'
+    country: 'multi',
+    countries: 'CountryAttacks'
   }
 };

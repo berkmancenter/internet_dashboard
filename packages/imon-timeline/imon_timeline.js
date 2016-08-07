@@ -48,7 +48,8 @@ IMonTimeline = {
     typeIcon: 'line-chart',
     resize: { mode: 'cover' },
     indicators: 'all',
-    country: 'both'
+    country: 'both',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

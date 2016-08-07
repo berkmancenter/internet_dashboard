@@ -4,6 +4,41 @@
     max-width: 1500px;
   }
 
+  .btn-group-label, .filter-group-label {
+    font-weight: bold;
+    line-height: 34px;
+    vertical-align: middle;
+  }
+  .btn-group-label{
+    float: left;
+  }
+  .filter-btn, .filter-mode-btn, .filter-mode-group{
+    float:none !important;
+  }
+  .filter-toolbar{
+    .filter-year{
+      width:5.4em;
+    }
+    .filter-indicator{
+      width:14em;
+    }
+    .filter-submit{
+      width:5em;
+      color:white;
+      background-color: rgba(240,173,78,0.8);
+      transition-duration: 0.5s;
+    }
+    .filter-submit:hover{
+      background-color: rgba(240,173,78,1);
+    }  
+    .filter-countries{
+      width:14em;
+    }
+  }
+
+  #error{
+    margin-left:1em;
+  }
   .modal-body {
     background-color: #E4E4E4;
     overflow-y: scroll;
@@ -105,23 +140,6 @@
   padding-top: 2px;
   font-size: 12px;
 }
-.btn-group-label, .filter-group-label {
-  font-weight: bold;
-  line-height: 34px;
-  vertical-align: middle;
-}
-.btn-group-label{
-  float: left;
-}
-.filter-btn{
-  float:none !important;
-}
-.filter-toolbar{
-  .filter-year{
-    width:5.4em;
-  }
-  .filter-indicator{
-    width:14em;
-  }
-}
+
+
 

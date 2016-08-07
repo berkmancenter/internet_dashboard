@@ -39,7 +39,8 @@ GSMATotal = {
     constructor: GSMATotalWidget,
     typeIcon: 'line-chart',
     category: 'access',
-    country: 'single'
+    country: 'single',
+    countries: 'CountryInfo'
   },
   org: {
     name: 'GSMA Intelligence',
