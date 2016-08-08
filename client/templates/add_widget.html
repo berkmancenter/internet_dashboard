@@ -18,19 +18,13 @@
         <div class="btn-toolbar filter-toolbar" role="toolbar">
           <form class="form-inline filter-form">
             <span class="filter-group-label">Show widgets that display</span>
-            <div class="btn-group filter-mode-group" role="group">
-              <button type="button" class="btn btn-default filter-mode-btn" id="filter-year">Year</button>
-              <button type="button" class="btn btn-default filter-mode-btn" id="filter-indicator" style="margin-left:-.3em;">Indicator</button>
-            </div>
             <div class="form-group">
-              <select class="filter-indicator form-control filter-control" style="display:none;">
+              <select class="filter-indicator form-control filter-control">
                 <option value="any-indicators" selected>any indicator(s)</option>
-                <option value="all-indicators">all indicators</option>
                 {{# each indicator}}
                 <option value="{{ adminName }}">{{ shortName }}</option>
                 {{/each}}
               </select>
-              <input class="filter-year form-control filter-control" style="display:none;" type="number" min="1900" max="{{ thisYear }}" placeholder="Year" />
             </div>
             <span class="filter-group-label">in</span>
             <div class="form-group">
@@ -49,8 +43,8 @@
                 {{/each}}
               </select>
             </div>
-            <button type="submit" class="btn btn-default filter-btn filter-submit" title="Filter"><i class="fa fa-filter"></i></button>
-            <button type="reset" class="btn btn-default filter-btn clear-filter" title="Clear"><i class="fa fa-minus-square-o"></i></button>
+            <button type="submit" class="btn btn-default filter-btn filter-submit" title="Filter"><i class="fa fa-filter"></i> Filter</button>
+            <button type="reset" class="btn btn-default filter-btn clear-filter" title="Clear"><i class="fa fa-minus-square-o"></i> Clear</button>
           </form>
         </div>
         {{/if}}
@@ -64,6 +58,7 @@
             <button type="button" data-sort-by="original-order" class="btn btn-default">Recently Added</button>
           </div>
         </div>
+        <div id="error"></div>
         <ul class="add-widget-grid">
         {{# each widgetPackages }}
           <li class="addable-widget" id="{{ packageName }}">

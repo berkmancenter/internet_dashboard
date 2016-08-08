@@ -74,13 +74,17 @@ Template.DashboardsAdd.events({
   },
   'submit .filter-form': function(ev, template){
     ev.preventDefault();
-    template.$('#error').remove();
-    var mode = $('.active', template.find('.filter-mode-group')).prop('id');
-    if(mode === 'filter-indicator'){
+    template.$('#error').empty();
+
+    var indicator = template.find('.filter-indicator').value,
+        countryNumber = template.find('.filter-country').value,
+        countries = template.find('.filter-countries').value;
+
+    var applyFilter = function(){
       var packages = filter({
-        indicator: template.find('.filter-indicator').value,
-        countryNumber: template.find('.filter-country').value,
-        countries: template.find('.filter-countries').value 
+        indicator: indicator,
+        countryNumber: countryNumber,
+        countries: countries
       });
       var count = 0;
       template.$('.addable-widget').each(function(e, i){
@@ -89,31 +93,21 @@ Template.DashboardsAdd.events({
       });
       template.$grid.isotope();
       if(count===0){
-        template.$('.modal-body').append('<div id="error"><h3>No widgets found for that filter.</h3></div>');
+        template.$('#error').append('<h3>No widgets found for that filter.</h3>');
       }
-    }
-    else if(mode === 'filter-year' && (template.find('.filter-year').value >=1900 && template.find('.filter-year').value <= new Date().getFullYear())){
-      Meteor.call('getYearIndicators', template.find('.filter-year').value, function(error, result){
-        var indicators = get(result, 'indAdminName');
-        var packages = filter({
-          indicator: indicators,
-          countryNumber: template.find('.filter-country').value,
-          countries: template.find('.filter-countries').value
-        });
-        var count = 0;
-        template.$('.addable-widget').each(function(e, i){
-          if(packages.indexOf($(this).prop('id')) === -1){ $(this).hide(); }
-          else{ $(this).show(); count++; }
-        });
-        template.$grid.isotope();
-        if(count===0){
-          template.$('.modal-body').append('<div id="error"><h4>No widgets found for that filter.</h4></div>');
-        }
+    };
+
+    if(template.find('.filter-countries').value !== 'any-country'){
+      Meteor.call('hasData', countries, indicator, function(error, dataAvailable){
+        if(dataAvailable){ applyFilter(); }
+        else{ template.$('.addable-widget').hide(); template.$('#error').append('<h3>No data found for that filter.</h3>'); }
       });
     }
+    else{ applyFilter(); }
+
   },
   'click .clear-filter': function(ev, template){
-    template.$('#error').remove();
+    template.$('#error').empty();
     template.$('.addable-widget').show();
     template.$grid.isotope();
   },
@@ -150,11 +144,10 @@ function filter(options){
     if(options.countryNumber !== 'either' && (options.countryNumber !== widgetNumberOfCountries) && widgetNumberOfCountries !== 'both'){ return; } 
 
     // 2. Filter out those whose indicators don't match
-    if((_.isUndefined(widgetIndicators) && options.indicator !== 'any-indicators') || (options.indicator === 'all-indicators' && widgetIndicators !== 'all')){ return; }
-    if(options.indicator !== 'any-indicators' && options.indicator !== 'all-indicators'){
-      if(_.isString(options.indicator)){ options.indicator = [ options.indicator ]; }
+    if(_.isUndefined(widgetIndicators) && options.indicator !== 'any-indicators'){ return; }
+    else if(options.indicator !== 'any-indicators'){
       var indicators = _.isString(widgetIndicators) && widgetIndicators !== 'all' ? get(IMonIndicators.find({ displayClass: widgetIndicators }).fetch(), 'adminName') : widgetIndicators === 'all' ? get(IMonIndicators.find().fetch(), 'adminName') : widgetIndicators;
-      if(arrayIntersection(options.indicator, indicators) === 0){ return; }
+      if(indicators.indexOf(options.indicator) === -1){ return; }
     }
 
     // 3. Filter out those who don't display the selected country
