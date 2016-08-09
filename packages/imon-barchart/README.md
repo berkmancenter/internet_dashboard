@@ -23,7 +23,9 @@ All 8 steps/visualization logic can be found in `client/widget.js`
 Modes
 -----
 The bar chart was first designed to handle two modes:
+
 1. Y-axis: Indicator, X-axis: Countries. (Single mode)
 2. Y-axis: Country, X-axis: Indicators. (Multi mode)
+
 For the time being, until the Internet Monitor data is divided into comparable groups, the second mode's logic has not yet been implemented, and its settings are hidden in `client/settings.html`.
 
