@@ -1,5 +1,5 @@
 Bubble Chart
-=========
+============
 
 Purpose
 -------
@@ -54,5 +54,5 @@ These controllers rely on Session variables to function. Those Session variables
 3. `ID+'-common'`: the array of years returned from `getData`.
 4. `ID+'-hash'`: the hash/data values object returned from `getData`.
 
- 
+
 
