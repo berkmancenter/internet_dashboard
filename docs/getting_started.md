@@ -18,6 +18,12 @@ Run the Project
 cd internet_dashboard
 meteor
 ```
+Or, to run in data fetch mode (that seeds data in some of the packages):
+
+```bash
+cp settings.json.example settings.json
+meteor --settings settings.json
+``` 
 
 Setup API Access (Optional)
 ---------------------------
