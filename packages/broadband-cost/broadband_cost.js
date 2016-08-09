@@ -10,12 +10,16 @@ Settings = {
   speedRegex: /(\d+-)?\d+ Mbps/,
   maxSpeed: '25 Mbps',
   lowerCellClassBounds: { 66: 'danger', 33: 'warning', 0: 'success' },
-  defaultCountry: { country: { name: 'United States', code: 'usa' } }
+  defaultData: {
+   country: { name: 'United States', code: 'usa' },
+   byYear: false,
+   chosenYear: ''
+ }
 };
 
 BroadbandCostWidget = function(doc) {
   Widget.call(this, doc);
-  _.defaults(this.data, Settings.defaultCountry);
+  _.defaults(this.data, Settings.defaultData);
 };
 
 BroadbandCostWidget.prototype = Object.create(Widget.prototype);

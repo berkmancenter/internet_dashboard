@@ -1,7 +1,7 @@
 Template.PercentOnlineWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorId, true);
+    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorId, !Template.currentData().byYear);
   });
 });
 

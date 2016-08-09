@@ -2,13 +2,13 @@ Settings = {
   indicatorName: 'Average connection speed (kbps)',
   indicatorId: 'speedkbps',
   gaugeWidth: 292,
-  defaultCountry: { name: 'United States', code: 'usa' }
+  defaultData: { name: 'United States', code: 'usa', byYear: false, chosenYear: ''}
 };
 
 ConnectionSpeedWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.defaults(this.data, { country: Settings.defaultCountry });
+  _.defaults(this.data, { country: Settings.defaultData });
 };
 
 ConnectionSpeedWidget.prototype = Object.create(Widget.prototype);
@@ -39,7 +39,7 @@ ConnectionSpeed = {
     dimensions: { width: 2, height: 2 },
     category: 'access',
     typeIcon: 'tachometer',
-    constructor: ConnectionSpeedWidget,
+    constructor: ConnectionSpeedWidget
   },
   org: {
     name: 'Akamai Technologies, Inc.',

@@ -1,13 +1,14 @@
 <template name="BroadbandCostWidget">
 <h1>Broadband Cost</h1>
 <h2>{{ country.name }}</h2>
+{{# if byYear}}<h3>{{chosenYear}}</h3>{{/if}}
 {{# if Template.subscriptionsReady }}
 <table class="cost-indicators table table-condensed">
   <tbody>
     <tr>
     {{# each indicators }}
-    <td class="{{ cellColor ../country.code }}">
-      {{# if dataValue ../country.code }}{{ percentValue ../country.code }}{{ else }}&ndash;{{/if}}
+    <td class="{{ cellColor ../country.code ../byYear ../chosenYear }}">
+      {{# if dataValue ../country.code ../byYear ../chosenYear }}{{ percentValue ../country.code ../byYear ../chosenYear }}{{ else }}&ndash;{{/if}}
     </td>
     {{/each}}
     </tr>

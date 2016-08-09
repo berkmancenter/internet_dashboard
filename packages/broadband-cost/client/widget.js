@@ -1,7 +1,7 @@
 Template.BroadbandCostWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorIds, true);
+    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorIds, !Template.currentData().byYear);
     template.subscribe('imon_indicators_v2');
   });
 });
@@ -14,18 +14,18 @@ Template.BroadbandCostWidget.helpers({
     }
     return match;
   },
-  percentValue: function(code) {
-    var val = getValue(code, this).value;
+  percentValue: function(code, byYear, chosenYear) {
+    var val = getValue(code, byYear, chosenYear, this).value;
     return val.toFixed(1) + '%';
   },
-  dataValue: function(code){
-    return getValue(code, this);
+  dataValue: function(code, byYear, chosenYear){
+    return getValue(code, byYear, chosenYear, this);
   },
   indicators: function() {
     return IMonIndicators.find({ adminName: {$in: Settings.indicatorIds}  });
   },
-  cellColor: function(code) {
-    var d = getValue(code, this);
+  cellColor: function(code, byYear, chosenYear) {
+    var d = getValue(code, byYear, chosenYear, this);
 
     if(_.isUndefined(d))
       return 'active';
@@ -46,6 +46,9 @@ Template.BroadbandCostWidget.helpers({
   }
 });
 
-function getValue(code, context){
-  return IMonRecent.findOne({ countryCode: code, indAdminName: context.adminName });
+function getValue(code, byYear, chosenYear, context){
+  var IMon = byYear ? IMonData : IMonRecent;
+  var selector = { countryCode: code, indAdminName: context.adminName };
+  if(byYear){ selector.$where = function(){ return this.date.getFullYear() === chosenYear; }; }
+  return IMon.findOne(selector, { sort: { date:-1 } });
 }

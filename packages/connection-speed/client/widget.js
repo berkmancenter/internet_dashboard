@@ -1,7 +1,7 @@
 Template.ConnectionSpeedWidget.onCreated(function() {
   var template = this;
   template.autorun(function() {
-    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorId, true);
+    template.subscribe('imon_data_v2', Template.currentData().country.code, Settings.indicatorId, !Template.currentData().byYear);
     template.subscribe('imon_indicators_v2');
   });
 });
@@ -40,10 +40,13 @@ Template.ConnectionSpeedWidget.onRendered(function() {
   this.autorun(function() {
     if (!template.subscriptionsReady()) { return; }
     var max = IMonIndicators.findOne({ adminName: Settings.indicatorId }).max;
-    var indicator = IMonRecent.findOne({
+    var IMon = Template.currentData().byYear ? IMonData : IMonRecent;
+    var selector = {
         countryCode: Template.currentData().country.code,
         indAdminName: Settings.indicatorId
-    });
+    };
+    if(Template.currentData().byYear){ selector.$where = function(){ return this.date.getFullYear() === Template.currentData().chosenYear; }; }
+    var indicator = IMon.findOne(selector, { sort: { date: -1 } });
     var speedPercent = 0.001;
     if (indicator && getPercent(indicator.value, max) > 0) {
       speedPercent = getPercent(indicator.value, max) * 100;

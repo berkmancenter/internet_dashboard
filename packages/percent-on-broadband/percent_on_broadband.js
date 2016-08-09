@@ -1,13 +1,13 @@
 Settings = {
   indicatorName: 'Broadband adoption rate',
   indicatorId: 'bbrate',
-  defaultCountry: { name: 'United States', code: 'usa' }
+  defaultData: { name: 'United States', code: 'usa', byYear: false, chosenYear: '' }
 };
 
 PercentOnBroadbandWidget = function(doc) {
   Widget.call(this, doc);
 
-  _.defaults(this.data, { country: Settings.defaultCountry });
+  _.defaults(this.data, { country: Settings.defaultData });
 };
 
 PercentOnBroadbandWidget.prototype = Object.create(Widget.prototype);
@@ -25,10 +25,11 @@ _.extend(PercentOnBroadbandWidget.prototype, {
     });
   },
   getIndicator: function() {
-    return IMonRecent.findOne({
-      countryCode: this.data.country.code,
-      indAdminName: Settings.indicatorId
-    });
+    var IMon = this.data.byYear ? IMonData : IMonRecent;
+    var chosenYear = this.data.chosenYear;
+    var selector = { countryCode: this.data.country.code, indAdminName: Settings.indicatorId };
+    if(this.data.byYear){ selector.$where = function(){ return this.date.getFullYear() === chosenYear; }; }
+    return IMon.findOne(selector, { sort: { date: -1 } });
   }
 });
 
