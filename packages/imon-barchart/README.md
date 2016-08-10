@@ -18,7 +18,7 @@ This widget uses the `d3compose` package to create a standard bar chart with sli
 7. If the countries should be sorted by value, sort them.
 8. Rotate the x-axis labels by -45 degrees.
 
-All 8 steps/visualization logic can be found in `client/widget.js`
+All 8 steps/visualization logic can be found in [client/widget.js](client/widget.js)
 
 Modes
 -----
