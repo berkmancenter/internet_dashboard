@@ -9,7 +9,7 @@ Settings = {
     }
   },
   defaultData: {
-    title: 'Scatter Plot',
+    title: 'Scatterplot',
     byYear: false,
     chosenYear: '',
     x: {

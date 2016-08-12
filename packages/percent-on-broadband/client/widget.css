@@ -2,6 +2,14 @@
   font-size: 10px;
 }
 
+.percent-on-broadband h2, .percent-on-broadband h3{
+  display:inline;
+}
+
+.percent-on-broadband h3{
+  float:right;
+}
+
 .percent-on-broadband .fa.online {
   color: #6192BD;
 }

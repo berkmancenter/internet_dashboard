@@ -22,3 +22,11 @@
   bottom: 20px;
   color: #888;
 }
+
+.percent-online h2, .percent-online h3{
+  display:inline;
+}
+
+.percent-online h3{
+  float:right;
+}

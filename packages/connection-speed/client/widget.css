@@ -1,3 +1,11 @@
 .connection-speed .gauge {
   margin-top: 15%;
 }
+
+.connection-speed h2, .connection-speed h3{
+	display: inline;
+}
+
+.connection-speed h3{
+	float:right;
+}

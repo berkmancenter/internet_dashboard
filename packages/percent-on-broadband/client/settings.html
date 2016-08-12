@@ -4,17 +4,22 @@
   <label for="country-select">Country</label>
   <select class="country form-control" id="country-select" name="country">
         {{# each countries }}
-        {{> AdoptionOption }}
+ 		 <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
         {{/each}}
   </select>
 </div>
-
+<div class="form-group">
+  <label for="year-select">Year</label>
+  <select class="year form-control" id="year-select" name="year">
+  		<option value="none" {{ isSelected byYear false }}>Latest available data</option>
+        {{# each year }}
+ 		 <option value="{{ this }}" {{ isSelected this ../chosenYear }}>{{ this }}</option>
+        {{/each}}
+  </select>
+</div>
 <button class="btn btn-primary save-settings">Save</button>
 {{ else }}
   {{ widgetLoading }}
 {{/if}}
 </template>
 
-<template name="AdoptionOption">
-  <option value="{{ code }}" {{ isSelected code ../country.code }}>{{ name }}</option>
-</template>

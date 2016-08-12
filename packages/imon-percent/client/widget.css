@@ -1,7 +1,9 @@
 .imon-percent .fa {
   font-size: 1em;
 }
-
+.imon-percent h2, .imon-percent h3{
+  display:inline;
+}
 .imon-percent h3{
   float: right;
 }
