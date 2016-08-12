@@ -69,6 +69,9 @@ The object your package exports may have the following properties:
 * __widget.resize.constraints.height.max__: *optional* - the maximum height of your widget in number of rows
 * __widget.category__: *optional* - the type of data this widget is showing: `access`, `activity`, or `control`
 * __widget.constructor__: the function to be called when a new widget instance is to be created
+* __widget.country__: *optional* - how many countries the widget displays or compares at once: `single`, or `multi`.
+* __widget.countries__: *optional* - which countries the widget can be set to display: `all` if it can display all countries available through `imon-data`, an array of alpha-2 or alpha-3 country codes, or 'CountryInfo' if it can display all countries in the `country-info` package.
+* __widget.indicators__: *optional* - which Internet Monitor indicators from `imon-data` the widget can be set to display: `all`, an array of indicator admin names, or a string with the `displayClass` used to filter indicators (for example, `speed` or `percent`).
 * __org.name__: the official name of the organization contributing this widget
 * __org.shortName__: a short name to be used in space-constrained use cases
 * __org.url__: a URL to the organization
@@ -83,7 +86,10 @@ Example = {
     dimensions: { width: 2, height: 1 },
     resize: { mode: 'scale', constraints: { width: { min: 2, max: 3 } } },
     category: 'access',
-    constructor: ExampleWidget
+    constructor: ExampleWidget,
+    countries: ['afg', 'usa', 'mex'],
+    country: 'single'
+    indicators: ['speedkbps']
   },
   org: {
     name: 'Example Industries, LLC',
@@ -157,7 +163,7 @@ Your widget package can include three different templates:
 * a settings template: used to render a settings popup for the widget (optional)
 * an info template: used to render an informational popup for the widget (optional)
 
-To create templates, simple include templates in your package with following naming convention:
+To create templates, simply include templates in your package with following naming convention:
 * For the widget: `{short code}Widget`, e.g. "ExampleWidget"
 * For the settings popup: `{short code}Settings`, e.g. "ExampleSettings"
 * For the info popup: `{short code}Info`, e.g. "ExampleInfo"
@@ -175,7 +181,7 @@ Once you've built your widget, you'll want to add it to the dashboard:
 
 1. Move your widget package to the correct directory. Create a directory under `packages` with the same name you gave your package in `package.js`. Put all your code in it.
 2. Add your package to Meteor. At the root of the project, type `meteor add {your package name}`.
-3. Add your package to the list of widgets. Open `widgets.js` and add your package name to the array.
+3. Add your package to the list of widgets. Open `widgets.js` and add your package name to the top of the array. (Widgets are arranged by when they were added in a descending order)
 4. That's it. Start Meteor with `meteor`.
 
 More Information
