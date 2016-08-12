@@ -45,6 +45,8 @@ ChangeOrg = {
     dimensions: { width: 3, height: 2 },
     category: 'activity',
     typeIcon: 'globe',
-    constructor: ChangeOrgWidget
+    constructor: ChangeOrgWidget,
+    country: 'multi',
+    countries: 'all'
   }
 };

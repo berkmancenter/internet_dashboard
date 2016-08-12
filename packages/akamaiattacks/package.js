@@ -25,6 +25,7 @@ Package.onUse(function(api) {
     ], 'client');
 
   api.export('AkamaiAttacks');
+  api.export('CountryAttacks');
 });
 
 Npm.depends({

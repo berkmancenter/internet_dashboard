@@ -29,7 +29,8 @@ AkamaiTraffic = {
     dimensions: { width: 3, height: 1 },
     category: 'access',
     typeIcon: 'area-chart',
-    constructor: TrafficWidget
+    constructor: TrafficWidget,
+    country: 'multi'
   },
   org: {
     name: 'Akamai Technologies, Inc.',

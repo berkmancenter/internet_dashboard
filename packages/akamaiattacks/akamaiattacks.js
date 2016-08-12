@@ -29,6 +29,8 @@ AkamaiAttacks = {
     dimensions: { width: 3, height: 2 },
     category: 'control',
     typeIcon: 'globe',
-    constructor: AttacksWidget
+    constructor: AttacksWidget,
+    country: 'multi',
+    countries: 'CountryAttacks'
   }
 };

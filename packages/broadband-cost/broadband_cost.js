@@ -48,7 +48,10 @@ BroadbandCost = {
               constraints: { height: { min: 1, max: 1 }, width: { min: 2 } } },
     category: 'access',
     typeIcon: 'table',
-    constructor: BroadbandCostWidget
+    constructor: BroadbandCostWidget,
+    indicators: Settings.indicatorIds,
+    country: 'single',
+    countries: 'all'
   },
   org: {
     name: 'Google Policy by the Numbers and Communications Chambers',

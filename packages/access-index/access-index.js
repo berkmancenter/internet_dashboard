@@ -33,7 +33,9 @@ AccessIndex = {
     dimensions: { width: 2, height: 2 },
     category: 'access',
     typeIcon: 'list',
-    constructor: AccessWidget
+    constructor: AccessWidget,
+    country: 'single',
+    countries: ['afg','dza','ago','aus','aut','aze','bgd','blr','bel','ben','bol','bra','bgr','bfa','khm','can','chl','chn','col','cze','dnk','dom','ecu','egy','slv','eth','fin','fra','deu','gha','grc','gtm','hti','hnd','hkg','hun','ind','idn','irn','isr','ita','civ','jpn','jor','ken','kgz','lao','mdg','mys','mli','mex','mar','npl','nld','nic','nga','pak','pry','per','phl','pol','prt','rus','sau','sen','srb','sgp','svk','svn','zaf','kor','esp','lka','sdn','swe','che','syr','twn','tjk','tza','tha','tun','uga','ukr','are','gbr','usa','uzb','ven','vnm','yem','zmb'] 
   },
   org: {
     name: 'Internet Monitor',

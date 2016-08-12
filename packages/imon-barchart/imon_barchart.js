@@ -44,7 +44,10 @@ IMonBarchart = {
     dimensions: { width: 3, height: 2 },
     resize: { mode: 'cover' },
     constructor: IMonBarchartWidget,
-    typeIcon: 'bar-chart'
+    typeIcon: 'bar-chart',
+    indicators: 'all',
+    country: 'multi',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',
@@ -52,3 +55,4 @@ IMonBarchart = {
     url: 'http://thenetmonitor.org'
   }
 };
+

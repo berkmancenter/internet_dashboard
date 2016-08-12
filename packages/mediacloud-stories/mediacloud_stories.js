@@ -33,6 +33,8 @@ MediaCloudStories = {
     category: 'activity',
     typeIcon: 'list',
     constructor: MCStoryWidget,
+    country: 'single',
+    countries: getCountryCodes(Settings.tagSet)
   },
   org: {
     name: 'Media Cloud',
@@ -40,3 +42,11 @@ MediaCloudStories = {
     url: 'http://mediacloud.org'
   }
 };
+
+function getCountryCodes(tagSet){
+  var result = [];
+  for(var i=0; i<tagSet.length; i++){
+    result.push(tagSet[i].code);
+  }
+  return result;
+}

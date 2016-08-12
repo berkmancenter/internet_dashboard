@@ -7,7 +7,7 @@ CountryInfo.countries = [
 { name: "Angola", code: "AO" },
 { name: "Anguilla", code: "AI" },
 { name: "Antarctica", code: "AQ" },
-{ name: "Antigua And Barbuda", code: "AG" },
+{ name: "Antigua and Barbuda", code: "AG" },
 { name: "Argentina", code: "AR" },
 { name: "Armenia", code: "AM" },
 { name: "Aruba", code: "AW" },

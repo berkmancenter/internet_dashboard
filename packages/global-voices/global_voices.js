@@ -32,7 +32,9 @@ GlobalVoices = {
     category: 'activity',
     typeIcon: 'list',
     url: 'http://globalvoicesonline.org/feeds/',
-    constructor: GlobalVoicesWidget
+    constructor: GlobalVoicesWidget,
+    country: 'single',
+    countries: 'CountryInfo'
   },
   org: {
     name: 'Global Voices Online',

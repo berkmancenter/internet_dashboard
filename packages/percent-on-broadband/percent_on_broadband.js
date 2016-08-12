@@ -41,7 +41,10 @@ PercentOnBroadband = {
     dimensions: { width: 2, height: 1 },
     constructor: PercentOnBroadbandWidget,
     typeIcon: 'th',
-    category: 'access'
+    category: 'access',
+    indicators: [ Settings.indicatorId ],
+    country: 'single',
+    countries: Settings.indicatorId
   },
   org: {
     name: 'Akamai Technologies, Inc.',

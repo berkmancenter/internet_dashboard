@@ -38,7 +38,9 @@ GSMA3G = {
     dimensions: { width: 2, height: 1 },
     constructor: GSMA3GWidget,
     typeIcon: 'line-chart',
-    category: 'access'
+    category: 'access',
+    country: 'single',
+    countries: 'CountryInfo'
   },
   org: {
     name: 'GSMA Intelligence',

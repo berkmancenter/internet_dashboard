@@ -10,6 +10,11 @@ Meteor.methods({
 		]);
 		records.sort(function(a, b){ return a.years.length < b.years.length ? -1 : a.years.length > b.years.length ? 1 : 0; });
 		return intersection(records);
+	},
+	'hasData': function(countryCode, indicatorName){
+		var selector = { countryCode: countryCode };
+		if(indicatorName !== 'any-indicators'){ selector.indAdminName = indicatorName; }
+		return !_.isUndefined(IMonData.findOne(selector));
 	}
 });
 

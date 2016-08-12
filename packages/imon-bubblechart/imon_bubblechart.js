@@ -41,7 +41,10 @@ IMonBubbleChart = {
     dimensions: { width: 3, height: 3 },
     resize: { mode: 'cover' },
     constructor: IMonBubbleChartWidget,
-    typeIcon: 'play-circle'
+    typeIcon: 'play-circle',
+    indicators: 'all',
+    country: 'multi',
+    countries: 'all'
   },
   org: {
     name: 'Internet Monitor',

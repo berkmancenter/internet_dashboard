@@ -38,7 +38,9 @@ GSMAPrepaid = {
     dimensions: { width: 2, height: 1 },
     constructor: GSMAPrepaidWidget,
     typeIcon: 'line-chart',
-    category: 'access'
+    category: 'access',
+    country: 'single',
+    countries: 'CountryInfo'
   },
   org: {
     name: 'GSMA Intelligence',
