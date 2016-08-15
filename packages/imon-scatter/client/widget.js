@@ -95,7 +95,7 @@ Template.IMonScatterWidget.onRendered(function() {
     var data = [];
     IMonCountries.find().forEach(function(country) {
       var IMon = Template.currentData().byYear ? IMonData : IMonRecent;
-      var xSelector = ySelector = { countryCode: country.code };
+      var xSelector = { countryCode: country.code }, ySelector = { countryCode: country.code };
       xSelector.indAdminName = xIndicator, ySelector.indAdminName = yIndicator;
       if(Template.currentData().byYear){ xSelector.$where = ySelector.$where = function(){ return this.date.getFullYear()===Template.currentData().chosenYear; }; }
       var x = IMon.findOne(xSelector, { $sort: { date: -1 } });
