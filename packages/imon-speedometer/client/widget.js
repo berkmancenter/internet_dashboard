@@ -81,7 +81,7 @@ Template.IMonSpeedometerWidget.onRendered(function() {
     var speedPercent = 0.001;
     if (indicator && getPercent(indicator.value, currInd.max) > 0) {
       speedPercent = getPercent(indicator.value, currInd.max) * 100;
-      var text = indicator.value.toLocaleString() + ' kbps';
+      var text = round(indicator.value).toLocaleString() + ' kbps';
       svg.select('.speed').text(text);
     } else {
       svg.select('.speed').text('No data');
@@ -114,4 +114,8 @@ Template.IMonSpeedometerWidget.onRendered(function() {
 
 function getPercent(value, max){ // only max since speed can't be -ve
   return value/max;
+}
+
+function round(number){
+  return Number(number.toFixed(0));
 }
