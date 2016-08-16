@@ -19,7 +19,7 @@ To get this up and running, you'll need a computer with Linux, OS X, or Windows.
 Tested Configurations
 ---------------------
 
-We've successfully run this on Ubuntu 14.10 and 15.04 with Meteor 1.1.0.2, but it should run fine on any platform Meteor supports.
+We've successfully run this on Ubuntu 14.10 and 15.04 with Meteor 1.3.2, but it should run fine on any platform Meteor supports.
 
 User Documentation
 ------------------
@@ -58,6 +58,9 @@ Contributors
 
 * @jdcc
 * @ryanttb
+* @blaringsilence
+* @theos-space
+* @brainheart
 
 Contact
 -------
@@ -72,4 +75,4 @@ MIT - See `LICENSE` for a copy.
 Copyright
 ---------
 
-Copyright © 2015 President and Fellows of Harvard College
+Copyright © 2015-2016 President and Fellows of Harvard College
