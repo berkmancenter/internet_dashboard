@@ -13,7 +13,7 @@ Gets the status/availibility data for the specified url for all countries. Retur
 
 ```javascript
 {
-	isOK: 'BOOLEAN. True if API request's result's status code is 200.',
+	isOK: 'BOOLEAN. True if API request\'s result\'s status code is 200.',
 	data: 'ARRAY. Structured per API spec.'
 }
 ```
