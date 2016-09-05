@@ -1,0 +1,9 @@
+<template name="AccessCheckChoroplethWidget">
+  {{# unless ready }}
+    {{ widgetLoading }}
+    {{else}}
+    <div class="accesscheck-url">{{header}}</div>
+  {{/unless}}
+  <div class="accesscheck-error"></div>
+  <div class="accesscheck-choropleth-data accesscheck-choropleth"></div>
+</template>

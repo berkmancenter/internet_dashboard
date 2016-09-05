@@ -1,4 +1,5 @@
 ActiveWidgets = [
+  'accesscheck-choropleth',
   'imon-bubblechart',
   'imon-timeline',
   'imon-valuetrend',
