@@ -1,10 +1,10 @@
 Settings = {
   defaultData: {
-    url: 'https://cyber.harvard.edu/node/99048'
+    url: 'http://google.com'
   },
   colors: { // they have to remain in this order for the legend to be accurate
-    up: {r: 46, g: 2014, b: 113},
-    down: {r: 192, g: 57, b: 43}
+    up: '#6192BD',
+    down: '#C0392B'
   },
   map: {
     width: 500,

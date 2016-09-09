@@ -15,6 +15,9 @@ Template.IMonChoroplethWidget.helpers({
   isLooping: function(){
     var id = Template.instance().data.widget._id;
     return Session.get(id+'-loop') ? 'shown' : 'hidden';
+  },
+  indicator: function(){
+    return IMonIndicators.findOne({ adminName: Template.currentData().indicatorName }).shortName;
   }
 });
 
@@ -27,8 +30,7 @@ Template.IMonChoroplethWidget.onRendered(function() {
     template.$('.animation-button').hide();
     template.$('.animation-button').off();
     if (!template.subscriptionsReady()) {  return;  }
-    var svg;
-    var height = Settings.map.height;
+
     // Make sure indicator is in the right format
     if(Template.currentData().indicatorId && !Template.currentData().indicatorName){ // because old structure used indicatorId
         var adName = IMonMethods.idToAdminName(Template.currentData().indicatorId);
@@ -48,197 +50,39 @@ Template.IMonChoroplethWidget.onRendered(function() {
       console.log('No indicator found for indicator admin name: ' + Template.currentData().indicatorName);
       return;
     }
-      
-    d3.select(template.find('.indicator_name')).text(newIndicator.shortName);
-    
-    var formatLegendLabelNumber = function formatLegendLabelNumber (number,precision){
-      precision = precision ? precision : 1;
-      if ( number > 1000000 ) {
-        return (number / 1000000).toFixed(precision) + "M";
-      } else if ( number > 1000 ) {
-        return (number / 1000).toFixed(precision) + "K";
-      } else {
-        if ( newIndicator.displayClass && newIndicator.displayClass in Settings.suffix){
-          return number.toFixed(1) + Settings.suffix[newIndicator.displayClass];
-        } else if ( number % 1 === 0 ) {
-          return number;
-        } else {
-          return number.toFixed(precision);
-        }
-      }
-    };
 
     var currData = Template.currentData();
 
     Meteor.call('getChoroplethData', currData.indicatorName, function(error, result){
+      var map = new ChoroplethMap();
       var draw = function(isRecent, year, currentData, isFirst){
       // 1. Common
           var countryDataByCode = {};
-          var scores=[];
-          var scoreSet={};
           var countries = isRecent ? result : result[index(result, year)].records; // get list of all countries
           for(var i=0; i<countries.length; i++){
             var d = countries[i];
             var currCode = d.country;
             countryDataByCode[currCode.toUpperCase()] = d;
-            scores.push(d.value);
-            scoreSet[d.value] = _.has(scoreSet, d.value) ? scoreSet[d.value] + 1 : 1;
           }
-          if(scores.length===0 && !isRecent) { return; }
-          var range        = ['#ece7f2','#bdd7e7','#6baed6','#3182bd','#08519c'];
-      
-          var uniqueScores = Object.keys(scoreSet);
-          uniqueScores = uniqueScores.sort(function(a, b){ return a-b; });
-          
-          if (uniqueScores.length === 4 ) {
-            range        = ['#ece7f2','#bdc9e1','#74a9cf','#0570b0'];
-          } else if ( uniqueScores.length === 3 ) {
-            range        = ['#ece7f2','#a6bddb','#2b8cbe'];
-          }
-
-          // by default, we use a quantile scale.
-          
-          var colorScale;
-          colorScale = d3.scale.quantile()
-            .domain([newIndicator.min, newIndicator.max])
-            .range(range);
-
-          var useQuantileScale = true;
-
-          // but let's check, are quantile scales appropriate for this data?
-          if ( uniqueScores.length < 5 ) {
-            useQuantileScale = false;
-          } else {
-            _.each(colorScale.quantiles(), function(quantile,i){
-              if ( i > 0 && colorScale.quantiles()[i-1] === quantile){
-                console.log("Duplicate quantiles. Quantiles not working for this data. Use quantize.", colorScale.quantiles());
-                useQuantileScale = false;
-                return;
-              }
-            });
-          }
-
-          var lengendLabels;
-          
-          var setLegendLabels = function setLegendLabels(precision){
-            legendLabels = [];
-            if (useQuantileScale){
-              // quantile scale is best, most data-tailored scale when we have sufficient range of values.
-              legendLabels[0]= "< " + formatLegendLabelNumber(colorScale.quantiles()[0],precision);
-              _.each(colorScale.quantiles(), function(quantile,i){
-                legendLabels[i+1] = ">="+formatLegendLabelNumber(quantile,precision);
-              });
-            } else {
-              if ( uniqueScores.length <= 5 ) {
-                // use ordinal scale for just a few values.
-                colorScale = d3.scale.ordinal().domain(uniqueScores).range(range);
-                // sometimes these numbers are strings. why?
-                _.each(uniqueScores, function(score,i){
-                  legendLabels[i] = formatLegendLabelNumber(Number(score),precision);
-                });
-              } else {
-                // use quantize scale to cut into 5 equal groups from min to max
-                var max = newIndicator.max;
-                // crude, temporary attempt to bring out resolution with lumpy data.
-                if (max > 100 && newIndicator.min < 10) {
-                  max = 80;
-                }
-                colorScale = d3.scale.quantize().domain([newIndicator.min,max]).range(range);
-                var buckets = _.map(range,function(color,i){ return newIndicator.min + ((i+1)*((max-newIndicator.min)/5)); });
-                legendLabels[0]= "< " + formatLegendLabelNumber(buckets[0],precision);
-                _.each(buckets, function(bucket,i){
-                  legendLabels[i+1] = ">="+formatLegendLabelNumber(bucket,precision);
-                });
-            }
-          }
-        }
-
-        var precision =_.max(uniqueScores)>1 ? 1 : 2;
         
-        setLegendLabels(precision);
-
-           var projection = d3.geo.winkel3()
-          .scale(Settings.map.scale)
-          .translate([
-            Settings.map.width / 2 - Settings.map.bumpLeft,
-            height / 2 + Settings.map.bumpDown
-          ])
-          ;
-
-        var legend = d3.legend.color()
-          .scale(colorScale)
-          .labelOffset(5)
-          .cells(5)
-            .labels(legendLabels);
-
-
         // 2. Init function
         var init = function(){
-          template.$('.imon-choropleth-data').empty();
-          template.$('.imon-choropleth-data').show();
-          svg = d3.select(template.find('.imon-choropleth')).append("svg:svg")
-            .attr("width", Settings.map.width)
-            .attr("height", height);
-
-
-          svg.append("g")
-            .attr("class", "legend")
-            .attr("transform", "translate(0, 100)");
-
-          CountryInfo.shapes(function(shapes) {
-            var feature = svg.selectAll("path")
-                .data(shapes.features)
-                .enter().append("svg:path")
-                .attr('class', 'country')
-                .style('fill', function(d) {
-                  var country = countryDataByCode[d.id];
-                  // We have country data. Make it pretty.
-                  if (country) {
-                    return colorScale(country.value);
-                  } else {
-                    // No data for this country. Make it gray or something.
-                    return  'rgb(186,186,186)';
-                  }
-                })
-                .style('transform', 'scaleY(' + Settings.map.squash + ')')
-                .attr("d", d3.geo.path().projection(projection));
-            feature.append("title")
-            .text(function(d) {
-                var title = d.properties.name;
-                var country = countryDataByCode[d.id];
-                if (country) {
-                  return title + ': ' + formatLegendLabelNumber(Number(country.value),precision) + '';
-                }
-                return title + ' (No data)';
-              });         
+          map.draw({
+            selector: template.find('.imon-choropleth-data'),
+            data: countryDataByCode,
+            dims: Settings.map,
+            iso: 3,
+            valueSuffix: Object.keys(Settings.suffix).indexOf(newIndicator.displayClass) !== -1 ? Settings.suffix[newIndicator.displayClass] : ''
           });
       };
 
       var update = function(){
-        var countryShapes = svg.selectAll('.country');
-        countryShapes.style('fill', function(d) {
-                  var country = countryDataByCode[d.id];
-                  // We have country data. Make it pretty.
-                  if (country) {
-                    return colorScale(country.value);
-                  } else {
-                    // No data for this country. Make it gray or something.
-                    return 'rgb(186,186,186)';
-                  }
-                }).select("title")
-              .text(function(d) {
-                var title = d.properties.name;
-                var country = countryDataByCode[d.id];
-                if (country) {
-                  return title + ': ' + formatLegendLabelNumber(Number(country.value),precision) + '';
-                }
-                return title + ' (No data)';
+        map.update({
+          data: countryDataByCode
         });
       };
       if(isRecent || isFirst){ init(); }
       else{ update(); }
-      svg.select(".legend")
-        .call(legend);
     };
 
       var buttonPlace = template.find('.choropleth-button');

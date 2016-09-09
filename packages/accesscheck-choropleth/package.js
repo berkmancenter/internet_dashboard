@@ -7,9 +7,9 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
   api.use(['accesscheck-data']);
-  api.use(['mongo', 'widget', 'momentjs:moment', 'underscore',
-           'country-info', 'aldeed:collection2']);
-  api.use(['templating', 'd3js:d3'], 'client');
+  api.use(['mongo', 'widget', 'underscore',
+           'choropleth-map']);
+  api.use(['templating'], 'client');
   api.addFiles('accesscheck-choropleth.js');
   api.addFiles([
     'client/lib/d3.geo.js',

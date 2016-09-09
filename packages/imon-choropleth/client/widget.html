@@ -1,8 +1,8 @@
 <template name="IMonChoroplethWidget">
-  <h1 class="indicator_name"></h1>
   {{# unless Template.subscriptionsReady }}
     {{ widgetLoading }}
     {{else}}
+     <h1 class="indicator_name">{{indicator}}</h1>
      <div class="choropleth-year"><h2>{{year}}</h2></div>
   {{/unless}}
   <div class="choropleth-button">

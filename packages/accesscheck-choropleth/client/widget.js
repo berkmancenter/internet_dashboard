@@ -18,7 +18,7 @@ Template.AccessCheckChoroplethWidget.onRendered(function() {
     template.$('.accesscheck-error').empty();
     if (!template.subscriptionsReady() || !Template.currentData().url) {  return;  }
 
-    var svg, height = Settings.map.height, currData = Template.currentData();
+    var currData = Template.currentData();
 
     Meteor.call('getAccessData', currData.url, function(error, result){
       Session.set(id+'-ready', true);
@@ -30,95 +30,25 @@ Template.AccessCheckChoroplethWidget.onRendered(function() {
         template.$('.accesscheck-error').text('No test data available for this URL yet.');
         return;
      }
-      var draw = function(){
-      // 1. Common
-          var countryDataByCode = {};
-          var countries = result.data; // get list of all countries
-          for(var i=0; i<countries.length; i++){
-            var d = countries[i].attributes;
-            var currCode = d.countryCode;
-            countryDataByCode[currCode.toUpperCase()] = d;
-          }
-
-          var colorScale;
-          colorScale = d3.scale.ordinal()
-            .domain(Object.keys(Settings.colors))
-            .range(colorValues(Settings.colors));
-
-          var projection = d3.geo.winkel3()
-          .scale(Settings.map.scale)
-          .translate([
-            Settings.map.width / 2 - Settings.map.bumpLeft,
-            height / 2 + Settings.map.bumpDown
-          ])
-          ;
-
-        var legend = d3.legend.color()
-          .scale(colorScale)
-          .labelOffset(3)
-          .cells(3)
-
-
-        // 2. Init function
-        var init = function(){
-          template.$('.accesscheck-choropleth-data').empty();
-          template.$('.accesscheck-choropleth-data').show();
-          svg = d3.select(template.find('.accesscheck-choropleth')).append("svg:svg")
-            .attr("width", Settings.map.width)
-            .attr("height", height);
-
-
-          svg.append("g")
-            .attr("class", "legend")
-            .attr("transform", "translate(0, 100)");
-
-          CountryInfo.shapes(function(shapes) {
-            var feature = svg.selectAll("path")
-                .data(shapes.features)
-                .enter().append("svg:path")
-                .attr('class', 'country')
-                .style('fill', function(d) {
-                  var country = countryDataByCode[d.iso2];
-                  // We have country data. Make it pretty.
-                  if (country) {
-                    return formatColor(Settings.colors[country.status], country.statusConfidence);
-                  } else {
-                    // No data for this country. Make it gray or something.
-                    return  'rgb(186,186,186)';
-                  }
-                })
-                .style('transform', 'scaleY(' + Settings.map.squash + ')')
-                .attr("d", d3.geo.path().projection(projection));
-            feature.append("title")
-            .text(function(d) {
-                var title = d.properties.name;
-                var country = countryDataByCode[d.iso2];
-                if (country) {
-                  return title + ': ' + country.status + ' (' + country.statusConfidence * 100 + '% confidence)';
-                }
-                return title + ' (No data)';
-              });         
-          });
-      };
-      init(); 
-      svg.select(".legend")
-        .call(legend);
-    };
-    draw();
-
+      var countryDataByCode = {};
+      var countries = result.data; // get list of all countries
+      for(var i=0; i<countries.length; i++){
+        var d = countries[i].attributes;
+        d.statusConfidence = countries[i].attributes.statusConfidence * 100;
+        var currCode = d.country;
+        countryDataByCode[currCode] = d;
+      }
+      var map = new ChoroplethMap();
+      map.draw({
+        selector: template.find('.accesscheck-choropleth-data'),
+        data: countryDataByCode,
+        dims: Settings.map,
+        iso: 2,
+        colors: Settings.colors,
+        valueKey: 'status',
+        shadeKey: 'statusConfidence',
+        valueSuffix: '% confidence'
+      });
     });
   });
 });
-
-function colorValues(obj){
-  var arr = [];
-  Object.keys(obj).forEach(function(key){
-    var c = obj[key];
-    arr.push('rgb(' + c.r + ',' + c.g + ',' + c.b + ')');
-  });
-  return arr;
-}
-
-function formatColor(obj, alpha){
-  return 'rgba(' + obj.r + ',' + obj.g + ',' + obj.b + ',' + alpha + ')';
-}
