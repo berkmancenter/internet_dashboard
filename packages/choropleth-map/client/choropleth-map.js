@@ -25,10 +25,12 @@ ChoroplethMap.prototype.draw = function(Options){
 			- valueSuffix: STRING. If the value (in case of 1 color) or shadeKey (in case of many colors) represented has a common suffix, include that here.
 	*/
 
-	var self = this;
-	self.noDataColor = Options.noDataColor ? Options.noDataColor : Default.noDataColor, self.colors = Options.colors ? Options.colors : Default.colors;
-
 	// 1. All the variables
+	var self = this;
+
+	self.noDataColor = Options.noDataColor ? Options.noDataColor : Default.noDataColor, 
+	self.colors = Options.colors ? Options.colors : Default.colors;
+
 	var data = Options.data,
 		selector = Options.selector,
 		dims = Options.dims ? Options.dims : Default.dims,
@@ -49,7 +51,9 @@ ChoroplethMap.prototype.draw = function(Options){
 		});
 	}
 	scores.sort(function(a, b){ return a-b; });
+
 	$(selector).hide();
+
 	// 2. Separate into 2 different types (1 color, or many colors)
 	if(_.isString(self.colors)){
 		// a. Error handling
@@ -115,14 +119,17 @@ ChoroplethMap.prototype.draw = function(Options){
 
 	$(selector).empty();
 	$(selector).show();
+
 	self.svg = d3.select(selector).append('svg:svg')
 		.attr('width', dims.width)
 		.attr('height', dims.height);
 	self.svg.append('g')
 		.attr('class', 'legend')
 		.attr('transform', 'translate(0, 100)');
+
 	self.isoKey = iso === 2 ? 'iso2' : iso === 3 ? 'id' : '';
 	if(self.isoKey===''){ error('"iso" must be 2 or 3.'); return; }
+
 	CountryInfo.shapes(function(shapes){
 		var feature = self.svg.selectAll('path')
 			.data(shapes.features)
@@ -184,6 +191,7 @@ ChoroplethMap.prototype.update = function(Options){
 		valueKey = Options.valueKey ? Options.valueKey : Default.valueKey, 
 		valueSuffix = Options.valueSuffix ? Options.valueSuffix : '',
 		scores = [];
+
 	if(shadeKey){
 		Object.keys(data).forEach(function(country){
 			var val = data[country][shadeKey];
@@ -191,43 +199,45 @@ ChoroplethMap.prototype.update = function(Options){
 		});
 		scores.sort(function(a, b){ return a-b; });
 	}
+
 	var countryShapes = self.svg.selectAll('.country');
+	
 	countryShapes.style('fill', function(d){
-		var country = data[d[self.isoKey]];
-		if(country && _.isString(self.colors)){
-			return self.colorScale(country[valueKey]);
-		}
-		else if(country && _.isObject(self.colors)){
-			if(shadeKey){
-				return formatColor(self.colors[country[valueKey]], country[shadeKey], scores);
+			var country = data[d[self.isoKey]];
+			if(country && _.isString(self.colors)){
+				return self.colorScale(country[valueKey]);
+			}
+			else if(country && _.isObject(self.colors)){
+				if(shadeKey){
+					return formatColor(self.colors[country[valueKey]], country[shadeKey], scores);
+				}
+				else{
+					return self.colors[country[valueKey]];
+				}
 			}
 			else{
-				return self.colors[country[valueKey]];
+				return self.noDataColor;
 			}
-		}
-		else{
-			return self.noDataColor;
-		}
-	})
-	.select('title')
-	.text(function(d){
-		var title = d.properties.name;
-		var country = data[d[self.isoKey]];
-		if(country){
-			var v = isNaN(country[valueKey]) ? country[valueKey] : formatLegendLabelNumber(country[valueKey]);
-			var str = title + ': ' + v;
-			if(shadeKey){
-				str+=' (' + formatLegendLabelNumber(country[shadeKey]) + ' ' + valueSuffix + ')';
+		})
+		.select('title')
+		.text(function(d){
+			var title = d.properties.name;
+			var country = data[d[self.isoKey]];
+			if(country){
+				var v = isNaN(country[valueKey]) ? country[valueKey] : formatLegendLabelNumber(country[valueKey]);
+				var str = title + ': ' + v;
+				if(shadeKey){
+					str+=' (' + formatLegendLabelNumber(country[shadeKey]) + ' ' + valueSuffix + ')';
+				}
+				else{
+					str+=' ' + valueSuffix;
+				}
+				return str;
 			}
 			else{
-				str+=' ' + valueSuffix;
+				return title + ' (No data)';
 			}
-			return str;
-		}
-		else{
-			return title + ' (No data)';
-		}
-	}); 
+		}); 
 }
 
 function formatColor(hex, value, allValues){
