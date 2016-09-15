@@ -2,6 +2,10 @@ Router.route('/widgets/:_id/embed', {
   name: 'widgets-embed',
   layoutTemplate: false,
   loadingTemplate: 'Loading',
+  onBeforeAction: function() {
+      $('body').addClass('iframebody');
+      this.next();
+  },
   waitOn: function() {
     return [
       Meteor.subscribe('activeWidgets'),
