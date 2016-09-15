@@ -1,0 +1,17 @@
+.accesscheck-choropleth .country {
+  stroke: white;
+}
+.accesscheck-choropleth .accesscheck-url{
+	font-size:2.1em;
+	margin-top:.5em;
+	margin-bottom:.5em;
+	text-align: center;
+	text-overflow: ellipsis;
+}
+.accesscheck-choropleth .accesscheck-error{
+	font-size:1.3em;
+}
+.accesscheck-choropleth .label {
+    font-weight: bold;
+    font-size:1em;
+}

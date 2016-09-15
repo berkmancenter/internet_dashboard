@@ -1,4 +1,6 @@
 access-index@0.0.1
+accesscheck-choropleth@0.0.1
+accesscheck-data@0.0.1
 accounts-base@1.2.7
 accounts-password@1.1.8
 akamaiattacks@0.0.1
@@ -30,6 +32,7 @@ caching-html-compiler@1.0.6
 callback-hook@1.0.8
 change-org@0.0.1
 check@1.2.1
+choropleth-map@0.0.1
 claviska:jquery-minicolors@2.1.12
 coffeescript@1.0.17
 connection-speed@0.0.1
