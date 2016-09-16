@@ -1,7 +1,16 @@
+.iframebody{
+  padding:0px;
+  background-color: transparent;
+  overflow: auto;
+}
+
+img.iframe-logo-img {
+  display: inline-block;
+}
+
 body.widgets-embed {
   background-color: transparent;
   padding-top: 0;
-  overflow-y: hidden;
 
   .widget {
     border-radius: 0;
@@ -18,19 +27,9 @@ body.widgets-embed {
   .imon-branding {
     text-align: center;
     padding: 5px 0;
+    height:30px;
     background-color: #F1F1F1;
   }
 
-  .logo-image {
-    background: url("/imon_logo_banner.png");
-    background-size: cover;
-    display: inline-block;
-    height: 23px;
-    width: 220px;
-
-    &:hover {
-      background-position: 0 -23px;
-    }
-  }
 }
 

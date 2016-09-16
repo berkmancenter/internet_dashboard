@@ -86,4 +86,10 @@ hinas:meteor-bootstrap-confirmation
 country-info
 
 imon-data
+
 google-trends-map
+
+accesscheck-data
+accesscheck-choropleth
+choropleth-map
+

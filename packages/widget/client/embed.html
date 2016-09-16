@@ -1,7 +1,7 @@
 <template name="WidgetsEmbed">
   <div id="{{ componentId 'widget' }}" class="{{ widgetClasses }}"
-    data-mid="{{ _id }}"
-    style="width: {{ pixelDims.width }}px; height: {{ pixelDims.height }}px;">
+    data-mid="{{ _id }}" {{ gridAttrs }}
+    style="width: 100%; height: {{ pixelDims.height }}px; border:4px solid #eee; margin-bottom:.5em;">
     <div class="title-bar" style="height: {{ titleBar.height }}px;">
       {{# if package.metadata.org }}
       <p class="data-source">
@@ -22,14 +22,14 @@
       </div>
     </div>
 
-    <div class="widget-body" style="{{ resizeTransform }}">
+    <div class="widget-body" style="{{ resizeEmbed }}">
       {{> Template.dynamic template=widgetTemplate data=data }}
     </div>
   </div>
 
   <div class="imon-branding">
     <a href="{{ dashboardUrl }}" target="_blank">
-      <span class="logo-image"></span>
+      <img class="iframe-logo-img" src="/single_imon_logo_banner.png"/>
     </a>
   </div>
 </template>

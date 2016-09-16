@@ -26,6 +26,22 @@ CommonHelpers = {
       'transform: ' +
       'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
       'scaleY(' + newPixelDims.height / originalPixelDims.height + ');';
+  },
+  resizeEmbed: function(){
+    if (this.resize.mode !== 'scale') { return ''; }
+    var newPixelDims = this.pixelDims();
+    var originalGridDims = this.package.metadata().widget.dimensions;
+    var originalPixelDims = this.pixelDims(originalGridDims);
+
+    // We're just scaling the body, so don't count the title bar.
+    newPixelDims.height -= Widget.Settings.titleBar.height;
+    originalPixelDims.height -= Widget.Settings.titleBar.height;
+
+    return 'width: 100%; ' +
+      'height: 100%;' +
+      'transform: ' +
+      'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
+      'scaleY(' + newPixelDims.height / originalPixelDims.height + ');';
   }
 };
 
