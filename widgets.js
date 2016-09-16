@@ -34,7 +34,7 @@ ActiveWidgets = [
   'embed',
   'feed',
   'webindex',
-  'google-trends',
-  'google-trends-map'
+  //'google-trends',
+  //'google-trends-map'
   //'perma'
 ];
