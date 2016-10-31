@@ -49,7 +49,8 @@ IMonTimeline = {
     resize: { mode: 'cover' },
     indicators: 'all',
     country: 'both',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change countries/indicators'
   },
   org: {
     name: 'Internet Monitor',

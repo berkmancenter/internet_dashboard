@@ -34,7 +34,8 @@ MediaCloudStories = {
     typeIcon: 'list',
     constructor: MCStoryWidget,
     country: 'single',
-    countries: getCountryCodes(Settings.tagSet)
+    countries: getCountryCodes(Settings.tagSet),
+    settings: 'edit settings'
   },
   org: {
     name: 'Media Cloud',

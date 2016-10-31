@@ -34,7 +34,8 @@ GlobalVoices = {
     url: 'http://globalvoicesonline.org/feeds/',
     constructor: GlobalVoicesWidget,
     country: 'single',
-    countries: 'CountryInfo'
+    countries: 'CountryInfo',
+    settings: 'change country'
   },
   org: {
     name: 'Global Voices Online',

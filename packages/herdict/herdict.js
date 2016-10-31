@@ -56,7 +56,8 @@ Herdict = {
     typeIcon: 'list',
     category: 'control',
     country: 'single',
-    countries: 'CountryInfo'
+    countries: 'CountryInfo',
+    settings: 'edit settings'
   },
   org: {
     name: 'Herdict',
