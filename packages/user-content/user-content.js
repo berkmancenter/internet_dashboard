@@ -22,6 +22,7 @@ UserContent = {
     },
     url: 'http://thenetmonitor.org/',
     typeIcon: 'user',
-    constructor: UserContentWidget
+    constructor: UserContentWidget,
+    settings: 'edit settings'
   }
 };

@@ -53,6 +53,9 @@
               data-html="true" data-placement="auto right" data-viewport="#wrapper"
               data-container="body">
               <span class="glyphicon glyphicon-cog"></span>
+              {{# if package.metadata.widget.settings }}
+              <span class="widget-settings-helper">{{package.metadata.widget.settings}}</span>
+              {{/if}}
             </a>
 
             {{> WidgetSettings }}

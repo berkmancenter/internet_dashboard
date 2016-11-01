@@ -42,7 +42,8 @@ IMonSpeedometer = {
     constructor: IMonSpeedometerWidget,
     indicators: 'speed',
     country: 'single',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change country/indicator'
   },
   org: {
     name: 'Internet Monitor',

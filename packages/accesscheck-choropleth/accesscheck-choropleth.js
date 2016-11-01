@@ -33,7 +33,8 @@ AccessCheckChoropleth = {
     constructor: AccessCheckChoroplethWidget,
     displays: 'countryData',
     country: 'multi',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change URL'
   },
   org: {
     name: 'Internet Monitor',

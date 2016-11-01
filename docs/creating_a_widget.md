@@ -72,6 +72,7 @@ The object your package exports may have the following properties:
 * __widget.country__: *optional* - how many countries the widget displays or compares at once: `single`, or `multi`.
 * __widget.countries__: *optional* - which countries the widget can be set to display: `all` if it can display all countries available through `imon-data`, an array of alpha-2 or alpha-3 country codes, or 'CountryInfo' if it can display all countries in the `country-info` package.
 * __widget.indicators__: *optional* - which Internet Monitor indicators from `imon-data` the widget can be set to display: `all`, an array of indicator admin names, or a string with the `displayClass` used to filter indicators (for example, `speed` or `percent`).
+* __widget.settings__: *optional* - helper text to display in the widget's title bar next to the settings gear icon.
 * __org.name__: the official name of the organization contributing this widget
 * __org.shortName__: a short name to be used in space-constrained use cases
 * __org.url__: a URL to the organization
@@ -89,7 +90,8 @@ Example = {
     constructor: ExampleWidget,
     countries: ['afg', 'usa', 'mex'],
     country: 'single'
-    indicators: ['speedkbps']
+    indicators: ['speedkbps'],
+    settings: 'edit settings'
   },
   org: {
     name: 'Example Industries, LLC',

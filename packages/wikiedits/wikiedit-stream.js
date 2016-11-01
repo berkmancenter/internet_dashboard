@@ -39,7 +39,8 @@ WikiStream = {
     resize: { mode: 'reflow' },
     category: 'activity',
     typeIcon: 'list',
-    constructor: WikiWidget
+    constructor: WikiWidget,
+    settings: 'change wiki'
   },
   org: {
     name: 'The Wikimedia Foundation, Inc.',

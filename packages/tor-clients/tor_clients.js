@@ -43,7 +43,8 @@ TorClients = {
     category: 'access',
     typeIcon: 'line-chart',
     constructor: TorClientsWidget,
-    country: 'single'
+    country: 'single',
+    settings: 'edit settings'
   },
   org: {
     name: 'The Tor Project, Inc.',

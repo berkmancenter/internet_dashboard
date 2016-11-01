@@ -44,7 +44,8 @@ IMonScatter = {
     typeIcon: 'line-chart',
     indicators: 'all',
     country: 'multi',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change indicators'
   },
   org: {
     name: 'Internet Monitor',

@@ -25,3 +25,5 @@ Package.onUse(function(api) {
     ], 'client');
   api.export('GoogleTrendsMap');
 });
+
+Npm.depends({ 'request': '2.76.0' });

@@ -19,6 +19,7 @@ Feed = {
     dimensions: { width: 2, height: 3 },
     resize: { mode: 'reflow' },
     typeIcon: 'list',
-    constructor: FeedWidget
+    constructor: FeedWidget,
+    settings: 'change feed'
   }
 };

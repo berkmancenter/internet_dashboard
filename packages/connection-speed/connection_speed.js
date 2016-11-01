@@ -42,7 +42,8 @@ ConnectionSpeed = {
     constructor: ConnectionSpeedWidget,
     indicators: [ Settings.indicatorId ],
     country: 'single',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change country'
   },
   org: {
     name: 'Akamai Technologies, Inc.',

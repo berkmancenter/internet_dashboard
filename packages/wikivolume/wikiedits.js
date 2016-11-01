@@ -47,7 +47,8 @@ WikiEditCounts = {
     dimensions: { width: 2, height: 1 },
     category: 'activity',
     typeIcon: 'area-chart',
-    constructor: WikiWidget
+    constructor: WikiWidget,
+    settings: 'edit settings'
   },
   org: {
     name: 'The Wikimedia Foundation, Inc.',
