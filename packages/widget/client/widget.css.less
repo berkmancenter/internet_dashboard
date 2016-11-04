@@ -34,24 +34,16 @@
     z-index: 10;
     cursor: move;
     white-space: nowrap;
+    height:1.5em;
 
-    .widget-settings-helper{
-    display: inline-block;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.7em;
-    text-overflow: hidden;
-    vertical-align: text-top;
-    }
     .buttons {
-      padding-left: 4px;
-      padding-top: 1px;
+      margin-left: 4px;
+      margin-top: 1px;
       max-width: 60px;
       cursor: default;
 
       a {
-        margin-left: 1px;
-        color: #BABABA;
+        color: #BABABA;        
 
         &:hover, &:focus {
           text-decoration: none;
@@ -63,6 +55,12 @@
           &:hover {
             color: darkred;
           }
+        }
+        .widget-settings-helper{
+          vertical-align:10%;
+          font-weight: bold;
+          text-transform: uppercase;
+          font-size: 0.8em;
         }
       }
     }
