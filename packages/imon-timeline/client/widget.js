@@ -1,12 +1,15 @@
-Template.IMonTimelineWidget.onCreated(function() {
+Template.IMonTimelineWidget.onCreated(function(){
   var template = this;
-  template.autorun(function() {
+  template.autorun(function(){
     template.subscribe('imon_indicators'); // for provider data
     template.subscribe('imon_countries_v2');
     template.subscribe('imon_indicators_v2');
-    template.subscribe('imon_data_v2', Template.currentData().country, Template.currentData().indicatorName, false);
+    template.subscribe('imon_data_v2', Template.currentData().country,
+                       Template.currentData().indicatorName, false);
   });
 });
+
+
 Template.IMonTimelineWidget.helpers({
   title: function (){
   return Template.currentData().mode === 'singleIndicator' ? 
@@ -15,7 +18,8 @@ Template.IMonTimelineWidget.helpers({
 }
 });
 
-Template.IMonTimelineWidget.onRendered(function() {
+Template.IMonTimelineWidget.onRendered(function(){
+  // Variables
   var template = this;
   var chartSinglePlace = template.find('.chart-single');
   var chartMultiPlace = template.find('.chart-multi');
@@ -23,28 +27,42 @@ Template.IMonTimelineWidget.onRendered(function() {
   var $widgetBody = $(widgetNode).find('.widget-body');
   var error = template.find('.timeline-error');
 
+  // Functions
   var createChartNode = function(selector, code){
     if($(template.find('#chart-multi-' + code)).length===0){
-      $(selector).append('<div class="chart-multi col-xs-8" id="chart-multi-' + code +'"></div>'
-        + '<div class="label-multi col-xs-4" id="label-multi-' + code + '"></div>');
+      $(selector).append('<div class="chart-multi col-xs-8" id="chart-multi-' 
+                      + code 
+                      +'"></div>'
+                      + '<div class="label-multi col-xs-4" id="label-multi-' 
+                      + code 
+                      + '"></div>');
     }
     return { chart: '#chart-multi-' + code, label: '#label-multi-' + code };
   };
 
   var setDimensions = function(ch, numberOfCharts, sel, redraw){
-    var height = ($widgetBody.innerHeight() - 50 - $(chartSinglePlace.parentNode).position().top)/numberOfCharts;
+    var height = ($widgetBody.innerHeight()
+                  - 50 
+                  - $(chartSinglePlace.parentNode).position().top
+                  )
+                  / numberOfCharts;
     var width = parseInt($(sel).css('width').replace('px', ''));
     ch.height(height);
     ch.width(width);
     if(redraw) ch.redraw();
   };
 
-  var setMultiDimensions = function(multiCharts){ // set dimensions for multiCharts array + redraw
+  var setMultiDimensions = function(multiCharts){ 
+  // set dimensions for multiCharts array + redraw
     for(var i=0; i<multiCharts.length; i++){
-      setDimensions(multiCharts[i].chart, multiCharts.length, multiCharts[i].chartNode, true);
+      setDimensions(multiCharts[i].chart, 
+                    multiCharts.length, 
+                    multiCharts[i].chartNode,
+                    true);
     }
   };
 
+  // Chart
   var chartSingle = d3.select(chartSinglePlace).chart('Compose', handleChart);
 
   template.autorun(function(){
@@ -60,21 +78,31 @@ Template.IMonTimelineWidget.onRendered(function() {
     var years = [];
     var d = [];
     var multiCharts = [];
-    var nodes = currentMode === 'singleIndicator' ? { show: chartSinglePlace, hide: chartMultiPlace } : { show: chartMultiPlace, hide: chartSinglePlace };
+    var nodes = currentMode === 'singleIndicator' ? 
+                { show: chartSinglePlace, hide: chartMultiPlace } :
+                { show: chartMultiPlace, hide: chartSinglePlace };
     $(nodes.show).show();
     $(nodes.hide).hide();
     $(chartMultiPlace).empty();
 
     var getData = function(){ // returns nothing
       var object = currentMode === 'singleIndicator' ?
-       { single: Template.currentData().indicatorName, array: Template.currentData().country, arrKey: 'countryCode', singleKey: 'indAdminName' } :
-       { single: Template.currentData().country, array: Template.currentData().indicatorName, arrKey: 'indAdminName', singleKey: 'countryCode' };
+       { single: Template.currentData().indicatorName,
+         array: Template.currentData().country,
+         arrKey: 'countryCode', 
+         singleKey: 'indAdminName' } :
+       { single: Template.currentData().country,
+         array: Template.currentData().indicatorName, 
+         arrKey: 'indAdminName',
+         singleKey: 'countryCode' };
       if(currentMode==='singleIndicator'){
         minValue = IMonIndicators.findOne({ adminName: object.single }).max;
         maxValue = IMonIndicators.findOne({ adminName: object.single }).min;
       }
       for(var i=0; i<object.array.length; i++){
-        var name = currentMode === 'singleIndicator' ? IMonCountries.findOne({ code: object.array[i] }).name : IMonIndicators.findOne({ adminName: object.array[i] }).shortName;
+        var name = currentMode === 'singleIndicator' ? 
+                  IMonCountries.findOne({ code: object.array[i] }).name :
+                  IMonIndicators.findOne({ adminName: object.array[i] }).shortName;
         if(currentMode!=='singleIndicator'){
           minValue = IMonIndicators.findOne({ adminName: object.array[i] }).max;
           maxValue = IMonIndicators.findOne({ adminName: object.array[i] }).min;
@@ -108,12 +136,17 @@ Template.IMonTimelineWidget.onRendered(function() {
             var chartNode = template.find(tempNode.chart);
             var labelNode = template.find(tempNode.label); 
             var tempChart = d3.select(chartNode).chart('Compose', handleChart);
-            multiCharts.push({ chart: tempChart, chartNode: chartNode, labelNode: labelNode, label: name, options: {
-              data: [obj],
-              xAxis: false, 
-              multi: true,
-              minValue: minValue,
-              maxValue: maxValue
+            multiCharts.push({ 
+              chart: tempChart,
+              chartNode: chartNode,
+              labelNode: labelNode,
+              label: name, 
+              options: {
+                data: [obj],
+                xAxis: false, 
+                multi: true,
+                minValue: minValue,
+                maxValue: maxValue
             }});
           }
         }
@@ -140,7 +173,6 @@ Template.IMonTimelineWidget.onRendered(function() {
         var newId = IMonIndicators.findOne({ adminName: currId }).id;
         Template.currentData().set({ indicator: IMonIndicatorsD.findOne({ id: newId })});
       }     
-
       setDimensions(chartSingle,1,chartSinglePlace,false);
       chartSingle.responsive(false);
       chartSingle.margins(Settings.margins);
@@ -153,7 +185,17 @@ Template.IMonTimelineWidget.onRendered(function() {
         $(error).empty();
       }
       if(d.length===0) { return; } // no data at all
-      chartSingle.draw({ data: d, xAxis: true, multi: false, minDate: minDate, maxDate: maxDate, minValue: minValue, maxValue: maxValue, years: years.length });
+      chartSingle.draw({
+        data: d, 
+        xAxis: true,
+        yAxis: true, 
+        multi: false, 
+        minDate: minDate, 
+        maxDate: maxDate, 
+        minValue: minValue, 
+        maxValue: maxValue, 
+        years: years.length 
+      });
     }
     else{
       if(Template.currentData().indicator){ Template.currentData().set({ indicator: undefined }); }
@@ -178,17 +220,22 @@ Template.IMonTimelineWidget.onRendered(function() {
         $(error).empty();
       }
       
-      $(template.findAll('.chart-index-0, circle')).css('fill', Template.currentData().color);
-      $(template.findAll('.chart-index-0, circle')).css('stroke', Template.currentData().color);
+      $(template.findAll('.chart-index-0, circle'))
+        .css('fill', Template.currentData().color);
+      $(template.findAll('.chart-index-0, circle'))
+        .css('stroke', Template.currentData().color);
     }
 
     /**
       APPEND TITLES (labels) TO CIRCLES
-      (built-in d3.compose labels with a lot of data points + constant resizing/redrawing causes memory/CPU usage problems on the client)
+      (built-in d3.compose labels with a lot of data points 
+      + constant resizing/redrawing causes memory/CPU usage problems on the client)
     **/
     var circles = d3.selectAll(template.findAll('circle'));
     circles.append('svg:title').text(function(d){ 
-      return d.y >= 1000000 ? (Math.round(d.y/1000000*100)/100).toLocaleString() + 'M' : (Math.round(d.y * 100) / 100).toLocaleString();
+      return d.y >= 1000000 ? 
+      (Math.round(d.y/1000000*100)/100).toLocaleString() + 'M' :
+      (Math.round(d.y * 100) / 100).toLocaleString();
     });
 
   });
@@ -211,7 +258,8 @@ function createError(array, errorPlace, setDims){
   var missingString = array.join(', ');
   $(errorPlace).html('<div class="alert alert-warning" id="timeline-error-message">'
           +'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-          + '<i class="fa fa-exclamation-triangle"></i> No trend data found for ' + missingString
+          + '<i class="fa fa-exclamation-triangle"></i> No trend data found for ' 
+          + missingString
           +'</div>');
   setDims();
   $('#timeline-error-message', errorPlace).on('closed.bs.alert', setDims);
@@ -253,13 +301,14 @@ function handleChart(options){
       rValue: 3
     }
   ];
-  var xAxis;
+  var xAxis, yAxis;
   if(options.xAxis) xAxis = d3c.axis('xAxis', {scale: scales.x, ticks: ticks});
+  if(options.yAxis) yAxis = d3c.axis('yAxis', {scale: scales.y, ticks: ticks});
   var legend;
   if(!options.multi) legend = d3c.legend({charts: ['results']});
 
     return [
-      [d3c.layered(charts), legend],
+      [yAxis, d3c.layered(charts), legend],
       xAxis
     ];
   }
