@@ -2,12 +2,18 @@
   "dependencies": {
     "country-data": {
       "version": "0.0.22",
+      "resolved": "https://registry.npmjs.org/country-data/-/country-data-0.0.22.tgz",
+      "from": "https://registry.npmjs.org/country-data/-/country-data-0.0.22.tgz",
       "dependencies": {
-        "underscore": {
-          "version": "1.8.3"
-        },
         "currency-symbol-map": {
-          "version": "2.0.2"
+          "version": "2.0.2",
+          "resolved": "https://registry.npmjs.org/currency-symbol-map/-/currency-symbol-map-2.0.2.tgz",
+          "from": "https://registry.npmjs.org/currency-symbol-map/-/currency-symbol-map-2.0.2.tgz"
+        },
+        "underscore": {
+          "version": "1.8.3",
+          "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.8.3.tgz",
+          "from": "https://registry.npmjs.org/underscore/-/underscore-1.8.3.tgz"
         }
       }
     }

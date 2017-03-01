@@ -1,0 +1,21 @@
+{
+  "name": "im_dashboard",
+  "version": "1.0.0",
+  "description": "Internet Monitor Dashboard ==========================",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.23.0",
+    "bcrypt": "^1.0.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berkmancenter/internet_dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/berkmancenter/internet_dashboard/issues"
+  },
+  "homepage": "https://github.com/berkmancenter/internet_dashboard#readme"
+}
