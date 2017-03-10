@@ -41,7 +41,7 @@ If you want to use either of these widgets, you'll have to do a few things:
 Create a Widget
 ---------------
 
-1. Make sure no one else is creating a similar widget but searching through the [issue tracker](https://github.com/berkmancenter/net_dashboard/issues).
+1. Make sure no one else is creating a similar widget by searching through the [issue tracker](https://github.com/berkmancenter/net_dashboard/issues).
 2. State your intentions in the issue tracker so no one starts working on the same widget.
 3. Fork into your own repo.
 4. Read `docs/creating_a_widget.md` to get started creating a widget.
