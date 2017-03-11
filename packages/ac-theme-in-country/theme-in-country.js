@@ -1,0 +1,39 @@
+import { Widget } from 'meteor/widget';
+import { CountryInfo } from 'meteor/country-info';
+
+ThemeInCountryWidget = function(doc) {
+  Widget.call(this, doc);
+
+  _.defaults(this.data, {
+    country: { code: 'SA', name: 'Saudi Arabia' }
+  });
+};
+
+ThemeInCountryWidget.prototype = Object.create(Widget.prototype);
+ThemeInCountryWidget.prototype.constructor = ThemeInCountryWidget;
+
+ThemeInCountryWidget.prototype.setCountry = function(countryCode) {
+  var widget = this;
+  CountryInfo.byCode(countryCode, function(country) {
+    widget.data.set({ country: { code: country.code, name: country.name } });
+  });
+};
+
+ThemeInCountry = {
+  widget: {
+    name: 'Theme in Country Blocked Status',
+    description: 'Shows the censorship status of various content themes in a given country.',
+    url: 'http://example.com/data',
+    dimensions: { width: 3, height: 1 },
+    resize: { mode: 'reflow' },
+    category: 'access',
+    constructor: ThemeInCountryWidget,
+    countries: ['US', 'CN', 'SA', 'MX'],
+    country: 'single'
+  },
+  org: {
+    name: 'Example Industries, LLC',
+    shortName: 'Example',
+    url: 'http://example.com'
+  }
+};

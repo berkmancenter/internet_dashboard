@@ -10,7 +10,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
   api.use(['http'], 'server');
-  //api.use(['underscore', 'mongo', 'aldeed:collection2']);
+  api.use(['aldeed:collection2-core', 'ecmascript']);
 
   api.addFiles(['accesscheck-data.js']);
   api.addFiles(['server/methods.js'], 'server');

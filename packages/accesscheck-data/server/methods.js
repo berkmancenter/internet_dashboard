@@ -11,6 +11,19 @@ Meteor.methods({
 			obj.isOK = false;
 		}
 		return obj;
+	},
+	getCountryProfile: function(countryCode) {
+		this.unblock();
+		var obj = {};
+		try{
+			var result = HTTP.call('GET', Settings.baseURL + '/country_profiles/' + countryCode);
+			obj.isOK = true;
+			obj.data = result.data;
+		}
+		catch(e){
+			obj.isOK = false;
+		}
+		return obj;
 	}
 });
 

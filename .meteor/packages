@@ -94,3 +94,5 @@ accesscheck-choropleth
 choropleth-map
 
 shell-server
+tmeasday:check-npm-versions
+ac-theme-in-country

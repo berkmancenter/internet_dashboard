@@ -1,3 +1,3 @@
 Settings = {
-  baseURL: 'https://imcore.dev.berkmancenter.org'
-}
+  baseURL: 'https://core.thenetmonitor.org'
+};
