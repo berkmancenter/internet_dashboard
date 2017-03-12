@@ -28,12 +28,13 @@ ThemeInCountry = {
     resize: { mode: 'reflow' },
     category: 'access',
     constructor: ThemeInCountryWidget,
-    countries: ['US', 'CN', 'SA', 'MX'],
-    country: 'single'
+    countries: 'all',
+    country: 'single',
+    settings: 'change country'
   },
   org: {
-    name: 'Example Industries, LLC',
-    shortName: 'Example',
-    url: 'http://example.com'
+    name: 'Internet Monitor',
+    shortName: 'IM',
+    url: 'http://thenetmonitor.org'
   }
 };

@@ -2,71 +2,49 @@ import { checkNpmVersions } from 'meteor/tmeasday:check-npm-versions';
 import { Template } from 'meteor/templating';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
-import { Mongo } from 'meteor/mongo';
+import { ACCountryProfiles } from 'meteor/accesscheck-data';
 
 checkNpmVersions({
   'react': '15.x',
-  'simpl-schema': '0.2.x'
 }, 'theme-in-country');
 
 const React = require('react');
-const SimpleSchema = require('simpl-schema').default;
 
 Template.ThemeInCountryWidget.helpers({
-  BarCollection() { return BarCollection; },
-  props() {
-    const profileHandle = Meteor.subscribe('themeInCountry.countryProfile',
-        this.country.code);
-    const loading = !profileHandle.ready();
-    const profile = CountryProfile.findOne(this.country.code);
-    const profileExists = !loading && !!profile;
-    const xs = ['None', 'Suspected', 'Selective', 'Substantial', 'Pervasive'];
-    const ys = profileExists ? profile.themes : [];
-    const selected = profileExists ? _.object(profile.theme_statuses.map((st) => [st.theme, st.status])) : {};
-    const marker = '◉';
-    const props = { loading, profileExists, xs, ys, selected, marker,
-    component: BarCollection };
-    return props;
-  }
-});
-
-const CountryProfile = new Mongo.Collection('profiles');
-CountryProfile.attachSchema = new SimpleSchema({
-  "country_code": String,
-  "name": String,
-  /*
-  "status_code_counts": { type: Object, blackbox: true },
-  "mean_timings": { type: Object, blackbox: true },
-  "confidence_histograms": { type: Object, blackbox: true },
-  "category_confidence_histograms": { type: Object, blackbox: true },
-  "down_classifier_counts": { type: Object, blackbox: true },
-  */
-  "themes": [String],
-  "theme_statuses": { type: Array },
-  "theme_statuses.$": { type: Object, blackbox: true }
+  BarCollectionContainer() { return BarCollectionContainer; }
 });
 
 class Bar extends React.Component {
   constructor(props) {
     super(props);
-    this.ticks = this.ticks.bind(this);
-    this.tickWidth = this.tickWidth.bind(this);
-  }
-  tickWidth(i, len) {
-    if (i == len - 1) { return 0; }
-    return 100 / len;
   }
 
   ticks() {
-    return this.props.ticks.map((name, i, a) =>
-      <td className={"bar-container " + (this.props.selected == name ? 'selected' : '')}
-        style={{width: this.tickWidth(i, a.length) + '%'}} key={name}>
+    let cells = [];
+    const numTicks = this.props.ticks.length,
+          numCells = numTicks - 1;
+    const lastSelected = this.props.ticks[numTicks - 1] === this.props.selected;
+
+    for (let i = 0; i < numCells; i++) {
+      const isLastCell = i === numCells - 1,
+            name = this.props.ticks[i],
+            isSelected = (name === this.props.selected) ||
+              (isLastCell && lastSelected);
+      cells.push(
+        <td className={"bar-container" + (isSelected ? ' selected' : '') +
+          (isLastCell && lastSelected ? ' last-selected' : '')}
+          style={{width: (95 / numTicks) + '%'}} key={name}>
           <div className="bar">
-            {this.props.selected == name &&
-              <span className="marker">{this.props.marker}</span>}&nbsp;
+            { isSelected &&
+            <span className={"marker" + (lastSelected ? ' marker-right' : '')}>
+              {this.props.marker}
+            </span>
+            }
           </div>
-      </td>
-    )
+        </td>
+      );
+    };
+    return cells;
   }
 
   render() {
@@ -82,8 +60,6 @@ class Bar extends React.Component {
 class BarCollection extends React.Component {
   constructor(props) {
     super(props);
-    this.bars = this.bars.bind(this);
-    this.xlabels = this.xlabels.bind(this);
   }
 
   bars() {
@@ -97,15 +73,22 @@ class BarCollection extends React.Component {
       <th className="x-label" key={label}>{label}</th>
     )
   }
-  render() { return (
-    <table className="bar-collection">
-      <thead>
-        <tr><th></th>{this.xlabels()}</tr>
-      </thead>
-      <tbody>
-        {this.bars()}
-      </tbody>
-    </table>
+  render() {
+    if (this.props.loading) {
+      return <p>Loading...</p>;
+    }
+    return (
+    <div>
+      <h1>Internet Filtering <small>{this.props.country}</small></h1>
+      <table className="bar-collection">
+        <thead>
+          <tr>{this.xlabels()}</tr>
+        </thead>
+        <tbody>
+          {this.bars()}
+        </tbody>
+      </table>
+    </div>
   );}
 }
 
@@ -116,4 +99,21 @@ BarCollection.propTypes = {
   ys: React.PropTypes.array,
   selected: React.PropTypes.object,
   marker: React.PropTypes.node,
+  country: React.PropTypes.string,
 };
+
+const BarCollectionContainer = createContainer((args) => {
+  const profileHandle = Meteor.subscribe('ac.countryProfile', args),
+        loading = !profileHandle.ready(),
+        profile = ACCountryProfiles.findOne({ country_code: args.countryCode }),
+        profileExists = !loading && !!profile,
+        xs = ['None', 'Suspected', 'Selective', 'Substantial', 'Pervasive'],
+        ys = profileExists ? profile.themes : [],
+        selected = (profileExists ?
+            _.object(profile.theme_statuses.map((st) => [st.theme, st.status])) :
+            {}),
+        marker = <span className="glyphicon glyphicon-full-dot" aria-hidden="true"></span>,
+        country = profileExists ? profile.name : '',
+        props = { loading, profileExists, xs, ys, selected, marker, country };
+  return props;
+}, BarCollection);

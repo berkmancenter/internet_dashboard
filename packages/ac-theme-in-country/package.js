@@ -8,7 +8,8 @@ Package.onUse(function(api) {
   api.versionsFrom('1.4.3.1');
 
   api.use(['widget', 'mongo', 'underscore', 'tmeasday:check-npm-versions',
-      'react-meteor-data', 'ecmascript', 'fourseven:scss', 'react-template-helper']);
+      'country-info', 'react-meteor-data', 'ecmascript', 'fourseven:scss',
+      'react-template-helper']);
 
   api.use(['accesscheck-data'], 'server');
   api.use(['templating'], 'client');
@@ -19,6 +20,8 @@ Package.onUse(function(api) {
       'client/widget.html',
       'client/widget.jsx',
       'client/widget.scss',
+      'client/settings.html',
+      'client/settings.js',
   ], 'client');
 
   api.export('ThemeInCountry');
