@@ -1,3 +1,17 @@
+.iframebody {
+  .ac-theme-in-country {
+    h1, .title-bar { display: none; }
+    border: 0 !important;
+    border-radius: 0;
+    box-shadow: none !important;
+    background-color: transparent;
+    height: 100% !important;
+  }
+  .ac-theme-in-country ~ .imon-branding {
+    display: none;
+  }
+}
+
 .ac-theme-in-country {
   h1 {
     font-size: 1.5em;
@@ -79,3 +93,4 @@
     }
   }
 }
+
