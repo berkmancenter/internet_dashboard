@@ -49,7 +49,10 @@ Template.LumenWidget.onRendered(function() {
     var xAxis = d3.svg.axis()
         .scale(x)
         .tickValues(tickValues(binStarts, 3))
-        .tickFormat(function(d) { return moment(d).fromNow(); })
+        .tickFormat(function(d) { 
+          var format = moment().year() === moment(d).year() ? 'MMM Do' : 'MMM Do YY';
+          return moment(d).format(format); 
+        })
         .orient("bottom");
 
     var yAxis = d3.svg.axis()
