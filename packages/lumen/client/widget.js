@@ -50,7 +50,7 @@ Template.LumenWidget.onRendered(function() {
         .scale(x)
         .tickValues(tickValues(binStarts, 3))
         .tickFormat(function(d) { 
-          var format = moment().year() === moment(d).year() ? 'MMM Do' : 'MMM Do YY';
+          var format = moment().year() === moment(d).year() ? 'MMM Do' : 'MMM Do YYYY';
           return moment(d).format(format); 
         })
         .orient("bottom");
