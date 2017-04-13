@@ -5,3 +5,4 @@ node_modules/
 apiKey.txt
 public/tmp/*
 settings.json
+packages/*/.npm/**
