@@ -10,9 +10,13 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
   api.use(['http'], 'server');
-  //api.use(['underscore', 'mongo', 'aldeed:collection2']);
+  api.use(['aldeed:collection2-core', 'country-info', 'ecmascript',
+      'tmeasday:check-npm-versions']);
 
-  api.addFiles(['accesscheck-data.js']);
-  api.addFiles(['server/methods.js'], 'server');
+  api.addFiles([
+      'server/methods.js',
+      'server/publications.js'
+  ], 'server');
+  api.mainModule('main.js');
 });
 

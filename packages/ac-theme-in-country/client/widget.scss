@@ -1,0 +1,96 @@
+.iframebody {
+  .ac-theme-in-country {
+    h1, .title-bar { display: none; }
+    border: 0 !important;
+    border-radius: 0;
+    box-shadow: none !important;
+    background-color: transparent;
+    height: 100% !important;
+  }
+  .ac-theme-in-country ~ .imon-branding {
+    display: none;
+  }
+}
+
+.ac-theme-in-country {
+  h1 {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-size: 1.3em;
+  }
+}
+.glyphicon-full-dot:before {
+    content:"\25cf";
+    font-size: 2em;
+}
+
+.bar-collection {
+  margin-top: 1em;
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: right;
+    transform: rotate(10deg);
+    transform-origin: bottom right;
+    font-weight: normal;
+    font-size: 0.9em;
+  }
+
+  .bar-container {
+    position: relative;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    &:nth-of-type(2) .bar {
+      border-radius: 6px 0 0 6px;
+      border-left: 0;
+    }
+    &:last-of-type .bar {
+      border-radius: 0 6px 6px 0;
+    }
+    &.selected .bar {
+      border-left: 0;
+    }
+    &.last-selected {
+      text-align: right;
+      .bar {
+        border-left: 1px solid #bbb;
+      }
+    }
+
+    &:nth-child(2) .marker {
+      color: #2ca02c;
+    }
+    &:nth-child(3) .marker {
+      color: #428bca;
+    }
+    &:nth-child(4) .marker {
+      color: #ff7f0e;
+    }
+    &:nth-child(5) .marker {
+      color: #d62728;
+    }
+  }
+
+  .bar {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    margin-top: 5px;
+    background-color: #f1f1f1;
+    border-left: 1px solid #bbb;
+  }
+
+  .marker {
+    position: relative;
+    left: -8px;
+    top: -1.1em;
+
+    &.marker-right {
+      left: 7px;
+    }
+  }
+}
+

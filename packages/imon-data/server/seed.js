@@ -30,7 +30,7 @@ function fetchCountries(){
     console.log('IMonData: [Countries] Inserting...');
     _.each(store.findAll('countries'), insertCountryData);
     console.log('IMonData: [Countries] Inserted.');
-  }
+  };
 
   Future.task(insert);
 
@@ -54,7 +54,7 @@ function fetchIndicators(){ // in separate function temporarily.
     console.log('IMonData: [Indicators] Inserting..');
     _.each(store.findAll('indicators'), insertIndData);
     console.log('IMonData: [Indicators] Inserted.');
-  }
+  };
 
   Future.task(insert);
 }
@@ -77,7 +77,7 @@ function insertCountryData(country){
       try{
         IMonData.upsert({ countryCode: code, imId: d.imId }, { $set: d });
         var indMax = d.value;
-        var indMin = d.value; 
+        var indMin = d.value;
         var thisInd = IMonIndicators.findOne({ adminName: d.indAdminName });
         if(!_.isUndefined(thisInd)){
           indMax = _.isUndefined(thisInd.max) || thisInd.max < d.value ? d.value : thisInd.max;
@@ -93,7 +93,7 @@ function insertCountryData(country){
       dataSources.push(d.indAdminName);
     });
   };
-  
+
   Future.wait(Future.task(insertDp));
 
   var c = {
@@ -123,7 +123,7 @@ function insertIndData(ind){
     displayClass: ind.display_class,
     precision: ind.precision,
     inverted: ind.inverted
-  }
+  };
   try{
     IMonIndicators.upsert({ adminName: i.adminName }, { $set: i });
     console.log('IMonData: [Indicators] Upserted: ' + i.adminName);
@@ -142,7 +142,7 @@ function fetchData() {
   var store = new Store();
 
   var baseUrl = 'https://thenetmonitor.org/v1/';
-  
+
   var futures = [];
 
   ['datum_sources', 'countries', 'regions'].forEach(function(type) {
@@ -159,7 +159,7 @@ function fetchData() {
   _.each(store.findAll('regions'), insertRegion);
   _.each(store.findAll('countries'), insertCountry);
   _.each(store.findAll('datum_sources'), insertIndicator);
-  
+
   console.log('IMonData: [Old API] Inserted.');
 
 }
@@ -209,7 +209,7 @@ function insertArea(a, isRegion) {
     console.error(e);
     throw e;
   }
-  
+
   _.each(a.indicators, function(i) {
     // it's confusing that the individual data points are called indicators
     var datum = {
@@ -235,7 +235,7 @@ function insertArea(a, isRegion) {
 }
 
 function isUrl(url){
-  return new SimpleSchema({ url: {type: String, regEx: SimpleSchema.RegEx.Url}}).validate({url: url})
+  return new SimpleSchema({ url: {type: String, regEx: SimpleSchema.RegEx.Url}}).validate({url: url});
 }
 
 
@@ -243,8 +243,8 @@ function insertIndicator(i){
   var dontShowTheseIndicatorIds = [32,33]; // temporary.
   var sourceUrl = 'https://thenetmonitor.org/sources/platform-data';
   // toss anything after a period. Hack for embedded ITU notification.
-  var sourceName = i.source_name.split(".")[0]; 
-  
+  var sourceName = i.source_name.split(".")[0];
+
   // source links sometimes have other crap in front of the url.
   //if (i.source_link) {
   //  var link = i.source_link.replace(/^.*http/,"http");
@@ -272,7 +272,7 @@ function insertIndicator(i){
     console.log('IMonData: [Old API] Filtering out indicator: ' + indicator.name);
     return;
   }
-  
+
   try {
     console.log('IMonData: [Old API] Upserting indicator:',indicator.name);
     IMonIndicatorsD.upsert({ id: indicator.id }, { $set: indicator });
@@ -318,7 +318,7 @@ if (Meteor.settings.doJobs) {
 }
 
 function minMaxDataAvailable(){
-  // Force check if min/max data for indicators are available. 
+  // Force check if min/max data for indicators are available.
   // To make build after v2 and before this change that some widgets depend on smoother.
   var flag = false;
   IMonIndicators.find().forEach(function(ind){

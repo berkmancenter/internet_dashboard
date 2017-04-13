@@ -35,6 +35,7 @@ ActiveWidgets = [
   'embed',
   'feed',
   'webindex',
+  'ac-theme-in-country',
   //'google-trends',
   //'google-trends-map'
   //'perma'
