@@ -105,7 +105,7 @@ if (Meteor.settings.doJobs) {
   // interval...
 
   if (LumenCounts.find().count() < Settings.numBins ||
-      LumenCounts.findOne({}, { sort: { start: -1 } }).start +
+      LumenCounts.findOne({}, { sort: { start: -1 } }).start.valueOf() +
       Settings.updateEvery.asMilliseconds() < Date.now()) {
     Future.task(updateLumenCounts);
   } else {
