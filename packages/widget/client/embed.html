@@ -1,7 +1,7 @@
 <template name="WidgetsEmbed">
   <div id="{{ componentId 'widget' }}" class="{{ widgetClasses }}"
     data-mid="{{ _id }}" {{ gridAttrs }}
-    style="width: 100%; height: {{ pixelDims.height }}px; border:4px solid #eee; margin-bottom:.5em;">
+    style="height: {{ pixelDims.height }}px;">
     <div class="title-bar" style="height: {{ titleBar.height }}px;">
       {{# if package.metadata.org }}
       <p class="data-source">

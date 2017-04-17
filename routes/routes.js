@@ -7,6 +7,16 @@ RouteController.prototype.redirect = function (routeOrPath, params, options) {
     return this.router.go(routeOrPath, params, options);
 };
 
+Router.onBeforeAction(function () {
+  let bodyClass = 'loaded',
+      routeName = this.route.getName();
+  if (routeName) {
+    bodyClass += ' ' + routeName;
+  }
+  $('body').addClass(bodyClass);
+  this.next();
+});
+
 Router.configure({
   layoutTemplate: 'ApplicationLayout',
   title: 'Internet Monitor Dashboard'

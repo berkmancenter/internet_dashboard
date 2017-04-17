@@ -37,9 +37,8 @@ CommonHelpers = {
     newPixelDims.height -= Widget.Settings.titleBar.height;
     originalPixelDims.height -= Widget.Settings.titleBar.height;
 
-    return 'width: 100%; ' +
-      'height: 100%;' +
-      'transform: ' +
+    return 'width: ' + originalPixelDims.width + 'px;' +
+      'height: ' + originalPixelDims.height + 'px;' +
       'scaleX(' + newPixelDims.width / originalPixelDims.width + ') ' +
       'scaleY(' + newPixelDims.height / originalPixelDims.height + ');';
   }

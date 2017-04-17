@@ -1,10 +1,15 @@
 Router.route('/widgets/:_id/embed', {
   name: 'widgets-embed',
   layoutTemplate: false,
-  loadingTemplate: 'Loading',
+  loadingTemplate: 'EmbedLoading',
   onBeforeAction: function() {
-      $('body').addClass('iframebody');
-      this.next();
+    if (_.has(this.params.query, 'seamless')) {
+      $('body').addClass('seamless');
+    }
+    if (_.has(this.params.query, 'unbranded')) {
+      $('body').addClass('unbranded');
+    }
+    this.next();
   },
   waitOn: function() {
     return [
