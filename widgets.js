@@ -36,6 +36,7 @@ ActiveWidgets = [
   'feed',
   'webindex',
   'ac-theme-in-country',
+  'imon-country-profile',
   //'google-trends',
   //'google-trends-map'
   //'perma'
