@@ -49,8 +49,11 @@ CommonOnRendered = function() {
   var template = this;
   var $widgetNode = $(template.firstNode);
 
+  // Hide the widget.
   $widgetNode.addClass('hidden');
 
+  // Associate popover links with the detached settings or info content
+  // (detachment happens when the info content is rendered).
   $widgetNode.popover({
     selector: '[data-toggle="popover"]',
     content: function() {
@@ -60,6 +63,7 @@ CommonOnRendered = function() {
     }
   });
 
+  // Show the widget.
   $widgetNode.removeClass('hidden');
 
   $widgetNode.trigger('widget:rendered', [template]);

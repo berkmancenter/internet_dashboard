@@ -36,15 +36,18 @@ Package.onUse(function(api) {
     'client/settings.html',
     'client/info.html',
     'client/embed.html',
+    'client/embed_info.html',
     'client/jobs.html',
 
     'client/widget.js',
     'client/settings.js',
     'client/info.js',
     'client/embed.js',
+    'client/embed_info.js',
     'client/jobs.js',
     'client/widget.css.less',
     'client/embed.css.less',
+    'client/embed_info.css.less',
   ], 'client');
 
   //api.addFiles('client/widget.css.less', 'client', { isImport: true });

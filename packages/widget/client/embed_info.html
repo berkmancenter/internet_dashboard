@@ -1,0 +1,13 @@
+<template name="WidgetEmbedInfo">
+  <div class="widget-embed-info hidden for-{{ componentId 'info' }} {{ package.packageName }}-info">
+    <button type="button" class="close close-info pull-right" aria-label="Close">
+      <span aria-hidden="true" class="text-danger">&times;</span>
+    </button>
+    {{# if providesInfo }}
+      {{> Template.dynamic template=infoTemplate data=data }}
+    {{else}}
+      {{> DefaultWidgetInfo data }}
+    {{/if}}
+
+  </div>
+</template>
