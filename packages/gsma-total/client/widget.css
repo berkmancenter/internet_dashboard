@@ -43,3 +43,7 @@
 .gsma-total .epoch.mobile-connections .line {
   stroke-width: 1.5px;
 }
+
+.gsma-total.country-hidden .current-data {
+  margin-top: 1.5rem;
+}

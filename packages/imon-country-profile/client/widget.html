@@ -1,7 +1,7 @@
 <template name="ImonCountryProfileWidget">
 {{# if Template.subscriptionsReady }}
   <h1>Country Profile</h1>
-  <h2>{{ country.name }}</h2>
+  {{#if widget.showCountry }}<h2>{{ country.name }}</h2>{{/if}}
   <div class="row">
     <div class="col-xs-5">
       <img class="country-thumb img-thumbnail" src="{{ imageUrl country.code }}" />

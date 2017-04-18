@@ -9,7 +9,8 @@ CommonHelpers = {
     return this.componentId(component);
   },
   widgetClasses: function() {
-    return 'widget ' + this.packageName + ' resize-' + this.resize.mode;
+    return 'widget ' + this.packageName + ' resize-' + this.resize.mode +
+      (this.showCountry() ? '' : ' country-hidden');
   },
   resizeTransform: function() {
     if (this.resize.mode !== 'scale') { return ''; }

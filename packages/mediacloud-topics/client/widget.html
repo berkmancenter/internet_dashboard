@@ -1,7 +1,7 @@
 <template name="MediaCloudTopicsWidget">
 <h1>News Topics</h1>
 {{# if Template.subscriptionsReady }}
-<h2>{{ country.name }}</h2>
+  {{#if widget.showCountry}}<h2>{{ country.name }}</h2>{{/if}}
 {{ else }}
   {{ widgetLoading }}
 {{/if}}

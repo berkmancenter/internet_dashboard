@@ -79,7 +79,7 @@ class BarCollection extends React.Component {
     }
     return (
     <div>
-      <h1>Internet Filtering <small>{this.props.country}</small></h1>
+      <h1>Internet Filtering {this.props.showCountry && <small>{this.props.country}</small>}</h1>
       <table className="bar-collection">
         <thead>
           <tr>{this.xlabels()}</tr>
@@ -100,10 +100,11 @@ BarCollection.propTypes = {
   selected: React.PropTypes.object,
   marker: React.PropTypes.node,
   country: React.PropTypes.string,
+  showCountry: React.PropTypes.bool,
 };
 
 const BarCollectionContainer = createContainer((args) => {
-  const profileHandle = Meteor.subscribe('ac.countryProfile', args),
+  const profileHandle = Meteor.subscribe('ac.countryProfile', _.pick(args, 'countryCode')),
         loading = !profileHandle.ready(),
         profile = ACCountryProfiles.findOne({ country_code: args.countryCode }),
         profileExists = !loading && !!profile,
@@ -114,6 +115,7 @@ const BarCollectionContainer = createContainer((args) => {
             {}),
         marker = <span className="glyphicon glyphicon-full-dot" aria-hidden="true"></span>,
         country = profileExists ? profile.name : '',
-        props = { loading, profileExists, xs, ys, selected, marker, country };
+        showCountry = args.showCountry,
+        props = { loading, profileExists, xs, ys, selected, marker, country, showCountry };
   return props;
 }, BarCollection);

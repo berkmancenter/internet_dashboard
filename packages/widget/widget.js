@@ -40,6 +40,9 @@ _.extend(Widget.prototype, {
     return Widget.construct(_.omit(this.toJSON(), ['_id']));
   },
   setCountry: function() {},
+  showCountry: function() {
+    return !_.has(Router.current().getParams().query, 'noCountry');
+  },
   category: function() {
     return this.package.category();
   }

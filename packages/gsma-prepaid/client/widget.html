@@ -1,6 +1,6 @@
 <template name="GSMAPrepaidWidget">
   <h1>Prepaid Connections</h1>
-<h2>{{ country.name }}</h2>
+  {{#if widget.showCountry}}<h2>{{ country.name }}</h2>{{/if}}
 {{# unless Template.subscriptionsReady }}
   {{ widgetLoading }}
 {{/unless}}

@@ -176,6 +176,8 @@ To close the settings popup from a template's event handler (if the user has cli
 
 For CSS, all your widgets will receive a class with the same name as your widget package (__not__ the name of your widget's export), e.g. `.example-widget`. Any custom info or settings popup you create will receive the same class with the popup type appended, e.g. `.example-widget-info` or `.example-widget-settings`. Scope all CSS you write within these classes to prevent clashes with other widgets.
 
+If your widget shows the name of a selected country within it, please wrap its display in a `widget.showCountry` conditional. Widgets can be embedded in contexts such that the country is already obvious, so we support the ability to hide the country name from being repeated in the widget itself.
+
 Adding the Widget
 -----------------
 

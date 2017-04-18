@@ -42,3 +42,7 @@ gsma-prepaid h2 {
   stroke-width: 1.5px;
   stroke: #ff7f0e;
 }
+
+.gsma-prepaid.country-hidden .current-data {
+  margin-top: 1.5rem;
+}

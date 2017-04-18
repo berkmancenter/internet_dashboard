@@ -48,6 +48,7 @@ Template.IMonPercentWidget.onRendered(function(){
     var countryName = IMonCountries.findOne({ code: Template.currentData().country }).name;
     var indicatorName = IMonIndicators.findOne({ adminName: currName }).shortName;
     var color = Template.currentData().color;
+    var showCountry = Template.currentData().widget.showCountry();
 
     // 3. All the functions
     var setDims = function(){ // Set height for the container of the icons
@@ -74,7 +75,9 @@ Template.IMonPercentWidget.onRendered(function(){
       // b. Empty the node & fill out titles
       $(node).empty();
       $('h1', title).text(indicatorName.replace(' (%)', ''));
-      $('h2', title).text(countryName);
+      if (showCountry) {
+        $('h2', title).text(countryName);
+      }
 
       // c. Draw
       var sizeYNum =  parseInt($(widgetNode).attr('data-sizey'));
