@@ -47,8 +47,17 @@ body.loaded.widgets-embed {
     display: inline-block;
   }
 
+  &:hover {
+    .unbranded-info {
+      .button-info {
+        visibility: visible;
+      }
+    }
+  }
+
   .unbranded-info {
     .button-info {
+      visibility: hidden;
       cursor: pointer;
       position: absolute;
       top: 1rem;
