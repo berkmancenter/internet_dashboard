@@ -41,7 +41,7 @@ Meteor.methods({
     this.unblock();
     const profile = ACCountryProfiles.findOne({ country_code: countryCode });
     const needsFetch = _.isUndefined(profile) || _.isUndefined(profile.lastFetched) ||
-      profile.lastFetched + Settings.oldAfter < Date.now();
+      profile.lastFetched.valueOf() + Settings.oldAfter < Date.now();
     if (!needsFetch) { return profile; }
     console.log(`AccessCheck Data: Fetching country profile ${countryCode}`);
     var result = HTTP.call('GET', Settings.baseURL + '/country_profiles/' + countryCode);
