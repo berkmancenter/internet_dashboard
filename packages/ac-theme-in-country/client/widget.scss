@@ -44,6 +44,10 @@
       .bar {
         border-left: 1px solid #bbb;
       }
+
+      &:nth-child(4) .marker {
+        color: #d62728;
+      }
     }
 
     &:nth-child(2) .marker {
@@ -54,9 +58,6 @@
     }
     &:nth-child(4) .marker {
       color: #ff7f0e;
-    }
-    &:nth-child(5) .marker {
-      color: #d62728;
     }
   }
 
