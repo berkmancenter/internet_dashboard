@@ -108,7 +108,7 @@ const BarCollectionContainer = createContainer((args) => {
         loading = !profileHandle.ready(),
         profile = ACCountryProfiles.findOne({ country_code: args.countryCode }),
         profileExists = !loading && !!profile,
-        xs = ['None', 'Suspected', 'Selective', 'Substantial', 'Pervasive'],
+        xs = ['None', 'Selective', 'Substantial', 'Pervasive'],
         ys = profileExists ? profile.themes : [],
         selected = (profileExists ?
             _.object(profile.theme_statuses.map((st) => [st.theme, st.status])) :
