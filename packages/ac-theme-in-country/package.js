@@ -15,7 +15,6 @@ Package.onUse(function(api) {
   api.use(['templating'], 'client');
 
   api.addFiles(['theme-in-country.js']);
-  api.addFiles(['server/publications.js'], 'server');
   api.addFiles([
       'client/widget.html',
       'client/widget.jsx',
