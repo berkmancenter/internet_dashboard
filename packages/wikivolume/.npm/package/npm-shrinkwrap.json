@@ -26,18 +26,6 @@
               "version": "1.3.1",
               "resolved": "https://registry.npmjs.org/irc-colors/-/irc-colors-1.3.1.tgz",
               "from": "irc-colors@>=1.1.0 <2.0.0"
-            },
-            "node-icu-charset-detector": {
-              "version": "0.2.0",
-              "resolved": "https://registry.npmjs.org/node-icu-charset-detector/-/node-icu-charset-detector-0.2.0.tgz",
-              "from": "node-icu-charset-detector@>=0.2.0 <0.3.0",
-              "dependencies": {
-                "nan": {
-                  "version": "2.5.1",
-                  "resolved": "https://registry.npmjs.org/nan/-/nan-2.5.1.tgz",
-                  "from": "nan@>=2.3.3 <3.0.0"
-                }
-              }
             }
           }
         },
