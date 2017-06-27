@@ -21,9 +21,9 @@ ThemeInCountryWidget.prototype.setCountry = function(countryCode) {
 
 ThemeInCountry = {
   widget: {
-    name: 'Theme in Country Blocked Status',
-    description: 'Shows the censorship status of various content themes in a given country.',
-    url: 'http://example.com/data',
+    name: 'Content Filtering',
+    description: 'Shows the filtering status of various content themes in a given country.',
+    url: 'https://thenetmonitor.org/',
     dimensions: { width: 3, height: 1 },
     resize: { mode: 'reflow' },
     category: 'access',

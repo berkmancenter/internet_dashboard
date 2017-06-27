@@ -79,7 +79,7 @@ class BarCollection extends React.Component {
     }
     return (
     <div>
-      <h1>Internet Filtering {this.props.showCountry && <small>{this.props.country}</small>}</h1>
+      <h1>Content Filtering {this.props.showCountry && <small>{this.props.country}</small>}</h1>
       <table className="bar-collection">
         <thead>
           <tr>{this.xlabels()}</tr>
