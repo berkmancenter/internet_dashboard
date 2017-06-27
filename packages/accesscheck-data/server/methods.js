@@ -2,7 +2,7 @@ import { ACCountryProfiles } from '../main.js';
 import { _ } from 'meteor/underscore';
 
 const Settings = {
-  oldAfter: 1 * 60 * 60 * 1000, // 1 hour in ms
+  oldAfter: 48 * 60 * 60 * 1000, // 48 hour in ms
   baseURL: 'https://core.thenetmonitor.org'
 };
 
