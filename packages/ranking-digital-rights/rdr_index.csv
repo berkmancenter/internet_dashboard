@@ -1,145 +1,213 @@
-metric,category,service,company,value,rank,
-Commitment,Mobile,Telcel,América Móvil,10.8333333333,6,
-Freedom of expression,Mobile,Telcel,América Móvil,26.666,4
-Privacy,Mobile,Telcel,América Móvil,24.7775,3
-Total,Mobile,Telcel,América Móvil,22.4639285714,4
-Commitment,Fixed broadband,AT&T,AT&T,56.9,2
-Freedom of expression,Fixed broadband,AT&T,AT&T,42.43,1
-Privacy,Fixed broadband,AT&T,AT&T,51.1525,1
-Total,Fixed broadband,AT&T,AT&T,49.2689285714,1
-Commitment,Mobile,AT&T,AT&T,56.9,3
-Freedom of expression,Mobile,AT&T,AT&T,42.43,2
-Privacy,Mobile,AT&T,AT&T,53.2358333333,1
-Total,Mobile,AT&T,AT&T,50.1617857143,2
-Commitment,Mobile,Celcom,Axiata,0,8
-Freedom of expression,Mobile,Celcom,Axiata,23.334,5
-Privacy,Mobile,Celcom,Axiata,16.9308333333,6
-Total,Mobile,Celcom,Axiata,15.5896428571,7
-Commitment,Fixed broadband,Bharti Airtel,Bharti Airtel,12.5,3
-Freedom of expression,Fixed broadband,Airtel,Bharti Airtel,15,4
-Privacy,Fixed broadband,Airtel,Bharti Airtel,20.6316666667,3
-Total,Fixed broadband,Airtel,Bharti Airtel,16.8778571429,3
-Commitment,Mobile,Airtel,Bharti Airtel,12.5,5
-Freedom of expression,Mobile,Airtel,Bharti Airtel,16.667,8
-Privacy,Mobile,Airtel,Bharti Airtel,20.6316666667,5
-Total,Mobile,Airtel,Bharti Airtel,17.4732142857,6
-Commitment,Search,Bing,Microsoft,82.0366666667,1
-Freedom of expression,Search,Bing,Microsoft,36.4575,3
-Privacy,Search,Bing,Microsoft,55.2569230769,2
-Total,Search,Bing,Microsoft,55.6377777778,2
-Commitment,Email service,Daum Mail,Kakao,38.6116666667,4
-Freedom of expression,Email service,Daum Mail,Kakao,76.19,1
-Privacy,Email service,Daum Mail,Kakao,41.0771428571,4
-Total,Email service,Daum Mail,Kakao,49.6325925926,4
-Commitment,Search,Daum Search,Kakao,38.6116666667,3
-Freedom of expression,Search,Daum Search,Kakao,52.60375,2
-Privacy,Search,Daum Search,Kakao,42.0576923077,3
-Total,Search,Daum Search,Kakao,44.4166666667,3
-Commitment,Fixed broadband,Etisalat,Etisalat,3.3333333333,4
-Freedom of expression,Fixed broadband,Etisalat,Etisalat,23.335,3
-Privacy,Fixed broadband,Etisalat,Etisalat,16.4166666667,4
-Total,Fixed broadband,Etisalat,Etisalat,16.0839285714,4
-Commitment,Mobile,Etisalat,Etisalat,3.3333333333,7
-Freedom of expression,Mobile,Etisalat,Etisalat,18.334,7
-Privacy,Mobile,Etisalat,Etisalat,11.7641666667,8
-Total,Mobile,Etisalat,Etisalat,12.3039285714,8
-Commitment,Social network & blog,Facebook,Facebook,66.39,2
-Freedom of expression,Social network & blog,Facebook,Facebook,43.542,3
-Privacy,Social network & blog,Facebook,Facebook,57.4228571429,2
-Total,Social network & blog,Facebook,Facebook,54.5893333333,3
-Commitment,Video/photo,Flickr,Yahoo,78.4266666667,2
-Freedom of expression,Video/photo,Flickr,Yahoo,54.93,2
-Privacy,Video/photo,Flickr,Yahoo,54.06,2
-Total,Video/photo,Flickr,Yahoo,59.2233333333,2
-Commitment,Email service,Gmail,Google,78.1483333333,3
-Freedom of expression,Email service,Gmail,Google,64.2857142857,2
-Privacy,Email service,Gmail,Google,58.6785714286,1
-Total,Email service,Gmail,Google,64.4588888889,1
-Commitment,Search,Google Search,Google,76.4816666667,2
-Freedom of expression,Search,Google Search,Google,71.875,1
-Privacy,Search,Google Search,Google,60.2438461538,1
-Total,Search,Google Search,Google,67.2985185185,1
-Commitment,Social network & blog,Instagram,Facebook,66.39,3
-Freedom of expression,Social network & blog,Instagram,Facebook,39.375,4
-Privacy,Social network & blog,Instagram,Facebook,31.375,4
-Total,Social network & blog,Instagram,Facebook,41.0446666667,4
-Commitment,Video/photo,Instagram,Facebook,66.39,3
-Freedom of expression,Video/photo,Instagram,Facebook,39.375,4
-Privacy,Video/photo,Instagram,Facebook,31.375,4
-Total,Video/photo,Instagram,Facebook,41.0446666667,3
-Commitment,Messaging & VoIP,KakaoTalk,Kakao,41.1116666667,3
-Freedom of expression,Messaging & VoIP,KakaoTalk,Kakao,52.916,1
-Privacy,Messaging & VoIP,KakaoTalk,Kakao,43.9107142857,2
-Total,Messaging & VoIP,KakaoTalk,Kakao,46.3526666667,2
-Commitment,Email service,Mail.Ru,Mail.Ru,3.3333333333,5
-Freedom of expression,Email service,Mail.Ru,Mail.Ru,38.0957142857,5
-Privacy,Email service,Mail.Ru,Mail.Ru,9.7378571429,5
-Total,Email service,Mail.Ru,Mail.Ru,15.6666666667,5
-Commitment,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,3.3333333333,6
-Freedom of expression,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,26.667,3
-Privacy,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,6.7621428571,6
-Total,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,12.7113333333,6
-Commitment,Mobile,MTN,MTN,22.2216666667,4
-Freedom of expression,Mobile,MTN,MTN,20,6
-Privacy,Mobile,MTN,MTN,13.6941666667,7
-Total,Mobile,MTN,MTN,17.7735714286,5
-Commitment,Fixed broadband,Orange,Orange,73.3333333333,1
-Freedom of expression,Fixed broadband,Orange,Orange,30.001,2
-Privacy,Fixed broadband,Orange,Orange,23.875,2
-Total,Fixed broadband,Orange,Orange,36.6610714286,2
-Commitment,Mobile,Orange,Orange,73.3333333333,2
-Freedom of expression,Mobile,Orange,Orange,28.334,3
-Privacy,Mobile,Orange,Orange,24.5416666667,4
-Total,Mobile,Orange,Orange,36.3514285714,3
-Commitment,Email service,Outlook.com,Microsoft,82.0366666667,1
-Freedom of expression,Email service,Outlook.com,Microsoft,59.5228571429,3
-Privacy,Email service,Outlook.com,Microsoft,54.6435714286,3
-Total,Email service,Outlook.com,Microsoft,61.9959259259,2
-Commitment,Messaging & VoIP,QQ,Tencent,7.9166666667,4
-Freedom of expression,Messaging & VoIP,QQ,Tencent,18.334,6
-Privacy,Messaging & VoIP,QQ,Tencent,19.6192857143,4
-Total,Messaging & VoIP,QQ,Tencent,16.8503333333,4
-Commitment,Social network & blog,Qzone,Tencent,7.9166666667,5
-Freedom of expression,Social network & blog,Qzone,Tencent,18.334,5
-Privacy,Social network & blog,Qzone,Tencent,16.0478571429,6
-Total,Social network & blog,Qzone,Tencent,15.1836666667,5
-Commitment,Messaging & VoIP,Skype,Microsoft,82.0366666667,1
-Freedom of expression,Messaging & VoIP,Skype,Microsoft,43.541,2
-Privacy,Messaging & VoIP,Skype,Microsoft,52.2621428571,1
-Total,Messaging & VoIP,Skype,Microsoft,55.31,1
-Commitment,Social network & blog,Tumblr,Yahoo,81.76,1
-Freedom of expression,Social network & blog,Tumblr,Yahoo,52.64,2
-Privacy,Social network & blog,Tumblr,Yahoo,46.7364285714,3
-Total,Social network & blog,Tumblr,Yahoo,55.709,2
-Commitment,Social network & blog,Twitter,Twitter,36.6666666667,4
-Freedom of expression,Social network & blog,Twitter,Twitter,66.25,1
-Privacy,Social network & blog,Twitter,Twitter,64.6192857143,1
-Total,Social network & blog,Twitter,Twitter,59.5723333333,1
-Commitment,Video/photo,Vine,Twitter,33.3333333333,4
-Freedom of expression,Video/photo,Vine,Twitter,49.098,3
-Privacy,Video/photo,Vine,Twitter,37.8814285714,3
-Total,Video/photo,Vine,Twitter,40.7106666667,4
-Commitment,Social network & blog,Vkontakte,Mail.Ru,0,6
-Freedom of expression,Social network & blog,Vkontakte,Mail.Ru,16.666,6
-Privacy,Social network & blog,Vkontakte,Mail.Ru,17.2142857143,5
-Total,Social network & blog,Vkontakte,Mail.Ru,13.5886666667,6
-Commitment,Mobile,Vodafone,Vodafone,74.6291666667,1
-Freedom of expression,Mobile,Vodafone,Vodafone,46.667,1
-Privacy,Mobile,Vodafone,Vodafone,48.7083333333,2
-Total,Mobile,Vodafone,Vodafone,53.53375,1
-Commitment,Messaging & VoIP,WeChat,Tencent,7.9166666667,5
-Freedom of expression,Messaging & VoIP,WeChat,Tencent,20,5
-Privacy,Messaging & VoIP,WeChat,Tencent,16.0478571429,5
-Total,Messaging & VoIP,WeChat,Tencent,15.739,5
-Commitment,Messaging & VoIP,WhatsApp,Facebook,41.6666666667,2
-Freedom of expression,Messaging & VoIP,WhatsApp,Facebook,22.917,4
-Privacy,Messaging & VoIP,WhatsApp,Facebook,20.1192857143,3
-Total,Messaging & VoIP,WhatsApp,Facebook,25.3613333333,3
-Commitment,Email service,Yahoo! Mail,Yahoo,78.4266666667,2
-Freedom of expression,Email service,Yahoo! Mail,Yahoo,52.3814285714,4
-Privacy,Email service,Yahoo! Mail,Yahoo,54.7742857143,2
-Total,Email service,Yahoo! Mail,Yahoo,59.41,3
-Commitment,Video/photo,YouTube,Google,78.9816666667,1
-Freedom of expression,Video/photo,YouTube,Google,60.903,1
-Privacy,Video/photo,YouTube,Google,55.5835714286,1
-Total,Video/photo,YouTube,Google,62.0363333333,1
+metric,category,service,company,value,rank
+Total,Video/Photo,YouTube,Google,68.0,1
+Governance,Video/Photo,YouTube,Google,73.0,3
+Freedom of Expression,Video/Photo,YouTube,Google,61.0,1
+Privacy,Video/Photo,YouTube,Google,69.0,1
+Total,Video/Photo,Flickr,Yahoo,57.0,2
+Governance,Video/Photo,Flickr,Yahoo,87.0,1
+Freedom of Expression,Video/Photo,Flickr,Yahoo,35.0,4
+Privacy,Video/Photo,Flickr,Yahoo,58.0,2
+Total,Video/Photo,Periscope,Twitter,39.0,5
+Governance,Video/Photo,Periscope,Twitter,30.0,4
+Freedom of Expression,Video/Photo,Periscope,Twitter,33.0,5
+Privacy,Video/Photo,Periscope,Twitter,46.0,3
+Total,Video/Photo,Vine,Twitter,41.0,4
+Governance,Video/Photo,Vine,Twitter,30.0,4
+Freedom of Expression,Video/Photo,Vine,Twitter,43.0,3
+Privacy,Video/Photo,Vine,Twitter,43.0,4
+Total,Video/Photo,Instagram,Facebook,47.0,3
+Governance,Video/Photo,Instagram,Facebook,83.0,2
+Freedom of Expression,Video/Photo,Instagram,Facebook,46.0,2
+Privacy,Video/Photo,Instagram,Facebook,36.0,5
+Total,Mobile Ecosystems,Google Android,Google,56.0,1
+Governance,Mobile Ecosystems,Google Android,Google,70.0,1
+Freedom of Expression,Mobile Ecosystems,Google Android,Google,49.0,1
+Privacy,Mobile Ecosystems,Google Android,Google,55.0,1
+Total,Mobile Ecosystems,iOS,Apple,33.0,2
+Governance,Mobile Ecosystems,iOS,Apple,17.0,3
+Freedom of Expression,Mobile Ecosystems,iOS,Apple,18.0,3
+Privacy,Mobile Ecosystems,iOS,Apple,47.0,2
+Total,Mobile Ecosystems,Samsung Android,Samsung,26.0,3
+Governance,Mobile Ecosystems,Samsung Android,Samsung,22.0,2
+Freedom of Expression,Mobile Ecosystems,Samsung Android,Samsung,20.0,2
+Privacy,Mobile Ecosystems,Samsung Android,Samsung,30.0,3
+Total,Fixed Broadband,AT&T,AT&T,46.0,2
+Governance,Fixed Broadband,AT&T,AT&T,67.0,3
+Freedom of Expression,Fixed Broadband,AT&T,AT&T,34.0,2
+Privacy,Fixed Broadband,AT&T,AT&T,45.0,1
+Total,Fixed Broadband,Vodafone UK,Vodafone,47.0,1
+Governance,Fixed Broadband,Vodafone UK,Vodafone,81.0,1
+Freedom of Expression,Fixed Broadband,Vodafone UK,Vodafone,41.0,1
+Privacy,Fixed Broadband,Vodafone UK,Vodafone,37.0,2
+Total,Fixed Broadband,Movistar,Telefónica,34.0,3
+Governance,Fixed Broadband,Movistar,Telefónica,58.0,4
+Freedom of Expression,Fixed Broadband,Movistar,Telefónica,27.0,3
+Privacy,Fixed Broadband,Movistar,Telefónica,29.0,3
+Total,Fixed Broadband,Orange France,Orange,33.0,4
+Governance,Fixed Broadband,Orange France,Orange,74.0,2
+Freedom of Expression,Fixed Broadband,Orange France,Orange,19.0,4
+Privacy,Fixed Broadband,Orange France,Orange,26.0,4
+Total,Fixed Broadband,Airtel India,Bharti Airtel,15.0,5
+Governance,Fixed Broadband,Airtel India,Bharti Airtel,14.0,5
+Freedom of Expression,Fixed Broadband,Airtel India,Bharti Airtel,12.0,7
+Privacy,Fixed Broadband,Airtel India,Bharti Airtel,17.0,5
+Total,Fixed Broadband,Etisalat UAE,Etisalat,8.0,6
+Governance,Fixed Broadband,Etisalat UAE,Etisalat,8.0,6
+Freedom of Expression,Fixed Broadband,Etisalat UAE,Etisalat,16.0,5
+Privacy,Fixed Broadband,Etisalat UAE,Etisalat,2.0,6
+Total,Fixed Broadband,Ooredoo Qatar,Ooredoo,5.0,7
+Governance,Fixed Broadband,Ooredoo Qatar,Ooredoo,2.0,7
+Freedom of Expression,Fixed Broadband,Ooredoo Qatar,Ooredoo,15.0,6
+Privacy,Fixed Broadband,Ooredoo Qatar,Ooredoo,0.0,7
+Total,Search,Google Search,Google,68.0,1
+Governance,Search,Google Search,Google,72.0,2
+Freedom of Expression,Search,Google Search,Google,68.0,1
+Privacy,Search,Google Search,Google,68.0,1
+Total,Search,Bing,Microsoft,64.0,2
+Governance,Search,Bing,Microsoft,87.0,1
+Freedom of Expression,Search,Bing,Microsoft,65.0,2
+Privacy,Search,Bing,Microsoft,55.0,2
+Total,Search,Daum Search ,Kakao,47.0,3
+Governance,Search,Daum Search ,Kakao,36.0,3
+Freedom of Expression,Search,Daum Search ,Kakao,48.0,3
+Privacy,Search,Daum Search ,Kakao,50.0,3
+Total,Search,Yandex Search,Yandex,27.0,4
+Governance,Search,Yandex Search,Yandex,10.0,4
+Freedom of Expression,Search,Yandex Search,Yandex,23.0,4
+Privacy,Search,Yandex Search,Yandex,35.0,4
+Total,Search,Baidu Search,Baidu,12.0,5
+Governance,Search,Baidu Search,Baidu,0.0,5
+Freedom of Expression,Search,Baidu Search,Baidu,8.0,5
+Privacy,Search,Baidu Search,Baidu,17.0,5
+Total,Email Services,Gmail,Google,65.0,1
+Governance,Email Services,Gmail,Google,70.0,3
+Freedom of Expression,Email Services,Gmail,Google,58.0,2
+Privacy,Email Services,Gmail,Google,67.0,1
+Total,Email Services,Outlook.com,Microsoft,65.0,1
+Governance,Email Services,Outlook.com,Microsoft,88.0,1
+Freedom of Expression,Email Services,Outlook.com,Microsoft,55.0,3
+Privacy,Email Services,Outlook.com,Microsoft,60.0,2
+Total,Email Services,Yahoo Mail,Yahoo,59.0,3
+Governance,Email Services,Yahoo Mail,Yahoo,87.0,2
+Freedom of Expression,Email Services,Yahoo Mail,Yahoo,28.0,5
+Privacy,Email Services,Yahoo Mail,Yahoo,60.0,2
+Total,Email Services,Daum Mail ,Kakao,54.0,4
+Governance,Email Services,Daum Mail ,Kakao,36.0,4
+Freedom of Expression,Email Services,Daum Mail ,Kakao,71.0,1
+Privacy,Email Services,Daum Mail ,Kakao,54.0,4
+Total,Email Services,Yandex Mail,Yandex,28.0,5
+Governance,Email Services,Yandex Mail,Yandex,10.0,5
+Freedom of Expression,Email Services,Yandex Mail,Yandex,25.0,6
+Privacy,Email Services,Yandex Mail,Yandex,36.0,5
+Total,Email Services,Mail.Ru,Mail.Ru,23.0,6
+Governance,Email Services,Mail.Ru,Mail.Ru,7.0,6
+Freedom of Expression,Email Services,Mail.Ru,Mail.Ru,36.0,4
+Privacy,Email Services,Mail.Ru,Mail.Ru,24.0,6
+Total,Cloud Services,iCloud,Apple,38.0,1
+Governance,Cloud Services,iCloud,Apple,17.0,1
+Freedom of Expression,Cloud Services,iCloud,Apple,29.0,1
+Privacy,Cloud Services,iCloud,Apple,49.0,1
+Total,Cloud Services,Yandex Disk,Yandex,28.0,2
+Governance,Cloud Services,Yandex Disk,Yandex,10.0,2
+Freedom of Expression,Cloud Services,Yandex Disk,Yandex,26.0,2
+Privacy,Cloud Services,Yandex Disk,Yandex,36.0,2
+Total,Cloud Services,Baidu Cloud,Baidu,14.0,3
+Governance,Cloud Services,Baidu Cloud,Baidu,0.0,3
+Freedom of Expression,Cloud Services,Baidu Cloud,Baidu,16.0,3
+Privacy,Cloud Services,Baidu Cloud,Baidu,17.0,3
+Total,Pre-and Post-Paid Mobile,AT&T,AT&T,49.0,1
+Governance,Pre-and Post-Paid Mobile,AT&T,AT&T,67.0,3
+Freedom of Expression,Pre-and Post-Paid Mobile,AT&T,AT&T,41.0,2
+Privacy,Pre-and Post-Paid Mobile,AT&T,AT&T,48.0,1
+Total,Pre-and Post-Paid Mobile,Vodafone UK,Vodafone,48.0,2
+Governance,Pre-and Post-Paid Mobile,Vodafone UK,Vodafone,81.0,1
+Freedom of Expression,Pre-and Post-Paid Mobile,Vodafone UK,Vodafone,45.0,1
+Privacy,Pre-and Post-Paid Mobile,Vodafone UK,Vodafone,37.0,2
+Total,Pre-and Post-Paid Mobile,Movistar,Telefónica,34.0,3
+Governance,Pre-and Post-Paid Mobile,Movistar,Telefónica,58.0,4
+Freedom of Expression,Pre-and Post-Paid Mobile,Movistar,Telefónica,29.0,3
+Privacy,Pre-and Post-Paid Mobile,Movistar,Telefónica,29.0,3
+Total,Pre-and Post-Paid Mobile,Orange France,Orange,31.0,4
+Governance,Pre-and Post-Paid Mobile,Orange France,Orange,74.0,2
+Freedom of Expression,Pre-and Post-Paid Mobile,Orange France,Orange,15.0,6
+Privacy,Pre-and Post-Paid Mobile,Orange France,Orange,26.0,4
+Total,Pre-and Post-Paid Mobile,Telcel,América Móvil,21.0,5
+Governance,Pre-and Post-Paid Mobile,Telcel,América Móvil,21.0,6
+Freedom of Expression,Pre-and Post-Paid Mobile,Telcel,América Móvil,16.0,4
+Privacy,Pre-and Post-Paid Mobile,Telcel,América Móvil,24.0,5
+Total,Pre-and Post-Paid Mobile,Celcom,Axiata,13.0,7
+Governance,Pre-and Post-Paid Mobile,Celcom,Axiata,3.0,9
+Freedom of Expression,Pre-and Post-Paid Mobile,Celcom,Axiata,13.0,8
+Privacy,Pre-and Post-Paid Mobile,Celcom,Axiata,18.0,6
+Total,Pre-and Post-Paid Mobile,Airtel India,Bharti Airtel,13.0,7
+Governance,Pre-and Post-Paid Mobile,Airtel India,Bharti Airtel,14.0,7
+Freedom of Expression,Pre-and Post-Paid Mobile,Airtel India,Bharti Airtel,8.0,10
+Privacy,Pre-and Post-Paid Mobile,Airtel India,Bharti Airtel,17.0,7
+Total,Pre-and Post-Paid Mobile,MTN South Africa,MTN,15.0,6
+Governance,Pre-and Post-Paid Mobile,MTN South Africa,MTN,31.0,5
+Freedom of Expression,Pre-and Post-Paid Mobile,MTN South Africa,MTN,13.0,8
+Privacy,Pre-and Post-Paid Mobile,MTN South Africa,MTN,11.0,8
+Total,Pre-and Post-Paid Mobile,Etisalat UAE,Etisalat,8.0,9
+Governance,Pre-and Post-Paid Mobile,Etisalat UAE,Etisalat,8.0,8
+Freedom of Expression,Pre-and Post-Paid Mobile,Etisalat UAE,Etisalat,16.0,4
+Privacy,Pre-and Post-Paid Mobile,Etisalat UAE,Etisalat,2.0,9
+Total,Pre-and Post-Paid Mobile,Ooredoo Qatar,Ooredoo,5.0,10
+Governance,Pre-and Post-Paid Mobile,Ooredoo Qatar,Ooredoo,2.0,10
+Freedom of Expression,Pre-and Post-Paid Mobile,Ooredoo Qatar,Ooredoo,14.0,7
+Privacy,Pre-and Post-Paid Mobile,Ooredoo Qatar,Ooredoo,0.0,10
+Total,Messaging & VoIP,Skype,Microsoft,59.0,1
+Governance,Messaging & VoIP,Skype,Microsoft,88.0,1
+Freedom of Expression,Messaging & VoIP,Skype,Microsoft,43.0,3
+Privacy,Messaging & VoIP,Skype,Microsoft,59.0,1
+Total,Messaging & VoIP,Messenger,Facebook,56.0,2
+Governance,Messaging & VoIP,Messenger,Facebook,81.0,2
+Freedom of Expression,Messaging & VoIP,Messenger,Facebook,39.0,4
+Privacy,Messaging & VoIP,Messenger,Facebook,55.0,2
+Total,Messaging & VoIP,KakaoTalk,Kakao,50.0,4
+Governance,Messaging & VoIP,KakaoTalk,Kakao,35.0,4
+Freedom of Expression,Messaging & VoIP,KakaoTalk,Kakao,54.0,1
+Privacy,Messaging & VoIP,KakaoTalk,Kakao,53.0,3
+Total,Messaging & VoIP,WhatsApp,Facebook,54.0,3
+Governance,Messaging & VoIP,WhatsApp,Facebook,80.0,3
+Freedom of Expression,Messaging & VoIP,WhatsApp,Facebook,45.0,2
+Privacy,Messaging & VoIP,WhatsApp,Facebook,50.0,4
+Total,Messaging & VoIP,iMessage,Apple,35.0,5
+Governance,Messaging & VoIP,iMessage,Apple,17.0,5
+Freedom of Expression,Messaging & VoIP,iMessage,Apple,18.0,6
+Privacy,Messaging & VoIP,iMessage,Apple,50.0,4
+Total,Messaging & VoIP,QQ,Tencent,23.0,6
+Governance,Messaging & VoIP,QQ,Tencent,8.0,8
+Freedom of Expression,Messaging & VoIP,QQ,Tencent,16.0,7
+Privacy,Messaging & VoIP,QQ,Tencent,33.0,6
+Total,Messaging & VoIP,WeChat,Tencent,23.0,6
+Governance,Messaging & VoIP,WeChat,Tencent,11.0,6
+Freedom of Expression,Messaging & VoIP,WeChat,Tencent,14.0,8
+Privacy,Messaging & VoIP,WeChat,Tencent,31.0,7
+Total,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,19.0,8
+Governance,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,10.0,7
+Freedom of Expression,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,24.0,5
+Privacy,Messaging & VoIP,Mail.Ru Agent,Mail.Ru,20.0,8
+Total,Social Network & Blog,Twitter,Twitter,63.0,1
+Governance,Social Network & Blog,Twitter,Twitter,30.0,3
+Freedom of Expression,Social Network & Blog,Twitter,Twitter,72.0,1
+Privacy,Social Network & Blog,Twitter,Twitter,70.0,1
+Total,Social Network & Blog,Facebook,Facebook,54.0,3
+Governance,Social Network & Blog,Facebook,Facebook,81.0,2
+Freedom of Expression,Social Network & Blog,Facebook,Facebook,36.0,3
+Privacy,Social Network & Blog,Facebook,Facebook,54.0,2
+Total,Social Network & Blog,Tumblr,Yahoo,60.0,2
+Governance,Social Network & Blog,Tumblr,Yahoo,89.0,1
+Freedom of Expression,Social Network & Blog,Tumblr,Yahoo,59.0,2
+Privacy,Social Network & Blog,Tumblr,Yahoo,50.0,3
+Total,Social Network & Blog,Vkontakte,Mail.Ru,25.0,4
+Governance,Social Network & Blog,Vkontakte,Mail.Ru,7.0,5
+Freedom of Expression,Social Network & Blog,Vkontakte,Mail.Ru,15.0,4
+Privacy,Social Network & Blog,Vkontakte,Mail.Ru,36.0,4
+Total,Social Network & Blog,QZone,Tencent,21.0,5
+Governance,Social Network & Blog,QZone,Tencent,8.0,4
+Freedom of Expression,Social Network & Blog,QZone,Tencent,13.0,6
+Privacy,Social Network & Blog,QZone,Tencent,29.0,5
+Total,Social Network & Blog,Baidu PostBar,Baidu,14.0,6
+Governance,Social Network & Blog,Baidu PostBar,Baidu,0.0,6
+Freedom of Expression,Social Network & Blog,Baidu PostBar,Baidu,14.0,5
+Privacy,Social Network & Blog,Baidu PostBar,Baidu,18.0,6

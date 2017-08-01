@@ -11,7 +11,10 @@ Router.onBeforeAction(function () {
   let bodyClass = 'loaded',
       routeName = this.route.getName();
   if (routeName) {
-    bodyClass += ' ' + routeName;
+    $('body').removeClass(function() {
+      return Array.from($(this).get(0).classList.values()).find(cls => cls.startsWith('on-'));
+    });
+    bodyClass += ' on-' + routeName;
   }
   $('body').addClass(bodyClass);
   this.next();

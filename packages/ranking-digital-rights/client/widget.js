@@ -124,7 +124,7 @@ function adjustRowSpacing(template){
   var newServiceRowHeight = (idealRdrHeight / rowCount)-2;
   $(serviceSelector).height(newServiceRowHeight);
   var newRdrHeight = $(widgetId + ' > div.widget-body > table > tbody').height();
-  console.log("adjustRowSpacing: changing " + rdrHeight+ ' to ' + newRdrHeight);
+  //console.log("adjustRowSpacing: changing " + rdrHeight+ ' to ' + newRdrHeight);
 };
 
 function drawGraph(parent, data, radius, color) {
