@@ -13,7 +13,7 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-  jquery: '2.1.3',
-  jsdom: '3.1.2',
-  socks: '1.1.7'
+  jquery: '2.2.4',
+  jsdom: '9.11.0',
+  socks: '1.1.10'
 });

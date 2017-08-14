@@ -26,22 +26,22 @@
     color: #666;
   }
 
-
   .title-bar {
     width: 100%;
     background-color: rgba(236, 236, 236, 0.6);
     z-index: 10;
     cursor: move;
     white-space: nowrap;
+    height:1.5em;
+    overflow: hidden;
 
     .buttons {
-      padding-left: 4px;
-      padding-top: 1px;
+      margin-left: 4px;
+      margin-top: 2px;
       max-width: 60px;
       cursor: default;
 
       a {
-        margin-left: 1px;
         color: #BABABA;
 
         &:hover, &:focus {
@@ -55,12 +55,19 @@
             color: darkred;
           }
         }
+        .widget-settings-helper{
+          vertical-align:10%;
+          font-weight: bold;
+          text-transform: uppercase;
+          font-size: 0.8em;
+        }
       }
     }
 
     .data-source {
       padding: 0;
       margin: 0;
+      margin-top: 1px;
       padding-right: 6px;
       float: right;
       z-index: 1000;

@@ -3,8 +3,12 @@
 <p class="subtitle">Crowdsourced reports from Internet users</p>
 {{# if Template.subscriptionsReady }}
 <div class="herdict-settings">
-  <h2>{{ country.name }}</h2>
-  <h3>&mdash; {{ category.name }}</h3>
+  {{# if widget.showCountry }}
+    <h2>{{ country.name }}</h2>
+    <h3>&mdash; {{ category.name }}</h3>
+  {{ else }}
+    <h2>{{ category.name }}</h2>
+  {{/if}}
 </div>
 <div class="herdict-labels">
  <span class="text-danger">Unavailable</span> /

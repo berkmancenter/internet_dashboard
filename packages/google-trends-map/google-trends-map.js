@@ -34,7 +34,8 @@ GoogleTrendsMap = {
     dimensions: { width: 3, height: 2},
     typeIcon: 'globe',
     constructor: GoogleTrendsMapWidget,
-    displays: 'countryData'
+    displays: 'countryData',
+    settings: 'change keyword'
   },
   org: {
     name: 'Internet Monitor',

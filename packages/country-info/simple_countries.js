@@ -249,7 +249,7 @@ CountryInfo.countries = [
 { name: "Vanuatu", code: "VU" },
 { name: "Vatican City State", code: "VA" },
 { name: "Venezuela, Bolivarian Republic Of", code: "VE" },
-{ name: "Viet Nam", code: "VN" },
+{ name: "Vietnam", code: "VN" },
 { name: "Virgin Islands (British)", code: "VG" },
 { name: "Virgin Islands (US)", code: "VI" },
 { name: "Wallis And Futuna", code: "WF" },

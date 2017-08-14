@@ -1,0 +1,27 @@
+<template name="ImonCountryProfileWidget">
+{{# if Template.subscriptionsReady }}
+  <h1>Country Profile</h1>
+  {{#if widget.showCountry }}<h2>{{ country.name }}</h2>{{/if}}
+  <div class="row">
+    <div class="col-xs-5">
+      <img class="country-thumb img-thumbnail" src="{{ imageUrl country.code }}" />
+    </div>
+    <div class="col-xs-7">
+      <dl class="dl-horizontal">
+        <dt>Population</dt>
+        <dd>{{ population }}</dd>
+        <dt>Literacy Rate</dt>
+        <dd>{{ literacyRate }}</dd>
+        <dt>Human Development Index Rank</dt>
+        <dd>{{ hdi }}</dd>
+        <dt>GDP per capita (current USD)</dt>
+        <dd>{{ gdp }}</dd>
+        <dt>Percent Online</dt>
+        <dd>{{ percentOnline }}</dd>
+      </dl>
+    </div>
+  </div>
+{{ else }}
+  {{ widgetLoading }}
+{{/if}}
+</template>

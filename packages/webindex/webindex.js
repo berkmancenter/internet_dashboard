@@ -28,7 +28,8 @@ WebIndex = {
     typeIcon: 'globe',
     constructor: WebIndexWidget,
     country: 'multi',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change metric'
   },
   org: {
     name: 'World Wide Web Foundation',

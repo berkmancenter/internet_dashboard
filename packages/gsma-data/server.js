@@ -10,7 +10,7 @@ GSMAData.attachSchema(new SimpleSchema({
 
 Settings = {
   updateEvery: moment.duration({ months: 6 }),
-  authToken: Assets.getText('apiKey.txt'),
+  authToken: Assets.getText('apiKey.txt').trim(),
   timeout: 60 * 1000,
   limit: 20,
   perPeople: 100.0,

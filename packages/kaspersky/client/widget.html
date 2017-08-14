@@ -1,6 +1,10 @@
 <template name="KasperskyWidget">
 <h1>Threat Data</h1>
+{{# if widget.showCountry }}
 <h2>{{ country.name }} <small>&mdash; last 24 hours</small></h2>
+{{ else }}
+<h2>Last 24 hours</h2>
+{{/if}}
 {{# unless Template.subscriptionsReady }}
   {{ widgetLoading }}
 {{/unless}}

@@ -22,6 +22,7 @@ Template.ChangeOrgWidget.onRendered(function() {
       .enter().append("svg:path")
       .attr('class', 'country')
       .style('fill', Settings.map.fill)
+      .style('stroke', 'white')
       .style('transform', 'scaleY(' + Settings.map.squash + ')')
           .attr("d", d3.geo.path().projection(projection));
 

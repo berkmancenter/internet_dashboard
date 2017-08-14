@@ -39,7 +39,8 @@ MediaCloudTopics = {
     typeIcon: 'tags',
     constructor: MCWidget,
     country: 'single',
-    countries: getCountryCodes(Settings.tagSet)
+    countries: getCountryCodes(Settings.tagSet),
+    settings: 'change country'
   },
   org: {
     name: 'Media Cloud',

@@ -39,7 +39,7 @@ Template.WidgetShow.helpers(_.extend(CommonHelpers, {
     }
     return attrs;
   },
-  
+
   selecting: function() { return Session.get('selecting'); },
   selectable: function() {
     return _.contains(Session.get('selectable'), this._id);

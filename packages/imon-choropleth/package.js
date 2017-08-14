@@ -8,9 +8,9 @@ Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
   api.use(['imon-data']);
   api.use(['mongo', 'widget', 'momentjs:moment', 'underscore',
-           'country-info', 'aldeed:collection2']);
+           'choropleth-map', 'aldeed:collection2']);
   api.use(['http'], 'server');
-  api.use(['templating', 'epoch', 'd3js:d3'], 'client');
+  api.use(['templating', 'd3js:d3'], 'client');
   api.addFiles('imon-choropleth.js');
   api.addFiles(['server/methods.js'], 'server');
   api.addFiles([

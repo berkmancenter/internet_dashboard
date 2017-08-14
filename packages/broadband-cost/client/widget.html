@@ -1,6 +1,6 @@
 <template name="BroadbandCostWidget">
 <h1>Broadband Cost</h1>
-<h2>{{ country.name }}</h2>
+{{# if widget.showCountry }}<h2>{{ country.name }}</h2>{{/if}}
 {{# if byYear}}<h3>{{chosenYear}}</h3>{{/if}}
 {{# if Template.subscriptionsReady }}
 <table class="cost-indicators table table-condensed">

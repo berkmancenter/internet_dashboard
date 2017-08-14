@@ -1,4 +1,4 @@
-Settings.authToken = Assets.getText('apiKey.txt');
+Settings.authToken = Assets.getText('apiKey.txt').trim();
 Settings.timeout = 120 * 1000;
 
 var Future = Npm.require('fibers/future');
@@ -28,8 +28,8 @@ var binRequest = function(bin) {
   return { url: 'https://www.lumendatabase.org/notices/search',
     options: {
       headers: {
-        AUTHENTICATION_TOKEN: Settings.authToken,
-        Accept: 'application/json',
+        'X-Authentication-Token': Settings.authToken,
+        'Accept': 'application/json',
         'Content-type': 'application/json',
       },
       params: {
@@ -103,9 +103,9 @@ var updateLumenCounts = function() {
 if (Meteor.settings.doJobs) {
   // If we don't have any counts or our most recent is older than our update
   // interval...
-  
+
   if (LumenCounts.find().count() < Settings.numBins ||
-      LumenCounts.findOne({}, { sort: { start: -1 } }).start +
+      LumenCounts.findOne({}, { sort: { start: -1 } }).start.valueOf() +
       Settings.updateEvery.asMilliseconds() < Date.now()) {
     Future.task(updateLumenCounts);
   } else {

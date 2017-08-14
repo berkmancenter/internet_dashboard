@@ -1,7 +1,15 @@
 <template name="WidgetsEmbed">
   <div id="{{ componentId 'widget' }}" class="{{ widgetClasses }}"
-    data-mid="{{ _id }}"
-    style="width: {{ pixelDims.width }}px; height: {{ pixelDims.height }}px;">
+    data-mid="{{ _id }}" {{ gridAttrs }}
+    style="height: {{ pixelDims.height }}px;">
+    {{#if unbranded}}
+      <div class="unbranded-info">
+        <a class="button-info" href="#" id="{{ componentId 'Info' }}" title="About">
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </a>
+      </div>
+      {{> WidgetEmbedInfo }}
+    {{ else }}
     <div class="title-bar" style="height: {{ titleBar.height }}px;">
       {{# if package.metadata.org }}
       <p class="data-source">
@@ -21,15 +29,18 @@
         {{> WidgetInfo }}
       </div>
     </div>
+    {{/if}}
 
-    <div class="widget-body" style="{{ resizeTransform }}">
+    <div class="widget-body" style="{{ resizeEmbed }}">
       {{> Template.dynamic template=widgetTemplate data=data }}
     </div>
   </div>
 
+  {{# unless unbranded }}
   <div class="imon-branding">
     <a href="{{ dashboardUrl }}" target="_blank">
-      <span class="logo-image"></span>
+      <img class="iframe-logo-img" src="/single_imon_logo_banner.png"/>
     </a>
   </div>
+  {{/unless}}
 </template>

@@ -1,6 +1,6 @@
 <template name="TorClientsWidget">
   <h1>Tor Clients <small>{{ nodeType }}-first</small></h1>
-  <h2>{{ countryName }}</h2>
+  {{#if widget.showCountry}}<h2>{{ countryName }}</h2>{{/if}}
   {{# unless Template.subscriptionsReady }}
     {{ widgetLoading }}
   {{/unless}}

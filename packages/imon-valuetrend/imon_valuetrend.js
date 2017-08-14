@@ -43,7 +43,8 @@ IMonValuetrend = {
     resize: { mode: 'cover', constraints: { height: { max: 1 } } },
     indicators: 'all',
     country: 'single',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change country/indicator'
   },
   org: {
     name: 'Internet Monitor',

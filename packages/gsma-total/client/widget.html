@@ -1,6 +1,6 @@
 <template name="GSMATotalWidget">
   <h1>Mobile Connections</h1>
-<h2>{{ country.name }}</h2>
+  {{#if widget.showCountry}}<h2>{{ country.name }}</h2>{{/if}}
 {{# unless Template.subscriptionsReady }}
   {{ widgetLoading }}
 {{/unless}}

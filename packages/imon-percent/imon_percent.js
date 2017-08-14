@@ -45,7 +45,8 @@ IMonPercent = {
     typeIcon: 'th',
     indicators: 'percentage',
     country: 'single',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change country/indicator'
   },
   org: {
     name: 'Internet Monitor',

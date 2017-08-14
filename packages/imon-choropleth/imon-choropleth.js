@@ -35,7 +35,8 @@ IMonChoropleth = {
     displays: 'countryData',
     indicators: 'all',
     country: 'multi',
-    countries: 'all'
+    countries: 'all',
+    settings: 'change indicator'
   },
   org: {
     name: 'Internet Monitor',

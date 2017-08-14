@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "csv-parse": {
-      "version": "1.0.1"
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/csv-parse/-/csv-parse-1.0.1.tgz",
+      "from": "https://registry.npmjs.org/csv-parse/-/csv-parse-1.0.1.tgz"
     }
   }
 }

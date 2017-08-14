@@ -40,7 +40,8 @@ GSMA4G = {
     typeIcon: 'line-chart',
     category: 'access',
     country: 'single',
-    countries: 'CountryInfo'
+    countries: 'CountryInfo',
+    settings: 'edit'
   },
   org: {
     name: 'GSMA Intelligence',

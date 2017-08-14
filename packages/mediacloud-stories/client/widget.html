@@ -1,5 +1,9 @@
 <template name="MediaCloudStoriesWidget">
+{{# if widget.showCountry }}
 <h1>{{ country.name }}</h1>
+{{ else }}
+<h1>Media Monitor</h1>
+{{/if}}
 <h2>"{{ term }}"</h2>
 <ul class="list-unstyled">
 {{# each stories }}

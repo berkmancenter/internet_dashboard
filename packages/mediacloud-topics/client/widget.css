@@ -1,3 +1,6 @@
 .mc-tagcloud {
   margin: 0 -15px;
 }
+.mediacloud-topics.country-hidden .mc-tagcloud {
+  margin-top: 1.5rem;
+}

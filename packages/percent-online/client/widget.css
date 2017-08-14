@@ -30,3 +30,12 @@
 .percent-online h3{
   float:right;
 }
+
+.percent-online.country-hidden .online-users {
+  margin-top: 1.5rem;
+}
+
+.percent-online.country-hidden .indicator-value {
+  top: 5.5rem;
+  bottom: auto;
+}

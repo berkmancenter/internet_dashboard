@@ -42,3 +42,7 @@
   stroke-width: 1.5px;
   stroke: #2ca02c;
 }
+
+.gsma-3g.country-hidden .current-data {
+  margin-top: 1.5rem;
+}

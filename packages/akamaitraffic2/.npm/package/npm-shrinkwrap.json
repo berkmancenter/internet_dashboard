@@ -2,15 +2,23 @@
   "dependencies": {
     "xml2js": {
       "version": "0.4.6",
+      "resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.6.tgz",
+      "from": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.6.tgz",
       "dependencies": {
         "sax": {
-          "version": "0.6.1"
+          "version": "0.6.1",
+          "resolved": "https://registry.npmjs.org/sax/-/sax-0.6.1.tgz",
+          "from": "https://registry.npmjs.org/sax/-/sax-0.6.1.tgz"
         },
         "xmlbuilder": {
           "version": "2.6.2",
+          "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-2.6.2.tgz",
+          "from": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-2.6.2.tgz",
           "dependencies": {
             "lodash": {
-              "version": "3.5.0"
+              "version": "3.5.0",
+              "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.5.0.tgz",
+              "from": "https://registry.npmjs.org/lodash/-/lodash-3.5.0.tgz"
             }
           }
         }

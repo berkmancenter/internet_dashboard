@@ -1,4 +1,5 @@
 ActiveWidgets = [
+  'accesscheck-choropleth',
   'imon-bubblechart',
   'imon-timeline',
   'imon-valuetrend',
@@ -34,6 +35,8 @@ ActiveWidgets = [
   'embed',
   'feed',
   'webindex',
+  'ac-theme-in-country',
+  'imon-country-profile',
   //'google-trends',
   //'google-trends-map'
   //'perma'

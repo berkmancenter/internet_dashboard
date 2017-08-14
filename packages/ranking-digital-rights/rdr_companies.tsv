@@ -1,17 +1,23 @@
-company	company_type	Total	Commitment	Freedom of expression	Privacy	name	country
-Google	internet company	64.82	77.87	67.74	57.13	Google, Inc.	USA
-Yahoo	internet company	57.62	79.54	52.53	51.86	Yahoo! Inc.	USA
-Microsoft	internet company	56.4	82.04	46.15	52.74	Microsoft Corp.	USA
-Twitter	internet company	50.14	35	57.67	51.25	Twitter, Inc.	USA
-Kakao	internet company	47.14	39.44	58.75	42.14	Kakao Corp.	South Korea
-Facebook	internet company	41.07	61.85	35.28	36.31	Facebook, Inc.	USA
-Tencent	internet company	15.92	7.92	18.89	17.24	Tencent Holdings Ltd.	China
-Mail.Ru	internet company	13.47	2.22	23.33	11.24	Mail.Ru Group Ltd.	Russia
-Vodafone	telco	53.53	74.63	46.67	48.71	Vodafone Group Plc	United Kingdom
-AT&T	telco	49.72	56.9	42.43	52.19	AT&T, Inc.	USA
-Orange	telco	36.51	73.33	29.17	24.21	Orange	France
-América Móvil	telco	22.46	10.83	26.67	24.78	América Móvil S.A.B. de CV	Mexico
-MTN	telco	17.77	22.22	20	13.69	MTN Group Ltd.	South Africa
-Bharti Airtel	telco	17.18	12.5	15.83	20.63	Bharti Airtel Ltd.	India
-Axiata	telco	15.59	0	23.33	16.93	Axiata Group Berhad	Malaysia
-Etisalat	telco	14.19	3.33	20.83	14.09	Etisalat Group	UAE
+company	company_type	Total	Governance	Freedom of Expression	Privacy	name
+América Móvil	telco	20.7	20.83	16.29	23.89	
+Apple	internet company	35.26	16.53	21.68	48.3	
+AT&T	telco	48.41	66.71	40.75	46.71	
+Axiata	telco	13.32	2.78	12.99	17.78	
+Baidu	internet company	12.99	0	12.76	17.44	
+Bharti Airtel	telco	14.26	16.25	9.51	16.94	
+Etisalat	telco	7.73	8.33	15.28	1.94	
+Facebook	internet company	52.67	81.3	41.43	48.75	
+Google	internet company	64.72	71.04	60.09	64.93	
+Kakao	internet company	50.06	35.37	54.81	52.57	
+Mail.Ru	internet company	21.57	7.43	21.19	26.48	
+Microsoft	internet company	62.49	87.69	53.33	58.67	
+MTN	telco	15.34	30.56	13.18	10.83	
+Ooredoo	telco	5.09	1.67	13.91	0	
+Orange	telco	31.61	73.89	16.2	26.01	
+Samsung	internet company	25.55	21.76	20.17	29.5	
+Telefónica	telco	33.4	57.5	26.55	28.78	
+Tencent	internet company	22.24	8.61	14.37	30.73	
+Twitter	internet company	47.73	29.77	49.29	52.93	
+Vodafone	telco	48.11	81.3	44.54	37.45	
+Yahoo	internet company	58.16	87.5	43.09	55.91	
+Yandex	internet company	27.94	9.95	22.67	36.57	
