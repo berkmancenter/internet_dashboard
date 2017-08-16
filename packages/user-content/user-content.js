@@ -17,7 +17,7 @@ UserContent = {
     description: 'Allows you to add text and/or an image to your dashboard',
     dimensions: { width: 2, height: 1 },
     resize: {
-      constraints: { width: { max: 10 }},
+      constraints: { width: { max: 12 }},
       mode: 'reflow'
     },
     url: 'http://thenetmonitor.org/',

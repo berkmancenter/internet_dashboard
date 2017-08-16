@@ -72,7 +72,7 @@ RDR = {
     typeIcon: 'pie-chart',
     constructor: RDRWidget,
     country: 'multi',
-    settings: 'edit settings'
+    settings: 'edit'
   },
   org: {
     name: 'Ranking Digital Rights',
