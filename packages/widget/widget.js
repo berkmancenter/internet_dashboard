@@ -105,7 +105,7 @@ Widgets.attachSchema(new SimpleSchema({
   },
   width: {
     type: Number,
-    allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   },
   height: {
     type: Number,
@@ -150,7 +150,7 @@ Widgets.attachSchema(new SimpleSchema({
   'resize.constraints.width.max': {
     type: Number,
     defaultValue: 5,
-    allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    allowedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     optional: true,
   },
   'resize.constraints.height': {
