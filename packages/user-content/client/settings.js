@@ -40,6 +40,12 @@ var urlPattern = new RegExp(
 // From http://stackoverflow.com/a/9682781
 var colorPattern = /^#(?:[0-9a-f]{3}){1,2}$/i;
 
+Template.UserContentSettings.helpers({
+  activeClass: function(controlValue, thisValue) {
+    return controlValue === thisValue ? 'btn-primary active' : '';
+  }
+});
+
 Template.UserContentSettings.onRendered(function() {
   var template = this;
   _.extend($.minicolors.defaults, {
@@ -65,6 +71,14 @@ Template.UserContentSettings.onRendered(function() {
 });
 
 Template.UserContentSettings.events({
+  'click .hori-align button': function(ev, template) {
+    template.$('.hori-align button').removeClass('active btn-primary');
+    template.$(ev.target).closest('button').addClass('active btn-primary');
+  },
+  'click .vert-align button': function(ev, template) {
+    template.$('.vert-align button').removeClass('active btn-primary');
+    template.$(ev.target).closest('button').addClass('active btn-primary');
+  },
   'click #user-content-save': function(ev, template) {
     var newData = {};
     var backgroundColor = template.$('#user-content-background-color').val();
@@ -91,6 +105,14 @@ Template.UserContentSettings.events({
 
     var text = template.$('#user-content-text').val();
     newData.text = text.slice(0, 512);
+
+    const horiAlign = template.$('.hori-align button.active').data('align');
+    const vertAlign = template.$('.vert-align button.active').data('align');
+    newData.textAlignHori = horiAlign;
+    newData.textAlignVert = vertAlign;
+
+    const fontSize = template.$('#user-content-font-size').val();
+    newData.fontSize = parseInt(fontSize);
 
     if (!_.isEmpty(newData)) {
       this.set(newData);

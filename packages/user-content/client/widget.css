@@ -16,3 +16,7 @@
   font-weight: bold;
   text-align: center;
 }
+.user-content .user-content-text {
+  line-height: 1.2em;
+  display: inline-block;
+}

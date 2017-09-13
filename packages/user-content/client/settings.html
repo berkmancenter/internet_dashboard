@@ -11,13 +11,55 @@
            name="text-color" />
   </div>
   <div class="form-group">
+    <label for="user-content-font-size">Text Size</label>
+    <input type="number" class="form-control"
+           id="user-content-font-size" value="{{ fontSize }}"
+           name="font-size" min="8" max="120" step="1" />
+  </div>
+
+  <div class="form-group">
+    <label>Text Alignment</label>
+    <div class="row">
+      <div class="col-xs-6">
+        <span class="help-block">Horizontal</span>
+        <div class="btn-group btn-group-sm hori-align" role="group" aria-label="text alignment">
+          <button type="button" class="btn btn-default {{ activeClass 'left' textAlignHori }}" title="Left align" data-align="left">
+            <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="btn btn-default {{ activeClass 'center' textAlignHori }}" title="Center" data-align="center">
+            <span class="glyphicon glyphicon-align-center" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="btn btn-default {{ activeClass 'right' textAlignHori }}" title="Right align" data-align="right">
+            <span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-xs-6">
+        <span class="help-block">Vertical</span>
+        <div class="btn-group btn-group-sm vert-align" role="group" aria-label="text alignment vertical">
+          <button type="button" class="btn btn-default {{ activeClass 'top' textAlignVert }}" title="Align text to top" data-align="top">
+            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="btn btn-default {{ activeClass 'middle' textAlignVert }}" title="Center text" data-align="middle">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="btn btn-default {{ activeClass 'bottom' textAlignVert }}" title="Align text to bottom" data-align="bottom">
+            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="user-content-background-color">Background Color</label>
     <input type="text" class="color-picker form-control"
            id="user-content-background-color"
            value="{{ backgroundColor }}" name="background-color" />
   </div>
   <div class="form-group">
-    <label for="user-content-image-url">Image URL</label>
+    <label for="user-content-image-url">Background Image URL</label>
     <input type="url" class="form-control" name="image-url"
            id="user-content-image-url" value="{{ imageUrl }}"/>
   </div>

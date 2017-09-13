@@ -5,7 +5,10 @@ UserContentWidget = function(doc) {
     imageUrl: false,
     backgroundColor: '#97c284',
     textColor: '#FFFFFF',
-    text: 'Put your text here!'
+    textAlignHori: 'center',
+    textAlignVert: 'middle',
+    text: 'Put your text here!',
+    fontSize: 42,
   });
 };
 UserContentWidget.prototype = Object.create(Widget.prototype);
