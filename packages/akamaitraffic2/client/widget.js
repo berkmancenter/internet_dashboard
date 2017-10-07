@@ -24,6 +24,7 @@ Template.AkamaiTraffic2Widget.onRendered(function() {
     
     map.draw({
       selector: template.find('.bytes-delivered'),
+      dims: { width: 450, height: 250, scale: 98, squash: 0.90, bumpDown: 30, bumpLeft: 0 },
       data: data,
       iso: 3,
       valueSuffix: '%'
